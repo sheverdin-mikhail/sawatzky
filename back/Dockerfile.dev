@@ -1,0 +1,23 @@
+# Используем образ Python в качестве базового образа
+FROM python:3.9
+
+
+# Устанавливаем переменную окружения для Docker
+ENV PYTHONUNBUFFERED 1
+
+# Устанавливаем зависимости для dev окружения
+RUN pip install --no-cache-dir psycopg2-binary
+
+# Создаем и устанавливаем рабочую директорию
+WORKDIR /home/app/web
+
+# Копируем зависимости из файла requirements.txt
+COPY req.txt /home/app/web
+
+# Устанавливаем зависимости
+RUN pip install --no-cache-dir -r /home/app/web/req.txt
+
+# Копируем код проекта в контейнер
+COPY . /home/app/web
+
+
