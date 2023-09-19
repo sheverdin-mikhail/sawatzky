@@ -1,0 +1,49 @@
+:root {
+
+    --font-family-main: 'Stolzl', Serif;
+    
+    --font-size-m: 16px;
+    --font-line-m: 19px;
+    --font-m: var(--font-size-m) / var(--font-line-m)  var(--font-family-main);
+
+
+
+    --font-size-l: 20px;
+    --font-line-l: 24px;
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+
+    --font-size-xl: 45px;
+    --font-line-xl: 54px;
+    --font-xl: 700 var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+   
+
+    --color-green: #2CBB77;
+    --color-l-green: rgba(44, 187, 119, 0.1);
+    --color-blue: #4288BD;
+    --color-l-blue: rgba(66, 136, 189, 0.1);
+    --color-d-gray: rgba(135, 135, 135, 0.2) ;
+    --color-l-gray: #F3F3F3 ;
+
+    --main-color: #FB3482;
+    --main-active-color: #e61065;
+    --secondary-color: #FFFFFF;
+
+
+
+}
+
+@media screen and (max-width: 1239px) {
+    :root {
+        --font-size-m: 14px;
+        --font-line-m: 17px;
+
+        --font-size-l: 16px;
+        --font-line-l: 20px;
+
+        --font-size-xl: 34px;
+        --font-line-xl: 43px;
+    }
+    
+    
+}
