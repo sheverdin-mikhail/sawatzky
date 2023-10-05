@@ -11,6 +11,9 @@ const AppointmentPage: React.FC<AppointmentPageProps> = (props) => {
 
     return (
         <div className={classNames(cls.appointmentPage, {}, [className ?? ''])}>
+            <h1 className={cls.title} >
+                Название заявки
+            </h1>
             
         </div>
     );
