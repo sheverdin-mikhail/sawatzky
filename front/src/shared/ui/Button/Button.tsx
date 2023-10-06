@@ -5,6 +5,7 @@ import { ButtonHTMLAttributes } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     theme?: ButtonThemes;
+    disabled?: boolean; 
 }
 
 export enum ButtonThemes {
@@ -12,11 +13,17 @@ export enum ButtonThemes {
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
-    const { className, children, theme=ButtonThemes.BLUE_SOLID, ...otherProps } = props;
+    const { className, children, disabled=false, theme=ButtonThemes.BLUE_SOLID, ...otherProps } = props;
 
 
     return (
-        <button className={classNames(cls.button, {}, [className, cls[theme]])} {...otherProps}>
+        <button 
+            disabled={disabled} 
+            className={classNames(cls.button, {
+                [cls.disabled]: disabled
+            }, [className, cls[theme]])}
+            {...otherProps}
+        >
             {children}
         </button>
     );

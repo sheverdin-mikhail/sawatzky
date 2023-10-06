@@ -1,26 +1,42 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ThunkConfig } from "app/providers";
 import { User } from "entities/User";
-import axios from "axios";
+import { TokensData, UserAuthData } from "entities/User/model/types/user";
 
 interface LoginByUsernameProps {
     username: string;
     password: string;
 }
 
-export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, {rejectValue: string}>(
+export const loginByUsername = createAsyncThunk<
+    UserAuthData, 
+    LoginByUsernameProps, 
+    ThunkConfig<string>
+>(
     'login/loginByUsername',
-    async (authData, thunkApi) => {
+    async (authData, { extra, rejectWithValue }) => {
         try{
-            const response = await axios.post<User>('http://localhost:8000/login', authData)
-
-            if(!response.data){
-                throw new Error()
+            const tokensResponse = await extra.api.post<TokensData>('http://localhost:8000/api/auth/jwt/create/', authData)
+            if(!tokensResponse.data){
+                throw new Error('Ошибка авторизации пользователя')
             }
+            const userResponse = await extra.api.get<User>('http://localhost:8000/api/v1/users/me/', {
+                headers: {
+                    Authorization: `Bearer ${tokensResponse.data.access}`
+                }
+            })            
+            if(!userResponse.data){
+                throw new Error('Ошибка авторизации пользователя')
+            }
+            extra.navigate?.('/')
 
-            return response.data
-        }catch (e){
-            console.log(e)
-            return thunkApi.rejectWithValue('error')
+            return {...userResponse.data, ...tokensResponse.data}
+        }catch (e: any){
+            if(e.response.status === 401){
+                return rejectWithValue('Неверно введено имя пользователя или пароль')
+            }else{
+                return rejectWithValue('Ошибка авторизации пользвателя')
+            }
         }
     }
 )
