@@ -38,7 +38,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                 </span>
             </AppLink>
             <AppLink className={classNames(cls.link, {
-                [cls.active]: pathname === RoutePath.appointment
+                [cls.active]: pathname === RoutePath.appointments
             }, [])} to={'/'}>
                 <div className={cls.iconContainer}>
                     <AppointmentIcon className={cls.icon} />

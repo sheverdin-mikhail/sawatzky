@@ -1,0 +1,1 @@
+export { AppointmentDetailPageAsync as AppointmentDetailPage } from "./ui/AppointmentDetailPage.async";

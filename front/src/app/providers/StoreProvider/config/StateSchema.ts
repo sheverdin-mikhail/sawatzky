@@ -4,9 +4,11 @@ import {
     AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
+import { AppointmentSchema } from 'entities/Appointment/models/types/appointment';
 
 export interface StateSchema {
     user: UserSchema;
+    appointment: AppointmentSchema;
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;

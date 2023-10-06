@@ -19,7 +19,7 @@
     --font-weight-s: 400;
     --font-s: var(--font-weight-s) var(--font-size-s) / var(--font-line-s)  var(--font-family-main);
 
-    --font-size-s2: 14px;
+    --font-size-s2: 12px;
     --font-line-s2: normal;
     --font-weight-s2: 400;
     --font-s2: var(--font-weight-s2) var(--font-size-s2) / var(--font-line-s2)  var(--font-family-second);
@@ -31,10 +31,14 @@
    
     // colors
 
-    --black-color: #031332;
+    --black-color: #000;
     --blue-color: #3CACDD;
+    --green-color: #169F55;
+    --orange-color: #E27C43;
+    --yellow-color: #E2B643;
     --gray-bg-color: #F4F4F4;
-    --blue-bg-color: #F5FBFD;
+    --blue-bg-color: #D8EEF8;
+    --blue-light-bg-color: #F5FBFD;
     
 
 

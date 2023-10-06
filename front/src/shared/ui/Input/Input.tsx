@@ -15,13 +15,13 @@ export const Input: React.FC<InputProps> = memo((props) => {
     const { className, value, onChange, placeholder, type='text', ...otherProps } = props;
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-            onChange?.(e.target.value)
+        onChange?.(e.target.value)
     }
 
     return (
         <input 
             className={classNames(cls.input, {}, [className])}  
-            type='text'
+            type={type}
             value={value}
             onChange={onChangeHandler}
             placeholder={placeholder}
