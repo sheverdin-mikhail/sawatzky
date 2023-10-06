@@ -1,5 +1,6 @@
 **/venv
 tasks.txt
+**/__pycache__
 **/**.pyc
 
 **/.env**
