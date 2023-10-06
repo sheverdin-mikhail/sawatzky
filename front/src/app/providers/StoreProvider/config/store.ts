@@ -1,19 +1,29 @@
-import { ReducersMapObject, configureStore } from "@reduxjs/toolkit";
-import { StateSchema } from "./StateSchema";
-import { userReducer } from "etities/User";
+import { CombinedState, configureStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
+import { userReducer } from 'entities/User';
+import { StateSchema } from './StateSchema';
+import { createReducerManager } from './ReducerManager';
+import { useDispatch } from 'react-redux';
 
-
-
-export function createReduxStore(initialState?: StateSchema){
-
+export function createReduxStore(
+    initialState?: StateSchema,
+    asyncReducers?: ReducersMapObject<StateSchema>,
+) {
     const rootReducers: ReducersMapObject<StateSchema> = {
-        user: userReducer
-    }
+        ...asyncReducers,
+        user: userReducer,
+    };
 
-    return  configureStore<StateSchema>({
-        reducer: rootReducers,
+    const reducerManager = createReducerManager(rootReducers);
+
+    const store = configureStore<StateSchema>({
+        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>> ,
         preloadedState: initialState,
-    })
+    });
+
+    // @ts-ignore
+    store.reducerManager = reducerManager;
+
+    return store;
 }
 
-
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']

@@ -12,19 +12,19 @@ function App() {
   
 
   useEffect(()=>{
-    // if(pathname === RoutePath.authorization){
-    //   setIsLogin(true)
-    // }else{
-    //   setIsLogin(false)
-    // }
+    if(pathname === RoutePath.authorization){
+      setIsLogin(true)
+    }else{
+      setIsLogin(false)
+    }
   }, [pathname])
 
   return (
     <div className="App">
-      <Header/>
+      { !isLogin && <Header />  }
       <div className="content-page">
-        {/* { !isLogin && } */}
-        <Sidebar /> 
+        { !isLogin && <Sidebar />  }
+        
         <AppRouter />
       </div>
 

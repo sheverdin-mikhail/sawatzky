@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Header.module.scss';
-import { ReactComponent as Logo } from 'shared/assets/icons/logo-icon.svg'
+import { Logo } from 'shared/ui/Logo/Logo';
 
 interface HeaderProps {
     className?: string;
@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
     return (
         <div className={classNames(cls.header, {}, [className ?? ''])}>
-            <Logo className={cls.logo} />
+            <Logo width={121} className={cls.logo} />
         </div>
     );
 }
