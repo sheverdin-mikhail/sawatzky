@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { UserSchema } from '../types/user'
 
-// Define the initial state using that type
 const initialState: UserSchema = {
 }
 

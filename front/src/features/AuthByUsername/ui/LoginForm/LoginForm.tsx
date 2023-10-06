@@ -8,8 +8,6 @@ import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import { ReduxStoreWithManager } from 'app/providers';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
-import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
-import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { Button } from 'shared/ui/Button/Button';
@@ -24,8 +22,6 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
     const dispatch = useAppDispatch()
     const username = useSelector(getLoginUsername)
     const password = useSelector(getLoginPassword)
-    const isLoading = useSelector(getLoginIsLoading)
-    const error = useSelector(getLoginError)
 
     const store = useStore() as ReduxStoreWithManager
 
@@ -35,6 +31,7 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
         return () => {
             store.reducerManager.remove('loginForm')
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -47,8 +44,7 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
     }, [dispatch])
 
     const onLoginClick = useCallback( async ()=>{
-        const result = await dispatch(loginByUsername({username, password}))
-        console.log(error)
+        dispatch(loginByUsername({username, password}))
     }, [dispatch, username, password])
 
 

@@ -1,4 +1,4 @@
-import {AppointmentPage} from "pages/AppointmentPage"
+import { AppointmentsPage } from "pages/AppointmentsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
 import { RouteProps } from "react-router-dom"
 
@@ -16,7 +16,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.APPOINTMENT] : {
         path: RoutePath.appointment,
-        element: <AppointmentPage />
+        element: <AppointmentsPage />
     },
     [AppRoutes.AUTHORIZATION] : {
         path: RoutePath.authorization,

@@ -2,7 +2,6 @@ import { CombinedState, configureStore, Reducer, ReducersMapObject } from '@redu
 import { userReducer } from 'entities/User';
 import { StateSchema } from './StateSchema';
 import { createReducerManager } from './ReducerManager';
-import { useDispatch } from 'react-redux';
 
 export function createReduxStore(
     initialState?: StateSchema,
