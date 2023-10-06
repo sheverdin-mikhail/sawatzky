@@ -164,7 +164,7 @@ class WorkMaterial(models.Model):
 
 class Application(models.Model):
 
-    """Заявка на работу"""
+    """Заявка на выполнение работ"""
 
     STATUSES = [
         ("NEW", 'Создана'),
@@ -178,7 +178,8 @@ class Application(models.Model):
     title = models.CharField(("Заголовок заявки"), max_length=50)
     subject = models.CharField(("Предмет запроса"), max_length=300)
     description = models.CharField(("Описание заявки"), max_length=300)
-    performer = models.ManyToManyField("api.CompanyMember", verbose_name=("Исполнители"),  blank=True, null=True)
+    creator = models.ManyToManyField("api.CompanyMember", verbose_name=("Создатель заявки"),  blank=True, null=True, related_name='application_creator')
+    performer = models.ManyToManyField("api.CompanyMember", verbose_name=("Исполнители"),  blank=True, null=True, related_name='application_performer')
     work_tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
     work_materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)

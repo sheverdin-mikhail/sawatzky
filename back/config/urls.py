@@ -3,9 +3,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include 
 
+from .swagger import schema_view
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/', include('api.urls'))
+    
+    path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'), # API Документация Swagger
+    path('api/admin/', admin.site.urls), # Админка
+    path('api/v1/', include('api.urls')), # Апишка
+    path('api/auth/', include('djoser.urls.jwt')), # Аунтификация по JWT
+
 ]
 
 

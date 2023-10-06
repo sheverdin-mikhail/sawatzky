@@ -1,4 +1,5 @@
 **/venv
 tasks.txt
+**/**.pyc
 
 **/.env**
