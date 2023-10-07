@@ -17,7 +17,7 @@ export enum AppRoutes{
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.APPOINTMENTS] : '/appointment',
     [AppRoutes.AUTHORIZATION] : '/login',
-    [AppRoutes.APPOINTMENT_DETAIL] : '/appointment/:id',
+    [AppRoutes.APPOINTMENT_DETAIL] : '/appointment/',
 }
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
@@ -27,7 +27,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
         authOnly: true
     },
     [AppRoutes.APPOINTMENT_DETAIL] : {
-        path: RoutePath.appointment_detail,
+        path: `${RoutePath.appointment_detail}:id`,
         element: <AppointmentDetailPage />,
         authOnly: true
 

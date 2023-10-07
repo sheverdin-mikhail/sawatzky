@@ -1,6 +1,7 @@
 export interface User {
     id: string;
     username: string;
+    fio?: string;
     client?: any;
     performer?: any;
     phone_number?: string;
