@@ -4,6 +4,11 @@ import cls from './AppointmentsPage.module.scss';
 import { Title } from 'shared/ui/Title/Title';
 import { AppointmentPreviewList, getAppointments } from 'entities/Appointment';
 import { useSelector } from 'react-redux';
+import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
+import { ReactComponent as AddLogo } from 'shared/assets/icons/add-icon.svg'
+import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.svg'
+import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg'
+import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 
 interface AppointmentsPageProps {
     className?: string;
@@ -18,6 +23,18 @@ const AppointmentsPage: React.FC<AppointmentsPageProps> = (props) => {
             <Title className={cls.title}>
                 Заявки
             </Title>
+            <div className={cls.navigation}>
+                <Checkbox id='all' />
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
+                    <OrderLogo/>
+                </Button>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'}>
+                    <AddLogo/>
+                </Button>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить заявку'}>
+                    <DeleteLogo/>
+                </Button>
+            </div>
             <AppointmentPreviewList className={cls.list}  appointments={appointments} />
         </div>
     );
