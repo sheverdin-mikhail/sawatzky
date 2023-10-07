@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import {ReactComponent as LogoIcon } from 'shared/assets/icons/logo-icon.svg'
+import  {ReactComponent as LogoIcon} from 'shared/assets/icons/logo-icon.svg'
 
 interface LogoProps {
     className?: string;

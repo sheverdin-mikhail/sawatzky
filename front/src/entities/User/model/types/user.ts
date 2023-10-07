@@ -18,4 +18,5 @@ export interface TokensData {
 
 export interface UserSchema {
     authData?: UserAuthData;
+    _inited?: boolean;
 }

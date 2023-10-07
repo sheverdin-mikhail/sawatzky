@@ -15,7 +15,7 @@ export const AppointmentPreviewList: React.FC<AppointmentPreviewListProps> = (pr
         <div className={classNames(cls.appointmentPreviewList, {}, [className])}>
             {
                 appointments.map((appointment) => (
-                    <AppointmentPreviewItem item={appointment} className={cls.item} /> 
+                    <AppointmentPreviewItem item={appointment} key={appointment.id} className={cls.item} /> 
                 ))
             }
         </div>

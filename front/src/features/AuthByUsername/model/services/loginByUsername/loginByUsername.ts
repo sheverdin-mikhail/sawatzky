@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { User } from "entities/User";
 import { TokensData, UserAuthData } from "entities/User/model/types/user";
+import { RoutePath } from "shared/config/RouteConfig/appRouteConfig";
 
 interface LoginByUsernameProps {
     username: string;
@@ -28,7 +29,7 @@ export const loginByUsername = createAsyncThunk<
             if(!userResponse.data){
                 throw new Error('Ошибка авторизации пользователя')
             }
-            extra.navigate?.('/')
+            extra.navigate?.(RoutePath.appointments)
 
             return {...userResponse.data, ...tokensResponse.data}
         }catch (e: any){

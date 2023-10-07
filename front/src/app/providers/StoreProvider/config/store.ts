@@ -18,28 +18,18 @@ export function createReduxStore(
     };
 
     const reducerManager = createReducerManager(rootReducers);
-    // const navigate = useNavigate()
 
-<<<<<<< HEAD
     const extraArg: ThunkExtraArg = {
         api: $api,
         navigate
     }
 
-=======
->>>>>>> 61f6277 (started editing of think api)
     const store = configureStore({
         reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>> ,
         preloadedState: initialState,
         middleware: getDefaultMiddleware => getDefaultMiddleware({
             thunk: {
-<<<<<<< HEAD
                 extraArgument: extraArg
-=======
-                extraArgument: {
-                    api: $api
-                }
->>>>>>> 61f6277 (started editing of think api)
             }
         })
     });
