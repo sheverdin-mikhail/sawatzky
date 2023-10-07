@@ -15,3 +15,37 @@
   display: flex;
   flex: 1 1 100%;
 }
+
+
+
+//Calendar settings
+.tp-calendar{
+  &-header {
+    p {
+        font: var(--font-m);
+        font-weight: 700;
+        color: #000 !important;
+    }
+  }
+}
+
+.tp-calendar-month-select {
+  display: flex;
+
+  &> div{
+    border: 1px solid var(--blue-color) !important;
+    flex: 1 0 50% !important;
+    padding: 10px;
+    &:hover {
+      background: var(--blue-color);
+      p {
+        color: #fff !important;
+      }
+    }
+  }
+  &> div p {
+    color: #000 !important;
+  }
+
+}
+  

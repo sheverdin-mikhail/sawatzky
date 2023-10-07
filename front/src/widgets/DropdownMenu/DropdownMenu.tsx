@@ -24,7 +24,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
 
     const onLogoutHandler = useCallback(()=>{
         dispatch(userActions.logout())
-    }, [])
+    }, [dispatch])
 
     return (
         <div 

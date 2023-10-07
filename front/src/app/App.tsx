@@ -28,6 +28,9 @@ function App() {
     }
   }, [pathname])
 
+
+  
+
   return (
     <div className="App">
       { !isLogin && <Header />  }

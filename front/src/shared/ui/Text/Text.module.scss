@@ -1,5 +1,6 @@
 .title {
     font: var(--font-xl);
+    margin-bottom: 6px;
 }
 
 .text {
@@ -16,4 +17,15 @@
     .title, .text {
         color: var(--red-color);
     }
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
 }

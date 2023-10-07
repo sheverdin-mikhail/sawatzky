@@ -12,12 +12,14 @@ export enum AppRoutes{
     APPOINTMENTS = 'appointments',
     APPOINTMENT_DETAIL = 'appointment_detail',
     AUTHORIZATION = 'authorization',
+    HOME = 'home',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.APPOINTMENTS] : '/appointment',
     [AppRoutes.AUTHORIZATION] : '/login',
     [AppRoutes.APPOINTMENT_DETAIL] : '/appointment/',
+    [AppRoutes.HOME] : '/',
 }
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
@@ -35,6 +37,12 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     [AppRoutes.AUTHORIZATION] : {
         path: RoutePath.authorization,
         element: <AuthorizationPage />,
+        authOnly: false
+
+    },
+    [AppRoutes.HOME] : {
+        path: RoutePath.home,
+        element: <AppointmentsPage />,
         authOnly: false
 
     },

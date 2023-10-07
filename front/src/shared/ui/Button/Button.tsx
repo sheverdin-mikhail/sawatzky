@@ -12,6 +12,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export enum ButtonThemes {
     BLUE_SOLID = 'blueSolid',
+    BLUE_BORDER = 'blueBorder',
     CLEAR = 'clear',
     CLEAR_BLUE = 'clearBlue',
     ICON = 'icon'
