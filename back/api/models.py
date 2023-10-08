@@ -54,7 +54,7 @@ class Employee(models.Model):
     )
 
     legal_entity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
-    user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='performer')
+    user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='employee')
     role = models.CharField(choices=ROLES, default='user', max_length=20, verbose_name='Роль пользователя')
     group = models.CharField(choices=GROUPS, default='S1', max_length=20, verbose_name='Группа пользователя')
     status = models.BooleanField(("Статус"), default=False)
