@@ -7,7 +7,7 @@ from .models import (
 
 
 class EmployeeSerializer(ModelSerializer):
-    #Сериализатор модели сотрудника Swatzky
+    #Сериализатор модели расширяющей профиль пользователя
     class Meta:
         model = Employee
         fields = '__all__'

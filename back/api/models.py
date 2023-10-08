@@ -36,7 +36,7 @@ class LegalEntity(models.Model):
     
 
 class Employee(models.Model):
-    """Работник компании SWATZKY"""
+    """Расширение модели пользователя"""
 
     ROLES = (
         ('dispatcher', 'Диспетчер'),
@@ -60,8 +60,8 @@ class Employee(models.Model):
     status = models.BooleanField(("Статус"), default=False)
 
     class Meta:
-        verbose_name = "Сотрудник SWATZKY"
-        verbose_name_plural = "Сотрудники SWATZKY"
+        verbose_name = "Профиль пользователя"
+        verbose_name_plural = "Профили пользователей"
 
     def __str__(self):
         return f"{self.user.id}: {self.user.fio}" 
