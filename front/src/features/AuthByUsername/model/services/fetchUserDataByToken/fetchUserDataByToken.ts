@@ -9,7 +9,7 @@ import { refreshToken } from "../refreshToken/refreshToken";
 
 export const fetchUserDataByToken = createAsyncThunk<
     UserAuthData, 
-    string, 
+    void, 
     ThunkConfig<string>
 >(
     'login/fetchUserDataByToken',

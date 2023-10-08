@@ -17,7 +17,7 @@ export const loginByUsername = createAsyncThunk<
     async (authData, { extra, rejectWithValue, dispatch }) => {
         try{
             dispatch(createTokensByUsername(authData))
-            dispatch(fetchUserDataByToken(''))
+            dispatch(fetchUserDataByToken())
            
         }catch (e: any){
             if(e.response.status === 401){
