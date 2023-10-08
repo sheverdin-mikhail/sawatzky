@@ -1,6 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AppointmentDetailPage.module.scss';
 import { useParams } from 'react-router-dom';
+import { AppointmentDetailContent } from '../AppointmentDetailContent/AppointmentDetailContent';
 
 interface AppointmentDetailPageProps {
     className?: string;
@@ -12,7 +13,7 @@ const AppointmentDetailPage: React.FC<AppointmentDetailPageProps> = (props) => {
 
     return (
         <div className={classNames(cls.appointmentDetailPage, {}, [className])}>
-            {id}
+            <AppointmentDetailContent appointmentId={id || ''} />
         </div>
     );
 }

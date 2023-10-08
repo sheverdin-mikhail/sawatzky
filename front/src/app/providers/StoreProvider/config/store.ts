@@ -2,7 +2,6 @@ import { CombinedState, configureStore, Reducer, ReducersMapObject } from '@redu
 import { userReducer } from 'entities/User';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { createReducerManager } from './ReducerManager';
-import { appointmentReducer } from 'entities/Appointment/models/slice/appointmentSlice';
 import { $api } from 'shared/api/api';
 import { NavigateOptions, To } from 'react-router-dom';
 
@@ -14,7 +13,6 @@ export function createReduxStore(
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
-        appointment: appointmentReducer
     };
 
     const reducerManager = createReducerManager(rootReducers);

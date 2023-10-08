@@ -1,31 +1,22 @@
 from rest_framework.serializers import ModelSerializer
 from .models import (
     User,
-    ClientMember,
-    CompanyMember
+    Employee,
 )
 
 
 
-class ClientMemberSerializer(ModelSerializer):
-    #Сериализатор модели контрагента
-
-    class Meta:
-        model = ClientMember
-        fields = '__all__'
-
-class CompanyMemberSerializer(ModelSerializer):
+class EmployeeSerializer(ModelSerializer):
     #Сериализатор модели сотрудника Swatzky
     class Meta:
-        model = CompanyMember
+        model = Employee
         fields = '__all__'
 
 
 class UserSerializer(ModelSerializer):
     #Сериализатор модели пользователя для отображения данных о нем
-    client = ClientMemberSerializer(read_only=True, many=False)
-    performer = CompanyMemberSerializer(read_only=True, many=False)
+    employee = EmployeeSerializer(read_only=True, many=False)
 
     class Meta:
         model = User
-        fields = ['id', 'fio', 'phone_number', 'performer', 'client']
+        fields = ['id', 'fio', 'phone_number', 'employee']

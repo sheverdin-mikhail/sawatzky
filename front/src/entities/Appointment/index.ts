@@ -1,8 +1,11 @@
-export { getAppointments } from "./models/selectors/getAppointments/getAppointments";
+export { getAppointment, appointmentReducer, appointmentActions } from "./models/slice/appointmentSlice";
 
 export type { 
-    Appointement, 
+    Appointment, 
     AppointmentSchema, 
+} from "./models/types/appointment";
+
+export {
     AppointmentStatus 
 } from "./models/types/appointment";
 

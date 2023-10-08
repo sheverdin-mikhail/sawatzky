@@ -7,13 +7,16 @@ import { CombinedState } from 'redux';
 import { AppointmentSchema } from 'entities/Appointment/models/types/appointment';
 import {AxiosInstance} from 'axios'
 import { NavigateOptions, To } from 'react-router-dom';
+import { AppointmentDetailSchema } from 'pages/AppointmentDetailPage';
 
 export interface StateSchema {
     user: UserSchema;
-    appointment: AppointmentSchema;
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
+    appointment?: AppointmentSchema;
+    appointmentDetail?: AppointmentDetailSchema; 
+
 }
 
 export type StateSchemaKey = keyof StateSchema;
