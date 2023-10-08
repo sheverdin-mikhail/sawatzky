@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { User, UserAuthData } from "entities/User";
-import { RoutePath } from "shared/config/RouteConfig/appRouteConfig";
 import { USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
 import { refreshToken } from "../refreshToken/refreshToken";
 
@@ -29,7 +28,6 @@ export const fetchUserDataByToken = createAsyncThunk<
             if(!userResponse.data){
                 throw new Error('Ошибка авторизации пользователя')
             }
-            extra.navigate?.(RoutePath.appointments)
 
             return userResponse.data
             
