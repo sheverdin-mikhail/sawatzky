@@ -21,6 +21,7 @@ export const AppointmentDetailContent: React.FC<AppointmentDetailContentProps> =
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
 			<div className={classNames(cls.appointmentDetailContent, {}, [className])}>
+				{appointmentId}
 				<AppointmentDetailInfoComponent  />
 			</div>
 		</DynamicModuleLoader>

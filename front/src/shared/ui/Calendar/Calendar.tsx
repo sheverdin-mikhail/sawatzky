@@ -1,5 +1,5 @@
-import React, { Component, useCallback } from 'react';
-import { DatePicker, RangePicker, Theme } from 'react-trip-date';
+import React, { useCallback } from 'react';
+import { RangePicker, Theme } from 'react-trip-date';
 import cls from './Calendar.module.scss'
 import { ReactComponent as ArrowIcon } from 'shared/assets/icons/arrow-icon-right.svg'
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
