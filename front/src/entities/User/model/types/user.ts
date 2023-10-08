@@ -7,15 +7,11 @@ export interface User {
     phone_number?: string;
 }
 
-export interface UserAuthData extends User, TokensData {
+export interface UserAuthData extends User {
 
 }
 
 
-export interface TokensData {
-    access: string;
-    refresh: string;
-}
 
 export interface UserSchema {
     authData?: UserAuthData;
