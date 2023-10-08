@@ -8,6 +8,11 @@ from .serializers import (
     UserSerializer
 )
 
+from .models import (
+    User,
+    Employee
+)
+
 
 class UserView(APIView):
 
