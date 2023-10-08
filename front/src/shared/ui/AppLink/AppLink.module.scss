@@ -1,6 +1,12 @@
 .appLink {
     text-decoration: none;
     font: var(--font-s);
-    
+}
 
+.blue {
+    color: var(--blue-color);
+    font-weight: 700;
+    &:hover {
+        text-decoration: underline;
+    }
 }

@@ -35,8 +35,8 @@ class LegalEntity(models.Model):
 
     
 
-class CompanyMember(models.Model):
-    """Работник компании SWATZKY"""
+class Employee(models.Model):
+    """Расширение модели пользователя"""
 
     ROLES = (
         ('dispatcher', 'Диспетчер'),
@@ -53,38 +53,20 @@ class CompanyMember(models.Model):
         ('S6', 'Разработчик системы'),
     )
 
+    legal_entity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
     user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='performer')
     role = models.CharField(choices=ROLES, default='user', max_length=20, verbose_name='Роль пользователя')
     group = models.CharField(choices=GROUPS, default='S1', max_length=20, verbose_name='Группа пользователя')
     status = models.BooleanField(("Статус"), default=False)
 
     class Meta:
-        verbose_name = "Сотрудник SWATZKY"
-        verbose_name_plural = "Сотрудники SWATZKY"
+        verbose_name = "Профиль пользователя"
+        verbose_name_plural = "Профили пользователей"
 
     def __str__(self):
         return f"{self.user.id}: {self.user.fio}" 
 
 
-class ClientMember(models.Model):
-    """Сотрудник от контрагентов"""
-
-    ROLES = (
-        ('dispatcher', 'Диспетчер'),
-        ('performer', 'Исполнитель'),
-        ('dispatcher_performer', 'Диспетчер/Исполнитель'),
-    )
-
-    legal_entity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
-    user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='client')
-    role = models.CharField(choices=ROLES, default='dispatcher', max_length=20, verbose_name='Роль пользователя')
-
-    class Meta:
-        verbose_name = "Пользователь контрагента"
-        verbose_name_plural = "Пользователи контрагента"
-
-    def __str__(self):
-        return f"{self.user.id}: {self.user.fio}" 
     
 class WorkObjectsGroup(models.Model):
     """Группа рабочих объектов"""
@@ -178,8 +160,8 @@ class Application(models.Model):
     title = models.CharField(("Заголовок заявки"), max_length=50)
     subject = models.CharField(("Предмет запроса"), max_length=300)
     description = models.CharField(("Описание заявки"), max_length=300)
-    creator = models.ManyToManyField("api.CompanyMember", verbose_name=("Создатель заявки"),  blank=True, null=True, related_name='application_creator')
-    performer = models.ManyToManyField("api.CompanyMember", verbose_name=("Исполнители"),  blank=True, null=True, related_name='application_performer')
+    creator = models.ManyToManyField("api.Employee", verbose_name=("Создатель заявки"),  blank=True, null=True, related_name='application_creator')
+    performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='application_performer')
     work_tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
     work_materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)
@@ -210,7 +192,7 @@ class Report(models.Model):
     
 
     client = models.ForeignKey(Client, verbose_name=("Заказчик в рамках которого создается отчет"), on_delete=models.CASCADE)
-    company_member = models.ForeignKey(CompanyMember, verbose_name=("Сотрудник, создавший отчет"), on_delete=models.CASCADE)
+    creator = models.ForeignKey(Employee, verbose_name=("Сотрудник, создавший отчет"), null=True, on_delete=models.CASCADE)
 
     founded_apllications = models.ManyToManyField(Application, verbose_name=("Найденные заявки"), related_name='report')
 
@@ -234,7 +216,7 @@ class Document(models.Model):
     
 
     name = models.CharField(("Наименование документа"), max_length=50)
-    type = models.CharField(("Тип документа"), max_length=32)
+    doc_type = models.CharField(("Тип документа"), max_length=32)
 
     created_at = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
 

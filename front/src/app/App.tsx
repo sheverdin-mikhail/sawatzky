@@ -5,13 +5,15 @@ import { Sidebar } from 'widgets/Sidebar';
 import { useEffect, useState } from 'react';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { userActions } from 'entities/User';
+import { getUserInited, userActions } from 'entities/User';
+import { useSelector } from 'react-redux';
 
 function App() {
 
   const { pathname } = useLocation()
   const [isLogin, setIsLogin] = useState<boolean>(false)
   const dispatch = useAppDispatch()
+  const inited = useSelector(getUserInited)
 
   useEffect(()=>{
     dispatch(userActions.initAuthData())
@@ -26,13 +28,18 @@ function App() {
     }
   }, [pathname])
 
+
+  
+
   return (
     <div className="App">
       { !isLogin && <Header />  }
       <div className="content-page">
         { !isLogin && <Sidebar />  }
         
-        <AppRouter />
+        {
+          inited && <AppRouter />
+        }
       </div>
 
     </div>

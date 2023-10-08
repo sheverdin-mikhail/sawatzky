@@ -3,8 +3,8 @@ from .models import (
     User,
     Application,
     Client,
-    ClientMember,
-    CompanyMember,
+    Employee,
+    Employee,
     LegalEntity,
 
 ) 
@@ -13,6 +13,5 @@ from .models import (
 admin.site.register(User)
 admin.site.register(Application)
 admin.site.register(Client)
-admin.site.register(ClientMember)
-admin.site.register(CompanyMember)
+admin.site.register(Employee)
 admin.site.register(LegalEntity)

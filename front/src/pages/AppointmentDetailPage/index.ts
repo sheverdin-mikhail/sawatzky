@@ -1,1 +1,2 @@
-export { AppointmentDetailPageAsync as AppointmentDetailPage } from "./ui/AppointmentDetailPage.async";
+export { AppointmentDetailPageAsync as AppointmentDetailPage } from "./ui/AppointmentDetailPage/AppointmentDetailPage.async";
+export type { AppointmentDetailSchema } from "./model/type/appointmentDetail";

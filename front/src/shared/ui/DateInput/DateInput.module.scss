@@ -1,0 +1,38 @@
+.dateInput {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+
+
+.calendarForm {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    padding: 40px 50px;
+    background: var(--gray-bg-color);
+    z-index: 100;
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.isFocused {
+    opacity: 1;
+    z-index: 100;
+    pointer-events: all;
+}
+
+.buttons {
+    display: flex;
+    margin: 0 -30px;
+    margin-top: 30px;
+}
+
+.button {
+    margin: 0 30px;
+    flex: 1 1 auto;
+}

@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AppointmentPreviewItem.module.scss';
-import { Appointement } from '../../models/types/appointment';
+import { Appointment } from '../../models/types/appointment';
 import { AppointmentTag } from '../AppointmentTag/AppointmentTag';
 import { memo } from 'react';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface AppointmentPreviewItemProps {
     className?: string;
-    item: Appointement;
+    item: Appointment;
 }
 
 export const AppointmentPreviewItem: React.FC<AppointmentPreviewItemProps> = memo((props) => {
