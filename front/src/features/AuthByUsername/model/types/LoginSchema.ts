@@ -4,3 +4,9 @@ export interface LoginSchema {
     isLoading: boolean;
     error?: string
 }
+
+
+export interface TokensData {
+    access: string;
+    refresh: string;
+}

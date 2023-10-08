@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { LoginSchema } from '../types/LoginSchema'
-import { loginByUsername } from '../services/loginByUsername/loginByUsername'
-import { USER_LOCALSTORAGE_DATA } from 'shared/const/localStorage'
+import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from 'shared/const/localStorage'
+import { createTokensByUsername } from '../services/createTokensByUsername/createTokensByUsername'
+import { fetchUserDataByToken } from '../services/fetchUserDataByToken/fetchUserDataByToken'
 
 // Define the initial state using that type
 const initialState: LoginSchema = {
@@ -25,16 +26,31 @@ export const loginSlice = createSlice({
   },
   extraReducers:  (builder) => {
     builder
-        .addCase(loginByUsername.pending, (state, action)=>{
+        //Аунтификация пользователя
+        .addCase(createTokensByUsername.pending, (state, action)=>{
             state.error = undefined
             state.isLoading = true
         })
-        .addCase(loginByUsername.fulfilled, (state, action)=>{
+        .addCase(createTokensByUsername.fulfilled, (state, action)=>{
+            state.isLoading = false
+            localStorage.setItem(USER_LOCALSTORAGE_TOKENS, JSON.stringify(action.payload))
+        })
+        .addCase(createTokensByUsername.rejected, (state, action)=>{
+            state.isLoading = false
+            state.error = action.payload
+        })
+        
+        //Получение информации о пользователе
+        .addCase(fetchUserDataByToken.pending, (state, action)=>{
+            state.error = undefined
+            state.isLoading = true
+        })
+        .addCase(fetchUserDataByToken.fulfilled, (state, action)=>{
             state.isLoading = false
             localStorage.setItem(USER_LOCALSTORAGE_DATA, JSON.stringify(action.payload))
             
         })
-        .addCase(loginByUsername.rejected, (state, action)=>{
+        .addCase(fetchUserDataByToken.rejected, (state, action)=>{
             state.isLoading = false
             state.error = action.payload
         })
