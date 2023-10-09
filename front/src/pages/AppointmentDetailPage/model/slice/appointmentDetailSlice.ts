@@ -30,7 +30,9 @@ export const appointmentDetailSlice = createSlice({
     isLoading: false
   }),
   reducers: {
-    
+    setUserData: (state, action)=>{
+      state.userData = action.payload
+    }
   },
 })
 

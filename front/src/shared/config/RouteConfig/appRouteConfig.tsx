@@ -1,7 +1,7 @@
 import { AppointmentDetailPage } from "pages/AppointmentDetailPage"
 import { AppointmentsPage } from "pages/AppointmentsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
-import { RouteProps } from "react-router-dom"
+import { Navigate, RouteProps } from "react-router-dom"
 
 
 export type AppRouteProps = RouteProps & {
@@ -42,9 +42,11 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     },
     [AppRoutes.HOME] : {
         path: RoutePath.home,
-        element: <AppointmentsPage />,
+        element: <Navigate
+            to={RoutePath.appointments}
+            replace // <-- redirect
+        />,
         authOnly: false
-
     },
 }
 

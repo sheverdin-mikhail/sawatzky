@@ -16,6 +16,8 @@ import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLo
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
+import { createTokensByUsername } from 'features/AuthByUsername/model/services/createTokensByUsername/createTokensByUsername';
+import { fetchUserDataByToken } from 'features/AuthByUsername/model/services/fetchUserDataByToken/fetchUserDataByToken';
 
 interface LoginFormProps {
     className?: string;
@@ -46,9 +48,12 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
     }, [dispatch])
 
     const onLoginClick = useCallback( async ()=>{
-        dispatch(loginByUsername({username, password})).then(()=>{
-            navigate(RoutePath.authorization)
+        dispatch(createTokensByUsername({username, password})).then(data=>{
+            dispatch(fetchUserDataByToken()).then(()=>{
+                navigate(RoutePath.appointments)
+            })
         })
+
     }, [dispatch, username, password, navigate])
 
 

@@ -14,11 +14,12 @@ export const loginByUsername = createAsyncThunk<
     ThunkConfig<string>
 >(
     'login/loginByUsername',
-    async (authData, { extra, rejectWithValue, dispatch }) => {
+    async (authData, { extra, rejectWithValue, dispatch, getState }) => {
         try{
             dispatch(createTokensByUsername(authData))
             dispatch(fetchUserDataByToken())
-           
+
+            
         }catch (e: any){
             if(e.response.status === 401){
                 return rejectWithValue('Неверно введено имя пользователя или пароль')

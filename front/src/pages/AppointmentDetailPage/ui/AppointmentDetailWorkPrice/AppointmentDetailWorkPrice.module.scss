@@ -1,0 +1,31 @@
+.appointmentDetailWorkPrice {
+    padding: 16px 25px;
+    background: var(--blue-light-bg-color);
+    border-radius: 5px;
+    margin-top: 32px;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.icon {
+    fill: var(--black-color);
+    stroke: var(--black-color);
+    transform: rotate(-90deg);
+    width: 100%;
+}
+
+.iconContainer {
+    width: 10px;
+}
+
+.controls {
+    margin: 15px -12px 22px -15px;
+}
+
+.controlBtn {
+    margin: 0 12px;
+}

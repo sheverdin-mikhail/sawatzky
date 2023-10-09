@@ -1,11 +1,28 @@
-.title {
-    font: var(--font-xl);
-    margin-bottom: 6px;
+
+.xl {
+    &.title {
+        font: var(--font-xl);
+        margin-bottom: 6px;
+    }
+    
+    &.text {
+        font: var(--font-m);
+    }    
 }
 
-.text {
-    font: var(--font-m);
+.m {
+    &.title {
+        font: var(--font-m);
+        margin-bottom: 6px;
+        font-weight: 700;
+    }
+    
+    &.text {
+        font: var(--font-s);
+    }
+    
 }
+
 
 .normal {
     .title, .text {
@@ -29,3 +46,4 @@
 .right {
     text-align: right;
 }
+

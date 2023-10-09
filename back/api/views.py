@@ -14,14 +14,20 @@ from .models import (
 )
 
 
-class UserView(APIView):
+class AuthUserView(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
+    def get(self):
         user = self.request.user
         if(user):
             serializer = UserSerializer(user, many=False)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'message': 'Пользователь не найден'}, status=status.HTTP_200_OK)
-        
+    
+class UserDetailView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self):
+        pass
