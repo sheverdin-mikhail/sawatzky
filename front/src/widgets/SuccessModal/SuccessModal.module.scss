@@ -1,0 +1,24 @@
+.successModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: var(--green-color);
+    border-radius: 50%;
+    padding: 25px 17px;
+    margin-bottom: 30px;
+}
+
+.icon {
+    path {
+        fill: #fff;
+        stroke: #fff;
+    }
+}
