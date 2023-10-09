@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  nginx:
+    image: nginx
+    ports: 
+      - 80:80
+    restart: unless-stopped
+    volumes:
+    - back_static:/home/app/back/staticfiles
+    - back_media:/home/app/back/media
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    - ./build:/home/app
+
+    networks:
+      - app-network
+
+
+volumes:
+  back_static:
+    external: true
+  back_media:
+    external: true
+
+networks:
+  app-network:
+    external: true
