@@ -1,6 +1,6 @@
 export interface WorkTask {
     id: string;
     name: string;
-    time: string;
+    time: number;
     price: number;
 }
