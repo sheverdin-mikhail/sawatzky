@@ -18,7 +18,7 @@ export const fetchUserDataByToken = createAsyncThunk<
         const tokens = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_TOKENS) || '')
         try{
 
-            const userResponse = await extra.api.get<User>('http://localhost:8000/api/v1/users/me/', {
+            const userResponse = await extra.api.get<User>('/api/v1/users/me/', {
                 headers: {
                     Authorization: `Bearer ${tokens.access}`
                 }

@@ -12,7 +12,7 @@ export const refreshToken = createAsyncThunk<
     'login/refreshToken',
     async (refreshToken, { extra, rejectWithValue, dispatch }) => {
         try{
-            const tokensResponse = await extra.api.post<TokensData>('http://localhost:8000/api/auth/jwt/create/', {refresh: refreshToken})
+            const tokensResponse = await extra.api.post<TokensData>('/api/auth/jwt/create/', {refresh: refreshToken})
 
             if(!tokensResponse.data){
                 throw new Error('Ошибка авторизации пользователя')

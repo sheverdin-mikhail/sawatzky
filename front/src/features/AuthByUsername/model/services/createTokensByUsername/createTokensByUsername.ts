@@ -15,7 +15,7 @@ export const createTokensByUsername = createAsyncThunk<
     'login/createTokensByUsername',
     async (authData, { extra, rejectWithValue }) => {
         try{
-            const tokensResponse = await extra.api.post<TokensData>('http://localhost:8000/api/auth/jwt/create/', authData)
+            const tokensResponse = await extra.api.post<TokensData>('/api/auth/jwt/create/', authData)
             if(!tokensResponse.data){
                 throw new Error('Ошибка авторизации пользователя')
             }

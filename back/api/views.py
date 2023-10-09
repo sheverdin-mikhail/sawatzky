@@ -18,7 +18,7 @@ class AuthUserView(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self):
+    def get(self, request):
         user = self.request.user
         if(user):
             serializer = UserSerializer(user, many=False)
