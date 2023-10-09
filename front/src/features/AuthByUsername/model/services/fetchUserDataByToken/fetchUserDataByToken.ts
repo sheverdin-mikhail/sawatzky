@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
-import { User, UserAuthData } from "entities/User";
+import { User, userActions } from "entities/User";
 import { USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
 import { refreshToken } from "../refreshToken/refreshToken";
 
@@ -8,15 +8,14 @@ import { refreshToken } from "../refreshToken/refreshToken";
 
 
 export const fetchUserDataByToken = createAsyncThunk<
-    UserAuthData, 
+    User, 
     void, 
     ThunkConfig<string>
 >(
     'login/fetchUserDataByToken',
-    async (accessToken, { extra, rejectWithValue, dispatch }) => {
+    async (_, { extra, rejectWithValue, dispatch }) => {
         
         const tokens = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_TOKENS) || '')
-        console.log('fetch user')
         try{
 
             const userResponse = await extra.api.get<User>('http://localhost:8000/api/v1/users/me/', {
@@ -28,7 +27,8 @@ export const fetchUserDataByToken = createAsyncThunk<
             if(!userResponse.data){
                 throw new Error('Ошибка авторизации пользователя')
             }
-
+            
+            dispatch(userActions.setAuthData(userResponse.data))
             return userResponse.data
             
         }catch (e: any){
@@ -36,7 +36,7 @@ export const fetchUserDataByToken = createAsyncThunk<
             if(e.response.status === 403){
                 dispatch(refreshToken(tokens?.refresh))
             }
-            return rejectWithValue(e.response.message)
+            return rejectWithValue('error')
         }
     }
 )

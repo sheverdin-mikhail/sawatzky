@@ -19,7 +19,8 @@ export interface Appointment {
     subject: string;
     description: string;
     status: AppointmentStatus;
-    employee?: Employee;
+    creator?: Employee;
+    performer?: Employee;
     workTasks?: WorkTask[];
     workMaterials?: WorkMaterial[];
     documents?: Document[]; //Поменять когда появится модель документов

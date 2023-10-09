@@ -7,7 +7,7 @@ interface TextProps {
     text?: string;
     theme?: TextTheme;
     textAlign?: TextAlign;
-
+    size?: TextSize;
 }
 
 export const enum TextTheme {
@@ -21,6 +21,11 @@ export const enum TextAlign {
     RIGHT='right',
 }
 
+export const enum TextSize {
+    M = 'm',
+    XL = 'xl'
+}
+
 
 export const Text: React.FC<TextProps> = (props) => {
     const { 
@@ -28,14 +33,15 @@ export const Text: React.FC<TextProps> = (props) => {
             title, 
             text, 
             theme=TextTheme.NORMAL, 
-            textAlign=TextAlign.LEFT  
+            textAlign=TextAlign.LEFT,
+            size=TextSize.XL
         } = props;
 
 
     return (
         <div className={classNames('', {}, [className, cls[textAlign]])}>
-            { title && <h2 className={classNames(cls.title, {}, [cls[theme]])}>{title}</h2> }
-            { text && <p className={classNames(cls.text, {}, [cls[theme]])}>{text}</p> }
+            { title && <h2 className={classNames(cls.title, {}, [cls[theme], cls[size] ])}>{title}</h2> }
+            { text && <p className={classNames(cls.text, {}, [cls[theme], cls[size]])}>{text}</p> }
         </div>
     );
 }

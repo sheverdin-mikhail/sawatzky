@@ -31,12 +31,14 @@
     background: transparent;
     &:hover {
         text-decoration: underline;
+        opacity: 1;
     }
 }
 
 
 .clearBlue {
     color: var(--blue-color);
+    font-weight: 700;
 }
 
 .icon {
@@ -57,6 +59,7 @@
 
     &:hover {
         background: var(--blue-color);
+        opacity: 1;
         svg {
             stroke: #fff;
             fill: #fff
