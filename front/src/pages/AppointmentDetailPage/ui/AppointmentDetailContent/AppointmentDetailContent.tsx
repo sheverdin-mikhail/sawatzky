@@ -28,6 +28,7 @@ export const AppointmentDetailContent: React.FC<AppointmentDetailContentProps> =
 	// const appointment = useSelector((state: StateSchema) => getAppointment.selectById(state, appointmentId))
 	const info = useSelector((state: StateSchema) => getAppointmentDetailInfo(state, appointmentId))
 	const title = useSelector((state: StateSchema)=>getAppointmentDetailTitle(state, appointmentId))
+	
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>

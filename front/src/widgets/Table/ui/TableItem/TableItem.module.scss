@@ -1,0 +1,31 @@
+.tableItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 43px;
+    border-radius: 10px;
+    border: 1px solid #D5D5D5;
+}
+
+.body {
+    background: var(--gray-bg-color);
+}
+
+.header {
+    background: #fff;
+
+    .text {
+        font: var(--font-m);
+        font-weight: 700;
+        line-height: 24px;
+    }
+}
+
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &:first-child {
+        align-items: flex-start;
+    }
+}
