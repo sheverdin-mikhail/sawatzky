@@ -82,6 +82,7 @@ class WorkObjectsGroup(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 class WorkObject(models.Model):
     """Рабочий объект"""
@@ -123,6 +124,9 @@ class Client(models.Model):
     def __str__(self):
         return f"{self.id}: { self.legal_entity } | {self.user.fio}"
     
+
+
+
 
 class WorkTask(models.Model):
     """ Работы проводимые на объекте """

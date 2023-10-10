@@ -1,5 +1,5 @@
-import { AppointmentDetailPage } from "pages/AppointmentDetailPage"
-import { AppointmentsPage } from "pages/AppointmentsPage"
+import { ApplicationDetailPage } from "pages/ApplicationDetailPage"
+import { ApplicationsPage } from "pages/ApplicationsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
 import { Navigate, RouteProps } from "react-router-dom"
 
@@ -9,28 +9,28 @@ export type AppRouteProps = RouteProps & {
 }
 
 export enum AppRoutes{
-    APPOINTMENTS = 'appointments',
-    APPOINTMENT_DETAIL = 'appointment_detail',
+    APPLICATIONS = 'applications',
+    Application_DETAIL = 'application_detail',
     AUTHORIZATION = 'authorization',
     HOME = 'home',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.APPOINTMENTS] : '/appointment',
+    [AppRoutes.APPLICATIONS] : '/application',
     [AppRoutes.AUTHORIZATION] : '/login',
-    [AppRoutes.APPOINTMENT_DETAIL] : '/appointment/',
+    [AppRoutes.Application_DETAIL] : '/application/',
     [AppRoutes.HOME] : '/',
 }
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
-    [AppRoutes.APPOINTMENTS] : {
-        path: RoutePath.appointments,
-        element: <AppointmentsPage />,
+    [AppRoutes.APPLICATIONS] : {
+        path: RoutePath.applications,
+        element: <ApplicationsPage />,
         authOnly: true
     },
-    [AppRoutes.APPOINTMENT_DETAIL] : {
-        path: `${RoutePath.appointment_detail}:id`,
-        element: <AppointmentDetailPage />,
+    [AppRoutes.Application_DETAIL] : {
+        path: `${RoutePath.application_detail}:id`,
+        element: <ApplicationDetailPage />,
         authOnly: true
 
     },
@@ -43,7 +43,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     [AppRoutes.HOME] : {
         path: RoutePath.home,
         element: <Navigate
-            to={RoutePath.appointments}
+            to={RoutePath.applications}
             replace // <-- redirect
         />,
         authOnly: false

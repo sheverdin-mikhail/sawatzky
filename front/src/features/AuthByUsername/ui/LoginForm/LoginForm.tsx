@@ -50,7 +50,7 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
     const onLoginClick = useCallback( async ()=>{
         dispatch(createTokensByUsername({username, password})).then(data=>{
             dispatch(fetchUserDataByToken()).then(()=>{
-                navigate(RoutePath.appointments)
+                navigate(RoutePath.applications)
             })
         })
 
