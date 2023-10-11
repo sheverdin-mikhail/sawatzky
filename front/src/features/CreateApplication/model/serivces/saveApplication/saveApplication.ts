@@ -6,6 +6,7 @@ import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from "shared/const/l
 import { createApplicationActions } from "../../slice/createApplicationSlice";
 import { refreshToken } from "entities/User";
 import { fetchApplicationsList } from "pages/ApplicationsPage";
+import { applicationsPageActions } from "pages/ApplicationsPage/model/slice/applicationsPageSlice";
 
 
 
@@ -31,7 +32,8 @@ export const saveApplication = createAsyncThunk<
             startWorkDate: formData.startWorkDate ?? '', 
             endWorkDate: formData.endWorkDate ?? '',
             status: ApplicationStatus.NEW,
-            creator: JSON.parse(creatorId).employee.id
+            creator: JSON.parse(creatorId).employee.id,
+            subject: formData.subject ?? ''
         }
 
         try{
@@ -42,7 +44,7 @@ export const saveApplication = createAsyncThunk<
             }
 
             dispatch(createApplicationActions.clearForm())
-            dispatch(createApplicationActions.closeModal())
+            dispatch(applicationsPageActions.closeModal())
             dispatch(fetchApplicationsList())
             return response.data
         }catch (e: any){

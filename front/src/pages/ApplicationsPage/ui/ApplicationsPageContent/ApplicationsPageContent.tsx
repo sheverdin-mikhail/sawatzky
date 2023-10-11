@@ -13,7 +13,7 @@ import { applicationsPageActions, applicationsPageReducer, getApplicationsPage }
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
 import { ApplicationPreviewList } from '../ApplicationPreviewList/ApplicationPreviewList';
-import { getAllIsChecked, getCheckedItems } from 'pages/ApplicationsPage/model/selectors/applicationsPageSelectors';
+import { getAllIsChecked, getCheckedItems, getModalIsOpen } from 'pages/ApplicationsPage/model/selectors/applicationsPageSelectors';
 import { deleteCheckedItems } from 'pages/ApplicationsPage/model/services/deleteCheckedItems/deleteCheckedItems';
 
 
@@ -31,6 +31,7 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
     const applications = useSelector(getApplicationsPage.selectAll)
     const allIsChecked = useSelector(getAllIsChecked)
     const checkeditems = useSelector(getCheckedItems)
+    const modalIsOpen = useSelector(getModalIsOpen)
 
 
 
@@ -43,6 +44,14 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
             dispatch(deleteCheckedItems(checkeditems))
         }
     }, [checkeditems, dispatch])
+
+    const openModalHandler = useCallback(()=>{
+        dispatch(applicationsPageActions.oepnModal())
+    },[dispatch])
+
+    const closeModalHandler = useCallback(()=>{
+        dispatch(applicationsPageActions.closeModal())
+    },[dispatch])
 
 
     useEffect(()=>{
@@ -59,7 +68,7 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
                 <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
                     <OrderLogo/>
                 </Button>
-                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'} onClick={()=>setIsOpen(true)}>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'} onClick={openModalHandler}>
                     <AddLogo/>
                 </Button>
                 <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить заявку'} onClick={onDeleteHandler}>
@@ -67,7 +76,7 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
                 </Button>
             </div>
             <ApplicationPreviewList className={cls.list}  applications={applications} />
-            <CreateApplicationModal isOpen={isOpen} onClose={()=>setIsOpen(false)} />
+            <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
         </DynamicModuleLoader>
 
 	);

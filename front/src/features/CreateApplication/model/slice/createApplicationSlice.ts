@@ -5,7 +5,6 @@ import { saveApplication } from '../serivces/saveApplication/saveApplication'
 
 const initialState: CreateApplicationSchema = {
     isLoading: false,
-    isOpen: false,
     data: undefined,
     form: {},
     error: undefined
@@ -17,14 +16,12 @@ export const createApplicationSlice = createSlice({
     name: 'createApplication',
     initialState,
     reducers: {
-        openModal: (state)=>{
-            state.isOpen = true
-        },
-        closeModal: (state)=>{
-            state.isOpen = false
-        },
+       
         setTitle: (state, action: PayloadAction<string>) => {
             state.form.title = action.payload 
+        },
+        setSubject: (state, action: PayloadAction<string>) => {
+            state.form.subject = action.payload 
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.form.description = action.payload 
