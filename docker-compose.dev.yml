@@ -4,7 +4,7 @@ services:
 
   back: 
     build: 
-      context: .
+      context: ./back
       dockerfile: Dockerfile.dev
     env_file:
       - ./back/.env.dev
