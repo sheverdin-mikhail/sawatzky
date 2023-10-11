@@ -1,17 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { CreateApplicationData, CreateApplicationSchema } from '../type/createApplication'
-import { ApplicationStatus } from 'entities/Application'
+import { CreateApplicationSchema } from '../type/createApplication'
 import { saveApplication } from '../serivces/saveApplication/saveApplication'
-// import { StateSchema } from 'app/providers'
-
-
-// const createApplicationAdapter = createEntityAdapter<Application>({
-//   selectId: ( application ) => application.id
-// })
-
-// export const getCreateApplication = createApplicationAdapter.getSelectors<StateSchema>(
-//   (state) => state.createApplication || createApplicationAdapter.getInitialState()
-// )
 
 
 const initialState: CreateApplicationSchema = {

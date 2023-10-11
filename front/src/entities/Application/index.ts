@@ -9,4 +9,3 @@ export {
     ApplicationStatus 
 } from "./models/types/application";
 
-export { ApplicationPreviewList } from "./ui/ApplicationPreviewList/ApplicationPreviewList";

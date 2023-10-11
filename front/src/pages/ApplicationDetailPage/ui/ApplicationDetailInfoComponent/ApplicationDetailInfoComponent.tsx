@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationDetailInfoComponent.module.scss';
 import { Application } from 'entities/Application';
-import { ApplicationTag } from 'entities/Application/ui/ApplicationTag/ApplicationTag';
+import { ApplicationTag } from 'pages/ApplicationsPage/ui/ApplicationTag/ApplicationTag';
 import { getDateString } from 'shared/lib/getDateString/getDateString';
 
 interface ApplicationDetailInfoComponentProps {
@@ -9,8 +9,6 @@ interface ApplicationDetailInfoComponentProps {
 	info: Application;
 }
 
-
-const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoComponentProps> = (props) => {
 	const { className, info } = props;

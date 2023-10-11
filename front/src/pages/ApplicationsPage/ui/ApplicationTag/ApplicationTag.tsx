@@ -1,6 +1,6 @@
 import { Mods, classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationTag.module.scss';
-import { ApplicationStatus } from '../../models/types/application';
+import { ApplicationStatus } from '../../../../entities/Application/models/types/application';
 import { memo, useCallback } from 'react';
 
 interface ApplicationTagProps {

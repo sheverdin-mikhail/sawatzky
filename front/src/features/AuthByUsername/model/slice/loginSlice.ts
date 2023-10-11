@@ -4,7 +4,6 @@ import { LoginSchema } from '../types/LoginSchema'
 import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from 'shared/const/localStorage'
 import { createTokensByUsername } from '../services/createTokensByUsername/createTokensByUsername'
 import { fetchUserDataByToken } from '../services/fetchUserDataByToken/fetchUserDataByToken'
-import { refreshToken } from '../../../../entities/User/model/services/refreshToken/refreshToken'
 
 // Define the initial state using that type
 const initialState: LoginSchema = {

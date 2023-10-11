@@ -15,8 +15,6 @@ import {
 	getFormApplicationStartWorkDate, 
 	getFormApplicationTitle,
 	getFormApplicationError,
-	getFormApplicationIsLoading,
-	getFormModalIsOpen
 } from 'features/CreateApplication/model/selectors/createApplicationSelectors';
 import { useCallback } from 'react';
 import { RangePickerSelectedDays } from 'react-trip-date/dist/rangePicker/rangePicker.type';

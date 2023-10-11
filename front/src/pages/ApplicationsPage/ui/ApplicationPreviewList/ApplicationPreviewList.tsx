@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationPreviewList.module.scss';
-import { Application } from '../../models/types/application';
+import { Application } from '../../../../entities/Application/models/types/application';
 import { ApplicationPreviewItem } from '../ApplicationPreviewItem/ApplicationPreviewItem';
 
 interface ApplicationPreviewListProps {
