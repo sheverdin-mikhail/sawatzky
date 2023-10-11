@@ -41,7 +41,7 @@ export const ApplicationTag: React.FC<ApplicationTagProps> = memo((props) => {
     },[status])
 
     return (
-        <div className={classNames(cls.ApplicationTag, ApplicationTagMods, [className])}>
+        <div className={classNames(cls.applicationTag, ApplicationTagMods, [className])}>
             {statusMessage()}
         </div>
     );

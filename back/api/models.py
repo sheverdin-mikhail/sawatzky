@@ -164,7 +164,7 @@ class Application(models.Model):
     title = models.CharField(("Заголовок заявки"), max_length=50)
     subject = models.CharField(("Предмет запроса"), max_length=300)
     description = models.CharField(("Описание заявки"), max_length=300)
-    creator = models.ManyToManyField("api.Employee", verbose_name=("Создатель заявки"),  blank=True, null=True, related_name='application_creator')
+    creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='application_creator')
     performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='application_performer')
     work_tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
     work_materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
@@ -174,8 +174,6 @@ class Application(models.Model):
     total_summ_with_percent = models.FloatField(("Общая стоимость работ с НДС"), blank=True, null=True)
 
     status = models.CharField(("Статус заявки"), max_length=50, choices=STATUSES, default='NEW')
-
-
 
     created_at = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
     updated_at = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)

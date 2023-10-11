@@ -22,7 +22,7 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
     }
 
     return (
-        <div className={classNames(cls.ApplicationPreviewItem, {}, [className])}>
+        <div className={classNames(cls.applicationPreviewItem, {}, [className])}>
             <div className={classNames(cls.header)} >
                 <Checkbox id={item.id} />
                 <span className={cls.title} >
@@ -32,7 +32,7 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
                     Заявка № {item.id}
                 </span>
             </div>
-            <div className={classNames(cls.ApplicationPreviewItemRow, {}, [])} onClick={onClickHandler}>
+            <div className={classNames(cls.applicationPreviewItemRow, {}, [])} onClick={onClickHandler}>
                 <div className={classNames(cls.column, {}, [cls.firstColumn])}>
                     <span className={cls.subtitle}>Дата создания: {item.createdAt}</span>
                     <ApplicationTag className={cls.tag} status={item.status} />
