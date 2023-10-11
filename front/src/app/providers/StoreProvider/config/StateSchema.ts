@@ -4,18 +4,21 @@ import {
     AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
-import { AppointmentSchema } from 'entities/Appointment/models/types/appointment';
+import { ApplicationSchema } from 'entities/Application';
 import {AxiosInstance} from 'axios'
-import { NavigateOptions, To } from 'react-router-dom';
-import { AppointmentDetailSchema } from 'pages/AppointmentDetailPage';
+import { ApplicationDetailSchema } from 'pages/ApplicationDetailPage';
+import { CreateApplicationSchema } from 'features/CreateApplication';
+import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
 
 export interface StateSchema {
     user: UserSchema;
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
-    appointment?: AppointmentSchema;
-    appointmentDetail?: AppointmentDetailSchema; 
+    application?: ApplicationSchema;
+    applicationDetail?: ApplicationDetailSchema; 
+    createApplication?: CreateApplicationSchema; 
+    applicationsPage?: ApplicationsPageSchema;
 
 }
 

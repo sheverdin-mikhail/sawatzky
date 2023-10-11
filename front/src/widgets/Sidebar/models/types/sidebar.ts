@@ -1,6 +1,6 @@
 import { RoutePath } from "shared/config/RouteConfig/appRouteConfig";
 import  {ReactComponent as InfoIcon }from 'shared/assets/icons/info-icon.svg'
-import  {ReactComponent as AppointmentIcon }from 'shared/assets/icons/appointment-icon.svg'
+import  {ReactComponent as ApplicationIcon }from 'shared/assets/icons/application-icon.svg'
 import  {ReactComponent as ReportIcon }from 'shared/assets/icons/report-icon.svg'
 import  {ReactComponent as DirectoryIcon }from 'shared/assets/icons/directory-icon.svg'
 import  {ReactComponent as ArchiveIcon }from 'shared/assets/icons/archive-icon.svg'
@@ -22,9 +22,9 @@ export const SidebarItemsList: SidebarItemType[] = [
         authOnly: true
     },
     {
-        path: RoutePath.appointments,
+        path: RoutePath.applications,
         text: 'Заявки',
-        Icon: AppointmentIcon,
+        Icon: ApplicationIcon,
         authOnly: true
     },
     {

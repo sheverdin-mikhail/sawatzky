@@ -30,6 +30,7 @@ const theme: Theme = {
 
 interface CalendarProps {
     onChange?: (selectedDays: RangePickerSelectedDays) => void;
+    selectedDays?: RangePickerSelectedDays;
     className?: string;
 }
 	
@@ -37,18 +38,20 @@ export const Calendar: React.FC<CalendarProps> = (props) =>  {
 
     const {
         onChange,
-        className
+        className,
+        selectedDays
     } = props
 
-    const onChangeHandler = useCallback((selectedDays: RangePickerSelectedDays)=>{
+    const onChangeHandler = useCallback((days: RangePickerSelectedDays)=>{
         if(onChange){
-            onChange(selectedDays)
+            onChange(days)
         }
     },[onChange])
 
     return (
         <div className={classNames(cls.calendar, {}, [className])}>
             <RangePicker
+                selectedDays={selectedDays}
                 numberOfMonths={1}
                 allowDisabledDaysSpan={true}
                 theme={theme}

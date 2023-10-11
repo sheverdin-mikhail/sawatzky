@@ -82,6 +82,7 @@ class WorkObjectsGroup(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 class WorkObject(models.Model):
     """Рабочий объект"""
@@ -124,6 +125,9 @@ class Client(models.Model):
         return f"{self.id}: { self.legal_entity } | {self.user.fio}"
     
 
+
+
+
 class WorkTask(models.Model):
     """ Работы проводимые на объекте """
 
@@ -149,34 +153,32 @@ class Application(models.Model):
     """Заявка на выполнение работ"""
 
     STATUSES = [
-        ("NEW", 'Создана'),
-        ('PROCESSED', 'Обрабатывается'),
-        ('COORDINATION', 'На согласовании у заказчика'),
-        ('PAYMENT_COORDINATION', 'Ожидается оплата'),
-        ('IN_WORK', 'Передано исполнителю'),
-        ('FINISHED', 'Выполнено'),
+        ("new", 'Создана'),
+        ('processed', 'Обрабатывается'),
+        ('coordination', 'На согласовании у заказчика'),
+        ('payment_coordination', 'Ожидается оплата'),
+        ('in_work', 'Передано исполнителю'),
+        ('finished', 'Выполнено'),
     ]
 
     title = models.CharField(("Заголовок заявки"), max_length=50)
-    subject = models.CharField(("Предмет запроса"), max_length=300)
+    subject = models.CharField(("Предмет запроса"), max_length=300, blank=True, null=True)
     description = models.CharField(("Описание заявки"), max_length=300)
-    creator = models.ManyToManyField("api.Employee", verbose_name=("Создатель заявки"),  blank=True, null=True, related_name='application_creator')
-    performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='application_performer')
-    work_tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
-    work_materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
+    creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
+    performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='applicationPerformer')
+    workTasks = models.ManyToManyField("api.WorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
+    workMaterials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)
 
-    total_summ = models.FloatField(("Общая стоимость работ"), blank=True, null=True)
-    total_summ_with_percent = models.FloatField(("Общая стоимость работ с НДС"), blank=True, null=True)
+    totalSum = models.FloatField(("Общая стоимость работ"), blank=True, null=True)
+    totalSumWithPercent = models.FloatField(("Общая стоимость работ с НДС"), blank=True, null=True)
 
-    status = models.CharField(("Статус заявки"), max_length=50, choices=STATUSES, default='NEW')
+    status = models.CharField(("Статус заявки"), max_length=50, blank=False, choices=STATUSES, default='new')
 
-
-
-    created_at = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
-    updated_at = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)
-    start_work_date = models.DateField(("Дата начала проведения работ"), auto_now=False, auto_now_add=False)
-    end_work_date = models.DateField(("Дата окончания проведения работ"), auto_now=False, auto_now_add=False)
+    createdAt = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
+    updatedAt = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)
+    startWorkDate = models.DateField(("Дата начала проведения работ"), auto_now=False, auto_now_add=False)
+    endWorkDate = models.DateField(("Дата окончания проведения работ"), auto_now=False, auto_now_add=False)
 
     class Meta:
         verbose_name = "Заявка"

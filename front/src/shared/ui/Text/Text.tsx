@@ -39,9 +39,9 @@ export const Text: React.FC<TextProps> = (props) => {
 
 
     return (
-        <div className={classNames('', {}, [className, cls[textAlign]])}>
-            { title && <h2 className={classNames(cls.title, {}, [cls[theme], cls[size] ])}>{title}</h2> }
-            { text && <p className={classNames(cls.text, {}, [cls[theme], cls[size]])}>{text}</p> }
+        <div className={classNames('', {}, [className, cls[textAlign], cls[theme]])}>
+            { title && <h2 className={classNames(cls.title, {}, [cls[size] ])}>{title}</h2> }
+            { text && <p className={classNames(cls.text, {}, [cls[size]])}>{text}</p> }
         </div>
     );
 }
