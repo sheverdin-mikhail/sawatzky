@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     """Общая модель пользователя"""
     fio = models.CharField(("ФИО"), max_length=255)
-    phone_number = models.CharField(("Номер телефона"), max_length=20)
+    phoneNumber = models.CharField(("Номер телефона"), max_length=20)
 
 
 
@@ -14,13 +14,13 @@ class LegalEntity(models.Model):
     """Юр. лицо"""
     name = models.CharField(("Наименование юридиеского лица"), max_length=100)
     head = models.CharField(("Руководитель"), max_length=100)
-    legal_address = models.CharField(("Юридический адрес"), max_length=255)
-    actual_address = models.CharField(("Фактический адрес"), max_length=255)
+    legalAddress = models.CharField(("Юридический адрес"), max_length=255)
+    actualAddress = models.CharField(("Фактический адрес"), max_length=255)
     phone = models.CharField(("Телефон"), max_length=20)
     mail = models.CharField(("E-mail"), max_length=30)
     INN = models.CharField(("ИНН/КПП"), max_length=50)
-    settlement_account = models.CharField(("Расчётный счёт"), max_length=50)
-    correspondent_account = models.CharField(("Корреспондентский счёт"), max_length=50)
+    settlementAccount = models.CharField(("Расчётный счёт"), max_length=50)
+    correspondentAccount = models.CharField(("Корреспондентский счёт"), max_length=50)
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
     swatzki = models.BooleanField(("Относится к Swatzky"), default=False)
@@ -53,7 +53,7 @@ class Employee(models.Model):
         ('S6', 'Разработчик системы'),
     )
 
-    legal_entity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
+    legalEntity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
     user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='employee')
     role = models.CharField(choices=ROLES, default='user', max_length=20, verbose_name='Роль пользователя')
     group = models.CharField(choices=GROUPS, default='S1', max_length=20, verbose_name='Группа пользователя')
@@ -73,7 +73,7 @@ class WorkObjectsGroup(models.Model):
 
     name = models.CharField(("Наименование группы"), max_length=50)
     code = models.CharField(("Код объекта"), max_length=50)
-    work_objects = models.ManyToManyField("api.WorkObject", verbose_name=("Список объектов"), related_name='work_objects_group')
+    workObjects = models.ManyToManyField("api.WorkObject", verbose_name=("Список объектов"), related_name='work_objects_group')
     
 
     class Meta:
@@ -89,7 +89,7 @@ class WorkObject(models.Model):
 
     name = models.CharField(("Наименование группы"), max_length=50)
     code = models.CharField(("Код объекта"), max_length=50)
-    contract_number = models.CharField(("Номер договора"), max_length=50)
+    contractNumber = models.CharField(("Номер договора"), max_length=50)
     address = models.CharField(("Адрес объекта"), max_length=255)
 
     class Meta:
@@ -104,9 +104,9 @@ class WorkObject(models.Model):
 class Client(models.Model):
     """Заказчик/Контрагент"""
 
-    legal_entity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
-    work_objects_group = models.ManyToManyField(WorkObjectsGroup, verbose_name=("Группы рабочих объектов"), related_name='client')
-    work_object = models.ForeignKey(
+    legalEntity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
+    workObjectsGroup = models.ManyToManyField(WorkObjectsGroup, verbose_name=("Группы рабочих объектов"), related_name='client')
+    workObject = models.ForeignKey(
         WorkObject,
         verbose_name=("Рабоий объект"), 
         on_delete=models.CASCADE, 
@@ -196,13 +196,13 @@ class Report(models.Model):
     client = models.ForeignKey(Client, verbose_name=("Заказчик в рамках которого создается отчет"), on_delete=models.CASCADE)
     creator = models.ForeignKey(Employee, verbose_name=("Сотрудник, создавший отчет"), null=True, on_delete=models.CASCADE)
 
-    founded_apllications = models.ManyToManyField(Application, verbose_name=("Найденные заявки"), related_name='report')
+    foundedApllications = models.ManyToManyField(Application, verbose_name=("Найденные заявки"), related_name='report')
 
-    period_start = models.DateField(("Период поиска заявок от"), auto_now=False, auto_now_add=False)
-    period_end = models.DateField(("Период поиска заявок до"), auto_now=False, auto_now_add=False)
+    periodStart = models.DateField(("Период поиска заявок от"), auto_now=False, auto_now_add=False)
+    periodEnd = models.DateField(("Период поиска заявок до"), auto_now=False, auto_now_add=False)
 
-    created_at = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
-    updated_at = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)
+    createdAt = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
+    updatedAt = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = ("Отчет")
@@ -218,7 +218,7 @@ class Document(models.Model):
     
 
     name = models.CharField(("Наименование документа"), max_length=50)
-    doc_type = models.CharField(("Тип документа"), max_length=32)
+    docType = models.CharField(("Тип документа"), max_length=32)
 
     created_at = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
 
