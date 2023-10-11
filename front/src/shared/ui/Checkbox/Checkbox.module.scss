@@ -6,7 +6,6 @@
 
 .checkboxContainer {
     display: flex;
-    cursor: pointer;
 }
 
 .label {
@@ -22,6 +21,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
 
     display: block;
     width: 16px;

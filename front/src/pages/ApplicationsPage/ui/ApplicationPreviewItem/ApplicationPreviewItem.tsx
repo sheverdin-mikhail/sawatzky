@@ -2,11 +2,15 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationPreviewItem.module.scss';
 import { Application } from '../../../../entities/Application/models/types/application';
 import { ApplicationTag } from '../ApplicationTag/ApplicationTag';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
 import { getDateString } from 'shared/lib/getDateString/getDateString';
+import { useSelector } from 'react-redux';
+import { getRowItemIsChecked } from 'pages/ApplicationsPage/model/selectors/applicationsPageSelectors';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { applicationsPageActions } from 'pages/ApplicationsPage/model/slice/applicationsPageSlice';
 
 interface ApplicationPreviewItemProps {
     className?: string;
@@ -17,15 +21,22 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
     const { className, item  } = props;
 
     const navigate = useNavigate()
-
-    const onClickHandler = () => {
+    const dispatch = useAppDispatch()
+    const rowItemIsChecked = useSelector(getRowItemIsChecked(item.id))
+    const onClickHandler = useCallback(() => {
         navigate(`${RoutePath.application_detail}${item.id}`)
-    }
+    }, [navigate, item])
 
+
+    const onCheckChangeHandler = useCallback(() => {
+        dispatch(applicationsPageActions.toggleCheckbox(item.id))
+    }, [item.id, dispatch])
+    
+    
     return (
         <div className={classNames(cls.applicationPreviewItem, {}, [className])}>
             <div className={classNames(cls.header)} >
-                <Checkbox id={item.id} />
+                <Checkbox id={item.id} checked={rowItemIsChecked} onChange={onCheckChangeHandler}  />
                 <span className={cls.title} >
                     {item.title}
                 </span>

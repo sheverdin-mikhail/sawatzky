@@ -26,13 +26,13 @@ export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoCompo
 			<div className={classNames(cls.secondColumn, {}, [cls.column])}>
 				<span className={cls.text}>
 					<b className={cls.textBold}>Дата заявки: </b> 
-					{ getDateString(new Date(info.createdAt)) }
+					{ getDateString(new Date(info.createdAt), true) }
 				</span>
 				<span className={cls.text}>
 					<b className={cls.textBold}>Дата проведения работ: </b> 
 					{
 						info.startWorkDate && info.endWorkDate 
-							? `${getDateString(new Date(info.startWorkDate))} — ${getDateString(new Date(info.endWorkDate))}`
+							? `${getDateString(new Date(info.startWorkDate), true)} — ${getDateString(new Date(info.endWorkDate), true)}`
 							: 'Дата отсутствует'
 					}
 				</span>
