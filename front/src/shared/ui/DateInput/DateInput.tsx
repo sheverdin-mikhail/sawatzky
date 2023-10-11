@@ -5,6 +5,7 @@ import { RangePickerSelectedDays } from 'react-trip-date/dist/rangePicker/rangeP
 import { Calendar } from 'shared/ui/Calendar/Calendar';
 import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
+import { getDateString } from 'shared/lib/getDateString/getDateString';
 
 interface DateInputProps {
 	className?: string;
@@ -13,7 +14,6 @@ interface DateInputProps {
 	onClear?: () => void;
 }
 
-const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 export const DateInput: React.FC<DateInputProps> = (props) => {
 	const { className, onChange, onClear, selectedDays } = props;
@@ -26,21 +26,11 @@ export const DateInput: React.FC<DateInputProps> = (props) => {
 			const dateFrom = new Date(days.from)
 			const dateTo = new Date(days.to)
 			onChange?.({from: days.from, to: days.to})
-			setValue(`С  ${dateFrom.toLocaleDateString('ru-Ru', options)}  До  ${dateTo.toLocaleDateString('ru-Ru', options)}`)
+			setValue(`С  ${getDateString(dateFrom, true)}  До  ${getDateString(dateTo, true)}`)
 		}else{
 			setValue(``)
 		}
 	},[ onChange ])
-
-	// const inputChangeHandler = useCallback(()=>{
-	// 	if(selectedDays?.from && selectedDays?.to){
-	// 		const dateFrom = new Date(selectedDays.from)
-	// 		const dateTo = new Date(selectedDays.to)
-	// 		setValue(`С  ${dateFrom.toLocaleDateString('ru-Ru', options)}  До  ${dateTo.toLocaleDateString('ru-Ru', options)}`)
-	// 	}else{
-	// 		setValue(``)
-	// 	}
-	// },[selectedDays])
 
 
 	const onFocuseHandler = useCallback(() => {

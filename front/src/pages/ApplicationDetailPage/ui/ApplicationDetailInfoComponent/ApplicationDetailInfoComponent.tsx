@@ -2,11 +2,15 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationDetailInfoComponent.module.scss';
 import { Application } from 'entities/Application';
 import { ApplicationTag } from 'entities/Application/ui/ApplicationTag/ApplicationTag';
+import { getDateString } from 'shared/lib/getDateString/getDateString';
 
 interface ApplicationDetailInfoComponentProps {
 	className?: string;
 	info: Application;
 }
+
+
+const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
 export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoComponentProps> = (props) => {
 	const { className, info } = props;
@@ -24,11 +28,15 @@ export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoCompo
 			<div className={classNames(cls.secondColumn, {}, [cls.column])}>
 				<span className={cls.text}>
 					<b className={cls.textBold}>Дата заявки: </b> 
-					{info.createdAt}
+					{ getDateString(new Date(info.createdAt)) }
 				</span>
 				<span className={cls.text}>
 					<b className={cls.textBold}>Дата проведения работ: </b> 
-					{info.startWorkDate} — {info.endWorkDate}
+					{
+						info.startWorkDate && info.endWorkDate 
+							? `${getDateString(new Date(info.startWorkDate))} — ${getDateString(new Date(info.endWorkDate))}`
+							: 'Дата отсутствует'
+					}
 				</span>
 			</div>		
 			<div className={cls.verticalLine} ></div>	
