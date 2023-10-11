@@ -39,12 +39,12 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
                 </div>
                 <div className={classNames(cls.column, {}, [])}>
                     <span className={cls.subtitle}>Предмет запроса:</span>
-                    <p className={cls.text} >Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее</p>
+                    <p className={cls.text} >{item.subject ?? 'Предмет запроса отсутствует'}</p>
                 </div>
                 <div className={classNames(cls.verticalLine, {}, [cls.column])}></div>
                 <div className={classNames(cls.column, {}, [])}>
                     <p>
-                        Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. .....
+                        {item.description}
                     </p>
                 </div>
             </div>

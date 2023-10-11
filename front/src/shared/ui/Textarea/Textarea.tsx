@@ -21,14 +21,13 @@ export const Textarea: React.FC<TextareaProps> = (props) => {
 		...otherProps 
 	} = props;
 
-	const onChangeHandler = useCallback((e: ChangeEvent)=>{
-		if(onChange){
-			onChange(e.target.ariaValueText || '')
-		}
+	const onChangeHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>)=>{
+		onChange?.(e.target.value)
 	},[onChange])
 
 	return (
 		<textarea 
+			value={value}
 			placeholder={placeholder}
 			className={classNames(cls.textarea, {}, [className])}
 			onChange={onChangeHandler}

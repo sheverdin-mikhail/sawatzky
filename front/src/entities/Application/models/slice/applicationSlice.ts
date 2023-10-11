@@ -4,13 +4,13 @@ import { StateSchema } from 'app/providers'
 
 
 
-const applicationAdapter = createEntityAdapter<Application>({
+export const applicationAdapter = createEntityAdapter<Application>({
     selectId: ( application ) => application.id
   })
   
-  export const getApplication = applicationAdapter.getSelectors<StateSchema>(
-    (state) => state.application || applicationAdapter.getInitialState()
-  )
+export const getApplication = applicationAdapter.getSelectors<StateSchema>(
+  (state) => state.application || applicationAdapter.getInitialState()
+)
 
 
 
@@ -64,6 +64,7 @@ export const applicationSlice = createSlice({
   reducers: {
     
   },
+
 })
 
 export const { actions: applicationActions } = applicationSlice

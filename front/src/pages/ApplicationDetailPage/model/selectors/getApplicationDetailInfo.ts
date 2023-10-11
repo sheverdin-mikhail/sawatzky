@@ -1,9 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { ApplicationStatus, getApplication } from "entities/Application";
+import { ApplicationStatus } from "entities/Application";
 import { ApplicationInfo } from "../type/applicationDetail";
+import { getApplicationDetail } from "../slice/applicationDetailSlice";
 
 export const getApplicationDetailInfo = createSelector(
-    getApplication.selectById,
+    getApplicationDetail.selectById,
     ( application ) : ApplicationInfo => (
         {
             id: application?.id || '',

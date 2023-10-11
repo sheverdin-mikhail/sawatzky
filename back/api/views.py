@@ -7,8 +7,8 @@ from rest_framework import generics
 
 from .serializers import (
     UserSerializer,
-    ApplicationListSerializer,
-    ApplicationCreateSerializer
+    ApplicationWithCreatorSerializer,
+    ApplicationSerializer
 )
 
 from .models import (
@@ -40,14 +40,24 @@ class UserDetailView(APIView):
 
 
 class ApplicationCreateView(generics.CreateAPIView):
-
     # представление на создание и вывод списка заявок
-    serializer_class = ApplicationCreateSerializer
+    serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
 
 
 class ApplicationListView(generics.ListAPIView):
-
     # представление на создание и вывод списка заявок
-    serializer_class = ApplicationListSerializer
+    serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
+
+
+class ApplicationDetailView(generics.RetrieveDestroyAPIView):
+
+    serializer_class = ApplicationWithCreatorSerializer
+
+    def get_queryset(self):
+
+        pk = self.kwargs['pk']
+        applications = Application.objects.filter(id=pk)
+        return applications
+    

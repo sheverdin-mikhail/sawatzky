@@ -1,4 +1,4 @@
-export { getApplication, applicationReducer, applicationActions } from "./models/slice/applicationSlice";
+export { getApplication, applicationReducer, applicationActions, applicationAdapter } from "./models/slice/applicationSlice";
 
 export type { 
     Application, 

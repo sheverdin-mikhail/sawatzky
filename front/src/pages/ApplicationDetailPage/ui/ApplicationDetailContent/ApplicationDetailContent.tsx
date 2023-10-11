@@ -10,9 +10,11 @@ import { getApplicationDetailInfo } from '../../model/selectors/getApplicationDe
 import { getApplicationDetailTitle } from 'pages/ApplicationDetailPage/model/selectors/getApplicationDetailTitle';
 import { Title } from 'shared/ui/Title/Title';
 import { ApplicationDetailWorkPrice } from '../ApplicationDetailWorkPrice/ApplicationDetailWorkPrice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { Button } from 'shared/ui/Button/Button';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchApplicationDetail } from 'pages/ApplicationDetailPage/model/services/fetchApplicationDetail/fetchApplicationDetail';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -27,6 +29,12 @@ const initialReducers: ReducersList = {
 export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> = (props) => {
 	const { className, applicationId } = props;
 	const [isOpen, setIsOpen] = useState(false)
+	const dispatch = useAppDispatch()
+	
+
+	useEffect(()=>{
+		dispatch(fetchApplicationDetail(applicationId))
+	},[])
 
 	// const application = useSelector((state: StateSchema) => getApplication.selectById(state, applicationId))
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))

@@ -40,8 +40,8 @@ class EmployeeSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ApplicationListSerializer(ModelSerializer):
-    #Сериализаатор для вывода списка заявок
+class ApplicationWithCreatorSerializer(ModelSerializer):
+    #Сериализаатор для вывода списка заявок с расширенным полем creator
     creator =  EmployeeSerializer(read_only=True, many=False)
 
     class Meta:
@@ -49,9 +49,12 @@ class ApplicationListSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ApplicationCreateSerializer(ModelSerializer):
-    #Сериализаатор для создания заявки
+class ApplicationSerializer(ModelSerializer):
+    #Сериализаатор для создания/удаления заявки
 
     class Meta:
         model = Application
+        many=False
         fields = '__all__'
+
+

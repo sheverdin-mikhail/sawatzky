@@ -6,8 +6,9 @@ import {
 import { CombinedState } from 'redux';
 import { ApplicationSchema } from 'entities/Application';
 import {AxiosInstance} from 'axios'
-import { NavigateOptions, To } from 'react-router-dom';
 import { ApplicationDetailSchema } from 'pages/ApplicationDetailPage';
+import { CreateApplicationSchema } from 'features/CreateApplication';
+import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -16,6 +17,8 @@ export interface StateSchema {
     loginForm?: LoginSchema;
     application?: ApplicationSchema;
     applicationDetail?: ApplicationDetailSchema; 
+    createApplication?: CreateApplicationSchema; 
+    applicationsPage?: ApplicationsPageSchema;
 
 }
 
