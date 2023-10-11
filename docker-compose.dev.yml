@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile.dev
     env_file:
       - ./back/.env.dev
-    command: bash -c "python3 /home/app/web/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python3 home/app/web/manage.py migrate && python3 /home/app/web/manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
     restart: unless-stopped
