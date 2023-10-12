@@ -40,6 +40,7 @@ class UserDetailView(APIView):
     def get(self, request, *args, **kwargs):
 
         user_id = kwargs.get('user_id')
+        user = User.objects.get(id=user_id)
 
         try:
             serializer = UserSerializer(user, many=False)
