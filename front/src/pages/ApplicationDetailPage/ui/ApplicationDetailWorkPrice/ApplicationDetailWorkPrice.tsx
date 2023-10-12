@@ -2,11 +2,12 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { ReactComponent as ArrowIcon } from 'shared/assets/icons/arrow-icon-right.svg'
 import { Table, TableType } from 'widgets/Table';
 import { WorkTask } from 'entities/WorkTask';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { WorkMaterial } from 'entities/WorkMaterial';
+import { useCallback, useState } from 'react';
+import { CollapsBoard } from 'widgets/CollapsBoard';
 
 interface ApplicationDetailWorkPriceProps {
 	className?: string;
@@ -14,7 +15,7 @@ interface ApplicationDetailWorkPriceProps {
 
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
 	const { className } = props;
-
+	const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
 
 	const workTasks: WorkTask[] = [
 		{
@@ -103,6 +104,10 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 		})
 	}
 
+	const onToggleCollapsed = useCallback(()=>{
+		setIsCollapsed(prev => !prev)
+	},[])
+
 
 	const workTotalPrice = workTasks.reduce((prev, item)=>{
 		const { hours, minuts } = getTime(item.time)
@@ -118,22 +123,16 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 	const clearPrice = workTotalPrice + materialTotalPrice
 
 	return (
-		<div className={classNames(cls.applicationDetailWorkPrice, {}, [className])}>
-			<div className={cls.header}>
-				<Text title={'Стоимость работ '} size={TextSize.M} />
-				<div className={cls.iconContainer}><ArrowIcon className={cls.icon} /></div>
+		<CollapsBoard title='Стоимость работ' >
+			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить работы </Button>
+			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить расходный материал </Button>
+			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Загрузить документ </Button>
+			<div className={cls.tablesBlock}>
+				<Table className={cls.table} data={workTasksTable} />
+				<Table className={cls.table} data={workMaterialsTable} />
+				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> без НДС </p>
+				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
 			</div>
-			<div className={cls.controls}>
-				<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить работы </Button>
-				<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить расходный материал </Button>
-				<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Загрузить документ </Button>
-				<div className={cls.tablesBlock}>
-					<Table className={cls.table} data={workTasksTable} />
-					<Table className={cls.table} data={workMaterialsTable} />
-					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> без НДС </p>
-					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
-				</div>
-			</div>
-		</div>
+		</CollapsBoard>
 	);
 }
