@@ -26,7 +26,8 @@ export const applicationsPageSlice = createSlice({
     error: undefined,
     allIsChecked: false,
     checkedItems: [],
-    modalIsOpen: false
+    modalIsOpen: false,
+    _init: false,
   }),
   reducers: {
     toggleCheckbox: (state, action: PayloadAction<string>)=>{
@@ -51,6 +52,9 @@ export const applicationsPageSlice = createSlice({
     },
     closeModal: (state) => {
       state.modalIsOpen = false
+    },
+    initPage: (state) => {
+      state._init = true
     },
   },
   extraReducers: (builder) => builder 

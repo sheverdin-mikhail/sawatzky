@@ -13,7 +13,7 @@ import { applicationsPageActions, applicationsPageReducer, getApplicationsPage }
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
 import { ApplicationPreviewList } from '../ApplicationPreviewList/ApplicationPreviewList';
-import { getAllIsChecked, getCheckedItems, getModalIsOpen } from '../../model/selectors/applicationsPageSelectors';
+import { getAllIsChecked, getCheckedItems, getModalIsOpen, getPageInit } from '../../model/selectors/applicationsPageSelectors';
 import { deleteCheckedItems } from '../../model/services/deleteCheckedItems/deleteCheckedItems';
 
 
@@ -30,6 +30,7 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
     const allIsChecked = useSelector(getAllIsChecked)
     const checkeditems = useSelector(getCheckedItems)
     const modalIsOpen = useSelector(getModalIsOpen)
+    const init = useSelector(getPageInit)
 
 
 
@@ -53,8 +54,12 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
 
 
     useEffect(()=>{
-        dispatch(fetchApplicationsList())
-    },[dispatch])
+        if(init){
+            dispatch(fetchApplicationsList())
+        }else{
+            dispatch(applicationsPageActions.initPage())
+        }
+    },[dispatch, init])
 
 	return (
 		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
