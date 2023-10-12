@@ -25,7 +25,7 @@ class UserSerializer(ModelSerializer):
 
 class UserSerializerWithoutEmployee(ModelSerializer):
     #Сериализатор модели пользователя без поля Employee
-
+ 
     class Meta:
         model = User
         fields = ['id', 'fio', 'phoneNumber']
