@@ -15,13 +15,12 @@ import {
 	getFormApplicationStartWorkDate, 
 	getFormApplicationTitle,
 	getFormApplicationError,
-	getFormApplicationIsLoading,
-	getFormModalIsOpen
-} from 'features/CreateApplication/model/selectors/createApplicationSelectors';
+	getFormApplicationSubject,
+} from '../../model/selectors/createApplicationSelectors';
 import { useCallback } from 'react';
 import { RangePickerSelectedDays } from 'react-trip-date/dist/rangePicker/rangePicker.type';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { saveApplication } from 'features/CreateApplication/model/serivces/saveApplication/saveApplication';
+import { saveApplication } from '../../model/serivces/saveApplication/saveApplication';
 
 interface CreateApplicationFormProps {
 	className?: string;
@@ -37,6 +36,7 @@ export const CreateApplicationForm: React.FC<CreateApplicationFormProps> = (prop
 
 	const dispatch = useAppDispatch()
 	const title = useSelector(getFormApplicationTitle)
+	const subject = useSelector(getFormApplicationSubject)
 	const description = useSelector(getFormApplicationDescription)
 	const startWorkDate = useSelector(getFormApplicationStartWorkDate)
 	const endWorkDate = useSelector(getFormApplicationEndWorkDate)
@@ -52,13 +52,12 @@ export const CreateApplicationForm: React.FC<CreateApplicationFormProps> = (prop
 			dispatch(createApplicationActions.setEndWorkDate(dates.to))
 		}
 	},[dispatch])
-
-
 	const changeTitleHandler = useCallback((value: string)=>{
 		dispatch(createApplicationActions.setTitle(value))
 	},[dispatch])
-
-
+	const changeSubjectHandler = useCallback((value: string)=>{
+		dispatch(createApplicationActions.setSubject(value))
+	},[dispatch])
 	const changeDescriptionHandler = useCallback((value: string)=>{
 		dispatch(createApplicationActions.setDescription(value))
 	},[dispatch])
@@ -85,6 +84,12 @@ export const CreateApplicationForm: React.FC<CreateApplicationFormProps> = (prop
 			<div className={classNames(cls.createApplicationForm, {}, [className])}>
 				<Text title='Создание заявки' text='Информация по заявке' className={cls.title} textAlign={TextAlign.CENTER} />
 				<Input className={cls.input} value={title} onChange={changeTitleHandler} placeholder='Название заявки' />
+				<Textarea 
+					placeholder='Предмет запроса' 
+					value={subject} 
+					onChange={changeSubjectHandler}  
+					className={cls.input} 
+				/>
 				<Textarea 
 					placeholder='Описание заявки' 
 					value={description} 
