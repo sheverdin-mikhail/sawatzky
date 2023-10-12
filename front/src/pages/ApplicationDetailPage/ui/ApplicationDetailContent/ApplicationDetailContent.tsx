@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux';
 import { applicationReducer } from 'entities/Application';
 import { StateSchema } from 'app/providers';
 import { getApplicationDetailInfo } from '../../model/selectors/getApplicationDetailInfo';
-import { getApplicationDetailTitle } from 'pages/ApplicationDetailPage/model/selectors/getApplicationDetailTitle';
+import { getApplicationDetailTitle } from '../../model/selectors/getApplicationDetailTitle';
 import { Title } from 'shared/ui/Title/Title';
 import { ApplicationDetailWorkPrice } from '../ApplicationDetailWorkPrice/ApplicationDetailWorkPrice';
 import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchApplicationDetail } from 'pages/ApplicationDetailPage/model/services/fetchApplicationDetail/fetchApplicationDetail';
+import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -35,7 +35,6 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 		dispatch(fetchApplicationDetail(applicationId))
 	},[dispatch, applicationId])
 
-	// const application = useSelector((state: StateSchema) => getApplication.selectById(state, applicationId))
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))
 	const title = useSelector((state: StateSchema)=>getApplicationDetailTitle(state, applicationId))
 	

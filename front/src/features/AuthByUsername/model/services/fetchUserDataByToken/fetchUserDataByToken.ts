@@ -32,9 +32,8 @@ export const fetchUserDataByToken = createAsyncThunk<
             return userResponse.data
             
         }catch (e: any){
-
-            if(e.response.status === 403){
-                dispatch(refreshToken(tokens?.refresh))
+            if(e.response.status === 401){
+                dispatch(userActions.logout())
             }
             return rejectWithValue('error')
         }
