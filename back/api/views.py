@@ -8,13 +8,13 @@ from rest_framework import generics
 from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
-    ApplicationSerializer
+    ApplicationSerializer,
 )
 
 from .models import (
     User,
     Employee,
-    Application
+    Application,
 )
 
 
@@ -71,4 +71,3 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
         pk = self.kwargs['pk']
         applications = Application.objects.filter(id=pk)
         return applications
-    
