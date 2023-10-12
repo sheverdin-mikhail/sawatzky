@@ -16,11 +16,11 @@ import {
 	getFormApplicationTitle,
 	getFormApplicationError,
 	getFormApplicationSubject,
-} from 'features/CreateApplication/model/selectors/createApplicationSelectors';
+} from '../../model/selectors/createApplicationSelectors';
 import { useCallback } from 'react';
 import { RangePickerSelectedDays } from 'react-trip-date/dist/rangePicker/rangePicker.type';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { saveApplication } from 'features/CreateApplication/model/serivces/saveApplication/saveApplication';
+import { saveApplication } from '../../model/serivces/saveApplication/saveApplication';
 
 interface CreateApplicationFormProps {
 	className?: string;

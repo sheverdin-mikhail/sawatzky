@@ -13,8 +13,8 @@ import { applicationsPageActions, applicationsPageReducer, getApplicationsPage }
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
 import { ApplicationPreviewList } from '../ApplicationPreviewList/ApplicationPreviewList';
-import { getAllIsChecked, getCheckedItems, getModalIsOpen } from 'pages/ApplicationsPage/model/selectors/applicationsPageSelectors';
-import { deleteCheckedItems } from 'pages/ApplicationsPage/model/services/deleteCheckedItems/deleteCheckedItems';
+import { getAllIsChecked, getCheckedItems, getModalIsOpen } from '../../model/selectors/applicationsPageSelectors';
+import { deleteCheckedItems } from '../../model/services/deleteCheckedItems/deleteCheckedItems';
 
 
 interface ApplicationsPageContentProps {

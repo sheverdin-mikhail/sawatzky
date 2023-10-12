@@ -1,19 +1,19 @@
 import { Mods, classNames } from 'shared/lib/classNames/classNames';
-import cls from './ApplicationTag.module.scss';
-import { ApplicationStatus } from '../../../../entities/Application/models/types/application';
-import { memo, useCallback } from 'react';
+import cls from './Tag.module.scss';
+import { ApplicationStatus } from 'entities/Application';
+import { memo, useMemo } from 'react';
 
-interface ApplicationTagProps {
+interface TagProps {
     className?: string;
     status: ApplicationStatus;
 }
 
 
-export const ApplicationTag: React.FC<ApplicationTagProps> = memo((props) => {
+export const Tag: React.FC<TagProps> = memo((props) => {
     const { className, status=ApplicationStatus.NEW } = props;
 
 
-    const  ApplicationTagMods: Mods = {
+    const  TagMods: Mods = {
         [cls.new]: status === ApplicationStatus.NEW,
         [cls.coordination]: status === ApplicationStatus.COORDINATION,
         [cls.paymentCoordination]: status === ApplicationStatus.PAYMENT_COORDINATION,
@@ -22,7 +22,7 @@ export const ApplicationTag: React.FC<ApplicationTagProps> = memo((props) => {
         [cls.finished]: status === ApplicationStatus.FINISHED,
     }
 
-    const statusMessage = useCallback(()=>{
+    const statusMessage = useMemo(()=>{
         switch(status){
             case ApplicationStatus.NEW:
                 return 'Заявка создана'
@@ -41,8 +41,8 @@ export const ApplicationTag: React.FC<ApplicationTagProps> = memo((props) => {
     },[status])
 
     return (
-        <div className={classNames(cls.applicationTag, ApplicationTagMods, [className])}>
-            {statusMessage()}
+        <div className={classNames(cls.tag, TagMods, [className])}>
+            {statusMessage}
         </div>
     );
 })

@@ -1,4 +1,4 @@
-import { fetchApplicationsList } from './../services/fetchApplicationsList/fetchApplicationsList';
+import { fetchApplicationsList } from '../services/fetchApplicationsList/fetchApplicationsList';
 import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import { ApplicationsPageSchema } from '../type/applicationsPage'
 import { StateSchema } from 'app/providers'

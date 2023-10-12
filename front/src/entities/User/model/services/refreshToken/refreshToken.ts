@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { userActions } from "../../slice/userSlice";
-import { TokensData } from "features/AuthByUsername/model/types/LoginSchema";
+import { TokensData } from "features/AuthByUsername";
 
 
 export const refreshToken = createAsyncThunk<

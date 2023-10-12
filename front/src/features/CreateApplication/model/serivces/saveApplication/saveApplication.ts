@@ -6,7 +6,7 @@ import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from "shared/const/l
 import { createApplicationActions } from "../../slice/createApplicationSlice";
 import { refreshToken } from "entities/User";
 import { fetchApplicationsList } from "pages/ApplicationsPage";
-import { applicationsPageActions } from "pages/ApplicationsPage/model/slice/applicationsPageSlice";
+import { applicationsPageActions } from "pages/ApplicationsPage";
 
 
 

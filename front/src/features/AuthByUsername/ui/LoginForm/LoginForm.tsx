@@ -15,8 +15,8 @@ import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/Dynamic
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
-import { createTokensByUsername } from 'features/AuthByUsername/model/services/createTokensByUsername/createTokensByUsername';
-import { fetchUserDataByToken } from 'features/AuthByUsername/model/services/fetchUserDataByToken/fetchUserDataByToken';
+import { createTokensByUsername } from '../../model/services/createTokensByUsername/createTokensByUsername';
+import { fetchUserDataByToken } from '../../model/services/fetchUserDataByToken/fetchUserDataByToken';
 
 interface LoginFormProps {
     className?: string;

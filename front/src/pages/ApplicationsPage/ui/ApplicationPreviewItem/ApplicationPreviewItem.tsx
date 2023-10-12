@@ -1,16 +1,16 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationPreviewItem.module.scss';
-import { Application } from '../../../../entities/Application/models/types/application';
-import { ApplicationTag } from '../ApplicationTag/ApplicationTag';
+import { Application } from 'entities/Application';
+import { Tag } from 'shared/ui/Tag/Tag';
 import { memo, useCallback } from 'react';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
 import { getDateString } from 'shared/lib/getDateString/getDateString';
 import { useSelector } from 'react-redux';
-import { getRowItemIsChecked } from 'pages/ApplicationsPage/model/selectors/applicationsPageSelectors';
+import { getRowItemIsChecked } from '../../model/selectors/applicationsPageSelectors';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { applicationsPageActions } from 'pages/ApplicationsPage/model/slice/applicationsPageSlice';
+import { applicationsPageActions } from '../../model/slice/applicationsPageSlice';
 
 interface ApplicationPreviewItemProps {
     className?: string;
@@ -47,7 +47,7 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
             <div className={classNames(cls.applicationPreviewItemRow, {}, [])} onClick={onClickHandler}>
                 <div className={classNames(cls.column, {}, [cls.firstColumn])}>
                     <span className={cls.subtitle}>Дата создания: {getDateString(new Date(item.createdAt), true)}</span>
-                    <ApplicationTag className={cls.tag} status={item.status} />
+                    <Tag className={cls.tag} status={item.status} />
                 </div>
                 <div className={classNames(cls.column, {}, [])}>
                     <span className={cls.subtitle}>Предмет запроса:</span>
