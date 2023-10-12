@@ -7,7 +7,7 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg'
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { CreateApplicationModal } from 'features/CreateApplication';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -26,8 +26,6 @@ const reducers: ReducersList = {
 
 export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (props) => {
     const dispatch = useAppDispatch()
-    const [isOpen, setIsOpen] = useState(false)
-
     const applications = useSelector(getApplicationsPage.selectAll)
     const allIsChecked = useSelector(getAllIsChecked)
     const checkeditems = useSelector(getCheckedItems)
