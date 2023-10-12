@@ -35,7 +35,7 @@ export const SidebarItemsList: SidebarItemType[] = [
 
     },
     {
-        path: '/directory',
+        path: RoutePath.directory,
         text: 'Справочники',
         Icon: DirectoryIcon,
         authOnly: true
