@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './DateInput.module.scss';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { RangePickerSelectedDays } from 'react-trip-date/dist/rangePicker/rangePicker.type';
 import { Calendar } from 'shared/ui/Calendar/Calendar';
 import { Input } from 'shared/ui/Input/Input';

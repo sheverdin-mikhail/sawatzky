@@ -5,16 +5,17 @@ import { Modal } from 'shared/ui/Modal/Modal';
 
 interface CreateApplicationModalProps {
 	className?: string;
-	isOpen: boolean;
+	isOpen?: boolean;
 	onClose: () => void;
 }
 
 export const CreateApplicationModal: React.FC<CreateApplicationModalProps> = (props) => {
-	const { className, isOpen, onClose } = props;
+	const { className, onClose, isOpen} = props;
+	
 
 	return (
 		<Modal className={classNames(cls.createApplicationModal, {}, [className])} isOpen={isOpen} onClose={onClose}>
-			<CreateApplicationForm  />
+			<CreateApplicationForm onClose={onClose}  />
 		</Modal>
 	);
 }

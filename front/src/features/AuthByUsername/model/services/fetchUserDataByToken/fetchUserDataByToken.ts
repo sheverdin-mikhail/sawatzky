@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { User, userActions } from "entities/User";
 import { USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
-import { refreshToken } from "../../../../../entities/User/model/services/refreshToken/refreshToken";
+import { refreshToken } from "entities/User";
 
 
 

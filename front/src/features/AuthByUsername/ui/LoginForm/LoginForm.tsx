@@ -13,11 +13,10 @@ import { getLoginError } from '../../model/selectors/getLoginError/getLoginError
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
-import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
-import { createTokensByUsername } from 'features/AuthByUsername/model/services/createTokensByUsername/createTokensByUsername';
-import { fetchUserDataByToken } from 'features/AuthByUsername/model/services/fetchUserDataByToken/fetchUserDataByToken';
+import { createTokensByUsername } from '../../model/services/createTokensByUsername/createTokensByUsername';
+import { fetchUserDataByToken } from '../../model/services/fetchUserDataByToken/fetchUserDataByToken';
 
 interface LoginFormProps {
     className?: string;
