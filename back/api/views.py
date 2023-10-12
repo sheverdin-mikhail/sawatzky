@@ -4,15 +4,21 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
+<<<<<<< HEAD
 from rest_framework import generics
+=======
+>>>>>>> application_page
 
 from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
     ApplicationSerializer
+<<<<<<< HEAD
     UserSerializer,
     ApplicationWithCreatorSerializer,
     ApplicationSerializer
+=======
+>>>>>>> application_page
 )
 
 from .models import (
