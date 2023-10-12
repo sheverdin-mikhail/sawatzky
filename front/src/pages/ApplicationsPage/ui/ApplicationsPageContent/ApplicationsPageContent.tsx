@@ -1,6 +1,5 @@
 import cls from './ApplicationsPageContent.module.scss';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { ApplicationPreviewList } from 'entities/Application';
 import { Title } from 'shared/ui/Title/Title';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { ReactComponent as AddLogo } from 'shared/assets/icons/add-icon.svg'
@@ -8,11 +7,14 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg'
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { CreateApplicationModal } from 'features/CreateApplication';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { applicationsPageAdapter, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
+import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
+import { ApplicationPreviewList } from '../ApplicationPreviewList/ApplicationPreviewList';
+import { getAllIsChecked, getCheckedItems, getModalIsOpen } from '../../model/selectors/applicationsPageSelectors';
+import { deleteCheckedItems } from '../../model/services/deleteCheckedItems/deleteCheckedItems';
 
 
 interface ApplicationsPageContentProps {
@@ -23,15 +25,36 @@ const reducers: ReducersList = {
 }
 
 export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (props) => {
-	//  const applications = useSelector(getApplication.selectAll)
     const dispatch = useAppDispatch()
-    const [isOpen, setIsOpen] = useState(false)
-
     const applications = useSelector(getApplicationsPage.selectAll)
+    const allIsChecked = useSelector(getAllIsChecked)
+    const checkeditems = useSelector(getCheckedItems)
+    const modalIsOpen = useSelector(getModalIsOpen)
+
+
+
+    const checkAllHandler = useCallback(() => {
+        dispatch(applicationsPageActions.toggleAllCheckboxes(allIsChecked ?? false))
+    },[dispatch, allIsChecked])
+
+    const onDeleteHandler = useCallback(()=>{
+        if(checkeditems){
+            dispatch(deleteCheckedItems(checkeditems))
+        }
+    }, [checkeditems, dispatch])
+
+    const openModalHandler = useCallback(()=>{
+        dispatch(applicationsPageActions.oepnModal())
+    },[dispatch])
+
+    const closeModalHandler = useCallback(()=>{
+        dispatch(applicationsPageActions.closeModal())
+    },[dispatch])
+
 
     useEffect(()=>{
         dispatch(fetchApplicationsList())
-    },[])
+    },[dispatch])
 
 	return (
 		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
@@ -39,19 +62,19 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
                 Заявки
             </Title>
             <div className={cls.navigation}>
-                <Checkbox id='all' />
+                <Checkbox id='all' checked={allIsChecked} onChange={checkAllHandler} />
                 <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
                     <OrderLogo/>
                 </Button>
-                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'} onClick={()=>setIsOpen(true)}>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'} onClick={openModalHandler}>
                     <AddLogo/>
                 </Button>
-                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить заявку'}>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить заявку'} onClick={onDeleteHandler}>
                     <DeleteLogo/>
                 </Button>
             </div>
             <ApplicationPreviewList className={cls.list}  applications={applications} />
-            <CreateApplicationModal isOpen={isOpen} onClose={()=>setIsOpen(false)} />
+            <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
         </DynamicModuleLoader>
 
 	);

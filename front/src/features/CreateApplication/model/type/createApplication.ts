@@ -7,10 +7,12 @@ export interface CreateApplicationFormType {
     description?: string;
     startWorkDate?: string;
     endWorkDate?: string;
+    subject?: string;
 }
 
 export interface CreateApplicationData{
     title: string;
+    subject: string;
     description: string;
     startWorkDate: string;
     endWorkDate: string;
@@ -26,5 +28,4 @@ export interface CreateApplicationSchema {
     form: CreateApplicationFormType
     isLoading: boolean;
     error?: string;
-    isOpen: boolean;
 }

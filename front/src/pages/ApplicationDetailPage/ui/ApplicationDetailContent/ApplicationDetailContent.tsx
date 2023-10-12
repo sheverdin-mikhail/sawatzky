@@ -12,7 +12,6 @@ import { Title } from 'shared/ui/Title/Title';
 import { ApplicationDetailWorkPrice } from '../ApplicationDetailWorkPrice/ApplicationDetailWorkPrice';
 import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
-import { Button } from 'shared/ui/Button/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from 'pages/ApplicationDetailPage/model/services/fetchApplicationDetail/fetchApplicationDetail';
 
@@ -34,7 +33,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 
 	useEffect(()=>{
 		dispatch(fetchApplicationDetail(applicationId))
-	},[])
+	},[dispatch, applicationId])
 
 	// const application = useSelector((state: StateSchema) => getApplication.selectById(state, applicationId))
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))

@@ -20,7 +20,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'fio', 'phone_number', 'employee']
+        fields = ['id', 'fio', 'phoneNumber', 'employee']
 
 
 class UserSerializerWithoutEmployee(ModelSerializer):
@@ -28,7 +28,7 @@ class UserSerializerWithoutEmployee(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'fio', 'phone_number']
+        fields = ['id', 'fio', 'phoneNumber']
 
 
 class EmployeeSerializer(ModelSerializer):
