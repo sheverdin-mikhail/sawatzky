@@ -72,3 +72,6 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
         applications = Application.objects.filter(id=pk)
         return applications
     
+
+
+#Проверка
