@@ -9,9 +9,6 @@ interface ApplicationDetailInfoComponentProps {
 	info: Application;
 }
 
-
-const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-
 export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoComponentProps> = (props) => {
 	const { className, info } = props;
 	
