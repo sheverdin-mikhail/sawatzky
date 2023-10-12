@@ -60,7 +60,3 @@ class ApplicationSerializer(ModelSerializer):
 
 class Test():
     ...
-
-
-
-
