@@ -2,7 +2,8 @@ from rest_framework.serializers import ModelSerializer
 from .models import (
     User,
     Employee,
-    Application
+    Application,
+    Client,
 )
 
 
@@ -57,4 +58,5 @@ class ApplicationSerializer(ModelSerializer):
         many=False
         fields = '__all__'
 
-
+class Test():
+    ...
