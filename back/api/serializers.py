@@ -57,6 +57,3 @@ class ApplicationSerializer(ModelSerializer):
         model = Application
         many=False
         fields = '__all__'
-
-class Test():
-    ...
