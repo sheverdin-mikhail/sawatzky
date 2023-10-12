@@ -4,15 +4,16 @@ import { userActions } from "../../slice/userSlice";
 import { TokensData } from "features/AuthByUsername";
 
 
+
 export const refreshToken = createAsyncThunk<
     string, 
     string, 
     ThunkConfig<string>
 >(
     'login/refreshToken',
-    async (refreshToken, { extra, rejectWithValue, dispatch }) => {
+    async (token, { extra, rejectWithValue, dispatch }) => {
         try{
-            const tokensResponse = await extra.api.post<TokensData>('/api/auth/jwt/refresh/', {refresh: refreshToken})
+            const tokensResponse = await extra.api.post<TokensData>('/api/auth/jwt/refresh/', {refresh: token})
 
             if(!tokensResponse.data){
                 throw new Error('Ошибка авторизации пользователя')

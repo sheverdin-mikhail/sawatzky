@@ -11,4 +11,6 @@ export interface ApplicationsPageSchema extends EntityState<Application>{
 
     checkedItems?: string[];
     allIsChecked?: boolean;
+
+    _init: boolean;
 }

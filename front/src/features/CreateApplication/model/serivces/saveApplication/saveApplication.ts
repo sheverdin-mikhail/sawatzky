@@ -2,11 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { CreateApplicationData, CreateApplicationFormType } from "../../type/createApplication";
 import { ApplicationStatus } from "entities/Application";
-import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
+import { USER_LOCALSTORAGE_DATA } from "shared/const/localStorage";
 import { createApplicationActions } from "../../slice/createApplicationSlice";
-import { refreshToken } from "entities/User";
 import { fetchApplicationsList } from "pages/ApplicationsPage";
 import { applicationsPageActions } from "pages/ApplicationsPage";
+import { userActions } from "entities/User";
 
 
 
@@ -49,17 +49,7 @@ export const saveApplication = createAsyncThunk<
             return response.data
         }catch (e: any){
             if(e.response.status === 401){
-                const refreshJson = localStorage.getItem(USER_LOCALSTORAGE_TOKENS)
-
-                if(refreshJson){
-                    dispatch(refreshToken(JSON.parse(refreshJson).refresh)).then(()=>{
-                        dispatch(saveApplication(formData))
-                    })
-                }
-                
-                
-            }else{
-                return rejectWithValue('Проверьте корректность введенных данных')
+                dispatch(userActions.logout())
             }
             return rejectWithValue(e.response.message)
         }

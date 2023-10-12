@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { fetchApplicationsList } from "../fetchApplicationsList/fetchApplicationsList";
+import { userActions } from "entities/User";
 
 
 
@@ -28,8 +29,7 @@ export const deleteCheckedItems = createAsyncThunk<
 
         }catch (e: any){
             if(e.response.status === 401){
-                return rejectWithValue('Проверьте корректность введенных данных')
- 
+                dispatch(userActions.logout())
             }else{
                 return rejectWithValue('Проверьте корректность введенных данных')
             }

@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { User, userActions } from "entities/User";
 import { USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
-import { refreshToken } from "entities/User";
 
 
 
@@ -32,9 +31,8 @@ export const fetchUserDataByToken = createAsyncThunk<
             return userResponse.data
             
         }catch (e: any){
-
-            if(e.response.status === 403){
-                dispatch(refreshToken(tokens?.refresh))
+            if(e.response.status === 401){
+                dispatch(userActions.logout())
             }
             return rejectWithValue('error')
         }
