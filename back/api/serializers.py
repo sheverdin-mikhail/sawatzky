@@ -2,20 +2,21 @@ from rest_framework.serializers import ModelSerializer
 from .models import (
     User,
     Employee,
-    Application
+    Application,
+    Client,
 )
 
 
 
 class EmployeeSerializer(ModelSerializer):
-    #Сериализатор модели расширяющей профиль пользователя
+    # Сериализатор модели расширяющей профиль пользователя
     class Meta:
         model = Employee
         fields = '__all__'
 
 
 class UserSerializer(ModelSerializer):
-    #Сериализатор модели пользователя для отображения данных о нем
+    # Сериализатор модели пользователя для отображения данных о нем
     employee = EmployeeSerializer(read_only=True, many=False)
 
     class Meta:
@@ -24,7 +25,7 @@ class UserSerializer(ModelSerializer):
 
 
 class UserSerializerWithoutEmployee(ModelSerializer):
-    #Сериализатор модели пользователя без поля Employee
+    # Сериализатор модели пользователя без поля Employee
 
     class Meta:
         model = User
@@ -32,7 +33,7 @@ class UserSerializerWithoutEmployee(ModelSerializer):
 
 
 class EmployeeSerializer(ModelSerializer):
-    #Сериализатор для сотрудника с расширенным полем юзера
+    # Сериализатор для сотрудника с расширенным полем юзера
     user = UserSerializerWithoutEmployee(read_only=True, many=False)
 
     class Meta:
@@ -41,7 +42,7 @@ class EmployeeSerializer(ModelSerializer):
 
 
 class ApplicationWithCreatorSerializer(ModelSerializer):
-    #Сериализаатор для вывода списка заявок с расширенным полем creator
+    # Сериализаатор для вывода списка заявок с расширенным полем creator
     creator =  EmployeeSerializer(read_only=True, many=False)
 
     class Meta:
@@ -50,7 +51,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
 
 
 class ApplicationSerializer(ModelSerializer):
-    #Сериализаатор для создания/удаления заявки
+    # Сериализаатор для создания/удаления/обновления заявки
 
     class Meta:
         model = Application
@@ -58,5 +59,21 @@ class ApplicationSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class ClientWithCreatorSerializers(ModelSerializer):
+    # Сериализатор для вывода списка клиентов с расширенным полем creator
+    creator = EmployeeSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+
+class ClientSerializers(ModelSerializer):
+    # Сериализатор для создания/удаления/обновления клиента
+
+    class Meta:
+        model = Client
+        many = False
+        fields = '__all__'
 
 
