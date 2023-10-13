@@ -18,11 +18,15 @@ export const getDirectoryNavigationPage = directoryNavigationAdapter.getSelector
 export const directoryNavigationSlice = createSlice({
   name: 'directoryNavigation',
   initialState: directoryNavigationAdapter.getInitialState<DirectoryNavigaionSchema>({
-    ids: [DirectoryPath.objects],
+    ids: [DirectoryPath.objects, DirectoryPath.legal_entity],
     entities: {
       [DirectoryPath.objects]: {
         path: DirectoryPath.objects,
-        text: 'Объекты'
+        text: 'Группа объектов'
+      },
+      [DirectoryPath.legal_entity]: {
+        path: DirectoryPath.legal_entity,
+        text: 'Контрагенты (Юр. лиц заказчиков)'
       },
     },
     error: undefined,

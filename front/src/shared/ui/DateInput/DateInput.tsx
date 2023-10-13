@@ -26,7 +26,7 @@ export const DateInput: React.FC<DateInputProps> = (props) => {
 			const dateFrom = new Date(days.from)
 			const dateTo = new Date(days.to)
 			onChange?.({from: days.from, to: days.to})
-			setValue(`С  ${getDateString(dateFrom, true)}  До  ${getDateString(dateTo, true)}`)
+			setValue(`С  ${getDateString(dateFrom)}  До  ${getDateString(dateTo)}`)
 		}else{
 			setValue(``)
 		}
@@ -51,7 +51,7 @@ export const DateInput: React.FC<DateInputProps> = (props) => {
 
 	return (
 		<div className={classNames(cls.dateInput, {}, [className])}>
-			<Input  placeholder={'Дата и время проведения работ'} value={value} onClick={onFocuseHandler}/>
+			<Input  placeholder={'Дата и время проведения работ'} value={value} onFocus={onFocuseHandler}/>
 			<div className={classNames(cls.calendarForm, {[cls.isFocused]: isFocused}, [])}>
 				<Calendar selectedDays={selectedDays} className={cls.calendar} onChange={changeDateHandler} />
 				<div className={cls.buttons} >

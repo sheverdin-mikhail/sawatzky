@@ -1,3 +1,3 @@
 import { lazy } from 'react';
 
-export const DirectoryObjectsPageAsync = lazy(() => import('./DirectoryObjectsPage'));
+export const DirectoryObjectsGroupAsync = lazy(() => import('./DirectoryObjectsPage'));

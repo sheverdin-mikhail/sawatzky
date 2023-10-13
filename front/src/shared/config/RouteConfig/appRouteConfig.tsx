@@ -1,7 +1,8 @@
 import { ApplicationDetailPage } from "pages/ApplicationDetailPage"
 import { ApplicationsPage } from "pages/ApplicationsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
-import { DirectoryObjectsPage } from "pages/DirectoryObjectsPage"
+import { DirectoryLegalEntityPage } from "pages/DirectoryLegalEntityPage"
+import { DirectoryObjectsGroupPage } from "pages/DirectoryObjectsGroupPage"
 import { Navigate, RouteProps } from "react-router-dom"
 
 
@@ -30,10 +31,12 @@ export const RoutePath: Record<AppRoutes, string> = {
 // Directory routing
 export enum DirectoryRoutes{
     OBJECTS = 'objects',
+    LEGAL_ENTITY = 'legal_entity',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string>= {
     [DirectoryRoutes.OBJECTS]: '/directory/objects',
+    [DirectoryRoutes.LEGAL_ENTITY]: '/directory/legal-entity',
 }
 
 
@@ -58,9 +61,13 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     //Directory Routes
     [DirectoryRoutes.OBJECTS] : {
         path: DirectoryPath.objects,
-        element: <DirectoryObjectsPage />,
+        element: <DirectoryObjectsGroupPage />,
         authOnly: true
-
+    },
+    [DirectoryRoutes.LEGAL_ENTITY] : {
+        path: DirectoryPath.legal_entity,
+        element: <DirectoryLegalEntityPage />,
+        authOnly: true
     },
     
 

@@ -21,9 +21,11 @@ export const DirectoryPageWrapper: React.FC<DirectoryPageWrapperProps> = (props)
 			<div className={classNames(cls.directoryPageWrapper, {}, [className])}>
 				<Title className={cls.title}>Справочнки</Title>
 				<DirectoryNavigation className={cls.links} />
-				{
-					children
-				}
+				<div className={cls.content}>
+					{
+						children
+					}
+				</div>
 			</div>
 		</DynamicModuleLoader>
 	);
