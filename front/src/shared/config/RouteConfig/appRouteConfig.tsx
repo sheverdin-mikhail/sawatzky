@@ -1,6 +1,7 @@
 import { ApplicationDetailPage } from "pages/ApplicationDetailPage"
 import { ApplicationsPage } from "pages/ApplicationsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
+import { DirectoryObjectsPage } from "pages/DirectoryObjectsPage"
 import { DirectoryPage } from "pages/DirectoryPage"
 import { Navigate, RouteProps } from "react-router-dom"
 
@@ -8,6 +9,8 @@ import { Navigate, RouteProps } from "react-router-dom"
 export type AppRouteProps = RouteProps & {
     authOnly?: boolean;
 }
+
+//global routing
 
 export enum AppRoutes{
     APPLICATIONS = 'applications',
@@ -17,15 +20,33 @@ export enum AppRoutes{
     DIRECTORY = 'directory'
 }
 
+
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.APPLICATIONS] : '/application',
     [AppRoutes.AUTHORIZATION] : '/login',
     [AppRoutes.Application_DETAIL] : '/application/',
     [AppRoutes.HOME] : '/',
     [AppRoutes.DIRECTORY] : '/directory',
+
+}
+//-----------------------------------------------------------------------------------
+
+// Directory routing
+export enum DirectoryRoutes{
+    OBJECTS = 'objects',
 }
 
-export const routeConfig: Record<AppRoutes, AppRouteProps> = {
+export const DirectoryPath: Record<DirectoryRoutes, string>= {
+    [DirectoryRoutes.OBJECTS]: '/directory/objects',
+}
+
+
+//------------------------------------------------------------------------------------
+
+
+//Routing config
+
+export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     [AppRoutes.APPLICATIONS] : {
         path: RoutePath.applications,
         element: <ApplicationsPage />,
@@ -43,6 +64,15 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
         authOnly: true
 
     },
+    
+    //Directory Routes
+    [DirectoryRoutes.OBJECTS] : {
+        path: DirectoryPath.objects,
+        element: <DirectoryObjectsPage />,
+        authOnly: true
+
+    },
+    
 
     //Private pages
 
