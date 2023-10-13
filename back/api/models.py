@@ -108,7 +108,7 @@ class Client(models.Model):
     workObjectsGroup = models.ManyToManyField(WorkObjectsGroup, verbose_name=("Группы рабочих объектов"), related_name='client')
     workObject = models.ForeignKey(
         WorkObject,
-        verbose_name=("Рабоий объект"), 
+        verbose_name=("Рабочий объект"),
         on_delete=models.CASCADE, 
         related_name='client', 
         blank=True, 

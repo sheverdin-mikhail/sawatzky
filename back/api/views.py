@@ -8,13 +8,16 @@ from rest_framework import generics
 from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
-    ApplicationSerializer
+    ApplicationSerializer,
+    ClientWithCLWWSerializers,
+    ClientSerializers,
 )
 
 from .models import (
     User,
     Employee,
-    Application
+    Application,
+    Client,
 )
 
 
@@ -51,20 +54,21 @@ class UserDetailView(APIView):
 
 
 class ApplicationCreateView(generics.CreateAPIView):
-    # представление на создание и вывод списка заявок
+    # представление на создание заявки
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
-
+    permission_classes = [permissions.IsAuthenticated]
 
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
-
+    permission_classes = [permissions.IsAuthenticated]
 
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
-
+    # представление на получение, обновление, удаление списка заявок по id создателя
     serializer_class = ApplicationWithCreatorSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
 
@@ -73,5 +77,25 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
         return applications
     
 
+class ClientCreateView(generics.CreateAPIView):
+    # представление на создание клиента
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializers
+    permission_classes = [permissions.IsAuthenticated]
 
-#Проверка
+class ClientListView(generics.ListAPIView):
+    # представление на создание и вывод списка клиентов
+    queryset = Client.objects.all()
+    serializer_class = ClientWithCLWWSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+class ClientDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление списка клиентов по id создателя
+    serializer_class = ClientWithCLWWSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        pk = self.kwargs['pk']
+        clients = Client.objects.filter(id=pk)
+        return clients
