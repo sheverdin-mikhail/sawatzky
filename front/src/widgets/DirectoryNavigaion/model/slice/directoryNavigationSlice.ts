@@ -22,7 +22,7 @@ export const directoryNavigationSlice = createSlice({
     entities: {
       [DirectoryPath.objects]: {
         path: DirectoryPath.objects,
-        title: 'Объекты'
+        text: 'Объекты'
       } 
     },
     error: undefined,

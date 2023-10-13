@@ -4,7 +4,7 @@ import { EntityState } from "@reduxjs/toolkit";
 
 export interface DirectoryLinkType {
     path: string;
-    title: string;
+    text: string;
 }
 
 
