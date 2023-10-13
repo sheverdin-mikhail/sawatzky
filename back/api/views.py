@@ -86,7 +86,7 @@ class ClientCreateView(generics.CreateAPIView):
 class ClientListView(generics.ListAPIView):
     # представление на создание и вывод списка клиентов
     queryset = Client.objects.all()
-    serializer_class = ClientWithCreatorSerializers
+    serializer_class = ClientWithCLWWSerializers
     permission_classes = [permissions.IsAuthenticated]
 
 class ClientDetailView(generics.RetrieveDestroyAPIView):
