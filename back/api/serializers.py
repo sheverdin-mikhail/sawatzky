@@ -4,6 +4,9 @@ from .models import (
     Employee,
     Application,
     Client,
+    LegalEntity,
+    WorkObjectsGroup,
+    WorkObject,
 )
 
 
@@ -12,6 +15,27 @@ class EmployeeSerializer(ModelSerializer):
     # Сериализатор модели расширяющей профиль пользователя
     class Meta:
         model = Employee
+        fields = '__all__'
+
+
+class LegalEntitySerializer(ModelSerializer):
+    # Сериализатор модели LegalEntity, расширяющей профиль клиента
+    class Meta:
+        model = LegalEntity
+        fields = '__all__'
+
+
+class WorkObjectSerializer(ModelSerializer):
+    # Сериализатор модели WorkObject, расширяющей профиль клиента
+    class Meta:
+        model = WorkObject
+        fields = '__all__'
+
+
+class WorkObjectsGroupSerializer(ModelSerializer):
+    # Сериализатор модели WorkObjectsGroup, расширяющей профиль клиента
+    class Meta:
+        model = WorkObjectsGroup
         fields = '__all__'
 
 
@@ -59,9 +83,12 @@ class ApplicationSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ClientWithCreatorSerializers(ModelSerializer):
-    # Сериализатор для вывода списка клиентов с расширенным полем creator
+class ClientWithCLWWSerializers(ModelSerializer):
+    # Сериализатор для вывода списка клиентов с расширенным полем creator, legalEntity, workObject, workObjectsGroup
     creator = EmployeeSerializer(read_only=True, many=False)
+    legalEntity = LegalEntitySerializer(read_only=True, many=False)
+    workObject = WorkObjectSerializer(read_only=True, many=False)
+    workObjectsGroup = WorkObjectsGroupSerializer(read_only=True, many=True)
 
     class Meta:
         model = Client

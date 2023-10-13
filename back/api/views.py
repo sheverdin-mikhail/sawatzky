@@ -9,7 +9,7 @@ from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
     ApplicationSerializer,
-    ClientWithCreatorSerializers,
+    ClientWithCLWWSerializers,
     ClientSerializers,
 )
 
@@ -91,7 +91,7 @@ class ClientListView(generics.ListAPIView):
 
 class ClientDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка клиентов по id создателя
-    serializer_class = ClientWithCreatorSerializers
+    serializer_class = ClientWithCLWWSerializers
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
