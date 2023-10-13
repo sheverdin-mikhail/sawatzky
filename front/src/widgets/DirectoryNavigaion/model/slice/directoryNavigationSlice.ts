@@ -1,18 +1,37 @@
-import {  createSlice } from '@reduxjs/toolkit'
-import { DirectoryNavigaionSchema } from '../type/directoryNavigation'
+import {  createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import { DirectoryLinkType, DirectoryNavigaionSchema } from '../type/directoryNavigation'
+import { StateSchema } from 'app/providers';
+import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
 
 
-const initialState: DirectoryNavigaionSchema = {
-    // links: DirectoryPath
-}
+
+export const directoryNavigationAdapter = createEntityAdapter<DirectoryLinkType>({
+  selectId: (link) => link.path
+})
+
+export const getDirectoryNavigationPage = directoryNavigationAdapter.getSelectors<StateSchema>(
+  (state) => state.direcotryNavigation || directoryNavigationAdapter.getInitialState()
+)
+
+
 
 export const directoryNavigationSlice = createSlice({
-  name: 'applicationsPage',
-  initialState,
+  name: 'directoryNavigation',
+  initialState: directoryNavigationAdapter.getInitialState<DirectoryNavigaionSchema>({
+    ids: [DirectoryPath.objects],
+    entities: {
+      [DirectoryPath.objects]: {
+        path: DirectoryPath.objects,
+        title: 'Объекты'
+      } 
+    },
+    error: undefined,
+    isLoading: false
+  }),
   reducers: {
   },
  
 })
 
-export const { actions: directoryNavigaionActions } = directoryNavigaionSlice
-export const { reducer: directoryNavigaionReducer } = directoryNavigaionSlice
+export const { actions: directoryNavigationActions } = directoryNavigationSlice
+export const { reducer: directoryNavigationReducer } = directoryNavigationSlice

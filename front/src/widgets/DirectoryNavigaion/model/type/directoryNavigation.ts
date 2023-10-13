@@ -1,7 +1,15 @@
-import { DirectoryPath, DirectoryRoutes, RoutePath } from "shared/config/RouteConfig/appRouteConfig";
+import { EntityState } from "@reduxjs/toolkit";
 
 
 
-export interface DirectoryNavigaionSchema {
-    links?: DirectoryRoutes[];
+export interface DirectoryLinkType {
+    path: string;
+    title: string;
+}
+
+
+export interface DirectoryNavigaionSchema extends EntityState<DirectoryLinkType> {
+
+    isLoading?: boolean;
+    error?: string;
 }
