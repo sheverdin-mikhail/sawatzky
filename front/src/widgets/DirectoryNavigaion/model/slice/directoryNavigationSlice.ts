@@ -23,7 +23,7 @@ export const directoryNavigationSlice = createSlice({
       [DirectoryPath.objects]: {
         path: DirectoryPath.objects,
         text: 'Объекты'
-      } 
+      },
     },
     error: undefined,
     isLoading: false
