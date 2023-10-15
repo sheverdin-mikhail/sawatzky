@@ -110,18 +110,18 @@ class ClientDetailView(generics.RetrieveDestroyAPIView):
 class LegalEntityCreateView(generics.CreateAPIView):
     # представление на создание Юр. лица
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializers
+    serializer_class = LegalEntitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class LegalEntityListView(generics.ListAPIView):
     # представление на создание и вывод списка Юр. лиц
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializers
+    serializer_class = LegalEntitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление Юр. лица по id
-    serializer_class = LegalEntitySerializers
+    serializer_class = LegalEntitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
