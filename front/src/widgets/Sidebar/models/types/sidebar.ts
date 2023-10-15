@@ -1,4 +1,4 @@
-import { RoutePath } from "shared/config/RouteConfig/appRouteConfig";
+import { DirectoryPath, RoutePath } from "shared/config/RouteConfig/appRouteConfig";
 import  {ReactComponent as InfoIcon }from 'shared/assets/icons/info-icon.svg'
 import  {ReactComponent as ApplicationIcon }from 'shared/assets/icons/application-icon.svg'
 import  {ReactComponent as ReportIcon }from 'shared/assets/icons/report-icon.svg'
@@ -35,7 +35,7 @@ export const SidebarItemsList: SidebarItemType[] = [
 
     },
     {
-        path: '/directory',
+        path: DirectoryPath.objects,
         text: 'Справочники',
         Icon: DirectoryIcon,
         authOnly: true

@@ -5,19 +5,23 @@ import { Link, LinkProps } from 'react-router-dom';
 interface AppLinkProps extends LinkProps {
     className?: string;
     theme?: AppLInkTheme;
+    isActive?: boolean;
 }
 
 export const enum AppLInkTheme {
     NORMAL = 'normal',
-    BLUE = 'blue'
+    BLUE = 'blue',
+    BUTTON = 'button'
 }
 
 
 export const AppLink: React.FC<AppLinkProps> = (props) => {
-    const { className, to, children, theme=AppLInkTheme.NORMAL } = props;
+    const { className, to, children, isActive, theme=AppLInkTheme.NORMAL } = props;
 
     return (
-        <Link to={to} className={classNames(cls.appLink, {}, [className, cls[theme]])}>
+        <Link to={to} className={classNames(cls.appLink, {
+            [cls.active]: isActive
+        }, [className, cls[theme]])}>
             {children}
         </Link>
     );

@@ -2,9 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { CreateApplicationData, CreateApplicationFormType } from "../../type/createApplication";
 import { ApplicationStatus } from "entities/Application";
-import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from "shared/const/localStorage";
+import { USER_LOCALSTORAGE_DATA } from "shared/const/localStorage";
 import { createApplicationActions } from "../../slice/createApplicationSlice";
-import { refreshToken, userActions } from "entities/User";
+import { userActions } from "entities/User";
 import { fetchApplicationsList } from "pages/ApplicationsPage";
 import { applicationsPageActions } from "pages/ApplicationsPage";
 

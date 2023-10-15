@@ -9,6 +9,7 @@ import {AxiosInstance} from 'axios'
 import { ApplicationDetailSchema } from 'pages/ApplicationDetailPage';
 import { CreateApplicationSchema } from 'features/CreateApplication';
 import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
+import { DirectoryNavigaionSchema } from 'widgets/DirectoryNavigaion';
 
 export interface StateSchema {
     user: UserSchema;
@@ -19,7 +20,7 @@ export interface StateSchema {
     applicationDetail?: ApplicationDetailSchema; 
     createApplication?: CreateApplicationSchema; 
     applicationsPage?: ApplicationsPageSchema;
-
+    direcotryNavigation?: DirectoryNavigaionSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
