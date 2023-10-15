@@ -11,6 +11,8 @@ from .serializers import (
     ApplicationSerializer,
     ClientWithCLWWSerializers,
     ClientSerializers,
+    LegalEntitySerializer,
+
 )
 
 from .models import (
@@ -18,9 +20,11 @@ from .models import (
     Employee,
     Application,
     Client,
+    LegalEntity,
 )
 
 
+"""User"""
 class AuthUserView(APIView):
     # представление для аутентификации пользователя
     permission_classes = [permissions.IsAuthenticated]
@@ -53,6 +57,7 @@ class UserDetailView(APIView):
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
+"""Application"""
 class ApplicationCreateView(generics.CreateAPIView):
     # представление на создание заявки
     serializer_class = ApplicationSerializer
@@ -77,6 +82,8 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
         return applications
     
 
+
+"""Client"""
 class ClientCreateView(generics.CreateAPIView):
     # представление на создание клиента
     queryset = Client.objects.all()
@@ -99,3 +106,33 @@ class ClientDetailView(generics.RetrieveDestroyAPIView):
         pk = self.kwargs['pk']
         clients = Client.objects.filter(id=pk)
         return clients
+
+
+"""LegalEntity"""
+class LegalEntityCreateView(generics.CreateAPIView):
+    # представление на создание Юр. лица
+    queryset = LegalEntity.objects.all()
+    serializer_class = LegalEntitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class LegalEntityListView(generics.ListAPIView):
+    # представление на создание и вывод списка Юр. лиц
+    queryset = LegalEntity.objects.all()
+    serializer_class = LegalEntitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление Юр. лица по id
+    serializer_class = LegalEntitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            legalEntity = LegalEntity.objects.filter(id=pk)
+            return legalEntity
+
+        except (KeyError, LegalEntity.DoesNotExist):
+            return Response({'message': 'Юр. лицо не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
