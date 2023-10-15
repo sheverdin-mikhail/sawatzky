@@ -12,6 +12,7 @@ from .serializers import (
     ClientWithCLWWSerializers,
     ClientSerializers,
     LegalEntitySerializer,
+
 )
 
 from .models import (
@@ -81,6 +82,7 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
         return applications
     
 
+
 """Client"""
 class ClientCreateView(generics.CreateAPIView):
     # представление на создание клиента
@@ -133,3 +135,4 @@ class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
 
         except (KeyError, LegalEntity.DoesNotExist):
             return Response({'message': 'Юр. лицо не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
