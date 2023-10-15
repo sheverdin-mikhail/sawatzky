@@ -7,6 +7,8 @@ from .models import (
     LegalEntity,
     WorkObjectsGroup,
     WorkObject,
+    WorkMaterial,
+    WorkTask,
 )
 
 
@@ -36,6 +38,20 @@ class WorkObjectsGroupSerializer(ModelSerializer):
     # Сериализатор модели WorkObjectsGroup, расширяющей профиль клиента
     class Meta:
         model = WorkObjectsGroup
+        fields = '__all__'
+
+
+class WorkMaterialSerializer(ModelSerializer):
+    # Сериализатор модели WorkMaterial
+    class Meta:
+        model = WorkMaterial
+        fields = '__all__'
+
+
+class WorkTaskSerializer(ModelSerializer):
+    # Сериализатор модели WorkTask
+    class Meta:
+        model = WorkTask
         fields = '__all__'
 
 
@@ -104,3 +120,10 @@ class ClientSerializers(ModelSerializer):
         fields = '__all__'
 
 
+class WorkObjectsGroupWithWorkObjectSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп рабочих объектов с расширенным полем workObjects
+    workObjects = WorkObjectSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = WorkObjectsGroup
+        fields = '__all__'
