@@ -12,7 +12,8 @@ from .serializers import (
     ClientWithCLWWSerializers,
     ClientSerializers,
     LegalEntitySerializer,
-
+    WorkObjectsGroupSerializer,
+    WorkObjectsGroupWithWorkObjectSerializer,
 )
 
 from .models import (
@@ -21,6 +22,7 @@ from .models import (
     Application,
     Client,
     LegalEntity,
+    WorkObjectsGroup,
 )
 
 
@@ -77,10 +79,13 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
 
     def get_queryset(self):
 
-        pk = self.kwargs['pk']
-        applications = Application.objects.filter(id=pk)
-        return applications
-    
+        try:
+            pk = self.kwargs['pk']
+            applications = Application.objects.filter(id=pk)
+            return applications
+
+        except (KeyError, Application.DoesNotExist):
+            return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
 
 """Client"""
@@ -103,9 +108,13 @@ class ClientDetailView(generics.RetrieveDestroyAPIView):
 
     def get_queryset(self):
 
-        pk = self.kwargs['pk']
-        clients = Client.objects.filter(id=pk)
-        return clients
+        try:
+            pk = self.kwargs['pk']
+            clients = Client.objects.filter(id=pk)
+            return clients
+
+        except (KeyError, Client.DoesNotExist):
+            return Response({'message': 'Клиент не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
 """LegalEntity"""
@@ -136,3 +145,31 @@ class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
         except (KeyError, LegalEntity.DoesNotExist):
             return Response({'message': 'Юр. лицо не найдено'}, status=status.HTTP_404_NOT_FOUND)
 
+
+"""WorkObjectsGroup"""
+class WorkObjectsGroupCreateView(generics.CreateAPIView):
+    # представление на создание групп рабочих объектов
+    queryset = WorkObjectsGroup.objects.all()
+    serializer_class = WorkObjectsGroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkObjectsGroupListView(generics.ListAPIView):
+    # представление на создание и вывод списка групп рабочих объектов
+    queryset = WorkObjectsGroup.objects.all()
+    serializer_class = WorkObjectsGroupWithWorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkObjectsGroupDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление списка групп рабочих объектов по id
+    serializer_class = WorkObjectsGroupWithWorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workObjectsGroups = WorkObjectsGroup.objects.filter(id=pk)
+            return workObjectsGroups
+
+        except (KeyError, WorkObjectsGroup.DoesNotExist):
+            return Response({'message': 'Группа рабочих обьектов не найдена'}, status=status.HTTP_404_NOT_FOUND)

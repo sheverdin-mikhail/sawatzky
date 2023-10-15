@@ -104,3 +104,10 @@ class ClientSerializers(ModelSerializer):
         fields = '__all__'
 
 
+class WorkObjectsGroupWithWorkObjectSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп рабочих объектов с расширенным полем workObjects
+    workObjects = WorkObjectSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = WorkObjectsGroup
+        fields = '__all__'
