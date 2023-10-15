@@ -2,6 +2,7 @@ import { ApplicationDetailPage } from "pages/ApplicationDetailPage"
 import { ApplicationsPage } from "pages/ApplicationsPage"
 import { AuthorizationPage } from "pages/AuthorizaionPage"
 import { DirectoryLegalEntityPage } from "pages/DirectoryLegalEntityPage"
+import { DirectoryLegalEntitySwatzkyPage } from "pages/DirectoryLegalEntitySwatzkyPage"
 import { DirectoryObjectsGroupPage } from "pages/DirectoryObjectsGroupPage"
 import { Navigate, RouteProps } from "react-router-dom"
 
@@ -32,11 +33,13 @@ export const RoutePath: Record<AppRoutes, string> = {
 export enum DirectoryRoutes{
     OBJECTS = 'objects',
     LEGAL_ENTITY = 'legal_entity',
+    LEGAL_ENTITY_SWATZKY = 'legal_entity_swatzky',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string>= {
     [DirectoryRoutes.OBJECTS]: '/directory/objects',
     [DirectoryRoutes.LEGAL_ENTITY]: '/directory/legal-entity',
+    [DirectoryRoutes.LEGAL_ENTITY_SWATZKY]: '/directory/legal-entity-swatzky',
 }
 
 
@@ -67,6 +70,11 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     [DirectoryRoutes.LEGAL_ENTITY] : {
         path: DirectoryPath.legal_entity,
         element: <DirectoryLegalEntityPage />,
+        authOnly: true
+    },
+    [DirectoryRoutes.LEGAL_ENTITY_SWATZKY] : {
+        path: DirectoryPath.legal_entity_swatzky,
+        element: <DirectoryLegalEntitySwatzkyPage />,
         authOnly: true
     },
     
