@@ -12,5 +12,5 @@ urlpatterns = [
     path('clients/<int:pk>/', views.ClientDetailView.as_view()),
     path('entitys/', views.LegalEntityListView.as_view()),
     path('entitys/create/', views.LegalEntityCreateView.as_view()),
-    path('entitys/<int:pk>/', views.LegalEntityDetailView.as_vew()),
+    path('entitys/<int:pk>/', views.LegalEntityDetailView.as_view()),
 ]
