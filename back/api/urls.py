@@ -10,4 +10,7 @@ urlpatterns = [
     path('clients/', views.ClientListView.as_view()),
     path('clients/create/', views.ClientCreateView.as_view()),
     path('clients/<int:pk>/', views.ClientDetailView.as_view()),
+    path('entitys/', views.LegalEntityListView.as_view()),
+    path('entitys/create/', views.LegalEntityCreateView.as_view()),
+    path('entitys/<int:pk>/', views.LegalEntityDetailView.as_vew()),
 ]
