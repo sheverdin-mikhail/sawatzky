@@ -14,6 +14,8 @@ from .serializers import (
     LegalEntitySerializer,
     WorkObjectsGroupSerializer,
     WorkObjectsGroupWithWorkObjectSerializer,
+    WorkMaterialSerializer,
+    WorkTaskSerializer,
 )
 
 from .models import (
@@ -23,6 +25,8 @@ from .models import (
     Client,
     LegalEntity,
     WorkObjectsGroup,
+    WorkMaterial,
+    WorkTask,
 )
 
 
@@ -173,3 +177,62 @@ class WorkObjectsGroupDetailView(generics.RetrieveDestroyAPIView):
 
         except (KeyError, WorkObjectsGroup.DoesNotExist):
             return Response({'message': 'Группа рабочих обьектов не найдена'}, status=status.HTTP_404_NOT_FOUND)
+
+
+"""WorkMaterial"""
+class WorkMaterialCreateView(generics.CreateAPIView):
+    # представление на создание рабочих материалов для проведения работ
+    queryset = WorkMaterial.objects.all()
+    serializer_class = WorkMaterialSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkMaterialListView(generics.ListAPIView):
+    # представление на создание и вывод списка рабочих материалов для проведения работ
+    queryset = WorkMaterial.objects.all()
+    serializer_class = WorkMaterialSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkMaterialDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление рабочих материалов для проведения работ по id
+    serializer_class = WorkMaterialSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workMaterial = WorkMaterial.objects.filter(id=pk)
+            return workMaterial
+
+        except (KeyError, WorkMaterial.DoesNotExist):
+            return Response({'message': 'Рабочие материалы для проведения работ не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+
+"""WorkTask"""
+class WorkTaskCreateView(generics.CreateAPIView):
+    # представление на создание работ проводимых на объекте
+    queryset = WorkTask.objects.all()
+    serializer_class = WorkTaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkTaskListView(generics.ListAPIView):
+    # представление на создание и вывод списка работ проводимых на объекте
+    queryset = WorkTask.objects.all()
+    serializer_class = WorkTaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkTaskDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление работ проводимых на объекте по id
+    serializer_class = WorkTaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workTask = WorkTask.objects.filter(id=pk)
+            return workTask
+
+        except (KeyError, WorkTask.DoesNotExist):
+            return Response({'message': 'Работы проводимые на объекте не найдены'}, status=status.HTTP_404_NOT_FOUND)
+

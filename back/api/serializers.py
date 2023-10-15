@@ -7,6 +7,8 @@ from .models import (
     LegalEntity,
     WorkObjectsGroup,
     WorkObject,
+    WorkMaterial,
+    WorkTask,
 )
 
 
@@ -36,6 +38,20 @@ class WorkObjectsGroupSerializer(ModelSerializer):
     # Сериализатор модели WorkObjectsGroup, расширяющей профиль клиента
     class Meta:
         model = WorkObjectsGroup
+        fields = '__all__'
+
+
+class WorkMaterialSerializer(ModelSerializer):
+    # Сериализатор модели WorkMaterial
+    class Meta:
+        model = WorkMaterial
+        fields = '__all__'
+
+
+class WorkTaskSerializer(ModelSerializer):
+    # Сериализатор модели WorkTask
+    class Meta:
+        model = WorkTask
         fields = '__all__'
 
 
