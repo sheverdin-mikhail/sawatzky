@@ -13,9 +13,9 @@ urlpatterns = [
     path('clients/create/', views.ClientCreateView.as_view()),
     path('clients/<int:pk>/', views.ClientDetailView.as_view()),
 
-    path('entitys/', views.LegalEntityListView.as_view()),
-    path('entitys/create/', views.LegalEntityCreateView.as_view()),
-    path('entitys/<int:pk>/', views.LegalEntityDetailView.as_view()),
+    path('entities/', views.LegalEntityListView.as_view()),
+    path('entities/create/', views.LegalEntityCreateView.as_view()),
+    path('entities/<int:pk>/', views.LegalEntityDetailView.as_view()),
 
     path('work_objects_group/', views.WorkObjectsGroupListView.as_view()),
     path('work_objects_group/create/', views.WorkObjectsGroupCreateView.as_view()),
