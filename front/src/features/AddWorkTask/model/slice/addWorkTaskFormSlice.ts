@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { AddWorkTaskFormSchema, AddWorkTaskFormData } from '../type/addWorkTask'
+import { AddWorkTaskFormSchema } from '../type/addWorkTask'
 import { createWorkTask } from '../services/createWorkTask'
 
 const initialState: AddWorkTaskFormSchema = {
@@ -19,13 +19,22 @@ export const addWorkTaskFormSlice = createSlice({
     closeModal: (state) => {
       state.isOpen = false
     },
-    setFormData: (state, action: PayloadAction<AddWorkTaskFormData>) => {
-      state.formData = action.payload
+    setName: (state, action: PayloadAction<string>) => {
+      state.formData = {...state.formData, name: action.payload}
+    },
+    setPrice: (state, action: PayloadAction<string>) => {
+      state.formData = {...state.formData, price: action.payload}
+    },
+    setTime: (state, action: PayloadAction<string>) => {
+      state.formData = {...state.formData, time: action.payload}
+    },
+    setStatus: (state, action: PayloadAction<boolean>) => {
+      state.formData = {...state.formData, status: action.payload}
     }
     
   },
   extraReducers: (builder) => builder 
-  //Получение списка групп услуг
+  // Создание услуги
     .addCase(createWorkTask.pending, (state, action)=>{
       state.error = undefined
       state.isLoading = true

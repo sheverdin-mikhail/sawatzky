@@ -6,11 +6,6 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
 import { Table, TableItemsMod, TableType } from 'widgets/Table';
 import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
-import { 
-	addWorkTaskGroupFormActions, 
-	addWorkTaskGroupFormReducer, 
-	getAddWorkTaskGroupFormIsOpen 
-} from 'features/AddWorkTaskGroup';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
@@ -21,8 +16,8 @@ import {
 	directoryWorkTaskGroupDetailReducer, 
 	getDirectoryWorkTaskGroupDetail 
 } from '../../model/slice/directoryWorkTaskGroupDetailSlice';
-import { AddWorkTaskModal } from 'features/AddWorkTask';
-import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
+import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
+import { getWorkTaskGroupId, getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -31,7 +26,7 @@ interface DirectoryObjectsGroupPageProps {
 
 const reducers: ReducersList = {
 	directoryWorkTaskGroupDetail: directoryWorkTaskGroupDetailReducer,
-	addWorkTaskGroupForm: addWorkTaskGroupFormReducer,
+	addWorkTaskForm: addWorkTaskFormReducer,
 
 }
 
@@ -43,14 +38,15 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 
 	const workTaskList = useSelector(getDirectoryWorkTaskGroupDetail.selectAll)
 	const groupName = useSelector(getWorkTaskGroupName)
-	const isOpen = useSelector(getAddWorkTaskGroupFormIsOpen)
+	const groupId = useSelector(getWorkTaskGroupId)
+	const isOpen = useSelector(getAddWorkTaskFormIsOpen)
 
 	useEffect(()=>{
 		dispatch(fetchWorkTaskListByGroupId(id!!))
 	},[dispatch, id])
 
 	const openFormHandler = useCallback(()=>{
-		dispatch(addWorkTaskGroupFormActions.openModal())
+		dispatch(addWorkTaskFormActions.openModal())
 	},[dispatch])
 
 
@@ -81,7 +77,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 					</Button>
 				</div>
 				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} />
-				<AddWorkTaskModal className={cls.form} isOpen={isOpen} />
+				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={groupId} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>
 	);

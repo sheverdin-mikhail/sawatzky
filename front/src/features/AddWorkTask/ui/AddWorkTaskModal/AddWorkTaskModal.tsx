@@ -9,10 +9,11 @@ interface AddWorkTaskModalModalProps {
 	className?: string;
 	onClose?: () => void;
 	isOpen?: boolean;
+	groupId?: number;
 }
 
 export const AddWorkTaskModal: React.FC<AddWorkTaskModalModalProps> = (props) => {
-	const { className, onClose, isOpen } = props;
+	const { className, onClose, isOpen, groupId } = props;
 
 	const dispatch = useAppDispatch()
 
@@ -23,7 +24,7 @@ export const AddWorkTaskModal: React.FC<AddWorkTaskModalModalProps> = (props) =>
 
 	return (
 		<Modal className={classNames(cls.addWorkTaskModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
-			<AddWorkTaskForm onClose={onCloseHandler} />
+			<AddWorkTaskForm groupId={groupId} onClose={onCloseHandler} />
 		</Modal>
 	);
 }

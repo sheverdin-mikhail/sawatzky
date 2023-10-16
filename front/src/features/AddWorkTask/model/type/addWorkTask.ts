@@ -5,7 +5,8 @@ export  interface AddWorkTaskFormData {
     workTaskGroup?: number;
     name?: string;
     price?: string;
-    actualTime?: string;
+    time?: string;
+    status?: boolean;
 }
 
 

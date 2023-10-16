@@ -14,6 +14,6 @@ export type {
 } from './model/type/addWorkTask'
 
 export {
-    getAddWorkTaskFormData,
+    
     getAddWorkTaskFormIsOpen
 } from './model/selectors/addWorkTaskFormSelectors'
