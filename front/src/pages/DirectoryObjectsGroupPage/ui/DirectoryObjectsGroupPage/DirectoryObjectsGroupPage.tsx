@@ -4,8 +4,9 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
-import { Table, TableType } from 'widgets/Table';
+import { Table, TableItemsMod, TableType } from 'widgets/Table';
 import { AddObjectsGroupForm } from 'features/AddObjectsGroup';
+import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -41,7 +42,8 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
 					<DeleteIcon />
 				</Button>
 			</div>
-			<Table data={tableData} />
+			<Table mod={TableItemsMod.LINK} path={DirectoryPath.object} data={tableData} />
+
 			<AddObjectsGroupForm className={cls.form} />
 		</DirectoryPageWrapper>
 	);

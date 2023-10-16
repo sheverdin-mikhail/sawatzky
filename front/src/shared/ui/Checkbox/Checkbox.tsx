@@ -14,14 +14,14 @@ interface CheckboxProps extends HTMLCheckboxProps {
 }
 
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
-    const { className, label, id, onChange, checked=false } = props;
+    const { className, label, id, onChange, checked=false, ...otherProps } = props;
 
     const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.checked)
     }, [onChange])
 
     return (
-        <div className={classNames(cls.checkboxContainer, {}, [className])}>
+        <div className={classNames(cls.checkboxContainer, {}, [className])} {...otherProps}>
             <input 
                 type='checkbox' 
                 id={id} 
