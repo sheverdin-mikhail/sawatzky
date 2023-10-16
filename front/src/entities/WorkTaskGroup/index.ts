@@ -1,4 +1,4 @@
-export type { WorkTaskGroupSchema } from './model/type/workTaskGroup';
+export type { WorkTaskGroupSchema, WorkTaskGroupItem } from './model/type/workTaskGroup';
 
 export { 
     workTaskGroupActions, 

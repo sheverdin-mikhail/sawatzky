@@ -12,6 +12,8 @@ import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
 import { DirectoryNavigaionSchema } from 'widgets/DirectoryNavigaion';
 import { WorkTaskGroupSchema } from 'entities/WorkTaskGroup';
 import { AddWorkTaskGroupFormSchema } from 'features/AddWorkTaskGroup';
+import { AddWorkTaskFormSchema } from 'features/AddWorkTask';
+import { DirectoryWorkTaskGroupDetailSchema } from 'pages/DirectoryWorkTaskGroupDetailPage/model/type/directoryWorkTaskGroupDetail';
 
 export interface StateSchema {
     user: UserSchema;
@@ -25,6 +27,8 @@ export interface StateSchema {
     direcotryNavigation?: DirectoryNavigaionSchema;
     workTaskGroup?: WorkTaskGroupSchema;
     addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
+    addWorkTaskForm?: AddWorkTaskFormSchema;
+    directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

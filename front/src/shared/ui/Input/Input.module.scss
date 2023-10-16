@@ -1,6 +1,18 @@
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .input {
     background: var(--gray-bg-color);
     padding: 17px 20px;
     columns: var(--black-color);
     border-radius: 9px;
+}
+
+.label {
+    font-weight: 700;
+    margin-bottom: 6px;
 }

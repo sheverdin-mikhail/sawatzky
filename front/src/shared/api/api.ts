@@ -3,8 +3,8 @@ import { TokensData } from 'features/AuthByUsername';
 import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from 'shared/const/localStorage';
 
 
-const isDev = false 
-const baseUrl =  isDev ? 'http://localhost:8000' : 'http://77.223.126.236'
+const isDev = true 
+const baseUrl =  isDev ? 'http://localhost:8000' : 'http://77.223.126.233'
 
 export const $api = axios.create({
     baseURL: baseUrl,

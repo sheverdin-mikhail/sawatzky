@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { AddWorkTaskGroupFormSchema } from '../type/addWorkTaskGroup'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { AddWorkTaskGroupFormSchema, addWorkTaskGroupFormData } from '../type/addWorkTaskGroup'
 import { createWorkTaskGroup } from '../services/createWorkTaskGroup'
 
 const initialState: AddWorkTaskGroupFormSchema = {
@@ -18,6 +18,9 @@ export const addWorkTaskGroupFormSlice = createSlice({
     },
     closeModal: (state) => {
       state.isOpen = false
+    },
+    setFormData: (state, action: PayloadAction<addWorkTaskGroupFormData>) => {
+      state.formData = action.payload
     }
     
   },
