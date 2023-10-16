@@ -82,8 +82,8 @@ export const CreateApplicationForm: React.FC<CreateApplicationFormProps> = (prop
 	return (
 		<DynamicModuleLoader reducers={reducers}>
 			<div className={classNames(cls.createApplicationForm, {}, [className])}>
-				<Text title='Создание заявки' text='Информация по заявке' className={cls.title} textAlign={TextAlign.CENTER} />
-				<Input className={cls.input} value={title} onChange={changeTitleHandler} placeholder='Название заявки' />
+				<Text title='Создание запроса' text='Информация по запросу' className={cls.title} textAlign={TextAlign.CENTER} />
+				<Input className={cls.input} value={title} onChange={changeTitleHandler} placeholder='Название запроса' />
 				<Textarea 
 					placeholder='Предмет запроса' 
 					value={subject} 
@@ -91,7 +91,7 @@ export const CreateApplicationForm: React.FC<CreateApplicationFormProps> = (prop
 					className={cls.input} 
 				/>
 				<Textarea 
-					placeholder='Описание заявки' 
+					placeholder='Описание запроса' 
 					value={description} 
 					onChange={changeDescriptionHandler}  
 					className={cls.input} 

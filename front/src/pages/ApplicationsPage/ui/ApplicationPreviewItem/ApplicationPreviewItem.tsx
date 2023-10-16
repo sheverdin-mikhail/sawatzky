@@ -41,7 +41,7 @@ export const ApplicationPreviewItem: React.FC<ApplicationPreviewItemProps> = mem
                     {item.title}
                 </span>
                 <span className={cls.number} >
-                    Заявка № {item.id}
+                    Запрос № {item.id}
                 </span>
             </div>
             <div className={classNames(cls.applicationPreviewItemRow, {}, [])} onClick={onClickHandler}>

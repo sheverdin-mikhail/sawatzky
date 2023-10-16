@@ -141,7 +141,12 @@ class WorkTaskGroup(models.Model):
     """ Группа услуг """
 
     name = models.CharField(("Наименование группы услуг"), max_length=50)
-    tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Список услуг входящих в эту группу"), blank=True)
+    tasks = models.ManyToManyField(
+        "api.WorkTask", 
+        verbose_name=("Список услуг входящих в эту группу"), 
+        blank=True, 
+        related_name='workTaskGroup'
+    )
 
     class Meta:
         verbose_name = "Группа услуг"
@@ -155,10 +160,9 @@ class WorkTask(models.Model):
     """ Работы проводимые на объекте """
 
     name = models.CharField(("Наименование работы"), max_length=50)
-    pirce = models.FloatField(("Цена"))
+    price = models.FloatField(("Цена"))
     time = models.IntegerField(("Рекомендованный срок выполнения работ"))
-    actualTime = models.IntegerField(("Актуальный срок выполнения работ"), null=True, blank=True)
-    summ = models.FloatField(("Сумма"))
+    # summ = models.FloatField(("Сумма"))
     status = models.BooleanField(("Статус услуги"), default=False)
 
     class Meta:
@@ -174,7 +178,12 @@ class WorkMaterialGroup(models.Model):
     """ Группа материалов """
 
     name = models.CharField(("Наименование группы материалов"), max_length=50)
-    materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Список материалов входящих в эту группу"), blank=True)
+    materials = models.ManyToManyField(
+        "api.WorkMaterial", 
+        verbose_name=("Список материалов входящих в эту группу"), 
+        blank=True, 
+        related_name='workMaterialGroup'
+    )
 
     class Meta:
         verbose_name = "Группа материалов"
@@ -188,10 +197,9 @@ class WorkMaterial(models.Model):
     """ Рабочие материалы для проведения работ """
 
     name = models.CharField(("Наименование работы"), max_length=50)
-    pirce = models.FloatField(("Цена"))
+    price = models.FloatField(("Цена"))
     count = models.IntegerField(("Рекомендованное количество материала для выполнения работ"))
-    actualCount = models.IntegerField(("Актуальное количество материала для выполнения работ"), null=True, blank=True)
-    summ = models.FloatField(("Сумма"))
+    # summ = models.FloatField(("Сумма"))
     status = models.BooleanField(("Статус материала"), default=False)
 
     class Meta:
