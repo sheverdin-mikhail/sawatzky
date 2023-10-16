@@ -54,7 +54,6 @@ export const DirectoryPath: Record<DirectoryRoutes, string>= {
 
 //------------------------------------------------------------------------------------
 
-
 //Routing config
 
 export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {

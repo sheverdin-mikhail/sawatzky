@@ -7,6 +7,7 @@ import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.sv
 import { Table, TableType } from 'widgets/Table';
 import { CreateLegalEntity } from 'features/CreateLegalEntity';
 
+
 interface DirectoryLegalEntityPageProps {
 	className?: string;
 }
@@ -51,6 +52,7 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
 			</div>
 			<Table data={tableData} />
 			<CreateLegalEntity className={cls.form} />
+
 		</DirectoryPageWrapper>
 	);
 }

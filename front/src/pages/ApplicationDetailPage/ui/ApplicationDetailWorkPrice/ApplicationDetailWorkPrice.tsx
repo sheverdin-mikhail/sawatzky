@@ -13,6 +13,7 @@ interface ApplicationDetailWorkPriceProps {
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
 	// const { } = props;
 
+
 	const workTasks: WorkTask[] = [
 		{
 			id: '1',

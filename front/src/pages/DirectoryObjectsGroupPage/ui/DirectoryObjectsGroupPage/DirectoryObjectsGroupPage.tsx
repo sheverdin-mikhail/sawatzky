@@ -43,6 +43,7 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
 				</Button>
 			</div>
 			<Table mod={TableItemsMod.LINK} path={DirectoryPath.object} data={tableData} />
+
 			<AddObjectsGroupForm className={cls.form} />
 		</DirectoryPageWrapper>
 	);
