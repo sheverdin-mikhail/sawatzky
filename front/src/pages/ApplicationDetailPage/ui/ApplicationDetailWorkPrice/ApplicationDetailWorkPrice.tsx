@@ -100,7 +100,6 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 		})
 	}
 
-
 	const workTotalPrice = workTasks.reduce((prev, item)=>{
 		const { hours, minuts } = getTime(item.time)
 		const sum = item.price*hours + Math.floor(item.price*minuts/60)

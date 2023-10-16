@@ -64,13 +64,10 @@ class UserDetailView(APIView):
 
 
 """Application"""
-"""Application"""
 class ApplicationCreateView(generics.CreateAPIView):
-    # представление на создание заявки
     # представление на создание заявки
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
     permission_classes = [permissions.IsAuthenticated]
 
 class ApplicationListView(generics.ListAPIView):
@@ -78,13 +75,10 @@ class ApplicationListView(generics.ListAPIView):
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-    permission_classes = [permissions.IsAuthenticated]
 
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка заявок по id создателя
-    # представление на получение, обновление, удаление списка заявок по id создателя
     serializer_class = ApplicationWithCreatorSerializer
-    permission_classes = [permissions.IsAuthenticated]
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
