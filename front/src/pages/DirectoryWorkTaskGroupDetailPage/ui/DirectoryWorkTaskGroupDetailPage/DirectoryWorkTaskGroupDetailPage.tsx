@@ -17,11 +17,8 @@ import {
 	getDirectoryWorkTaskGroupDetail 
 } from '../../model/slice/directoryWorkTaskGroupDetailSlice';
 import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
-import { getWorkTaskGroupId, getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
-<<<<<<< HEAD
-=======
+import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 import { getTime } from 'shared/lib/helpers/getTime';
->>>>>>> main
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -42,10 +39,6 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 
 	const workTaskList = useSelector(getDirectoryWorkTaskGroupDetail.selectAll)
 	const groupName = useSelector(getWorkTaskGroupName)
-<<<<<<< HEAD
-	const groupId = useSelector(getWorkTaskGroupId)
-=======
->>>>>>> main
 	const isOpen = useSelector(getAddWorkTaskFormIsOpen)
 
 	useEffect(()=>{
@@ -63,21 +56,14 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 			groupName: 'Группа услуг',
 			name: 'Название услуги',
 			price: 'Стоимость/час',
-<<<<<<< HEAD
-=======
 			time: 'Рекомендуемое время',
->>>>>>> main
 		},
 		items: workTaskList.map((item)=>({
 			id: item.id,
 			groupName: groupName ?? '',
 			name: item.name,
-<<<<<<< HEAD
-			price: item.price
-=======
 			price: item.price + ' ₽',
 			time: `${getTime(item.time).hours} ч ${getTime(item.time).minuts} мин` 
->>>>>>> main
 		}))
 	}
 
@@ -92,13 +78,8 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 						<DeleteIcon />
 					</Button>
 				</div>
-<<<<<<< HEAD
-				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} />
-				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={groupId} />
-=======
 				<Table mod={TableItemsMod.NORMAL} path={DirectoryPath.work_task_group_detail} data={tableData} />
 				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={Number(id)} />
->>>>>>> main
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>
 	);
