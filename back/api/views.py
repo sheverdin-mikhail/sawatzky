@@ -16,6 +16,10 @@ from .serializers import (
     WorkObjectsGroupWithWorkObjectSerializer,
     WorkMaterialSerializer,
     WorkTaskSerializer,
+    WorkTaskGroupSerializer,
+    WorkTaskGroupWithWorkTaskSerializer,
+    WorkMaterialGroupSerializer,
+    WorkMaterialGroupWithWorkMaterialSerializer
 )
 
 from .models import (
@@ -27,6 +31,8 @@ from .models import (
     WorkObjectsGroup,
     WorkMaterial,
     WorkTask,
+    WorkTaskGroup,
+    WorkMaterialGroup,
 )
 
 
@@ -235,4 +241,64 @@ class WorkTaskDetailView(generics.RetrieveDestroyAPIView):
 
         except (KeyError, WorkTask.DoesNotExist):
             return Response({'message': 'Работы проводимые на объекте не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+"""WorkTaskGroup"""
+class WorkTaskGroupCreateView(generics.CreateAPIView):
+    # представление на создание групп услуг
+    queryset = WorkTaskGroup.objects.all()
+    serializer_class = WorkTaskGroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkTaskGroupListView(generics.ListAPIView):
+    # представление на создание и вывод списка групп услуг
+    queryset = WorkTaskGroup.objects.all()
+    serializer_class = WorkTaskGroupWithWorkTaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkTaskGroupDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление групп услуг по id
+    serializer_class = WorkTaskGroupWithWorkTaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workTaskGroup = WorkTaskGroup.objects.filter(id=pk)
+            return workTaskGroup
+
+        except (KeyError, WorkTask.DoesNotExist):
+            return Response({'message': 'Группы услуг не найдены'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+"""WorkMaterialGroup"""
+class WorkMaterialGroupCreateView(generics.CreateAPIView):
+    # представление на создание групп услуг
+    queryset = WorkMaterialGroup.objects.all()
+    serializer_class = WorkMaterialGroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkMaterialGroupListView(generics.ListAPIView):
+    # представление на создание и вывод списка групп услуг
+    queryset = WorkMaterialGroup.objects.all()
+    serializer_class = WorkMaterialGroupWithWorkMaterialSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkMaterialGroupDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление групп услуг по id
+    serializer_class = WorkMaterialGroupWithWorkMaterialSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workMaterialGroup = WorkMaterialGroup.objects.filter(id=pk)
+            return workMaterialGroup
+
+        except (KeyError, WorkMaterial.DoesNotExist):
+            return Response({'message': 'Группы услуг не найдены'}, status=status.HTTP_404_NOT_FOUND)
 
