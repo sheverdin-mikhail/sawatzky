@@ -7,6 +7,15 @@ class User(AbstractUser):
     """Общая модель пользователя"""
     fio = models.CharField(("ФИО"), max_length=255)
     phoneNumber = models.CharField(("Номер телефона"), max_length=20)
+    avatar = models.ImageField(
+        ("Аватар пользователя"), 
+        upload_to='avatars', 
+        blank=True, 
+        null=True, 
+        height_field=None, 
+        width_field=None, 
+        max_length=None
+    )
 
 
 
@@ -128,13 +137,51 @@ class Client(models.Model):
 
 
 
+class WorkTaskGroup(models.Model):
+    """ Группа услуг """
+
+    name = models.CharField(("Наименование группы услуг"), max_length=50)
+    tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Список услуг входящих в эту группу"))
+
+    class Meta:
+        verbose_name = "Группа услуг"
+        verbose_name_plural = "Группы услуг"
+
+    def __str__(self):
+        return self.name
+    
+    
 class WorkTask(models.Model):
     """ Работы проводимые на объекте """
 
     name = models.CharField(("Наименование работы"), max_length=50)
     pirce = models.FloatField(("Цена"))
-    time = models.IntegerField(("Ко/личество часов"))
+    time = models.IntegerField(("Рекомендованный срок выполнения работ"))
+    actualTime = models.IntegerField(("Актуальный срок выполнения работ"), null=True, blank=True)
     summ = models.FloatField(("Сумма"))
+    status = models.BooleanField(("Статус услуги"), default=False)
+
+    class Meta:
+        verbose_name = "Проводимая работа"
+        verbose_name_plural = "Проводимые работы"
+
+    def __str__(self):
+        return self.name
+    
+
+
+class WorkMaterialGroup(models.Model):
+    """ Группа материалов """
+
+    name = models.CharField(("Наименование группы материалов"), max_length=50)
+    tasks = models.ManyToManyField("api.WorkMaterial", verbose_name=("Список материалов входящих в эту группу"))
+
+    class Meta:
+        verbose_name = "Группа материалов"
+        verbose_name_plural = "Группы материалов"
+
+    def __str__(self):
+        return self.name
 
 
 class WorkMaterial(models.Model):
@@ -142,9 +189,17 @@ class WorkMaterial(models.Model):
 
     name = models.CharField(("Наименование работы"), max_length=50)
     pirce = models.FloatField(("Цена"))
-    count = models.IntegerField(("Количество штук"))
+    count = models.IntegerField(("Рекомендованное количество материала для выполнения работ"))
+    actualCount = models.IntegerField(("Актуальное количество материала для выполнения работ"), null=True, blank=True)
     summ = models.FloatField(("Сумма"))
+    status = models.BooleanField(("Статус материала"), default=False)
 
+    class Meta:
+        verbose_name = "Рабочий материал"
+        verbose_name_plural = "Рабочие материалы"
+
+    def __str__(self):
+        return self.name
 
 
 
@@ -174,6 +229,7 @@ class Application(models.Model):
     totalSumWithPercent = models.FloatField(("Общая стоимость работ с НДС"), blank=True, null=True)
 
     status = models.CharField(("Статус заявки"), max_length=50, blank=False, choices=STATUSES, default='new')
+    step = models.PositiveIntegerField(("Шаг выполнения заявки"), default=1)
 
     createdAt = models.DateField(("Дата создания заявки"), auto_now=False, auto_now_add=True)
     updatedAt = models.DateField(("Последняя дата изменения"), auto_now=True, auto_now_add=False)
