@@ -5,7 +5,7 @@ import { WorkTask } from "entities/WorkTask";
 export interface WorkTaskGroupItem {
     id: number;
     name: string;
-    workTasks?: WorkTask[];
+    tasks?: WorkTask[];
 }
 
 

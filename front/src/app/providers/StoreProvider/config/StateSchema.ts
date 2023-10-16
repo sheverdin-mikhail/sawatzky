@@ -13,7 +13,7 @@ import { DirectoryNavigaionSchema } from 'widgets/DirectoryNavigaion';
 import { WorkTaskGroupSchema } from 'entities/WorkTaskGroup';
 import { AddWorkTaskGroupFormSchema } from 'features/AddWorkTaskGroup';
 import { AddWorkTaskFormSchema } from 'features/AddWorkTask';
-import { DirectoryWorkTaskGroupDetailSchema } from 'pages/DirectoryWorkTaskGroupDetailPage/model/type/directoryWorkTaskGroupDetail';
+import { DirectoryWorkTaskGroupDetailSchema } from 'pages/DirectoryWorkTaskGroupDetailPage';
 
 export interface StateSchema {
     user: UserSchema;

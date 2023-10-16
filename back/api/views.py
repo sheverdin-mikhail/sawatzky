@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
+from rest_framework.serializers import ValidationError 
 
 from .serializers import (
     UserSerializer,
@@ -19,7 +20,7 @@ from .serializers import (
     WorkTaskGroupSerializer,
     WorkTaskGroupWithWorkTaskSerializer,
     WorkMaterialGroupSerializer,
-    WorkMaterialGroupWithWorkMaterialSerializer
+    WorkMaterialGroupWithWorkMaterialSerializer,
 )
 
 from .models import (
@@ -218,8 +219,21 @@ class WorkMaterialDetailView(generics.RetrieveDestroyAPIView):
 class WorkTaskCreateView(generics.CreateAPIView):
     # представление на создание работ проводимых на объекте
     queryset = WorkTask.objects.all()
-    serializer_class = WorkTaskSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            group = WorkTaskGroup.objects.get(id=request.data['workTaskGroup'])
+            newWorkTaskSerializer = WorkTaskSerializer(data=request.data)
+            newWorkTask = newWorkTaskSerializer.is_valid(raise_exception=True)
+            newWorkTask = newWorkTaskSerializer.save()
+            group.tasks.add(newWorkTask)
+            group.save()
+            return Response(newWorkTaskSerializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
+
 
 class WorkTaskListView(generics.ListAPIView):
     # представление на создание и вывод списка работ проводимых на объекте

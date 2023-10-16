@@ -16,7 +16,7 @@ export const fetchWorkTaskListByGroupId = createAsyncThunk<
             const response = await extra.api.get<WorkTaskGroupItem>('/api/v1/work_task_groups/'+groupId)
             if(!response.data){
             
-                throw new Error('Ошибка сохранения заявки!')
+                throw new Error('Ошибка сохранения запроса!')
             }
             return response.data
 

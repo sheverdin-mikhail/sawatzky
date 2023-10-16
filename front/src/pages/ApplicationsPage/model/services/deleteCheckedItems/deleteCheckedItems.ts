@@ -18,12 +18,12 @@ export const deleteCheckedItems = createAsyncThunk<
                 await Promise.all(listId.map(async (id) => {
                     const response = await extra.api.delete(`/api/v1/applications/${id}`);
                     if (response.status !== 204) {
-                        throw new Error('Ошибка удаления заявки!');
+                        throw new Error('Ошибка удаления запроса!');
                     }
                 }));
             }
             else{
-                throw new Error('Ни одная заявка не выбрана!')
+                throw new Error('Ни один запрос не выбран!')
             }
             dispatch(fetchApplicationsList())
 

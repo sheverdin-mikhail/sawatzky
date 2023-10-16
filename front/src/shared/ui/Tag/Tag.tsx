@@ -25,7 +25,7 @@ export const Tag: React.FC<TagProps> = memo((props) => {
     const statusMessage = useMemo(()=>{
         switch(status){
             case ApplicationStatus.NEW:
-                return 'Заявка создана'
+                return 'Запрос создан'
             case ApplicationStatus.COORDINATION:
                 return 'На согласовании у заказчика'
             case ApplicationStatus.PAYMENT_COORDINATION:
@@ -35,7 +35,7 @@ export const Tag: React.FC<TagProps> = memo((props) => {
             case ApplicationStatus.PROCESSED:
                 return 'Частично выполнена'
             case ApplicationStatus.FINISHED:
-                return 'Заявка выполнена'
+                return 'Запрос выполнен'
            
         }
     },[status])

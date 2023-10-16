@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { userActions } from "entities/User";
 import { AddWorkTaskFormData } from "../type/addWorkTask";
-import { fetchWorkTaskGroupList } from "entities/WorkTaskGroup/model/services/fetchWorkTaskGroupList";
 import { WorkTask } from "entities/WorkTask";
+import { fetchWorkTaskListByGroupId } from "pages/DirectoryWorkTaskGroupDetailPage";
 
 
 
@@ -12,16 +12,17 @@ export const createWorkTask = createAsyncThunk<
     AddWorkTaskFormData, 
     ThunkConfig<string>
 >(
-    'addWorkTaskGroup/createWorkTaskGroup',
+    'addWorkTask/createWorkTask',
     async (formData, { extra, rejectWithValue, dispatch }) => {
 
+        console.log(formData)
         try{    
-            const response = await extra.api.post<WorkTask>('/api/v1/work_task_groups/create/', formData)
+            const response = await extra.api.post<WorkTask>('/api/v1/work_task/create/', formData)
             if(!response.data){
                 throw new Error('Ошибка создания группы услуг')
             }
 
-            dispatch(fetchWorkTaskGroupList())
+            dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`))
         }catch (e: any){
             if(e.response.status === 401){
                 dispatch(userActions.logout())

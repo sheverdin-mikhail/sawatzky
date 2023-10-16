@@ -20,7 +20,7 @@ export const ApplicationPreviewList: React.FC<ApplicationPreviewListProps> = (pr
                         <ApplicationPreviewItem item={application} key={application.id} className={cls.item} /> 
                     ))
                 :
-                    <div>Заявки не найдены</div>
+                    <div>Запросы не найдены</div>
             }
         </div>
     );

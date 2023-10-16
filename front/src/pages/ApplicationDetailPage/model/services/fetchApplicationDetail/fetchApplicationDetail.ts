@@ -16,7 +16,7 @@ export const fetchApplicationDetail= createAsyncThunk<
             const response = await extra.api.get<Application>('/api/v1/applications/'+applicationId)
             if(!response.data){
             
-                throw new Error('Ошибка сохранения заявки!')
+                throw new Error('Ошибка сохранения запроса!')
             }
             return response.data
 
