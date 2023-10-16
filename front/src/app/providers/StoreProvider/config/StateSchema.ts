@@ -10,6 +10,8 @@ import { ApplicationDetailSchema } from 'pages/ApplicationDetailPage';
 import { CreateApplicationSchema } from 'features/CreateApplication';
 import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
 import { DirectoryNavigaionSchema } from 'widgets/DirectoryNavigaion';
+import { WorkTaskGroupSchema } from 'entities/WorkTaskGroup';
+import { AddWorkTaskGroupFormSchema } from 'features/AddWorkTaskGroup';
 
 export interface StateSchema {
     user: UserSchema;
@@ -21,6 +23,8 @@ export interface StateSchema {
     createApplication?: CreateApplicationSchema; 
     applicationsPage?: ApplicationsPageSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
+    workTaskGroup?: WorkTaskGroupSchema;
+    addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

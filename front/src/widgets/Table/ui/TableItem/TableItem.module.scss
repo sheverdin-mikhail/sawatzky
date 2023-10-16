@@ -31,12 +31,15 @@
     }
 }
 
+.checkbox {
+    margin-right: 25px;
+}
 
 .column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    &:first-child {
+    &:first-child, &:nth-child(2) {
         align-items: flex-start;
     }
 }

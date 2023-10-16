@@ -41,7 +41,7 @@ export const TableItem: React.FC<TableItemProps> = (props) => {
 	return (
 		<div className={classNames(cls.tableItem, {}, [className, cls[type]])}>
 			{
-				mod === TableItemsMod.SELECTEBLE && <Checkbox id={`${item.id}`} />
+				<Checkbox className={cls.checkbox} id={`${item.id}`} onClick={e => e.stopPropagation()} />
 			}
 			{
 				Object.keys(item).map((key, index)=>(
