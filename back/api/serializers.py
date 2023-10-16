@@ -49,7 +49,7 @@ class WorkMaterialSerializer(ModelSerializer):
         model = WorkMaterial
         fields = '__all__'
 
-
+'''WorkTask'''
 class WorkTaskSerializer(ModelSerializer):
     # Сериализатор модели WorkTask
     class Meta:

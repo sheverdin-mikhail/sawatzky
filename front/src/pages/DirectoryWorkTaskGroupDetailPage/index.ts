@@ -6,3 +6,5 @@ export {
 export type {
     DirectoryWorkTaskGroupDetailSchema
 } from './model/type/directoryWorkTaskGroupDetail'
+
+export { fetchWorkTaskListByGroupId } from './model/services/fetchWorkTaskListByGroupId'

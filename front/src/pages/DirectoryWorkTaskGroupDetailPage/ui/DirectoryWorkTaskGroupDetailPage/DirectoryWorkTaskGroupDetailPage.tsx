@@ -18,6 +18,7 @@ import {
 } from '../../model/slice/directoryWorkTaskGroupDetailSlice';
 import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
 import { getWorkTaskGroupId, getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
+import { getTime } from 'shared/lib/helpers/getTime';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -38,7 +39,6 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 
 	const workTaskList = useSelector(getDirectoryWorkTaskGroupDetail.selectAll)
 	const groupName = useSelector(getWorkTaskGroupName)
-	const groupId = useSelector(getWorkTaskGroupId)
 	const isOpen = useSelector(getAddWorkTaskFormIsOpen)
 
 	useEffect(()=>{
@@ -56,12 +56,14 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 			groupName: 'Группа услуг',
 			name: 'Название услуги',
 			price: 'Стоимость/час',
+			time: 'Рекомендуемое время',
 		},
 		items: workTaskList.map((item)=>({
 			id: item.id,
 			groupName: groupName ?? '',
 			name: item.name,
-			price: item.price
+			price: item.price + ' ₽',
+			time: `${getTime(item.time).hours} ч ${getTime(item.time).minuts} мин` 
 		}))
 	}
 
@@ -76,8 +78,8 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 						<DeleteIcon />
 					</Button>
 				</div>
-				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} />
-				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={groupId} />
+				<Table mod={TableItemsMod.NORMAL} path={DirectoryPath.work_task_group_detail} data={tableData} />
+				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={Number(id)} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>
 	);

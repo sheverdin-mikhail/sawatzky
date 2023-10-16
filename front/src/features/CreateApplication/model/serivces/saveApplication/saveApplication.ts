@@ -40,7 +40,7 @@ export const saveApplication = createAsyncThunk<
             const response = await extra.api.post<CreateApplicationData>('/api/v1/applications/create/', applicationData)
             if(!response.data){
             
-                throw new Error('Ошибка сохранения заявки!')
+                throw new Error('Ошибка сохранения запроса!')
             }
 
             dispatch(createApplicationActions.clearForm())

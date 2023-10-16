@@ -64,17 +64,17 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
 	return (
 		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
 			<Title className={cls.title}>
-                Заявки
+                Запросы
             </Title>
             <div className={cls.navigation}>
                 <Checkbox id='all' checked={allIsChecked} onChange={checkAllHandler} />
                 <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
                     <OrderLogo/>
                 </Button>
-                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить заявку'} onClick={openModalHandler}>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'добавить запрос'} onClick={openModalHandler}>
                     <AddLogo/>
                 </Button>
-                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить заявку'} onClick={onDeleteHandler}>
+                <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo={'удалить запрос'} onClick={onDeleteHandler}>
                     <DeleteLogo/>
                 </Button>
             </div>

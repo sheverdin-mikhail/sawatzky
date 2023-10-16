@@ -30,8 +30,8 @@ export const directoryWorkTaskGroupDetailSlice = createSlice({
     })
     .addCase(fetchWorkTaskListByGroupId.fulfilled, (state, action: PayloadAction<WorkTaskGroupItem>)=>{
         state.isLoading = false
-        if(action.payload.workTasks){
-          directoryWorkTaskGroupDetailAdapter.setAll(state, action.payload.workTasks)
+        if(action.payload.tasks){
+          directoryWorkTaskGroupDetailAdapter.setAll(state, action.payload.tasks)
         }
         state.groupName = action.payload.name
 

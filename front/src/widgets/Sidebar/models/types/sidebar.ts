@@ -23,7 +23,7 @@ export const SidebarItemsList: SidebarItemType[] = [
     },
     {
         path: RoutePath.applications,
-        text: 'Заявки',
+        text: 'Запросы',
         Icon: ApplicationIcon,
         authOnly: true
     },
