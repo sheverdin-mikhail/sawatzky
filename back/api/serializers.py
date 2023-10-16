@@ -7,11 +7,8 @@ from .models import (
     LegalEntity,
     WorkObjectsGroup,
     WorkObject,
-<<<<<<< HEAD
-=======
     WorkMaterial,
     WorkTask,
->>>>>>> main
 )
 
 
@@ -44,8 +41,6 @@ class WorkObjectsGroupSerializer(ModelSerializer):
         fields = '__all__'
 
 
-<<<<<<< HEAD
-=======
 class WorkMaterialSerializer(ModelSerializer):
     # Сериализатор модели WorkMaterial
     class Meta:
@@ -60,7 +55,6 @@ class WorkTaskSerializer(ModelSerializer):
         fields = '__all__'
 
 
->>>>>>> main
 class UserSerializer(ModelSerializer):
     # Сериализатор модели пользователя для отображения данных о нем
     employee = EmployeeSerializer(read_only=True, many=False)
@@ -115,18 +109,6 @@ class ClientWithCLWWSerializers(ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
-<<<<<<< HEAD
-
-
-class ClientSerializers(ModelSerializer):
-    # Сериализатор для создания/удаления/обновления клиента
-
-    class Meta:
-        model = Client
-        many = False
-        fields = '__all__'
-=======
->>>>>>> main
 
 
 class ClientSerializers(ModelSerializer):

@@ -17,7 +17,7 @@ export interface SelectOptionType {
 
 
 export const Select: React.FC<SelectProps> = (props) => {
-	const { className, placeholder, options, value, onChange,  } = props;
+	const { className, placeholder, options, onChange,  } = props;
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedOption, setSelectedOption] = useState({value: null, text: placeholder ?? "Выберите опцию"})
 

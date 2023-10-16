@@ -20,6 +20,17 @@
     }
 }
 
+.link {
+    &:hover{
+        background: var(--blue-color);
+        color: #fff;
+    }
+    &:hover .checkbox label::before {
+        border: none;
+        background: var(--blue-bg-color);
+    }
+}
+
 
 .column {
     display: flex;

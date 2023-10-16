@@ -5,7 +5,7 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
 import { Table, TableType } from 'widgets/Table';
-import { AddObjectForm } from 'features/AddObject/ui/AddObjectForm/AddObjectForm';
+import { CreateLegalEntity } from 'features/CreateLegalEntity';
 
 interface DirectoryLegalEntityPageProps {
 	className?: string;
@@ -50,7 +50,7 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
 				</Button>
 			</div>
 			<Table data={tableData} />
-			<AddObjectForm className={cls.form} />
+			<CreateLegalEntity className={cls.form} />
 		</DirectoryPageWrapper>
 	);
 }

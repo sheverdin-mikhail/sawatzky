@@ -1,12 +1,9 @@
-import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './ApplicationDetailWorkPrice.module.scss';
-import { Text, TextSize } from 'shared/ui/Text/Text';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Table, TableType } from 'widgets/Table';
 import { WorkTask } from 'entities/WorkTask';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { WorkMaterial } from 'entities/WorkMaterial';
-import { useCallback, useState } from 'react';
 import { CollapsBoard } from 'widgets/CollapsBoard';
 
 interface ApplicationDetailWorkPriceProps {
@@ -14,8 +11,7 @@ interface ApplicationDetailWorkPriceProps {
 }
 
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
-	const { className } = props;
-	const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+	// const { } = props;
 
 	const workTasks: WorkTask[] = [
 		{
@@ -103,10 +99,6 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 			}
 		})
 	}
-
-	const onToggleCollapsed = useCallback(()=>{
-		setIsCollapsed(prev => !prev)
-	},[])
 
 
 	const workTotalPrice = workTasks.reduce((prev, item)=>{

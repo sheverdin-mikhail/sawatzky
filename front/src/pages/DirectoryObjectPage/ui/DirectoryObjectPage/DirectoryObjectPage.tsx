@@ -1,47 +1,41 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './DirectoryLegalEntitySwatzkyPage.module.scss';
+import cls from './DirectoryObjectPage.module.scss';
 import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
 import { Table, TableType } from 'widgets/Table';
 import { AddObjectForm } from 'features/AddObject/ui/AddObjectForm/AddObjectForm';
-import { CreateLegalEntitySwatzky } from 'features/CreateLegalEntitySwatzky';
 
-interface DirectoryLegalEntitySwatzkyPageProps {
+interface DirectoryObjectPageProps {
 	className?: string;
 }
 
-const DirectoryLegalEntitySwatzkyPage: React.FC<DirectoryLegalEntitySwatzkyPageProps> = (props) => {
+const DirectoryObjectPage: React.FC<DirectoryObjectPageProps> = (props) => {
 	const { className } = props;
 
 	const tableData: TableType = {
 		header: {
 			id: 'ID',
-			name: 'Наименование компании',
-			group: 'Группа объектов',
-			object: 'Объект',
+			name: 'Наименование группы',
+			code: 'Код объекта',
 		},
 		items: [
 			{
 				id: '1',
-				name: 'Наименование Юр. лица',
-				group: 'Группа объектов № 15',
-				object: '12345',
+				name: 'Группа объектов № 15',
+				code: '12345'
 			},
-		
 			{
 				id: '2',
-				name: 'Наименование Юр. лица 2',
-				group: 'Группа объектов № 15',
-				object: '12346',
+				name: 'Группа объектов № 15',
+				code: '12346'
 			},
-		
 		]
 	}
 
 	return (
-		<DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySwatzkyPage, {}, [className])}>
+		<DirectoryPageWrapper className={classNames(cls.directoryObjectPage, {}, [className])}>
 			<div className={cls.buttons}>
 				<Button helpInfo='Добавить объект' className={cls.button} theme={ButtonThemes.ICON}  >
 					<AddIcon />
@@ -51,10 +45,10 @@ const DirectoryLegalEntitySwatzkyPage: React.FC<DirectoryLegalEntitySwatzkyPageP
 				</Button>
 			</div>
 			<Table data={tableData} />
-			<CreateLegalEntitySwatzky className={cls.form} />
+			<AddObjectForm className={cls.form} />
 		</DirectoryPageWrapper>
 	);
 }
 
 
-export default DirectoryLegalEntitySwatzkyPage;
+export default DirectoryObjectPage;
