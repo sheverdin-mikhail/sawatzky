@@ -28,4 +28,13 @@ urlpatterns = [
     path('work_task/', views.WorkTaskListView.as_view()),
     path('work_task/create/', views.WorkTaskCreateView.as_view()),
     path('work_task/<int:pk>/', views.WorkTaskDetailView.as_view()),
+
+
+    path('work_task_groups/', views.WorkTaskGroupListView.as_view()),
+    path('work_task_groups/create/', views.WorkTaskGroupCreateView.as_view()),
+    path('work_task_groups/<int:pk>/', views.WorkTaskGroupDetailView.as_view()),
+
+    path('work_material_groups/', views.WorkMaterialGroupListView.as_view()),
+    path('work_material_groups/create/', views.WorkMaterialGroupCreateView.as_view()),
+    path('work_material_groups/<int:pk>/', views.WorkMaterialGroupDetailView.as_view()),
 ]

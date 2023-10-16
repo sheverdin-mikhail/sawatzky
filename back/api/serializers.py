@@ -9,6 +9,8 @@ from .models import (
     WorkObject,
     WorkMaterial,
     WorkTask,
+    WorkTaskGroup,
+    WorkMaterialGroup,
 )
 
 
@@ -127,3 +129,39 @@ class WorkObjectsGroupWithWorkObjectSerializer(ModelSerializer):
     class Meta:
         model = WorkObjectsGroup
         fields = '__all__'
+
+'''WorkTaskGroup'''
+class WorkTaskGroupWithWorkTaskSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп услуг с расширенным полем workTask
+    tasks = WorkTaskSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = WorkTaskGroup
+        fields = '__all__'
+
+
+class WorkTaskGroupSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп услуг
+
+    class Meta:
+        model = WorkTaskGroup
+        fields = '__all__'
+
+
+'''WorkMaterialGroup'''
+class WorkMaterialGroupWithWorkMaterialSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп материалов с расширенным полем workMaterial
+    materials = WorkMaterialSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = WorkMaterialGroup
+        fields = '__all__'
+
+
+class WorkMaterialGroupSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп материалов
+
+    class Meta:
+        model = WorkMaterialGroup
+        fields = '__all__'
+

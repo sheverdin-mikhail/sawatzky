@@ -141,7 +141,7 @@ class WorkTaskGroup(models.Model):
     """ Группа услуг """
 
     name = models.CharField(("Наименование группы услуг"), max_length=50)
-    tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Список услуг входящих в эту группу"))
+    tasks = models.ManyToManyField("api.WorkTask", verbose_name=("Список услуг входящих в эту группу"), blank=True)
 
     class Meta:
         verbose_name = "Группа услуг"
@@ -174,7 +174,7 @@ class WorkMaterialGroup(models.Model):
     """ Группа материалов """
 
     name = models.CharField(("Наименование группы материалов"), max_length=50)
-    tasks = models.ManyToManyField("api.WorkMaterial", verbose_name=("Список материалов входящих в эту группу"))
+    materials = models.ManyToManyField("api.WorkMaterial", verbose_name=("Список материалов входящих в эту группу"), blank=True)
 
     class Meta:
         verbose_name = "Группа материалов"
