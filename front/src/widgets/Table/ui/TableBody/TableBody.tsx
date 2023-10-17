@@ -5,7 +5,7 @@ import { ItemTheme, TableItem } from '../TableItem/TableItem';
 
 interface TableBodyProps {
 	className?: string;
-	items: TableItemType[];
+	items?: TableItemType[];
 	mod?: TableItemsMod;
 	path?: string;
 }
@@ -16,7 +16,7 @@ export const TableBody: React.FC<TableBodyProps> = (props) => {
 	return (
 		<div className={classNames(cls.tableBody, {}, [className])}>
 			{
-				items.map((item, index)=><TableItem path={path} mod={mod} key={`${index}`} type={ItemTheme.BODY} item={item} />)
+				items?.map((item, index)=><TableItem path={path} mod={mod} key={`${index}`} type={ItemTheme.BODY} item={item} />)
 			}
 		</div>
 	);

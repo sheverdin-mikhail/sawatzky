@@ -8,18 +8,24 @@ export type TableItemType = Record<keyof TableHeaderType, string | number | bool
 
 export enum TableItemsMod {
     LINK = 'link',
-    SELECTEBLE = 'selecteble',
     NORMAL = 'normal'
 }
 
 export interface TableType {
-    header: TableHeaderType;
+    header?: TableHeaderType;
     items?: TableItemType[]
 }
 
 
 export interface TableSchema {
-    table: TableType;
-    isLoading: boolean;
-    error: string;
+
+    header?: TableHeaderType;
+    items?: TableItemType[];
+    selectedItems?: TableItemType[];
+
+    isLoading?: boolean;
+    error?: string;
+    selectedAll?: boolean;
+
+    _init?: boolean;
 } 

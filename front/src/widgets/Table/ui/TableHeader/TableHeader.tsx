@@ -5,7 +5,7 @@ import { ItemTheme, TableItem } from '../TableItem/TableItem';
 
 interface TableHeaderProps {
 	className?: string;
-	options: TableHeaderType;
+	options?: TableHeaderType;
 	mod?: TableItemsMod;
 }
 
