@@ -17,7 +17,7 @@ import {
 	getDirectoryWorkTaskGroupDetail 
 } from '../../model/slice/directoryWorkTaskGroupDetailSlice';
 import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
-import { getWorkTaskGroupId, getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
+import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 import { getTime } from 'shared/lib/helpers/getTime';
 
 interface DirectoryObjectsGroupPageProps {
