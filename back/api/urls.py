@@ -17,17 +17,17 @@ urlpatterns = [
     path('entities/create/', views.LegalEntityCreateView.as_view()),
     path('entities/<int:pk>/', views.LegalEntityDetailView.as_view()),
 
-    path('work_objects_group/', views.WorkObjectsGroupListView.as_view()),
-    path('work_objects_group/create/', views.WorkObjectsGroupCreateView.as_view()),
-    path('work_objects_group/<int:pk>/', views.WorkObjectsGroupDetailView.as_view()),
+    path('work_objects_groups/', views.WorkObjectsGroupListView.as_view()),
+    path('work_objects_groups/create/', views.WorkObjectsGroupCreateView.as_view()),
+    path('work_objects_groups/<int:pk>/', views.WorkObjectsGroupDetailView.as_view()),
 
-    path('work_material/', views.WorkMaterialListView.as_view()),
-    path('work_material/create/', views.WorkMaterialCreateView.as_view()),
-    path('work_material/<int:pk>/', views.WorkMaterialDetailView.as_view()),
+    path('work_materials/', views.WorkMaterialListView.as_view()),
+    path('work_materials/create/', views.WorkMaterialCreateView.as_view()),
+    path('work_materials/<int:pk>/', views.WorkMaterialDetailView.as_view()),
 
-    path('work_task/', views.WorkTaskListView.as_view()),
-    path('work_task/create/', views.WorkTaskCreateView.as_view()),
-    path('work_task/<int:pk>/', views.WorkTaskDetailView.as_view()),
+    path('work_tasks/', views.WorkTaskListView.as_view()),
+    path('work_tasks/create/', views.WorkTaskCreateView.as_view()),
+    path('work_tasks/<int:pk>/', views.WorkTaskDetailView.as_view()),
 
 
     path('work_task_groups/', views.WorkTaskGroupListView.as_view()),
@@ -37,4 +37,10 @@ urlpatterns = [
     path('work_material_groups/', views.WorkMaterialGroupListView.as_view()),
     path('work_material_groups/create/', views.WorkMaterialGroupCreateView.as_view()),
     path('work_material_groups/<int:pk>/', views.WorkMaterialGroupDetailView.as_view()),
+
+    path('work_objects/', views.WorkObjectListView.as_view()),
+    path('work_objects/create/', views.WorkObjectCreateView.as_view()),
+    path('work_objects/<int:pk>/', views.WorkObjectDetailView.as_view()),
+
+    path('employee/create/', views.EmployeeCreateView.as_view()),
 ]

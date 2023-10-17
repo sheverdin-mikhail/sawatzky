@@ -74,7 +74,7 @@ class UserSerializerWithoutEmployee(ModelSerializer):
         fields = ['id', 'fio', 'phoneNumber']
 
 
-class EmployeeSerializer(ModelSerializer):
+class EmployeeWithUserSerializer(ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
     user = UserSerializerWithoutEmployee(read_only=True, many=False)
 
@@ -85,7 +85,7 @@ class EmployeeSerializer(ModelSerializer):
 
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок с расширенным полем creator
-    creator =  EmployeeSerializer(read_only=True, many=False)
+    creator =  EmployeeWithUserSerializer(read_only=True, many=False)
 
     class Meta:
         model = Application
@@ -103,7 +103,7 @@ class ApplicationSerializer(ModelSerializer):
 
 class ClientWithCLWWSerializers(ModelSerializer):
     # Сериализатор для вывода списка клиентов с расширенным полем creator, legalEntity, workObject, workObjectsGroup
-    creator = EmployeeSerializer(read_only=True, many=False)
+    creator = EmployeeWithUserSerializer(read_only=True, many=False)
     legalEntity = LegalEntitySerializer(read_only=True, many=False)
     workObject = WorkObjectSerializer(read_only=True, many=False)
     workObjectsGroup = WorkObjectsGroupSerializer(read_only=True, many=True)
