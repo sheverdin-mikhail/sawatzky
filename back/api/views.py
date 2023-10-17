@@ -21,6 +21,9 @@ from .serializers import (
     WorkTaskGroupWithWorkTaskSerializer,
     WorkMaterialGroupSerializer,
     WorkMaterialGroupWithWorkMaterialSerializer,
+    WorkObjectSerializer,
+    EmployeeWithUserSerializer,
+    EmployeeSerializer,
 )
 
 from .models import (
@@ -34,6 +37,7 @@ from .models import (
     WorkTask,
     WorkTaskGroup,
     WorkMaterialGroup,
+    WorkObject,
 )
 
 
@@ -231,6 +235,7 @@ class WorkTaskCreateView(generics.CreateAPIView):
             group.tasks.add(newWorkTask)
             group.save()
             return Response(newWorkTaskSerializer.data, status=status.HTTP_201_CREATED)
+
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
 
@@ -316,3 +321,39 @@ class WorkMaterialGroupDetailView(generics.RetrieveDestroyAPIView):
         except (KeyError, WorkMaterial.DoesNotExist):
             return Response({'message': 'Группы услуг не найдены'}, status=status.HTTP_404_NOT_FOUND)
 
+
+"""WorkObject"""
+class WorkObjectCreateView(generics.CreateAPIView):
+    # представление на создание рабочего объекта
+    queryset = WorkObject.objects.all()
+    serializer_class = WorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkObjectListView(generics.ListAPIView):
+    # представление на создание и вывод списка рабочих объектов
+    queryset = WorkObject.objects.all()
+    serializer_class = WorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление рабочих объектов по id
+    serializer_class = WorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            workObject = WorkObject.objects.filter(id=pk)
+            return workObject
+
+        except (KeyError, WorkObject.DoesNotExist):
+            return Response({'message': 'Рабочий объект не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+"""Employee"""
+class EmployeeCreateView(generics.CreateAPIView):
+    # представление на создание расширения модели пользователя
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    permission_classes = [permissions.IsAuthenticated]
