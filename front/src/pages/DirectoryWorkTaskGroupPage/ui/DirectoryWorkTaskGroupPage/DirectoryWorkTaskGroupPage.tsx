@@ -13,11 +13,12 @@ import {
 	getAddWorkTaskGroupFormIsOpen 
 } from 'features/AddWorkTaskGroup';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
+import { deleteWorkTaskGroup, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
 import { useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchWorkTaskGroupList } from 'entities/WorkTaskGroup/model/services/fetchWorkTaskGroupList';
+import { fetchWorkTaskGroupList } from 'entities/WorkTaskGroup';
+import { TableItemType } from 'widgets/Table';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -44,6 +45,10 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 		dispatch(addWorkTaskGroupFormActions.openModal())
 	},[dispatch])
 
+	const onDeleteHandler = useCallback((item: TableItemType)=>{
+		dispatch(deleteWorkTaskGroup(`${item.id}`))
+	},[dispatch])
+
 
 	const tableData: TableType = {
 		header: {
@@ -67,7 +72,7 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 						<DeleteIcon />
 					</Button>
 				</div>
-				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} />
+				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} onDelete={onDeleteHandler} />
 				<AddWorkTaskGroupModal className={cls.form} isOpen={isOpen} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>

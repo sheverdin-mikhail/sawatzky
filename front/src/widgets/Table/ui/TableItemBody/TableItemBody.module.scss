@@ -11,6 +11,10 @@
     &:hover{
         background: var(--blue-color);
         color: #fff;
+        
+        .buttons {
+            display: flex;
+        }
     }
     &:hover .checkbox label::before {
         border: none;
@@ -34,4 +38,17 @@
     &:first-child, &:nth-child(2) {
         align-items: flex-start;
     }
+}
+
+.buttons {
+    align-items: center;
+    display: none;
+}
+
+.button {
+    margin: 0 16px;
+}
+
+.columnButtons {
+    align-items: flex-end;
 }

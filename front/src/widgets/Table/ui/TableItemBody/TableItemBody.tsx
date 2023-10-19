@@ -3,11 +3,10 @@ import cls from './TableItemBody.module.scss';
 import { TableItemType, TableItemsMod } from '../../model/type/table';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useSelector } from 'react-redux';
-import { getTableSelectedItems } from '../../model/selectors/tableSelectors';
 import { MouseEvent, useCallback, useMemo } from 'react';
-import { tableActions } from '../../model/slice/tableSlice';
+import { Button, ButtonThemes } from 'shared/ui/Button/Button';
+import { ReactComponent as CrossIcon} from 'shared/assets/icons/cross-icon.svg'
+import { ReactComponent as PenIcon} from 'shared/assets/icons/pen-icon.svg'
 
 
 interface TableItemBodyProps {
@@ -15,77 +14,92 @@ interface TableItemBodyProps {
 	item?: TableItemType;
 	mod?: TableItemsMod;
 	path?: string;
+	isChecked?: boolean;
+	onCheck?: (id: string) => void 
+	onDelete?: (item: TableItemType) => void
 }
 
 export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
-	const { className, item, mod, path } = props;
+	const { className, item, mod, path, isChecked, onCheck, onDelete} = props;
 
-	const dispatch = useAppDispatch()
-	const selectedItems = useSelector(getTableSelectedItems)
 
-	const onCheckClick = useCallback((e: MouseEvent)=>{
+	const onCheckClick = useCallback((e: MouseEvent, id: any)=>{
 		e.stopPropagation()
 		e.preventDefault()
-		if(item){
-			dispatch(tableActions.toggleSelectItem(item))
-		}
-	},[dispatch, item])
+		onCheck?.(id)
+	},[onCheck])
 
-	const isChecked = useMemo(()=>{
+	const onDeleteClick = useCallback((e: MouseEvent, item: TableItemType)=>{
+		e.stopPropagation()
+		e.preventDefault()
+		onDelete?.(item)
+	},[onDelete])
 
-			return selectedItems?.includes(item!!)
-		
-	},[selectedItems, item])
 
 
 	const itemBody = useMemo(()=>{
-		switch(mod){
-			case TableItemsMod.LINK:
-				return (
-					<AppLink to={`${path}${item?.id}`} className={classNames(cls.tableItemBody, {}, [className, cls[mod]])}>
-						{
-							<Checkbox 
-								className={cls.checkbox} 
-								id={`${item?.id}`} 
-								onClick={onCheckClick} 
-								checked={isChecked}
-							/>
-						}
-						{
-							item && Object.keys(item).map((key, index)=>(
-								<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / Object.keys(item).length}%` }} >
-									<span className={cls.text}>{item[key]}</span>
+		if(item){
+			switch(mod){
+				case TableItemsMod.LINK:
+					return (
+						<AppLink to={`${path}${item?.id}`} className={classNames(cls.tableItemBody, {}, [className, cls[mod]])}>
+							{
+								<Checkbox 
+									className={cls.checkbox} 
+									id={`${item?.id}`} 
+									onClick={e => onCheckClick(e, item?.id)} 
+									checked={isChecked}
+								/>
+							}
+							{
+								item && Object.keys(item).map((key, index)=>(
+									<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length+1)}%` }} >
+										<span className={cls.text}>{item[key]}</span>
+									</div>
+								))
+							}
+							<div className={classNames(cls.column, {}, [cls.columnButtons])} style={{ flex: `1 0 ${100 / (Object.keys(item!!).length+1)}%` }} >
+								<div className={cls.buttons} >
+									<Button 
+										className={cls.button} 
+										theme={ButtonThemes.CLEAR} 
+										onClick={(e) => onDeleteClick(e, item)}
+									>
+										<CrossIcon/>
+									</Button>
+									<Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon/></Button>
 								</div>
-							))
-						}
-					</AppLink>
-				)
-			case TableItemsMod.NORMAL:
-				return (
-					<div className={classNames(cls.tableItemBody, {}, [className])}>
-						{
-							<Checkbox 
-								className={cls.checkbox} 
-								id={`${item?.id}`} 
-								onClick={onCheckClick} 
-								checked={isChecked}
-							/>
-						}
-						{
-							item && Object.keys(item).map((key, index)=>(
-								<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / Object.keys(item).length}%` }} >
-									<span className={cls.text}>{item[key]}</span>
-								</div>
-							))
-						}
-					</div>
-				)
-			default: 
-				return null
-			
+							</div>
+						</AppLink>
+					)
+				case TableItemsMod.NORMAL:
+					return (
+						<div className={classNames(cls.tableItemBody, {}, [className])}>
+							{
+								<Checkbox 
+									className={cls.checkbox} 
+									id={`${item?.id}`} 
+									onClick={e => onCheckClick(e, item?.id)} 
+									checked={isChecked}
+								/>
+							}
+							{
+								item && Object.keys(item).map((key, index)=>(
+									<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / Object.keys(item).length}%` }} >
+										<span className={cls.text}>{item[key]}</span>
+									</div>
+								))
+							}
+							
+						</div>
+					)
+				default: 
+					return null
+				
+			}	
 		}
-
-	},[mod, isChecked, path, className, item, onCheckClick])
+		return null
+	},[mod, isChecked, path, className, item, onCheckClick, onDelete])
 
 
 	return itemBody
