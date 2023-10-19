@@ -226,12 +226,13 @@ class WorkTaskCreateView(generics.CreateAPIView):
     # представление на создание работ проводимых на объекте
     queryset = WorkTask.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = WorkTaskSerializer
 
     def post(self, request, *args, **kwargs):
 
         try:
             group = WorkTaskGroup.objects.get(id=request.data['workTaskGroup'])
-            newWorkTaskSerializer = WorkTaskSerializer(data=request.data)
+            newWorkTaskSerializer = self.get_serializer(data=request.data)
             newWorkTask = newWorkTaskSerializer.is_valid(raise_exception=True)
             newWorkTask = newWorkTaskSerializer.save()
             group.tasks.add(newWorkTask)

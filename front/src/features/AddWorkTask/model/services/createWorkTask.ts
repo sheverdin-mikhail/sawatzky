@@ -17,7 +17,7 @@ export const createWorkTask = createAsyncThunk<
 
         console.log(formData)
         try{    
-            const response = await extra.api.post<WorkTask>('/api/v1/work_task/create/', formData)
+            const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData)
             if(!response.data){
                 throw new Error('Ошибка создания группы услуг')
             }
