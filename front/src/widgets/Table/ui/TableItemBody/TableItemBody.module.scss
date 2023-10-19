@@ -5,6 +5,21 @@
     border-radius: 10px;
     border: 1px solid #D5D5D5;
     background: var(--gray-bg-color);
+    
+}
+
+.normal {
+    &:hover{
+        .buttons {
+            display: flex;
+        }
+    }
+
+    .button svg {
+        stroke: #000;
+        fill: #000;
+    }
+
 }
 
 .link {
@@ -14,6 +29,11 @@
         
         .buttons {
             display: flex;
+        }
+
+        .button svg{
+            fill: #fff;
+            stroke: #fff;
         }
     }
     &:hover .checkbox label::before {

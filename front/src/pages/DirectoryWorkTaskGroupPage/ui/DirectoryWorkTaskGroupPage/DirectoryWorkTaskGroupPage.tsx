@@ -15,7 +15,7 @@ import {
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { deleteWorkTaskGroup, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
 import { useSelector } from 'react-redux';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchWorkTaskGroupList } from 'entities/WorkTaskGroup';
 import { TableItemType } from 'widgets/Table';
@@ -34,7 +34,22 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 	const { className } = props;
 
 	const dispatch = useAppDispatch()
+	const [selectedItems, setSelectedItems] = useState<TableItemType[]>([])
+
 	const workObjectsList = useSelector(getWorkTaskGroup.selectAll)
+	const tableData: TableType = useMemo(()=>{
+		return {
+			header: {
+				id: 'ID',
+				name: 'Наименование группы',
+			},
+			items: workObjectsList.map((item)=>({
+				id: item.id,
+				name: item.name
+			}))
+		}
+	},[workObjectsList])
+
 	const isOpen = useSelector(getAddWorkTaskGroupFormIsOpen)
 
 	useEffect(()=>{
@@ -45,22 +60,42 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 		dispatch(addWorkTaskGroupFormActions.openModal())
 	},[dispatch])
 
-	const onDeleteHandler = useCallback((item: TableItemType)=>{
+	const onTableDeleteHandler = useCallback((item: TableItemType)=>{
 		dispatch(deleteWorkTaskGroup(`${item.id}`))
 	},[dispatch])
 
+	const onButtonDeleteHandler = useCallback(()=>{
+		if(selectedItems){
+			selectedItems.forEach((item)=>{
+				dispatch(deleteWorkTaskGroup(`${item.id}`))
+			})
+		}
+	},[dispatch, selectedItems])
 
-	const tableData: TableType = {
-		header: {
-			id: 'ID',
-			name: 'Наименование группы',
-		},
-		items: workObjectsList.map((item)=>({
-			id: item.id,
-			name: item.name
-		}))
-	}
+	const onCheckHandler = useCallback((item: TableItemType)=>{
+		if(selectedItems.includes(item)){
+			setSelectedItems(prev => prev.filter(selectedItem => item.id !== selectedItem.id ) )
+		}else{
+			setSelectedItems(prev => [...prev, item])
+		}
 
+	},[selectedItems])
+
+
+	const [selectedAll, setSelectedAll] = useState<boolean>(false)
+
+	const onSelectAllHandler = useCallback(() => {
+		if(selectedAll){
+			setSelectedAll(false)
+			setSelectedItems([])
+		}else{
+			setSelectedAll(true)
+			setSelectedItems(tableData.items!!)
+		}
+	},[selectedAll, tableData])
+
+
+	
 	return (
 		<DynamicModuleLoader reducers={reducers}>
 			<DirectoryPageWrapper className={classNames(cls.directoryWorkTaskGroupPage, {}, [className])}>
@@ -68,11 +103,20 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 					<Button helpInfo='Добавить группу услуг' onClick={openFormHandler} className={cls.button} theme={ButtonThemes.ICON}  >
 						<AddIcon />
 					</Button>
-					<Button helpInfo='Удалить группу услуг' className={cls.button} theme={ButtonThemes.ICON}  >
+					<Button helpInfo='Удалить группу услуг' className={cls.button} onClick={onButtonDeleteHandler} theme={ButtonThemes.ICON}  >
 						<DeleteIcon />
 					</Button>
 				</div>
-				<Table mod={TableItemsMod.LINK} path={DirectoryPath.work_task_group_detail} data={tableData} onDelete={onDeleteHandler} />
+				<Table 
+					mod={TableItemsMod.LINK} 
+					path={DirectoryPath.work_task_group_detail} 
+					data={tableData} 
+					onDelete={onTableDeleteHandler} 
+					selectedItems={selectedItems} 
+					onSelectItem={onCheckHandler}
+					selectedAll={selectedAll}
+					onSelectAll={onSelectAllHandler}
+				/>
 				<AddWorkTaskGroupModal className={cls.form} isOpen={isOpen} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>

@@ -23,13 +23,13 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 	const { className, item, mod, path, isChecked, onCheck, onDelete} = props;
 
 
-	const onCheckClick = useCallback((e: MouseEvent, id: any)=>{
+	const onCheckHandler = useCallback((e: MouseEvent, id: any)=>{
 		e.stopPropagation()
 		e.preventDefault()
 		onCheck?.(id)
 	},[onCheck])
 
-	const onDeleteClick = useCallback((e: MouseEvent, item: TableItemType)=>{
+	const onDeleteHandler = useCallback((e: MouseEvent, item: TableItemType)=>{
 		e.stopPropagation()
 		e.preventDefault()
 		onDelete?.(item)
@@ -47,7 +47,7 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 								<Checkbox 
 									className={cls.checkbox} 
 									id={`${item?.id}`} 
-									onClick={e => onCheckClick(e, item?.id)} 
+									onClick={e => onCheckHandler(e, item?.id)} 
 									checked={isChecked}
 								/>
 							}
@@ -63,7 +63,7 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 									<Button 
 										className={cls.button} 
 										theme={ButtonThemes.CLEAR} 
-										onClick={(e) => onDeleteClick(e, item)}
+										onClick={(e) => onDeleteHandler(e, item)}
 									>
 										<CrossIcon/>
 									</Button>
@@ -74,23 +74,34 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 					)
 				case TableItemsMod.NORMAL:
 					return (
-						<div className={classNames(cls.tableItemBody, {}, [className])}>
+						<div className={classNames(cls.tableItemBody, {}, [cls[mod], className])}>
 							{
 								<Checkbox 
 									className={cls.checkbox} 
 									id={`${item?.id}`} 
-									onClick={e => onCheckClick(e, item?.id)} 
+									onClick={e => onCheckHandler(e, item?.id)} 
 									checked={isChecked}
 								/>
 							}
 							{
 								item && Object.keys(item).map((key, index)=>(
-									<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / Object.keys(item).length}%` }} >
+									<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length+1)}%` }} >
 										<span className={cls.text}>{item[key]}</span>
 									</div>
 								))
 							}
-							
+							<div className={classNames(cls.column, {}, [cls.columnButtons])} style={{ flex: `1 0 ${100 / (Object.keys(item!!).length+1)}%` }} >
+								<div className={cls.buttons} >
+									<Button 
+										className={cls.button} 
+										theme={ButtonThemes.CLEAR} 
+										onClick={(e) => onDeleteHandler(e, item)}
+									>
+										<CrossIcon/>
+									</Button>
+									<Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon/></Button>
+								</div>
+							</div>
 						</div>
 					)
 				default: 
@@ -99,7 +110,7 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 			}	
 		}
 		return null
-	},[mod, isChecked, path, className, item, onCheckClick, onDelete])
+	},[mod, isChecked, path, className, item, onCheckHandler, onDeleteHandler])
 
 
 	return itemBody

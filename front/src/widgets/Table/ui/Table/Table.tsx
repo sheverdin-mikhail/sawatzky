@@ -10,49 +10,37 @@ interface TableProps {
 	mod?: TableItemsMod;
 	data: TableType;
 	path?: string;
+	selectedItems?: TableItemType[]; 
+	onSelectItem?: (item: TableItemType) => void;
+	onSelectAll?: () => void;
+	selectedAll?: boolean;
 	onDelete?: (item: TableItemType) => void;
 }
 
 
 export const Table: React.FC<TableProps> = (props) => {
-	const { className, mod=TableItemsMod.NORMAL, data, path, onDelete } = props;
-
-
-
-	const [selectedItems, setSelectedItems] = useState<TableItemType[]>([])
-	const [selectedAll, setSelectedAll] = useState<boolean>(false)
-
-	const onCheckHandler = useCallback((item: TableItemType)=>{
-		if(selectedItems.includes(item)){
-			setSelectedItems(prev => prev.filter(selectedItem => item.id !== selectedItem.id ) )
-		}else{
-			setSelectedItems(prev => [...prev, item])
-		}
-
-	},[selectedItems])
-
-
-
-	const onSelectAllHandler = useCallback(() => {
-		if(selectedAll){
-			setSelectedAll(false)
-			setSelectedItems([])
-		}else{
-			setSelectedAll(true)
-			setSelectedItems(data.items!!)
-		}
-	},[selectedAll, data])
+	const { 
+		className, 
+		mod=TableItemsMod.NORMAL, 
+		data, 
+		path, 
+		onDelete, 
+		onSelectItem, 
+		selectedItems, 
+		selectedAll, 
+		onSelectAll 
+	} = props;
 
 
 	return (
 		<div className={classNames(cls.table, {}, [className])}>
-			<TableHeader options={data.header} mod={mod} selectedAll={selectedAll} onSelectAll={onSelectAllHandler} />
+			<TableHeader options={data.header} mod={mod} selectedAll={selectedAll} onSelectAll={onSelectAll} />
 			{
 				data.items && <TableBody 
 					path={path} 
 					items={data.items} 
 					mod={mod} 
-					onCheck={onCheckHandler} 
+					onCheck={onSelectItem} 
 					selectedItems={selectedItems} 
 					onDelete={onDelete}
 				/>
