@@ -361,22 +361,26 @@ class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
     queryset = Employee.objects.all()
     serializer_class = EmployeeWithUserUPSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
 
         try:
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
+            #Обрабатываем входящие данные
+            user_data = request.data.get('user')
+            employee_data = request.data.copy()
+            #Создаем сериализаторы
+            user_serializer = UserRegistrationSerializer(data=user_data)
+            employee_serializer = EmployeeSerializer(data=employee_data)
 
-            user_data = request.data.pop('user')
-            legalEntityId = request.data.pop('legalEntity')
-            legalEntity = LegalEntity.objects.get(id=legalEntityId)
-
+            #если данные валидны
+            user_serializer.is_valid(raise_exception=True)
             user = User.objects.create_user(**user_data)
-            employee = Employee.objects.create(user=user, legalEntity=legalEntity, **request.data)
-            employee.save()
-            employee_serializer = EmployeeWithUserSerializer(instance=employee)
+            employee_data['user'] = user.id
+            employee_serializer.is_valid(raise_exception=True)
+
+            #Сохраняем
+            employee_serializer.save()
 
             return Response(employee_serializer.data, status=status.HTTP_201_CREATED)
 
