@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import (
     User,
     Employee,
@@ -74,13 +75,26 @@ class UserSerializerWithoutEmployee(ModelSerializer):
         fields = ['id', 'fio', 'phoneNumber']
 
 
-class EmployeeWithUserSerializer(ModelSerializer):
+class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
     user = UserSerializerWithoutEmployee(read_only=True, many=False)
+    username = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = Employee
         fields = '__all__'
+
+    def create(self, validated_data):
+
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
+
+        user = User.objects.create_user(username=username, password=password)
+
+        employee = Employee.objects.create(user=user, **validated_data)
+
+        return employee
 
 
 class ApplicationWithCreatorSerializer(ModelSerializer):
