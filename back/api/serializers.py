@@ -50,12 +50,14 @@ class WorkMaterialSerializer(ModelSerializer):
         model = WorkMaterial
         fields = '__all__'
 
+
 '''WorkTask'''
 class WorkTaskSerializer(ModelSerializer):
     # Сериализатор модели WorkTask
     class Meta:
         model = WorkTask
         fields = '__all__'
+
 
 
 class UserSerializer(ModelSerializer):
@@ -75,11 +77,27 @@ class UserSerializerWithoutEmployee(ModelSerializer):
         fields = ['id', 'fio', 'phoneNumber']
 
 
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    # Сериализатор для регистрации пользователя
+    password = serializers.CharField(write_only=True)
+    username = serializers.CharField(write_only=True)
+    fio = serializers.CharField()
+    phoneNumber = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'fio', 'phoneNumber']
+
+    def create(self, validated_data):
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
+        user = User.objects.create_user(username=username, password=password, **validated_data)
+        return user
+
+
 class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера, password + username
-    user = UserSerializer(read_only=True, many=False)
-    username = serializers.CharField(write_only=True)
-    password = serializers.CharField(write_only=True)
+    user = UserRegistrationSerializer(write_only=True)
 
     class Meta:
         model = Employee
@@ -87,14 +105,16 @@ class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        username = validated_data.pop('username')
-        password = validated_data.pop('password')
+        user_data = validated_data.pop('user')
+        username = user_data['username']
+        password = user_data['password']
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password, **user_data)
 
         employee = Employee.objects.create(user=user, **validated_data)
 
         return employee
+
 
 class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
