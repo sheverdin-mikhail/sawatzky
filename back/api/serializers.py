@@ -110,14 +110,14 @@ class ApplicationWorkTaskSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы с actualTime
     class Meta:
         model = ApplicationWorkTask
-        fields = '__all__'
+        fields = ['actualTime']
 
 
 class ApplicationWorkMaterialSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы с actualCount
     class Meta:
         model = ApplicationWorkMaterial
-        fields = '__all__'
+        fields = ['actualCount']
 
 
 class ApplicationWithCreatorSerializer(ModelSerializer):

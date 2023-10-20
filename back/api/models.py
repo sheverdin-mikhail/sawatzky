@@ -216,7 +216,7 @@ class ApplicationWorkTask(models.Model):
 
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
     work_task = models.ForeignKey(WorkTask, on_delete=models.CASCADE)
-    actualTime = models.PositiveIntegerField(("Действительное время"), null=True, blank=True)
+    actualTime = models.PositiveIntegerField(("Актуальное время"), null=True, blank=True)
 
 
 
