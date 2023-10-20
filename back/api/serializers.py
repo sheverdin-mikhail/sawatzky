@@ -75,9 +75,9 @@ class UserSerializerWithoutEmployee(ModelSerializer):
         fields = ['id', 'fio', 'phoneNumber']
 
 
-class EmployeeWithUserSerializer(serializers.ModelSerializer):
-    # Сериализатор для сотрудника с расширенным полем юзера
-    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера, password + username
+    user = UserSerializer(read_only=True, many=False)
     username = serializers.CharField(write_only=True)
     password = serializers.CharField(write_only=True)
 
@@ -95,6 +95,14 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
         employee = Employee.objects.create(user=user, **validated_data)
 
         return employee
+
+class EmployeeWithUserSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера
+    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+
+    class Meta:
+        model = Employee
+        fields = '__all__'
 
 
 class ApplicationWithCreatorSerializer(ModelSerializer):

@@ -26,6 +26,7 @@ from .serializers import (
     WorkObjectSerializer,
     EmployeeWithUserSerializer,
     EmployeeSerializer,
+    EmployeeWithUserUPSerializer,
 )
 
 from .models import (
@@ -358,7 +359,7 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
 class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
     queryset = Employee.objects.all()
-    serializer_class = EmployeeWithUserSerializer
+    serializer_class = EmployeeWithUserUPSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
