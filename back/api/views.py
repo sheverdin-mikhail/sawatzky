@@ -375,7 +375,7 @@ class EmployeeCreateView(generics.CreateAPIView):
 
             #если данные валидны
             user_serializer.is_valid(raise_exception=True)
-            user = User.objects.create_user(**user_data)
+            user = User.objects.create_user(**user_data) #Плохо, что создание до валидации, т.к. снизу отвалится, а юзер уже создан
             employee_data['user'] = user.id
             employee_serializer.is_valid(raise_exception=True)
 
