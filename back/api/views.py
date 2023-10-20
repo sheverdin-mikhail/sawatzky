@@ -366,7 +366,6 @@ class EmployeeCreateView(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
 
         try:
-            # user_serializer = UserRegistrationSerializer(data=request.data.get('user'))
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
