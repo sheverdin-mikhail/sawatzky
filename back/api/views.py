@@ -363,43 +363,23 @@ class EmployeeCreateView(generics.CreateAPIView):
     serializer_class = EmployeeWithUserUPSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
         try:
-            user_serializer = UserRegistrationSerializer(data=request.data.get('user'))
-            user_serializer.is_valid(raise_exception=True)
-            user = user_serializer.save()
+            # user_serializer = UserRegistrationSerializer(data=request.data.get('user'))
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
 
-            employee_data = request.data.copy()
-            employee_data['user'] = user_serializer.validated_data['id']
-            employee_serializer = self.get_serializer(data=employee_data)
-            employee_serializer.is_valid(raise_exception=True)
-            employee = employee_serializer.save()
+            user_data = request.data.pop('user')
+            legalEntityId = request.data.pop('legalEntity')
+            legalEntity = LegalEntity.objects.get(id=legalEntityId)
+
+            user = User.objects.create_user(**user_data)
+            employee = Employee.objects.create(user=user, legalEntity=legalEntity, **request.data)
+            employee.save()
+            employee_serializer = EmployeeWithUserSerializer(instance=employee)
 
             return Response(employee_serializer.data, status=status.HTTP_201_CREATED)
 
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
-
-    # def post(self, request, *args, **kwargs):
-    #
-    #     try:
-    #         legal_entity_id = LegalEntity.objects.get(id=request.data['legalEntity'])
-    #         role = request.data.get('role')
-    #         fio = request.data.get('fio')
-    #         username = request.data.get('username')
-    #         password = request.data.get('password')
-    #
-    #         newEmployeeSerializer = self.get_serializer(data=request.data)
-    #         newEmployee = newEmployeeSerializer.is_valid(raise_exception=True)
-    #         newEmployee = newEmployeeSerializer.save()
-    #
-    #         user = User.objects.create_user(username=username, password=password)
-    #
-    #         newEmployee = Employee(legalEntity=legal_entity_id, user=user, role=role, fio=fio)
-    #         newEmployee.save()
-    #
-    #         return Response(newEmployeeSerializer.data, status=status.HTTP_201_CREATED)
-    #
-    #     except ValidationError as error:
-    #         return Response(error.detail, status=error.status_code)

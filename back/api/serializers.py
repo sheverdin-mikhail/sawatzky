@@ -88,12 +88,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 'fio', 'phoneNumber']
 
-    def create(self, validated_data):
-        username = validated_data.pop('username')
-        password = validated_data.pop('password')
-        user = User.objects.create_user(username=username, password=password, **validated_data)
-        return user
-
 
 class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера, password + username
