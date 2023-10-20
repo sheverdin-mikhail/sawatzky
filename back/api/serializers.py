@@ -12,6 +12,8 @@ from .models import (
     WorkTask,
     WorkTaskGroup,
     WorkMaterialGroup,
+    ApplicationWorkTask,
+    ApplicationWorkMaterial,
 )
 
 
@@ -104,9 +106,25 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ApplicationWorkTaskSerializer(ModelSerializer):
+    # Сериализатор промежуточной таблицы с actualTime
+    class Meta:
+        model = ApplicationWorkTask
+        fields = '__all__'
+
+
+class ApplicationWorkMaterialSerializer(ModelSerializer):
+    # Сериализатор промежуточной таблицы с actualCount
+    class Meta:
+        model = ApplicationWorkMaterial
+        fields = '__all__'
+
+
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок с расширенным полем creator
-    creator =  EmployeeWithUserSerializer(read_only=True, many=False)
+    creator = EmployeeWithUserSerializer(read_only=True, many=False)
+    workTasks = ApplicationWorkTaskSerializer(read_only=True, many=True)
+    workMaterials = ApplicationWorkMaterialSerializer(read_only=True, many=True)
 
     class Meta:
         model = Application
@@ -115,8 +133,10 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
 
 class ApplicationSerializer(ModelSerializer):
     # Сериализаатор для создания/удаления/обновления заявки
+    workTasks = ApplicationWorkTaskSerializer(read_only=True, many=True)
+    workMaterials = ApplicationWorkMaterialSerializer(read_only=True, many=True)
 
-    class Meta:
+class Meta:
         model = Application
         many=False
         fields = '__all__'
@@ -185,4 +205,5 @@ class WorkMaterialGroupSerializer(ModelSerializer):
     class Meta:
         model = WorkMaterialGroup
         fields = '__all__'
+
 
