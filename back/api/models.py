@@ -247,8 +247,8 @@ class Application(models.Model):
     description = models.CharField(("Описание заявки"), max_length=300)
     creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
     performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='applicationPerformer')
-    workTasks = models.ManyToManyField("api.WorkTask", through=ApplicationWorkTask, verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
-    workMaterials = models.ManyToManyField("api.WorkMaterial", through=ApplicationWorkMaterial, verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
+    workTasks = models.ManyToManyField("api.WorkTask", through="ApplicationWorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
+    workMaterials = models.ManyToManyField("api.WorkMaterial", through="ApplicationWorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)
 
     totalSum = models.FloatField(("Общая стоимость работ"), blank=True, null=True)
