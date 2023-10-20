@@ -79,8 +79,6 @@ class UserSerializerWithoutEmployee(ModelSerializer):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # Сериализатор для регистрации пользователя
-    password = serializers.CharField(write_only=True)
-    username = serializers.CharField(write_only=True)
     fio = serializers.CharField()
     phoneNumber = serializers.CharField()
 

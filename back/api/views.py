@@ -366,17 +366,24 @@ class EmployeeCreateView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
 
         try:
-            user_serializer = UserRegistrationSerializer(data=request.data.get('user'))
+            user_data = request.data.get('user')
+            user_serializer = UserRegistrationSerializer(data=user_data)
             user_serializer.is_valid(raise_exception=True)
-            user = user_serializer.save()
+
+            username = user_data.get('username')
+            password = user_data.get('password')
+
+            user = User.objects.create_user(username=username, password=password, **user_data)
 
             employee_data = request.data.copy()
-            employee_data['user'] = user_serializer.validated_data['id']
+            employee_data['user'] = user.id
+
             employee_serializer = self.get_serializer(data=employee_data)
             employee_serializer.is_valid(raise_exception=True)
+
             employee = employee_serializer.save()
 
-            return Response(employee_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
 
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
