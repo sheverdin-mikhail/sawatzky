@@ -95,19 +95,6 @@ class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
         model = Employee
         fields = '__all__'
 
-    def create(self, validated_data):
-
-        user_data = validated_data.pop('user')
-        username = user_data['username']
-        password = user_data['password']
-
-        user = User.objects.create_user(username=username, password=password, **user_data)
-
-        employee = Employee.objects.create(user=user, **validated_data)
-
-        return employee
-
-
 class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
     user = UserSerializerWithoutEmployee(read_only=True, many=False)
