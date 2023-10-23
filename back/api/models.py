@@ -222,7 +222,6 @@ class ApplicationWorkTask(models.Model):
     def __str__(self):
         return f'application №{self.application.id} workTask №{self.workTask.id}'
 
-
 class ApplicationWorkMaterial(models.Model):
     """Промежуточная таблица с actualCount"""
 
@@ -232,7 +231,6 @@ class ApplicationWorkMaterial(models.Model):
 
     def __str__(self):
         return f'application №{self.application.id} workTask №{self.workMaterial.id}'
-
 
 
 class Application(models.Model):
