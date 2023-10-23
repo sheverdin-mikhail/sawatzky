@@ -209,26 +209,22 @@ class WorkMaterialGroupSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ApplicationUpdateWorkTaskSerializer(ModelSerializer):
-    # Сериализатор промежуточной таблицы с actualTime для обновления
-    workTask = WorkTaskSerializer(read_only=True, many=False)
+class UpdateWorkMaterialSerializer(ModelSerializer):
     class Meta:
-        model = ApplicationWorkTask
-        fields = ['actualTime']
-
-
-class ApplicationUpdateWorkMaterialSerializer(ModelSerializer):
-    # Сериализатор промежуточной таблицы с actualCount для обновления
-    workMaterial = WorkMaterialSerializer(read_only=True, many=False)
-    class Meta:
-        model = ApplicationWorkMaterial
+        model = WorkMaterial
         fields = ['actualCount']
+
+
+class UpdateWorkTaskSerializer(ModelSerializer):
+    class Meta:
+        model = WorkTask
+        fields = ['actualTime']
 
 
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
-    workTasks = ApplicationUpdateWorkTaskSerializer(many=True)
-    workMaterials = ApplicationUpdateWorkMaterialSerializer(many=True)
+    workTasks = UpdateWorkMaterialSerializer(many=True)
+    workMaterials = UpdateWorkTaskSerializer(many=True)
 
     class Meta:
         model = Application
