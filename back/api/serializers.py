@@ -241,7 +241,6 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
-        print(validated_data)
         if work_task_data:
             current_work_tasks = ApplicationWorkTask.objects.filter(application=instance)
             # Удаляем workTasks, которых нет в validated_data
