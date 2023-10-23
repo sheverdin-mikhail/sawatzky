@@ -250,7 +250,7 @@ class Application(models.Model):
     workTasks = models.ManyToManyField("api.WorkTask", through="ApplicationWorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
     workMaterials = models.ManyToManyField("api.WorkMaterial", through="ApplicationWorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)
-    place = models.CharField(("Место выполнения заявки"), max_length=100)
+    place = models.CharField(("Место выполнения заявки"), max_length=100, blank=True, null=True )
 
     totalSum = models.FloatField(("Общая стоимость работ"), blank=True, null=True)
     totalSumWithPercent = models.FloatField(("Общая стоимость работ с НДС"), blank=True, null=True)
