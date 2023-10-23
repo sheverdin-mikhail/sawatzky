@@ -29,6 +29,7 @@ from .serializers import (
     EmployeeSerializer,
     EmployeeWithUserUPSerializer,
     UserRegistrationSerializer,
+    ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
 )
 
 from .models import (
@@ -88,7 +89,7 @@ class ApplicationCreateView(generics.CreateAPIView):
 
 class ApplicationUpdateView(generics.UpdateAPIView):
     # представление на создание заявки
-    serializer_class = ApplicationWithCreatorSerializer
+    serializer_class = ApplicationWithWorkTasksWorkMaterialsUpdateSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
