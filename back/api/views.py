@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from rest_framework.views import APIView 
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
-from rest_framework.serializers import ValidationError 
+from rest_framework.serializers import ValidationError
+from django.contrib.auth.models import User
+
 
 from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
+    ApplicationWorkMaterialSerializer,
     ApplicationSerializer,
     ClientWithCLWWSerializers,
     ClientSerializers,
@@ -24,6 +27,9 @@ from .serializers import (
     WorkObjectSerializer,
     EmployeeWithUserSerializer,
     EmployeeSerializer,
+    EmployeeWithUserUPSerializer,
+    UserRegistrationSerializer,
+    ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
 )
 
 from .models import (
@@ -80,6 +86,21 @@ class ApplicationCreateView(generics.CreateAPIView):
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+class ApplicationUpdateView(generics.UpdateAPIView):
+    # представление на создание заявки
+    serializer_class = ApplicationWithWorkTasksWorkMaterialsUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            applications = Application.objects.filter(id=pk)
+            return applications
+
+        except (KeyError, Application.DoesNotExist):
+            return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
@@ -224,12 +245,13 @@ class WorkTaskCreateView(generics.CreateAPIView):
     # представление на создание работ проводимых на объекте
     queryset = WorkTask.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = WorkTaskSerializer
 
     def post(self, request, *args, **kwargs):
 
         try:
             group = WorkTaskGroup.objects.get(id=request.data['workTaskGroup'])
-            newWorkTaskSerializer = WorkTaskSerializer(data=request.data)
+            newWorkTaskSerializer = self.get_serializer(data=request.data)
             newWorkTask = newWorkTaskSerializer.is_valid(raise_exception=True)
             newWorkTask = newWorkTaskSerializer.save()
             group.tasks.add(newWorkTask)
@@ -353,7 +375,30 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
 
 """Employee"""
 class EmployeeCreateView(generics.CreateAPIView):
-    # представление на создание расширения модели пользователя
+    # представление на создание расширения модели пользователя, после регистрации user
     queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
+    serializer_class = EmployeeWithUserUPSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            #Валидация
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            #Обработка данных
+            user_data = request.data.pop('user')
+            legalEntityId = request.data.pop('legalEntity')
+            legalEntity = LegalEntity.objects.get(id=legalEntityId)
+
+            #Создание и сохранение объектов
+            user = User.objects.create_user(**user_data)
+            employee = Employee.objects.create(user=user, legalEntity=legalEntity, **request.data)
+            employee.save()
+            employee_serializer = EmployeeWithUserSerializer(instance=employee)
+
+            return Response(employee_serializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
