@@ -223,8 +223,8 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
-    workTasks = UpdateWorkMaterialSerializer(many=True)
-    workMaterials = UpdateWorkTaskSerializer(many=True)
+    workTasks = UpdateWorkTaskSerializer(many=True)
+    workMaterials = UpdateWorkMaterialSerializer(many=True)
 
     class Meta:
         model = Application
