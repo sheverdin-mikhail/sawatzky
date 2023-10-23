@@ -108,16 +108,18 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
 
 class ApplicationWorkTaskSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы с actualTime
+    workTask = WorkTaskSerializer(read_only=True, many=False)
     class Meta:
         model = ApplicationWorkTask
-        fields = ['actualTime']
+        fields = ['actualTime', 'workTask']
 
 
 class ApplicationWorkMaterialSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы с actualCount
+    workMaterial = WorkMaterialSerializer(read_only=True, many=False)
     class Meta:
         model = ApplicationWorkMaterial
-        fields = ['actualCount']
+        fields = ['actualCount', 'workMaterial']
 
 
 class ApplicationWithCreatorSerializer(ModelSerializer):
@@ -136,7 +138,7 @@ class ApplicationSerializer(ModelSerializer):
     workTasks = ApplicationWorkTaskSerializer(read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(read_only=True, many=True)
 
-class Meta:
+    class Meta:
         model = Application
         many=False
         fields = '__all__'

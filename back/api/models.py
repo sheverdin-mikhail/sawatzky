@@ -215,7 +215,7 @@ class ApplicationWorkTask(models.Model):
     """Промежуточная таблица с actualTime"""
 
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
-    work_task = models.ForeignKey(WorkTask, on_delete=models.CASCADE)
+    workTask = models.ForeignKey(WorkTask, on_delete=models.CASCADE)
     actualTime = models.PositiveIntegerField(("Актуальное время"), null=True, blank=True)
 
 
@@ -224,7 +224,7 @@ class ApplicationWorkMaterial(models.Model):
     """Промежуточная таблица с actualCount"""
 
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
-    work_material = models.ForeignKey(WorkMaterial, on_delete=models.CASCADE)
+    workMaterial = models.ForeignKey(WorkMaterial, on_delete=models.CASCADE)
     actualCount = models.PositiveIntegerField(("Действительное количество"), null=True, blank=True)
 
 

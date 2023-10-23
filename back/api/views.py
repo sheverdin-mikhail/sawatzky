@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from .serializers import (
     UserSerializer,
     ApplicationWithCreatorSerializer,
+    ApplicationWorkMaterialSerializer,
     ApplicationSerializer,
     ClientWithCLWWSerializers,
     ClientSerializers,
@@ -84,6 +85,21 @@ class ApplicationCreateView(generics.CreateAPIView):
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+class ApplicationUpdateView(generics.UpdateAPIView):
+    # представление на создание заявки
+    serializer_class = ApplicationWithCreatorSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            applications = Application.objects.filter(id=pk)
+            return applications
+
+        except (KeyError, Application.DoesNotExist):
+            return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
