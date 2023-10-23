@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "app/providers";
 import { userActions } from "entities/User";
 import { WorkTaskGroupItem } from "entities/WorkTaskGroup";
-import { fetchWorkTaskGroupList } from "entities/WorkTaskGroup/model/services/fetchWorkTaskGroupList";
-import { AddWorkTaskFormData } from "features/AddWorkTask/model/type/addWorkTask";
+import { fetchWorkTaskGroupList } from "entities/WorkTaskGroup";
+import { AddWorkTaskFormData } from "features/AddWorkTask";
 
 
 

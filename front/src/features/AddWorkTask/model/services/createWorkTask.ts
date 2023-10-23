@@ -15,7 +15,6 @@ export const createWorkTask = createAsyncThunk<
     'addWorkTask/createWorkTask',
     async (formData, { extra, rejectWithValue, dispatch }) => {
 
-        console.log(formData)
         try{    
             const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData)
             if(!response.data){

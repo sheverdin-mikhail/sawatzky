@@ -2,24 +2,48 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Table.module.scss';
 import { TableHeader } from '../TableHeader/TableHeader';
 import { TableBody } from '../TableBody/TableBody';
-import { TableItemsMod, TableType } from '../../model/type/table';
+import { TableItemType, TableItemsMod, TableType } from '../../model/type/table';
+import { useCallback, useState } from 'react';
 
 interface TableProps {
 	className?: string;
-	data: TableType;
 	mod?: TableItemsMod;
+	data: TableType;
 	path?: string;
+	selectedItems?: TableItemType[]; 
+	onSelectItem?: (item: TableItemType) => void;
+	onSelectAll?: () => void;
+	selectedAll?: boolean;
+	onDelete?: (item: TableItemType) => void;
 }
 
 
 export const Table: React.FC<TableProps> = (props) => {
-	const { className, data, mod=TableItemsMod.NORMAL, path } = props;
+	const { 
+		className, 
+		mod=TableItemsMod.NORMAL, 
+		data, 
+		path, 
+		onDelete, 
+		onSelectItem, 
+		selectedItems, 
+		selectedAll, 
+		onSelectAll 
+	} = props;
+
 
 	return (
 		<div className={classNames(cls.table, {}, [className])}>
-			<TableHeader options={data.header} mod={mod} />
+			<TableHeader options={data.header} mod={mod} selectedAll={selectedAll} onSelectAll={onSelectAll} />
 			{
-				data.items && <TableBody path={path} items={data.items} mod={mod}  />
+				data.items && <TableBody 
+					path={path} 
+					items={data.items} 
+					mod={mod} 
+					onCheck={onSelectItem} 
+					selectedItems={selectedItems} 
+					onDelete={onDelete}
+				/>
 			}
 		</div>
 	);
