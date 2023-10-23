@@ -212,13 +212,13 @@ class WorkMaterialGroupSerializer(ModelSerializer):
 class UpdateWorkMaterialSerializer(ModelSerializer):
     class Meta:
         model = ApplicationWorkMaterial
-        fields = ['actualCount']
+        fields = ['actualCount', 'workMaterial']
 
 
 class UpdateWorkTaskSerializer(ModelSerializer):
     class Meta:
         model = ApplicationWorkTask
-        fields = ['actualTime']
+        fields = ['actualTime', 'workTask']
 
 
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
