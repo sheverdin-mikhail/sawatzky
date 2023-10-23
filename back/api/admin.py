@@ -7,11 +7,13 @@ from .models import (
     Employee,
     LegalEntity,
     WorkTask,
-    WorkTaskGroup
+    WorkTaskGroup,
+    ApplicationWorkTask
 ) 
 # Register your models here.
 
 admin.site.register(User)
+admin.site.register(ApplicationWorkTask)
 admin.site.register(Application)
 admin.site.register(Client)
 admin.site.register(Employee)

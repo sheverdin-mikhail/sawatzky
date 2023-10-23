@@ -214,10 +214,13 @@ class WorkMaterial(models.Model):
 class ApplicationWorkTask(models.Model):
     """Промежуточная таблица с actualTime"""
 
-    application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
+    application = models.ForeignKey("api.Application", on_delete=models.CASCADE, )
     workTask = models.ForeignKey(WorkTask, on_delete=models.CASCADE)
     actualTime = models.PositiveIntegerField(("Актуальное время"), null=True, blank=True)
 
+
+    def __str__(self):
+        return f'application №{self.application.id} workTask №{self.workTask.id}'
 
 
 class ApplicationWorkMaterial(models.Model):
@@ -226,6 +229,9 @@ class ApplicationWorkMaterial(models.Model):
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
     workMaterial = models.ForeignKey(WorkMaterial, on_delete=models.CASCADE)
     actualCount = models.PositiveIntegerField(("Действительное количество"), null=True, blank=True)
+
+    def __str__(self):
+        return f'application №{self.application.id} workTask №{self.workMaterial.id}'
 
 
 
@@ -247,8 +253,22 @@ class Application(models.Model):
     description = models.CharField(("Описание заявки"), max_length=300)
     creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
     performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='applicationPerformer')
-    workTasks = models.ManyToManyField("api.WorkTask", through="ApplicationWorkTask", verbose_name=("Проводимые работы"), blank=True, null=True, related_name='application')
-    workMaterials = models.ManyToManyField("api.WorkMaterial", through="ApplicationWorkMaterial", verbose_name=("Материалы для работы"), blank=True, null=True, related_name='application')
+    workTasks = models.ManyToManyField(
+        "api.WorkTask", 
+        through="ApplicationWorkTask", 
+        verbose_name=("Проводимые работы"), 
+        blank=True, 
+        null=True, 
+        related_name='applications'
+    )
+    workMaterials = models.ManyToManyField(
+        "api.WorkMaterial", 
+        through="ApplicationWorkMaterial", 
+        verbose_name=("Материалы для работы"), 
+        blank=True, 
+        null=True, 
+        related_name='applications'
+    )
     documents = models.ManyToManyField("api.Document", verbose_name=("Документы"), blank=True, null=True)
     place = models.CharField(("Место выполнения заявки"), max_length=100, blank=True, null=True )
 
