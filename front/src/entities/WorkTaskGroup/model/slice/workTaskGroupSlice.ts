@@ -2,6 +2,7 @@ import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolki
 import { StateSchema } from 'app/providers'
 import { WorkTaskGroupItem, WorkTaskGroupSchema } from '../type/workTaskGroup'
 import { fetchWorkTaskGroupList } from '../services/fetchWorkTaskGroupList'
+import { deleteWorkTaskGroup } from '../services/deleteWorkTaskGroup'
 
 
 
@@ -36,6 +37,7 @@ export const workTaskGroupSlice = createSlice({
     })
     .addCase(fetchWorkTaskGroupList.fulfilled, (state, action: PayloadAction<WorkTaskGroupItem[]>)=>{
         state.isLoading = false
+        console.log('fetch')
         workTaskGroupAdapter.setAll(state, action.payload)
 
     })
@@ -43,6 +45,20 @@ export const workTaskGroupSlice = createSlice({
         state.isLoading = false
         state.error = action.payload
     })
+    
+  //Удаление группы услуг
+  .addCase(deleteWorkTaskGroup.pending, (state)=>{
+    state.error = undefined
+    state.isLoading = true
+  })
+  .addCase(deleteWorkTaskGroup.fulfilled, (state)=>{
+      state.isLoading = false
+
+  })
+  .addCase(deleteWorkTaskGroup.rejected, (state, action)=>{
+      state.isLoading = false
+      state.error = action.payload
+  })
 })
 
 export const { actions: workTaskGroupActions } = workTaskGroupSlice
