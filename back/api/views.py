@@ -108,6 +108,29 @@ class ApplicationListView(generics.ListAPIView):
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+
+        try:
+            queryset = super().get_queryset()
+
+            ordering = self.request.query_params.get('ordering', None)
+            legal_entity = self.request.query_params.get('legal_entity', None)
+
+            #фильтрация
+            if legal_entity:
+                queryset = queryset.filter(creator__legalEntity=legal_entity)
+
+            #сортировка
+            if ordering:
+                if ordering == 'asc':
+                    queryset = queryset.order_by('createdAt')
+                elif ordering == 'desc':
+                    queryset = queryset.order_by('-createdAt')
+            return queryset
+
+        except Exception as e:
+            return Response({'message': "Произошла ошибка при получении данных"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка заявок по id создателя
     serializer_class = ApplicationWithCreatorSerializer
