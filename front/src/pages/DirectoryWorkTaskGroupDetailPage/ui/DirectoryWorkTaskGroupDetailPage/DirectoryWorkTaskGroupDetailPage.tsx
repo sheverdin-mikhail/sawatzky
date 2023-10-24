@@ -19,6 +19,7 @@ import {
 import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
 import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 import { getTime } from 'shared/lib/helpers/getTime';
+import { useTable } from 'shared/lib/hooks/useTable';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -67,6 +68,13 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 		}))
 	}
 
+
+	const { Table, selectedItems } = useTable({
+		data: tableData,
+		mod: TableItemsMod.LINK,
+	})
+
+
 	return (
 		<DynamicModuleLoader reducers={reducers}>
 			<DirectoryPageWrapper className={classNames(cls.directoryWorkTaskGroupDetailPage, {}, [className])}>
@@ -78,7 +86,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 						<DeleteIcon />
 					</Button>
 				</div>
-				<Table mod={TableItemsMod.NORMAL} path={DirectoryPath.work_task_group_detail} data={tableData} />
+				{ Table }
 				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={Number(id)} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>

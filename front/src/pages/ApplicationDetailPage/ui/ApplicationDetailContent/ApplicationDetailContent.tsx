@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
+import { getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -37,14 +38,14 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))
 	const title = useSelector((state: StateSchema)=>getApplicationDetailTitle(state, applicationId))
-	
+	const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId))
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<ApplicationDetailWorkPrice />
+				<ApplicationDetailWorkPrice workTasks={workTasks} />
 			</div>
 			<SuccessModal 
 				onClose={()=>setIsOpen(false)} 

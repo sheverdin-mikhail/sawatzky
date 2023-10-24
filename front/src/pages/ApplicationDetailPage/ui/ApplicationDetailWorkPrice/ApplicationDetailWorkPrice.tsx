@@ -1,45 +1,22 @@
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Table, TableType } from 'widgets/Table';
-import { WorkTask } from 'entities/WorkTask';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { CollapsBoard } from 'widgets/CollapsBoard';
+import { ApplicationWorkTask } from 'entities/Application';
+import { useState } from 'react';
+import { useTable } from 'shared/lib/hooks/useTable';
 
 interface ApplicationDetailWorkPriceProps {
 	className?: string;
+	workTasks?: ApplicationWorkTask[];
 }
 
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
-	// const { } = props;
-
-
-	const workTasks: WorkTask[] = [
-		{
-			id: '1',
-			name: 'Работа номер 1',
-			price: 700,
-			time: 80
-		},
-		{
-			id: '2',
-			name: 'Работа номер 2',
-			price: 500,
-			time: 60
-		},
-		{
-			id: '3',
-			name: 'Работа номер 3',
-			price: 1000,
-			time: 30
-		},
-		{
-			id: '4',
-			name: 'Работа номер 4',
-			price: 300,
-			time: 150
-		},
-	] 
+	const { workTasks=[] } = props;
+	
+	
 	const workMaterials: WorkMaterial[] = [
 		{
 			id: '1',
@@ -56,6 +33,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 	] 
 	const workTasksTable: TableType = {
 		header: {
+			id: 'ID',
 			name: 'Наименование работ',
 			price: 'Цена',
 			time: 'Время',
@@ -63,8 +41,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 		},
 		items: workTasks.map((item)=>{
 
-		const { hours, minuts } = getTime(item.time)
-		const sum = item.price*hours + Math.floor(item.price*minuts/60)
+		const { hours, minuts } = getTime(item.actualTime)
+		const sum = item.workTask.price*hours + Math.floor(item.workTask.price*minuts/60)
 		const timeString =  minuts > 0 && hours > 0 
 			? `${hours} ч ${minuts} м` 
 			: minuts > 0 
@@ -72,8 +50,9 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 				: `${hours} ч` 
 
 		return {
-			name: item.name,
-			price: `${item.price} ₽/час`,
+			id: item.workTask.id,
+			name: item.workTask.name,
+			price: `${item.workTask.price} ₽/час`,
 			time: timeString,
 			sum: `${ sum } руб`
 		}
@@ -83,6 +62,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 	}
 	const workMaterialsTable: TableType = {
 		header: {
+			id: 'ID',
 			name: 'Наименование работ',
 			price: 'Цена',
 			time: 'Количество штук',
@@ -93,6 +73,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 			const sum = item.count * item.price
 
 			return {
+				id: item.id,
 				name: item.name,
 				price: `${item.price} ₽/шт`,
 				time: `${item.count}  шт`,
@@ -102,8 +83,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 	}
 
 	const workTotalPrice = workTasks.reduce((prev, item)=>{
-		const { hours, minuts } = getTime(item.time)
-		const sum = item.price*hours + Math.floor(item.price*minuts/60)
+		const { hours, minuts } = getTime(item.actualTime)
+		const sum = item.workTask.price*hours + Math.floor(item.workTask.price*minuts/60)
 		return prev + sum
 	}, 0)
 
@@ -114,14 +95,26 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 
 	const clearPrice = workTotalPrice + materialTotalPrice
 
+	const { Table: WorkTasksTable, selectedItems: workTaskSelectedItems } = useTable({
+		data: workTasksTable,
+		className: cls.table
+		// onDelete: onTableDeleteHandler
+	})
+
+	const { Table: WorkMaterialsTable, selectedItems: workMaterialSelectedItems } = useTable({
+		data: workMaterialsTable,
+		className: cls.table
+		// onDelete: onTableDeleteHandler
+	})
+
 	return (
 		<CollapsBoard title='Стоимость работ' >
 			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить работы </Button>
 			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить расходный материал </Button>
 			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Загрузить документ </Button>
 			<div className={cls.tablesBlock}>
-				<Table className={cls.table} data={workTasksTable} />
-				<Table className={cls.table} data={workMaterialsTable} />
+				{WorkTasksTable}
+				{WorkMaterialsTable}
 				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> без НДС </p>
 				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
 			</div>
