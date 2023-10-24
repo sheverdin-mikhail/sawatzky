@@ -1,11 +1,10 @@
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { Table, TableType } from 'widgets/Table';
+import { TableType } from 'widgets/Table';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { CollapsBoard } from 'widgets/CollapsBoard';
 import { ApplicationWorkTask } from 'entities/Application';
-import { useState } from 'react';
 import { useTable } from 'shared/lib/hooks/useTable';
 
 interface ApplicationDetailWorkPriceProps {
@@ -95,13 +94,13 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 
 	const clearPrice = workTotalPrice + materialTotalPrice
 
-	const { Table: WorkTasksTable, selectedItems: workTaskSelectedItems } = useTable({
+	const { Table: WorkTasksTable } = useTable({
 		data: workTasksTable,
 		className: cls.table
 		// onDelete: onTableDeleteHandler
 	})
 
-	const { Table: WorkMaterialsTable, selectedItems: workMaterialSelectedItems } = useTable({
+	const { Table: WorkMaterialsTable } = useTable({
 		data: workMaterialsTable,
 		className: cls.table
 		// onDelete: onTableDeleteHandler
