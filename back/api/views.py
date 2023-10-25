@@ -104,30 +104,14 @@ class ApplicationUpdateView(generics.UpdateAPIView):
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
+
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-    filter_backends = (DjangoFilterBackend)
+    filter_backends = (DjangoFilterBackend,)
     filterset_class = ApplicationFilter
-
-    def get_queryset(self):
-
-        try:
-            queryset = super().get_queryset()
-            ordering = self.request.query_params.get('ordering', None)
-
-            #сортировка
-            if ordering:
-                if ordering == 'asc':
-                    queryset = queryset.order_by('createdAt')
-                elif ordering == 'desc':
-                    queryset = queryset.order_by('-createdAt')
-            return queryset
-
-        except Exception as e:
-            return Response({'message': "Произошла ошибка при получении данных"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
