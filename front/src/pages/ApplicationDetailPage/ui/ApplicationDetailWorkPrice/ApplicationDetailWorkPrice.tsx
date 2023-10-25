@@ -6,15 +6,40 @@ import { WorkMaterial } from 'entities/WorkMaterial';
 import { CollapsBoard } from 'widgets/CollapsBoard';
 import { ApplicationWorkTask } from 'entities/Application';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { 
+	AddWorkTaskApplicationModal, 
+	addWorkTaskApplicationFormActions, 
+	addWorkTaskApplicationFormReducer, 
+	getAddWorkTaskApplicationFormIsOpen 
+} from 'features/AddWorkTaskToApplication';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useSelector } from 'react-redux';
+import { fetchWorkTaskGroupList, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
+import { useEffect } from 'react';
 
 interface ApplicationDetailWorkPriceProps {
 	className?: string;
 	workTasks?: ApplicationWorkTask[];
 }
 
+const reducers: ReducersList = {
+	addWorkTaskApplicationForm: addWorkTaskApplicationFormReducer,
+	workTaskGroup: workTaskGroupReducer
+}
+
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
 	const { workTasks=[] } = props;
 	
+
+	const dispatch = useAppDispatch()
+	const addWorkTaskApplicationModalIsOpen = useSelector(getAddWorkTaskApplicationFormIsOpen)
+	const workTaskGroups = useSelector(getWorkTaskGroup.selectAll)
+
+
+	useEffect(()=>{
+		dispatch(fetchWorkTaskGroupList())
+	},[dispatch])
 	
 	const workMaterials: WorkMaterial[] = [
 		{
@@ -106,17 +131,28 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 		// onDelete: onTableDeleteHandler
 	})
 
+
+
 	return (
-		<CollapsBoard title='Стоимость работ' >
-			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить работы </Button>
-			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить расходный материал </Button>
-			<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Загрузить документ </Button>
-			<div className={cls.tablesBlock}>
-				{WorkTasksTable}
-				{WorkMaterialsTable}
-				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> без НДС </p>
-				<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
-			</div>
-		</CollapsBoard>
+		<DynamicModuleLoader reducers={reducers}>
+			<CollapsBoard title='Стоимость работ' >
+				<Button 
+					theme={ButtonThemes.CLEAR_BLUE} 
+					className={cls.controlBtn} 
+					onClick={() => dispatch(addWorkTaskApplicationFormActions.openModal())}
+				>
+					+ Добавить работы 
+				</Button>
+				<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить расходный материал </Button>
+				<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Загрузить документ </Button>
+				<div className={cls.tablesBlock}>
+					{WorkTasksTable}
+					{WorkMaterialsTable}
+					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> без НДС </p>
+					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
+				</div>
+			</CollapsBoard>
+			<AddWorkTaskApplicationModal isOpen={addWorkTaskApplicationModalIsOpen} workTaskGroups={workTaskGroups} />
+		</DynamicModuleLoader>
 	);
 }

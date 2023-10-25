@@ -63,10 +63,6 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 	const onTableDeleteHandler = useCallback((item: TableItemType)=>{
 		dispatch(deleteWorkTaskGroup(`${item.id}`))
 	},[dispatch])
-
-	const onTableDeleteHandler = useCallback((item: TableItemType)=>{
-		dispatch(deleteWorkTaskGroup(`${item.id}`))
-	},[dispatch])
 	
 
 	const { Table, selectedItems } = useTable({
