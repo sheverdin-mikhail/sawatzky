@@ -5,9 +5,10 @@ from .models import (
 )
 
 
-#Фильтр для Application
+'''Фильтр для Application'''
 class ApplicationFilter(filters.FilterSet):
+    legal_entity = filters.CharFilter(field_name="creator__legalEntity", lookup_expr="exact")
 
     class Meta:
         model = Application
-        fields = []
+        fields = ['legal_entity']
