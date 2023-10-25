@@ -21,6 +21,7 @@ defusedxml==0.7.1
 Deprecated==1.2.13
 Django==4.1
 django-cors-headers==3.13.0
+django-filter==23.3
 django-templated-mail==1.1.1
 djangorestframework==3.13.1
 djangorestframework-simplejwt==4.8.0

@@ -7,6 +7,9 @@ from rest_framework import generics
 from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
 
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import ApplicationFilter
+
 
 from .serializers import (
     UserSerializer,
@@ -102,11 +105,15 @@ class ApplicationUpdateView(generics.UpdateAPIView):
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
+          
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ApplicationFilter
+
 
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка заявок по id создателя
