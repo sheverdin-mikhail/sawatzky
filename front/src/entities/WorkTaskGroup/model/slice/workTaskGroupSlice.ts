@@ -37,6 +37,7 @@ export const workTaskGroupSlice = createSlice({
     })
     .addCase(fetchWorkTaskGroupList.fulfilled, (state, action: PayloadAction<WorkTaskGroupItem[]>)=>{
         state.isLoading = false
+        console.log('fetch')
         workTaskGroupAdapter.setAll(state, action.payload)
 
     })
