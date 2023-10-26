@@ -8,7 +8,7 @@ interface TableItemProps {
 	type?: ItemTheme;
 	mod?: TableItemsMod;
 	path?: string;
-	isChecked?: boolean
+	isChecked?: boolean;
 	selectedAll?: boolean;
 	onSelectAll?: () => void;
 	onCheck?: () => void;

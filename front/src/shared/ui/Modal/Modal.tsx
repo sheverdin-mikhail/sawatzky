@@ -23,7 +23,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 	
 	const [isClosing, setIsClosing] = useState(false)
 	const timerRef = useRef<ReturnType<typeof setTimeout>>();
-
+	
 	const closeHandler = useCallback(() => {
 		if(onClose){
 			setIsClosing(true)
