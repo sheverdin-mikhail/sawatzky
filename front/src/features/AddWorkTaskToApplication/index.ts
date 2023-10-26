@@ -5,10 +5,9 @@ export {
     addWorkTaskApplicationFormReducer
 } from './model/slice/addWorkTaskApplicationFormSlice'
 
-export { createWorkTask } from './model/services/createWorkTask'
+export { addWorkTaskToApplication } from './model/services/addWorkTaskToApplication'
 
 export type { 
-    AddWorkTaskApplicationFormData,
     AddWorkTaskApplicationFormSchema
 } from './model/type/addWorkTaskApplicationForm'
 

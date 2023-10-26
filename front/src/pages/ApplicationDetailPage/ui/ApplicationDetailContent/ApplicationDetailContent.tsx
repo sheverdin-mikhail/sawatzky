@@ -45,7 +45,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<ApplicationDetailWorkPrice workTasks={workTasks} />
+				<ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
 			</div>
 			<SuccessModal 
 				onClose={()=>setIsOpen(false)} 

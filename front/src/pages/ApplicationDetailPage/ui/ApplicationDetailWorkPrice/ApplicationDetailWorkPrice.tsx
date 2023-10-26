@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 
 interface ApplicationDetailWorkPriceProps {
 	className?: string;
+	applicationId: string;
 	workTasks?: ApplicationWorkTask[];
 }
 
@@ -29,13 +30,12 @@ const reducers: ReducersList = {
 }
 
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
-	const { workTasks=[] } = props;
+	const { workTasks=[], applicationId } = props;
 	
 
 	const dispatch = useAppDispatch()
 	const addWorkTaskApplicationModalIsOpen = useSelector(getAddWorkTaskApplicationFormIsOpen)
 	const workTaskGroups = useSelector(getWorkTaskGroup.selectAll)
-
 
 	useEffect(()=>{
 		dispatch(fetchWorkTaskGroupList())
@@ -152,7 +152,12 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
 				</div>
 			</CollapsBoard>
-			<AddWorkTaskApplicationModal isOpen={addWorkTaskApplicationModalIsOpen} workTaskGroups={workTaskGroups} />
+			<AddWorkTaskApplicationModal 
+				isOpen={addWorkTaskApplicationModalIsOpen} 
+				workTaskGroups={workTaskGroups} 
+				applicationId={applicationId} 
+				prevWorkTasks={workTasks}			
+			/>
 		</DynamicModuleLoader>
 	);
 }

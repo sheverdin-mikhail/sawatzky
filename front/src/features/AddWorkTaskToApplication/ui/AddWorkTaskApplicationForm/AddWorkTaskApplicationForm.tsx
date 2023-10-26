@@ -5,7 +5,8 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback } from 'react';
 import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
-import { Select } from 'shared/ui/Select/Select';
+import { Select, SelectOptionType } from 'shared/ui/Select/Select';
+import { addWorkTaskApplicationFormActions } from 'features/AddWorkTaskToApplication/model/slice/addWorkTaskApplicationFormSlice';
 
 interface AddWorkTaskApplicationFormProps {
 	className?: string;
@@ -20,10 +21,19 @@ export const AddWorkTaskApplicationForm: React.FC<AddWorkTaskApplicationFormProp
 	
 	const dispatch = useAppDispatch()
 
+	const onChangeHandler = (value: SelectOptionType) => {
+		workTaskGroups?.forEach(workTaskGroup=>{
+			const workTask = workTaskGroup.tasks?.find(task => task.id === value.value)
+			if(workTask){
+				dispatch(addWorkTaskApplicationFormActions.selectItem(workTask))
+			}
+		})
+	}
+
 
 	const onSaveHandler = useCallback(()=>{
-		
-	},[])
+		dispatch(addWorkTaskApplicationFormActions.setActualStep())
+	},[dispatch])
 
 	return (
 		<div className={classNames(cls.addWorkTaskToApplicationForm, {}, [className])}>
@@ -33,6 +43,7 @@ export const AddWorkTaskApplicationForm: React.FC<AddWorkTaskApplicationFormProp
 					<Select 
 						className={cls.input} 
 						placeholder={workTaskGroup.name} 
+						onChange={onChangeHandler}
 						key={`workTaskGroup_${workTaskGroup.id}`} 
 						options={workTaskGroup.tasks?.map(task => ({
 							text: task.name,
