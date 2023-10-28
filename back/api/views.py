@@ -8,7 +8,11 @@ from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
 
 from django_filters.rest_framework import DjangoFilterBackend
-from .filters import ApplicationFilter
+from .filters import (
+    ApplicationFilter,
+    WorkTaskFilter,
+    WorkMaterialFilter,
+)
 
 
 from .serializers import (
@@ -230,6 +234,8 @@ class WorkMaterialListView(generics.ListAPIView):
     queryset = WorkMaterial.objects.all()
     serializer_class = WorkMaterialSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = WorkMaterialFilter
 
 class WorkMaterialDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление рабочих материалов для проведения работ по id
@@ -274,6 +280,8 @@ class WorkTaskListView(generics.ListAPIView):
     queryset = WorkTask.objects.all()
     serializer_class = WorkTaskSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = WorkTaskFilter
 
 class WorkTaskDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление работ проводимых на объекте по id

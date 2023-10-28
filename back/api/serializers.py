@@ -239,14 +239,17 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
 
 
     def update(self, instance, validated_data):
+
+        instance.workTasks.all().delete()
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
         if work_task_data:
-            current_work_tasks = ApplicationWorkTask.objects.filter(application=instance)
-            # Удаляем workTasks, которых нет в validated_data
-            for current_work_task in current_work_tasks:
-                if not any(item['workTask'] == current_work_task.workTask for item in work_task_data):
-                    current_work_task.delete()
+
+            # current_work_tasks = ApplicationWorkTask.objects.filter(application=instance)
+            # # Удаляем workTasks, которых нет в validated_data
+            # for current_work_task in current_work_tasks:
+            #     if not any(item['workTask'] == current_work_task.workTask for item in work_task_data):
+            #         current_work_task.delete()
 
             # Создаем/Обновляем actualTime для workTask
             for item in work_task_data:
@@ -256,15 +259,17 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                 work_task_instance.actualTime = item['actualTime']
                 work_task_instance.save()
 
+
+        instance.workMaterials.all().delete()
         # Обработка обновления workMaterials
         work_material_data = validated_data.get('applicationworkmaterial_set')
         if work_material_data:
-            current_work_materials = ApplicationWorkMaterial.objects.filter(application=instance)
 
-            # Удаляем workMaterials, которых нет в validated_data
-            for current_work_material in current_work_materials:
-                if not any(item['workMaterial'] == current_work_material.workMaterial for item in work_material_data):
-                    current_work_material.delete()
+            # current_work_materials = ApplicationWorkMaterial.objects.filter(application=instance)
+            # # Удаляем workMaterials, которых нет в validated_data
+            # for current_work_material in current_work_materials:
+            #     if not any(item['workMaterial'] == current_work_material.workMaterial for item in work_material_data):
+            #         current_work_material.delete()
 
             # Создаем/Обновляем actualMaterial для workMaterial
             for item in work_material_data:
