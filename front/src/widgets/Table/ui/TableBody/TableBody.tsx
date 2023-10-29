@@ -29,7 +29,7 @@ export const TableBody: React.FC<TableBodyProps> = (props) => {
 					item={item} 
 					onCheck={() => onCheck?.(item)}
 					onDelete={() => onDelete?.(item)}
-					isChecked={selectedItems?.includes(item)}
+					isChecked={Boolean(selectedItems?.find((selectedItem) => item.id === selectedItem.id))}
 				/>)
 			}
 		</div>

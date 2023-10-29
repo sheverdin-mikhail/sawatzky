@@ -3,7 +3,6 @@ import cls from './Table.module.scss';
 import { TableHeader } from '../TableHeader/TableHeader';
 import { TableBody } from '../TableBody/TableBody';
 import { TableItemType, TableItemsMod, TableType } from '../../model/type/table';
-import { useCallback, useState } from 'react';
 
 interface TableProps {
 	className?: string;

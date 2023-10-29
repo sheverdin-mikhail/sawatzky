@@ -9,6 +9,8 @@
     opacity: 0;
     pointer-events: none;
     z-index: -1;
+    font: var(--font-s);
+    color: var(--black-color);
 }
 
 .overlay {

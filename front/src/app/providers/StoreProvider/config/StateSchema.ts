@@ -15,6 +15,8 @@ import { AddWorkTaskGroupFormSchema } from 'features/AddWorkTaskGroup';
 import { AddWorkTaskFormSchema } from 'features/AddWorkTask';
 import { DirectoryWorkTaskGroupDetailSchema } from 'pages/DirectoryWorkTaskGroupDetailPage';
 import { TableSchema } from 'widgets/Table';
+import { AddWorkTaskApplicationFormSchema } from 'features/AddWorkTaskToApplication';
+
 export interface StateSchema {
     user: UserSchema;
 
@@ -30,6 +32,7 @@ export interface StateSchema {
     addWorkTaskForm?: AddWorkTaskFormSchema;
     directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
     table?: TableSchema;
+    addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

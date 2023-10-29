@@ -1,6 +1,5 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { Employee } from "entities/Employee";
-import { WorkMaterial } from "entities/WorkMaterial";
 import { WorkTask } from "entities/WorkTask";
 
 
@@ -13,6 +12,18 @@ export enum ApplicationStatus {
     FINISHED = 'finished' 
 }
 
+export interface ApplicationWorkTask {
+    workTask: WorkTask;
+    actualTime: number;
+}
+
+export interface ApplicationWorkMaterial {
+    workTask: WorkTask;
+    actualCount: number;
+}
+
+
+
 export interface Application {
     id: string;
     title: string;
@@ -21,8 +32,8 @@ export interface Application {
     status: ApplicationStatus;
     creator?: Employee;
     performer?: Employee;
-    workTasks?: WorkTask[];
-    workMaterials?: WorkMaterial[];
+    workTasks?: ApplicationWorkTask[];
+    workMaterials?: ApplicationWorkMaterial[];
     documents?: Document[]; //Поменять когда появится модель документов
 
     createdAt: string;
