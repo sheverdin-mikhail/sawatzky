@@ -13,6 +13,8 @@ export const DirectoryNavigation: React.FC<DirectoryNavigationProps> = (props) =
 
 	const links = useSelector(getDirectoryNavigationPage.selectAll)
 
+	console.log(links)
+
 	return (
 		<div className={classNames(cls.directoryNavigation, {}, [className])}>
 			<DirectoryNavigationLinks links={links} />
