@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
+import { Progressbar } from 'shared/ui/Progressbar/Progressbar';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -29,28 +30,29 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 	const { className, applicationId } = props;
 	const [isOpen, setIsOpen] = useState(false)
 	const dispatch = useAppDispatch()
-	
 
-	useEffect(()=>{
+
+	useEffect(() => {
 		dispatch(fetchApplicationDetail(applicationId))
-	},[dispatch, applicationId])
+	}, [dispatch, applicationId])
 
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))
-	const title = useSelector((state: StateSchema)=>getApplicationDetailTitle(state, applicationId))
-	
+	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId))
+
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
+				<Progressbar />
 				<ApplicationDetailWorkPrice />
 			</div>
-			<SuccessModal 
-				onClose={()=>setIsOpen(false)} 
-				isOpen={isOpen} 
-				title='Успешно' 
-				text='Подтверждение платежа' 
+			<SuccessModal
+				onClose={() => setIsOpen(false)}
+				isOpen={isOpen}
+				title='Успешно'
+				text='Подтверждение платежа'
 			/>
 		</DynamicModuleLoader>
 	);
