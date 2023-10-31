@@ -1,0 +1,15 @@
+.progressbar {
+  overflow-y: scroll;
+  margin: 24px 0px;
+}
+
+.progressbar::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+}

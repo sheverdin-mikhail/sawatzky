@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
-import { Progressbar } from 'shared/ui/Progressbar/Progressbar';
+import { Progressbar } from 'widgets/Progressbar/Progressbar';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -28,16 +28,16 @@ const initialReducers: ReducersList = {
 
 export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> = (props) => {
 	const { className, applicationId } = props;
-	const [isOpen, setIsOpen] = useState(false)
-	const dispatch = useAppDispatch()
+	const [isOpen, setIsOpen] = useState(false);
+	const dispatch = useAppDispatch();
 
 
 	useEffect(() => {
 		dispatch(fetchApplicationDetail(applicationId))
-	}, [dispatch, applicationId])
+	}, [dispatch, applicationId]);
 
-	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))
-	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId))
+	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
+	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
 
 
 	return (
@@ -45,7 +45,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<Progressbar />
+				<Progressbar step={2} />
 				<ApplicationDetailWorkPrice />
 			</div>
 			<SuccessModal
