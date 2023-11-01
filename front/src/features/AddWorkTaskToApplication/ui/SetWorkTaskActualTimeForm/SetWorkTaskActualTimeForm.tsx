@@ -3,12 +3,11 @@ import cls from './SetWorkTaskActualTimeForm.module.scss';
 import { Text, TextAlign } from 'shared/ui/Text/Text';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 import { Input } from 'shared/ui/Input/Input';
 import { useSelector } from 'react-redux';
 import { 
-	getAddWorkTaskApplicationFormActualTime, 
 	getAddWorkTaskApplicationFormActualTimeText, 
 	getAddWorkTaskApplicationFormData, 
 	getAddWorkTaskApplicationFormSelectedItem 

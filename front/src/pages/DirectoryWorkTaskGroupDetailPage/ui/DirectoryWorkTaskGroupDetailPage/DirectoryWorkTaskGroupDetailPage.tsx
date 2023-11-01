@@ -4,8 +4,7 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
-import { Table, TableItemsMod, TableType } from 'widgets/Table';
-import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
+import { TableItemsMod, TableType } from 'widgets/Table';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
@@ -69,7 +68,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 	}
 
 
-	const { Table, selectedItems } = useTable({
+	const { Table } = useTable({
 		data: tableData,
 		mod: TableItemsMod.LINK,
 	})

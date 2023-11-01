@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './TableBody.module.scss';
 import { TableItemType, TableItemsMod } from '../../model/type/table';
 import { ItemTheme, TableItem } from '../TableItem/TableItem';
 
@@ -19,7 +18,7 @@ export const TableBody: React.FC<TableBodyProps> = (props) => {
 
 
 	return (
-		<div className={classNames(cls.tableBody, {}, [className])}>
+		<div className={classNames('', {}, [className])}>
 			{
 				items?.map((item, index)=><TableItem  
 					path={path} 

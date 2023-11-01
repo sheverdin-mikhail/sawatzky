@@ -17,12 +17,13 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        'react/jsx-indent': [2, 4],
-        indent: [2, 4],
-        'react/jsx-indent-props': [2, 4],
+        // 'react/jsx-indent': [2, 4],
+        // indent: [2, 4],
+        // 'react/jsx-indent-props': [2, 4],
         'react/jsx-filename-extension': [1, {
             extensions: ['.js', '.jsx', '.tsx'],
         }],
+        'react/display-name': 'off',
         'react/jsx-props-no-spreading': 'off',
         'import/no-unresolved': 'off',
         'import/prefer-default-export': 'off',

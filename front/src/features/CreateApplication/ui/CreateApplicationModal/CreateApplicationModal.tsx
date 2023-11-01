@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './CreateApplicationModal.module.scss';
 import { CreateApplicationForm } from '../CreateApplicationForm/CreateApplicationForm';
 import { Modal } from 'shared/ui/Modal/Modal';
 
@@ -14,7 +13,7 @@ export const CreateApplicationModal: React.FC<CreateApplicationModalProps> = (pr
 	
 
 	return (
-		<Modal className={classNames(cls.createApplicationModal, {}, [className])} isOpen={isOpen} onClose={onClose}>
+		<Modal className={classNames('', {}, [className])} isOpen={isOpen} onClose={onClose}>
 			<CreateApplicationForm onClose={onClose}  />
 		</Modal>
 	);
