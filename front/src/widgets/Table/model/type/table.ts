@@ -20,8 +20,6 @@ export enum TableItemsMod {
 }
 
 
-
-
 export interface TableSchema extends EntityState<TableType> {
 
     tables?: TableType;

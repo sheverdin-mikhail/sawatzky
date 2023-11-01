@@ -43,14 +43,14 @@
     margin-bottom: 2px;
 }
 
- .name {
+.name {
     text-wrap: nowrap;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
- }
+}
 
- .name:hover {
+.name:hover {
     overflow: visible;
     background: var(--gray-bg-color);
- }
+}

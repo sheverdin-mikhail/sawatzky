@@ -10,7 +10,7 @@ export function classNames (cls: string, mods: Mods={}, additional: Array<string
         cls,
         ...additional,
         ...Object.entries(mods)
-            .filter(([className, value]) => Boolean(value))
+            .filter(([, value]) => Boolean(value))
             .map(([className]) => className)
     ].join(' ')
 }

@@ -11,22 +11,22 @@ interface DirectoryPageWrapperProps {
 }
 
 const reducers: ReducersList = {
-	direcotryNavigation: directoryNavigationReducer
+    direcotryNavigation: directoryNavigationReducer
 }
 export const DirectoryPageWrapper: React.FC<DirectoryPageWrapperProps> = (props) => {
-	const { className, children } = props;
+    const { className, children } = props;
 
-	return (
-		<DynamicModuleLoader reducers={reducers}>
-			<div className={classNames(cls.directoryPageWrapper, {}, [className])}>
-				<Title className={cls.title}>Справочнки</Title>
-				<DirectoryNavigation className={cls.links} />
-				<div className={cls.content}>
-					{
-						children
-					}
-				</div>
-			</div>
-		</DynamicModuleLoader>
-	);
+    return (
+        <DynamicModuleLoader reducers={reducers}>
+            <div className={classNames(cls.directoryPageWrapper, {}, [className])}>
+                <Title className={cls.title}>Справочнки</Title>
+                <DirectoryNavigation className={cls.links} />
+                <div className={cls.content}>
+                    {
+                        children
+                    }
+                </div>
+            </div>
+        </DynamicModuleLoader>
+    );
 }

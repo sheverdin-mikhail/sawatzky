@@ -4,12 +4,10 @@
     position: relative;
     width: 100%;
     cursor: pointer;
-    padding: 12px 20px;
     background: var(--gray-bg-color);
     padding: 17px 20px;
     border-radius: 9px;
     appearance: none;
-    -webkit-appearance: none;
 }
 
 
@@ -27,7 +25,7 @@
     z-index: 10;
     border-radius: 10px;
     background: #FFF;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
 }
   
 .optionsList li {

@@ -6,3 +6,4 @@ tasks.txt
 **/.env**
 nginx.conf
 **/.idea/**
+.vscode
