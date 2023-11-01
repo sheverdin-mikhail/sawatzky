@@ -10,12 +10,12 @@ interface ProgressstepProps {
 }
 
 export const Progressstep: React.FC<ProgressstepProps> = (props) => {
-  const { className, id, title, step } = props;
+  const { id, title, step } = props;
 
   return (
     <li className={cls.item} id={id}>
       <div className={classNames(cls.done_start, {}, [cls.done])}>
-        {step =< +id ? <DoneIcon /> : id}
+        {+id > step ? id : <DoneIcon />}
       </div>
       <p className={cls.title}>{title}</p>
     </li>

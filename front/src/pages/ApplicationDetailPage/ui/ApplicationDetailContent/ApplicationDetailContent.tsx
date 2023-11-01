@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
-import { Progressbar } from 'widgets/Progressbar/Progressbar';
+import { Progressbar } from 'widgets/Progressbar';
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -45,7 +45,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<Progressbar step={2} />
+				<Progressbar step={3} id={''} title={''} />
 				<ApplicationDetailWorkPrice />
 			</div>
 			<SuccessModal
