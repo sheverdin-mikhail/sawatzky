@@ -19,7 +19,7 @@ export const DirectoryPageWrapper: React.FC<DirectoryPageWrapperProps> = (props)
 	return (
 		<DynamicModuleLoader reducers={reducers}>
 			<div className={classNames(cls.directoryPageWrapper, {}, [className])}>
-				<Title className={cls.title}>Справочнки</Title>
+				<Title className={cls.title}>Справочники</Title>
 				<DirectoryNavigation className={cls.links} />
 				<div className={cls.content}>
 					{
