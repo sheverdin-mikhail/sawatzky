@@ -30,6 +30,7 @@ export interface Application {
     subject: string;
     description: string;
     status: ApplicationStatus;
+    step: number;
     creator?: Employee;
     performer?: Employee;
     workTasks?: ApplicationWorkTask[];
