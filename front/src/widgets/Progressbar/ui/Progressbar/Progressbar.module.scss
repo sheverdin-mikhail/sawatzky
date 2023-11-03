@@ -1,14 +1,14 @@
 .progressbar {
-  overflow-y: scroll;
-  margin: 24px 0px;
+    overflow-y: scroll;
+    margin: 24px 0;
 }
 
 .progressbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .list {
-  display: grid;
-  grid-template-columns: repeat(7, auto);
-  gap: 0;
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 0;
 }

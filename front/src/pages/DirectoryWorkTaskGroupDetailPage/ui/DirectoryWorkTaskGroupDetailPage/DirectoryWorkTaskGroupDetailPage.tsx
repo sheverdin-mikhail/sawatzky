@@ -68,7 +68,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 	}
 
 
-	const { Table, selectedItems } = useTable({
+	const { Table } = useTable({
 		data: tableData,
 		mod: TableItemsMod.LINK,
 	})

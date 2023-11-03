@@ -1,128 +1,128 @@
 .item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
 }
 
 .done_start,
 .done_end,
 .done_cancel,
 .done {
-  position: relative;
+    position: relative;
 }
 
 .done {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: var(--green-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--green-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .step_start,
 .step_end,
 .step_cancel,
 .step {
-  position: relative;
+    position: relative;
 }
 
 .step {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.50);
-  font-size: var(--font-size-s3);
-  color: var(--dark-gray-color);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(0 0 0 / 50%);
+    font-size: var(--font-size-s3);
+    color: var(--dark-gray-color);
 }
 
 .done_start::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--green-color);
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--green-color);
 }
 
 .done_end::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--green-color);
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--green-color);
 }
 
 .done_end::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--dark-gray-color);
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--dark-gray-color);
 }
 
 .done_cancel::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--green-color);
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--green-color);
 }
 
 .step_start::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--dark-gray-color);
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--dark-gray-color);
 }
 
 .step_end::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--dark-gray-color);
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--dark-gray-color);
 }
 
 .step_end::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--dark-gray-color);
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--dark-gray-color);
 }
 
 .step_cancel::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 6px;
-  height: 2px;
-  width: 47%;
-  background-color: var(--dark-gray-color);
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 6px;
+    height: 2px;
+    width: 47%;
+    background-color: var(--dark-gray-color);
 }
 
 .title {
-  font-size: var(--font-size-s);
-  width: 100px;
+    font-size: var(--font-size-s);
+    width: 100px;
 }

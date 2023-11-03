@@ -40,6 +40,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 
 	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
 	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
+	const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId));
 
 
 	return (

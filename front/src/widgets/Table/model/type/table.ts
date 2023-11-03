@@ -22,12 +22,6 @@ export enum TableItemsMod {
 
 export interface TableSchema extends EntityState<TableType> {
 
-<<<<<<< HEAD
-
-export interface TableSchema extends EntityState<TableType> {
-
-=======
->>>>>>> front_dev
     tables?: TableType;
 
     isLoading?: boolean;

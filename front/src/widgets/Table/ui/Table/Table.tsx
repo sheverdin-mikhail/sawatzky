@@ -31,11 +31,7 @@ export const Table: React.FC<TableProps> = (props) => {
 
 
 	return (
-<<<<<<< HEAD
-		<div className={classNames(cls.table, {}, [className])}>
-=======
 		<div className={classNames('', {}, [className])}>
->>>>>>> front_dev
 			<TableHeader options={data.header} mod={mod} selectedAll={selectedAll} onSelectAll={onSelectAll} />
 			{
 				data.items && <TableBody 

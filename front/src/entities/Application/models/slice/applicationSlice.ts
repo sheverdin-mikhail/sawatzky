@@ -1,5 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
-import { Application, ApplicationSchema, ApplicationStatus } from '../types/application'
+import { Application, ApplicationSchema } from '../types/application'
 import { StateSchema } from 'app/providers'
 
 
