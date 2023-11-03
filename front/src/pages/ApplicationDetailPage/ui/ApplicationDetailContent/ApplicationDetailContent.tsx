@@ -48,7 +48,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<Progressbar step={3} id={''} title={''} />
+				<Progressbar step={3} />
 				<ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
 			</div>
 			<SuccessModal

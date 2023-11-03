@@ -14,8 +14,6 @@ export const ProgressSteps: { id: string, title: string }[] = [
 interface ProgressbarProps {
   className?: string;
   step: number;
-  id: string;
-  title: string;
 }
 
 export const Progressbar: React.FC<ProgressbarProps> = (props) => {
