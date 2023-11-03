@@ -15,6 +15,8 @@ import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 import { Progressbar } from 'widgets/Progressbar';
+import { getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
+
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -46,7 +48,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
 				<Progressbar step={3} id={''} title={''} />
-				<ApplicationDetailWorkPrice />
+				<ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
 			</div>
 			<SuccessModal
 				onClose={() => setIsOpen(false)}

@@ -3,6 +3,7 @@ export { getApplication, applicationReducer, applicationActions, applicationAdap
 export type { 
     Application, 
     ApplicationSchema, 
+    ApplicationWorkTask
 } from "./models/types/application";
 
 export {
