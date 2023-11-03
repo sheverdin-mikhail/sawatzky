@@ -20,6 +20,7 @@ interface TableItemBodyProps {
 }
 
 export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
+<<<<<<< HEAD
 	const { className, item, mod, path, isChecked, onCheck, onDelete} = props;
 
 
@@ -114,4 +115,100 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
 
 
 	return itemBody
+=======
+    const { className, item, mod, path, isChecked, onCheck, onDelete} = props;
+
+
+    const onCheckHandler = useCallback((e: MouseEvent, id: any)=>{
+        e.stopPropagation()
+        e.preventDefault()
+        onCheck?.(id)
+    },[onCheck])
+
+    const onDeleteHandler = useCallback((e: MouseEvent, item: TableItemType)=>{
+        e.stopPropagation()
+        e.preventDefault()
+        onDelete?.(item)
+    },[onDelete])
+
+
+
+    const itemBody = useMemo(()=>{
+        if(item){
+            switch(mod){
+            case TableItemsMod.LINK:
+                return (
+                    <AppLink to={`${path}${item?.id}`} className={classNames(cls.tableItemBody, {}, [className, cls[mod]])}>
+                        {
+                            <Checkbox 
+                                className={cls.checkbox} 
+                                id={`${item?.id}`} 
+                                onClick={e => onCheckHandler(e, item?.id)} 
+                                checked={isChecked}
+                            />
+                        }
+                        {
+                            item && Object.keys(item).map((key, index)=>(
+                                <div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length+1)}%` }} >
+                                    <span className={cls.text}>{item[key]}</span>
+                                </div>
+                            ))
+                        }
+                        <div className={classNames(cls.column, {}, [cls.columnButtons])} style={{ flex: `1 0 ${100 / (Object.keys(item!!).length+1)}%` }} >
+                            <div className={cls.buttons} >
+                                <Button 
+                                    className={cls.button} 
+                                    theme={ButtonThemes.CLEAR} 
+                                    onClick={(e) => onDeleteHandler(e, item)}
+                                >
+                                    <CrossIcon/>
+                                </Button>
+                                <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon/></Button>
+                            </div>
+                        </div>
+                    </AppLink>
+                )
+            case TableItemsMod.NORMAL:
+                return (
+                    <div className={classNames(cls.tableItemBody, {}, [cls[mod], className])}>
+                        {
+                            <Checkbox 
+                                className={cls.checkbox} 
+                                id={`${item?.id}`} 
+                                onClick={e => onCheckHandler(e, item?.id)} 
+                                checked={isChecked}
+                            />
+                        }
+                        {
+                            item && Object.keys(item).map((key, index)=>(
+                                <div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length+1)}%` }} >
+                                    <span className={cls.text}>{item[key]}</span>
+                                </div>
+                            ))
+                        }
+                        <div className={classNames(cls.column, {}, [cls.columnButtons])} style={{ flex: `1 0 ${100 / (Object.keys(item!!).length+1)}%` }} >
+                            <div className={cls.buttons} >
+                                <Button 
+                                    className={cls.button} 
+                                    theme={ButtonThemes.CLEAR} 
+                                    onClick={(e) => onDeleteHandler(e, item)}
+                                >
+                                    <CrossIcon/>
+                                </Button>
+                                <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon/></Button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            default: 
+                return null
+				
+            }	
+        }
+        return null
+    },[mod, isChecked, path, className, item, onCheckHandler, onDeleteHandler])
+
+
+    return itemBody
+>>>>>>> front_dev
 }

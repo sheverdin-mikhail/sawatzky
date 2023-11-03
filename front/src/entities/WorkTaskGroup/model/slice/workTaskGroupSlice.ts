@@ -8,57 +8,56 @@ import { deleteWorkTaskGroup } from '../services/deleteWorkTaskGroup'
 
 export const workTaskGroupAdapter = createEntityAdapter<WorkTaskGroupItem>({
     selectId: ( application ) => application.id
-  })
+})
   
 export const getWorkTaskGroup = workTaskGroupAdapter.getSelectors<StateSchema>(
-  (state) => state.workTaskGroup || workTaskGroupAdapter.getInitialState()
+    (state) => state.workTaskGroup || workTaskGroupAdapter.getInitialState()
 )
 
 
 
 export const workTaskGroupSlice = createSlice({
-  name: 'workTaskGroup',
-  initialState: workTaskGroupAdapter.getInitialState<WorkTaskGroupSchema>({
-    ids: [],
-    entities: {},
-    isLoading: false,
-    error: undefined,
-  }),
-  reducers: {
-    setWorkTaskGroupList: ( state, action: PayloadAction<WorkTaskGroupItem[]> ) => {
-        workTaskGroupAdapter.setAll(state, action.payload)
-    }
-  },
-  extraReducers: (builder) => builder 
-  //Получение списка групп услуг
-    .addCase(fetchWorkTaskGroupList.pending, (state, action)=>{
-      state.error = undefined
-      state.isLoading = true
-    })
-    .addCase(fetchWorkTaskGroupList.fulfilled, (state, action: PayloadAction<WorkTaskGroupItem[]>)=>{
-        state.isLoading = false
-        console.log('fetch')
-        workTaskGroupAdapter.setAll(state, action.payload)
+    name: 'workTaskGroup',
+    initialState: workTaskGroupAdapter.getInitialState<WorkTaskGroupSchema>({
+        ids: [],
+        entities: {},
+        isLoading: false,
+        error: undefined,
+    }),
+    reducers: {
+        setWorkTaskGroupList: ( state, action: PayloadAction<WorkTaskGroupItem[]> ) => {
+            workTaskGroupAdapter.setAll(state, action.payload)
+        }
+    },
+    extraReducers: (builder) => builder 
+    //Получение списка групп услуг
+        .addCase(fetchWorkTaskGroupList.pending, (state, action)=>{
+            state.error = undefined
+            state.isLoading = true
+        })
+        .addCase(fetchWorkTaskGroupList.fulfilled, (state, action: PayloadAction<WorkTaskGroupItem[]>)=>{
+            state.isLoading = false
+            workTaskGroupAdapter.setAll(state, action.payload)
 
-    })
-    .addCase(fetchWorkTaskGroupList.rejected, (state, action)=>{
-        state.isLoading = false
-        state.error = action.payload
-    })
+        })
+        .addCase(fetchWorkTaskGroupList.rejected, (state, action)=>{
+            state.isLoading = false
+            state.error = action.payload
+        })
     
-  //Удаление группы услуг
-  .addCase(deleteWorkTaskGroup.pending, (state)=>{
-    state.error = undefined
-    state.isLoading = true
-  })
-  .addCase(deleteWorkTaskGroup.fulfilled, (state)=>{
-      state.isLoading = false
+    //Удаление группы услуг
+        .addCase(deleteWorkTaskGroup.pending, (state)=>{
+            state.error = undefined
+            state.isLoading = true
+        })
+        .addCase(deleteWorkTaskGroup.fulfilled, (state)=>{
+            state.isLoading = false
 
-  })
-  .addCase(deleteWorkTaskGroup.rejected, (state, action)=>{
-      state.isLoading = false
-      state.error = action.payload
-  })
+        })
+        .addCase(deleteWorkTaskGroup.rejected, (state, action)=>{
+            state.isLoading = false
+            state.error = action.payload
+        })
 })
 
 export const { actions: workTaskGroupActions } = workTaskGroupSlice

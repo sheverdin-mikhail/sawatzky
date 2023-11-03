@@ -16,7 +16,10 @@ import { AddWorkTaskFormSchema } from 'features/AddWorkTask';
 import { DirectoryWorkTaskGroupDetailSchema } from 'pages/DirectoryWorkTaskGroupDetailPage';
 import { TableSchema } from 'widgets/Table';
 import { AddWorkTaskApplicationFormSchema } from 'features/AddWorkTaskToApplication';
-
+import { WorkMaterialGroupSchema } from 'entities/WorkMaterialGroup';
+import { AddWorkMaterialGroupFormSchema } from 'features/AddWorkMaterialGroup';
+import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/addWorkMaterial';
+import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
 export interface StateSchema {
     user: UserSchema;
 
@@ -28,9 +31,13 @@ export interface StateSchema {
     applicationsPage?: ApplicationsPageSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
     workTaskGroup?: WorkTaskGroupSchema;
+    workMaterialGroup?: WorkMaterialGroupSchema;
     addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
+    addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
     addWorkTaskForm?: AddWorkTaskFormSchema;
+    addWorkMaterialForm?: AddWorkMaterialFormSchema;
     directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
+    directoryWorkMaterialGroupDetail?: DirectoryWorkMaterialGroupDetailSchema;
     table?: TableSchema;
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
 }

@@ -49,8 +49,18 @@
 
 .checkbox {
     margin-right: 25px;
+<<<<<<< HEAD
 }
 
+=======
+
+    // &:checked+label::before {
+    // background: var(--blue-bg-color);
+    // }
+}
+
+
+>>>>>>> front_dev
 .column {
     display: flex;
     flex-direction: column;

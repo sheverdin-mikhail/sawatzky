@@ -20,11 +20,11 @@ $api.interceptors.request.use((config) => {
     }
 
     if (tokens) {
-      config.headers.Authorization = `Bearer ${tokens.access}`;
+        config.headers.Authorization = `Bearer ${tokens.access}`;
     }
     return config;
-  },
-  (error) => Promise.reject(error))
+},
+(error) => Promise.reject(error))
 
 
 $api.interceptors.response.use(

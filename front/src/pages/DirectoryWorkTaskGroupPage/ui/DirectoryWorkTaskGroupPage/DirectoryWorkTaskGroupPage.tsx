@@ -7,10 +7,10 @@ import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.sv
 import { TableItemsMod, TableType } from 'widgets/Table';
 import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
 import { 
-	AddWorkTaskGroupModal, 
-	addWorkTaskGroupFormActions, 
-	addWorkTaskGroupFormReducer, 
-	getAddWorkTaskGroupFormIsOpen 
+    AddWorkTaskGroupModal, 
+    addWorkTaskGroupFormActions, 
+    addWorkTaskGroupFormReducer, 
+    getAddWorkTaskGroupFormIsOpen 
 } from 'features/AddWorkTaskGroup';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { deleteWorkTaskGroup, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
@@ -27,12 +27,12 @@ interface DirectoryObjectsGroupPageProps {
 
 
 const reducers: ReducersList = {
-	workTaskGroup: workTaskGroupReducer,
-	addWorkTaskGroupForm: addWorkTaskGroupFormReducer
+    workTaskGroup: workTaskGroupReducer,
+    addWorkTaskGroupForm: addWorkTaskGroupFormReducer
 }
 
 const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (props) => {
-	const { className } = props;
+    const { className } = props;
 
 	const dispatch = useAppDispatch()
 
@@ -52,17 +52,17 @@ const DirectoryWorkTaskGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pr
 
 	const isOpen = useSelector(getAddWorkTaskGroupFormIsOpen)
 
-	useEffect(()=>{
-		dispatch(fetchWorkTaskGroupList())
-	},[dispatch])
+    useEffect(()=>{
+        dispatch(fetchWorkTaskGroupList())
+    },[dispatch])
 
-	const openFormHandler = useCallback(()=>{
-		dispatch(addWorkTaskGroupFormActions.openModal())
-	},[dispatch])
+    const openFormHandler = useCallback(()=>{
+        dispatch(addWorkTaskGroupFormActions.openModal())
+    },[dispatch])
 
-	const onTableDeleteHandler = useCallback((item: TableItemType)=>{
-		dispatch(deleteWorkTaskGroup(`${item.id}`))
-	},[dispatch])
+    const onTableDeleteHandler = useCallback((item: TableItemType)=>{
+        dispatch(deleteWorkTaskGroup(`${item.id}`))
+    },[dispatch])
 
 
 	const { Table, selectedItems } = useTable({

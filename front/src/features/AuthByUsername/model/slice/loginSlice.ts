@@ -14,49 +14,49 @@ const initialState: LoginSchema = {
 }
 
 export const loginSlice = createSlice({
-  name: 'login',
-  initialState,
-  reducers: {
+    name: 'login',
+    initialState,
+    reducers: {
         setUsername: (state, action: PayloadAction<string>) => {
             state.username = action.payload
         },
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload
         },
-  },
-  extraReducers:  (builder) => {
-    builder
+    },
+    extraReducers:  (builder) => {
+        builder
         //Аунтификация пользователя
-        .addCase(createTokensByUsername.pending, (state, action)=>{
-            state.error = undefined
-            state.isLoading = true
-        })
-        .addCase(createTokensByUsername.fulfilled, (state, action)=>{
-            state.isLoading = false
-            localStorage.setItem(USER_LOCALSTORAGE_TOKENS, JSON.stringify(action.payload))
-        })
-        .addCase(createTokensByUsername.rejected, (state, action)=>{
-            state.isLoading = false
-            state.error = action.payload
-        })
+            .addCase(createTokensByUsername.pending, (state, action)=>{
+                state.error = undefined
+                state.isLoading = true
+            })
+            .addCase(createTokensByUsername.fulfilled, (state, action)=>{
+                state.isLoading = false
+                localStorage.setItem(USER_LOCALSTORAGE_TOKENS, JSON.stringify(action.payload))
+            })
+            .addCase(createTokensByUsername.rejected, (state, action)=>{
+                state.isLoading = false
+                state.error = action.payload
+            })
         
         //Получение информации о пользователе
-        .addCase(fetchUserDataByToken.pending, (state, action)=>{
-            state.error = undefined
-            state.isLoading = true
-        })
-        .addCase(fetchUserDataByToken.fulfilled, (state, action)=>{
-            state.isLoading = false
-            localStorage.setItem(USER_LOCALSTORAGE_DATA, JSON.stringify(action.payload))
+            .addCase(fetchUserDataByToken.pending, (state, action)=>{
+                state.error = undefined
+                state.isLoading = true
+            })
+            .addCase(fetchUserDataByToken.fulfilled, (state, action)=>{
+                state.isLoading = false
+                localStorage.setItem(USER_LOCALSTORAGE_DATA, JSON.stringify(action.payload))
             
-        })
-        .addCase(fetchUserDataByToken.rejected, (state, action)=>{
-            state.isLoading = false
-            state.error = action.payload
-        })
+            })
+            .addCase(fetchUserDataByToken.rejected, (state, action)=>{
+                state.isLoading = false
+                state.error = action.payload
+            })
 
         
-  }
+    }
   
 })
 

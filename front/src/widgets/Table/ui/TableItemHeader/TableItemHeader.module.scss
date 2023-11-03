@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 .tableItemHeader {
     display: flex;
+=======
+<<<<<<<< HEAD:front/src/widgets/Table/ui/TableItem/TableItem.module.scss
+========
+.tableItemHeader {
+    display: flex;
+    align-items: center;
+>>>>>>> front_dev
     justify-content: space-between;
     padding: 12px 43px;
     border-radius: 10px;
@@ -22,7 +30,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+<<<<<<< HEAD
     &:first-child, &:nth-child(2) {
         align-items: flex-start;
     }
 }
+=======
+    text-align: center;
+    &:first-child, &:nth-child(2) {
+        align-items: flex-start;
+    }
+}
+>>>>>>>> front_dev:front/src/widgets/Table/ui/TableItemHeader/TableItemHeader.module.scss
+>>>>>>> front_dev

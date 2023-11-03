@@ -35,8 +35,8 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
 
 
     const checkAllHandler = useCallback(() => {
-        dispatch(applicationsPageActions.toggleAllCheckboxes(allIsChecked ?? false))
-    },[dispatch, allIsChecked])
+        dispatch(applicationsPageActions.toggleAllCheckboxes())
+    },[dispatch])
 
     const onDeleteHandler = useCallback(()=>{
         if(checkeditems){
@@ -61,9 +61,9 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
         }
     },[dispatch, init])
 
-	return (
-		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-			<Title className={cls.title}>
+    return (
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+            <Title className={cls.title}>
                 Запросы
             </Title>
             <div className={cls.navigation}>
@@ -82,5 +82,5 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
             <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
         </DynamicModuleLoader>
 
-	);
+    );
 }

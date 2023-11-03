@@ -16,6 +16,7 @@ export const getApplicationDetailInfo = createSelector(
             createdAt: application?.createdAt || '',
             startWorkDate: application?.startWorkDate,
             endWorkDate: application?.endWorkDate,
+            step: application?.step || 0
             
         }
     )

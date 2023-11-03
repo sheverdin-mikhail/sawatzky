@@ -13,8 +13,7 @@ export interface ApplicationDetailSchema extends EntityState<Application> {
 
 
 
-export interface ApplicationInfo extends Omit<
+export type ApplicationInfo = Omit<
     Application, 
     'performer' | 'workTasks' | 'workMaterials' | 'documents' | 'updatedAt' 
-> {
-}
+>
