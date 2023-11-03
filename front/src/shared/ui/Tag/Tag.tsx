@@ -10,10 +10,10 @@ interface TagProps {
 
 
 export const Tag: React.FC<TagProps> = memo((props) => {
-    const { className, status=ApplicationStatus.NEW } = props;
+    const { className, status = ApplicationStatus.NEW } = props;
 
 
-    const  TagMods: Mods = {
+    const TagMods: Mods = {
         [cls.new]: status === ApplicationStatus.NEW,
         [cls.coordination]: status === ApplicationStatus.COORDINATION,
         [cls.paymentCoordination]: status === ApplicationStatus.PAYMENT_COORDINATION,
@@ -22,8 +22,8 @@ export const Tag: React.FC<TagProps> = memo((props) => {
         [cls.finished]: status === ApplicationStatus.FINISHED,
     }
 
-    const statusMessage = useMemo(()=>{
-        switch(status){
+    const statusMessage = useMemo(() => {
+        switch (status) {
             case ApplicationStatus.NEW:
                 return 'Запрос создан'
             case ApplicationStatus.COORDINATION:
@@ -36,9 +36,9 @@ export const Tag: React.FC<TagProps> = memo((props) => {
                 return 'Частично выполнена'
             case ApplicationStatus.FINISHED:
                 return 'Запрос выполнен'
-           
+
         }
-    },[status])
+    }, [status])
 
     return (
         <div className={classNames(cls.tag, TagMods, [className])}>
