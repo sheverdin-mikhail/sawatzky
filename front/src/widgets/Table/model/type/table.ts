@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+import { EntityState } from '@reduxjs/toolkit';
+
+=======
 import { EntityState } from "@reduxjs/toolkit";
 
 
+>>>>>>> main
 export type TableHeaderType = {
     [key: string]: string;
 };
@@ -19,7 +24,10 @@ export enum TableItemsMod {
     NORMAL = 'normal'
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
 export interface TableSchema extends EntityState<TableType> {
 
     tables?: TableType;
@@ -27,4 +35,8 @@ export interface TableSchema extends EntityState<TableType> {
     isLoading?: boolean;
     error?: string;
     _init?: boolean;
+<<<<<<< HEAD
+}
+=======
 } 
+>>>>>>> main

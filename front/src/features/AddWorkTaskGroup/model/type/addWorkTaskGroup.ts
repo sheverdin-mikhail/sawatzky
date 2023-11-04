@@ -1,11 +1,6 @@
-
-
-
-export  interface addWorkTaskGroupFormData {
+export interface addWorkTaskGroupFormData {
     name: string;
 }
-
-
 
 export interface AddWorkTaskGroupFormSchema {
     formData?: addWorkTaskGroupFormData;

@@ -1,3 +1,1 @@
-export { CreateLegalEntity } from "./ui/CreateLegalEntity/CreateLegalEntity";
-
-
+export { CreateLegalEntity } from './ui/CreateLegalEntity/CreateLegalEntity';

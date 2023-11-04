@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+export interface AddWorkMaterialGroupFormData {
+    name: string;
+}
+
+=======
 
 
 
@@ -7,9 +13,14 @@ export  interface AddWorkMaterialGroupFormData {
 
 
 
+>>>>>>> main
 export interface AddWorkMaterialGroupFormSchema {
     formData?: AddWorkMaterialGroupFormData;
     isLoading?: boolean;
     error?: string;
     isOpen?: boolean;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

@@ -1,1 +1,1 @@
-export { DirectoryLegalEntitySawatzkyPageAsync as  DirectoryLegalEntitySawatzkyPage } from './ui/DirectoryLegalEntitySawatzkyPage/DirectoryLegalEntitySawatzkyPage.async';
+export { DirectoryLegalEntitySawatzkyPageAsync as DirectoryLegalEntitySawatzkyPage } from './ui/DirectoryLegalEntitySawatzkyPage/DirectoryLegalEntitySawatzkyPage.async';

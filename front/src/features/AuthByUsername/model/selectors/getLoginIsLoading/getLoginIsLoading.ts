@@ -1,3 +1,3 @@
-import { StateSchema } from "app/providers";
+import { StateSchema } from 'app/providers';
 
-export const getLoginIsLoading = (state: StateSchema) => state.loginForm?.isLoading || false
+export const getLoginIsLoading = (state: StateSchema) => state.loginForm?.isLoading || false;
