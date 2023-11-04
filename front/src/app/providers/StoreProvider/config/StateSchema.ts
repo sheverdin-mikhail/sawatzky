@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { ApplicationSchema } from 'entities/Application';
-import {AxiosInstance} from 'axios'
+import { AxiosInstance } from 'axios';
 import { ApplicationDetailSchema } from 'pages/ApplicationDetailPage';
 import { CreateApplicationSchema } from 'features/CreateApplication';
 import { ApplicationsPageSchema } from 'pages/ApplicationsPage';
@@ -26,8 +26,8 @@ export interface StateSchema {
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
     application?: ApplicationSchema;
-    applicationDetail?: ApplicationDetailSchema; 
-    createApplication?: CreateApplicationSchema; 
+    applicationDetail?: ApplicationDetailSchema;
+    createApplication?: CreateApplicationSchema;
     applicationsPage?: ApplicationsPageSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
     workTaskGroup?: WorkTaskGroupSchema;
