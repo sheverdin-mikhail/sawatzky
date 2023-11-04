@@ -15,6 +15,8 @@ import { SuccessModal } from 'widgets/SuccessModal/SuccessModal';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 import { Progressbar } from 'widgets/Progressbar';
+import { getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
+
 
 interface ApplicationDetailContentProps {
 	className?: string;
@@ -36,24 +38,25 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 		dispatch(fetchApplicationDetail(applicationId))
 	}, [dispatch, applicationId]);
 
-	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
-	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
-
+	const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId))
+	const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId))
+	const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId));
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
 			<div className={classNames(cls.applicationDetailContent, {}, [className])}>
 				<Title className={cls.title}>{title}</Title>
 				<ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-				<Progressbar step={3} id={''} title={''} />
-				<ApplicationDetailWorkPrice />
-			</div>
+				<Progressbar step={info.step} />
+
+				<ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
+			</div >
 			<SuccessModal
 				onClose={() => setIsOpen(false)}
 				isOpen={isOpen}
 				title='Успешно'
 				text='Подтверждение платежа'
 			/>
-		</DynamicModuleLoader>
+		</DynamicModuleLoader >
 	);
 }

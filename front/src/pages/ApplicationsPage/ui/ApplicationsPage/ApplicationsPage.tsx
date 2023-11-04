@@ -1,6 +1,5 @@
 import React from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './ApplicationsPage.module.scss';
 import { ApplicationsPageContent } from '../ApplicationsPageContent/ApplicationsPageContent';
 
 
@@ -15,7 +14,7 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = (props) => {
    
 
     return (
-        <div className={classNames(cls.applicationsPage, {}, [className ?? ''])}>
+        <div className={classNames('', {}, [className ?? ''])}>
             <ApplicationsPageContent />
         </div>
     );

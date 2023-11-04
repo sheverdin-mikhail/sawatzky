@@ -1,3 +1,1 @@
-export { AddObjectsGroupForm } from "./ui/AddObjectsGroupForm/AddObjectsGroupForm";
-
-
+export { AddObjectsGroupForm } from './ui/AddObjectsGroupForm/AddObjectsGroupForm';

@@ -1,6 +1,5 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { WorkTask } from "entities/WorkTask";
-
+import { WorkTask } from 'entities/WorkTask';
 
 export interface WorkTaskGroupItem {
     id: number;
@@ -8,13 +7,11 @@ export interface WorkTaskGroupItem {
     tasks?: WorkTask[];
 }
 
-
 export interface WorkTaskGroupSchema extends EntityState<WorkTaskGroupItem> {
 
     isLoading?: boolean;
     error?: string;
 
     workTasksGroupList?: WorkTaskGroupItem[];
-
 
 }

@@ -1,0 +1,32 @@
+.CreateLegalEntitySawatzkyForm {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 40px 40px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
+    max-width: 50%;
+}
+
+
+.title {
+    margin-bottom: 25px;
+}
+
+.input {
+    &:not(:last-child){
+        margin-bottom: 6px;
+    }
+}
+
+.buttons {
+    display: flex;
+    margin: 0 -15px;
+    margin-top: 28px;
+}
+
+.button {
+    margin: 0 15px;
+    flex: 0 1 40%
+}
+

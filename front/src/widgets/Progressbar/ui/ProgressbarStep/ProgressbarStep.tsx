@@ -12,23 +12,22 @@ interface ProgressStepProps {
 export const ProgressbarStep: React.FC<ProgressStepProps> = (props) => {
   const { id, title, step } = props;
 
-  const mods: Mods = {
-    [cls.done]: +id <= step,
+  const modsItem: Mods = {
+    [cls.left]: +id > 1,
+    [cls.right]: +id < 7,
+    [cls.done]: +id < step,
     [cls.step]: +id > step,
+    [cls.current]: +id === step,
   }
 
-  const modsItem: Mods = {
-    [cls.done_start]: (+id <= step && +id === 1) || +id < step,
-    [cls.done_end]: (+id === step && step !== 7) && +id !== 1,
-    [cls.done_cancel]: (+id <= step || step === 7) && +id !== 1,
-    [cls.step_start]: +id >= step && +id === 1,
-    [cls.step_end]: +id > step && +id !== 7,
-    [cls.step_cancel]: +id > step && +id !== 1,
+  const modsIcon: Mods = {
+    [cls.done]: +id <= step,
+    [cls.step]: +id > step
   }
 
   return (
     <li className={classNames(cls.item, modsItem, [])} id={id}>
-      <div className={classNames('', mods, [])}>
+      <div className={classNames(cls.icon, modsIcon, [])}>
         {+id > step ? id : <DoneIcon />}
       </div>
       <p className={cls.title}>{title}</p>

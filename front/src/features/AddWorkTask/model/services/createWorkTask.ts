@@ -1,32 +1,37 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkConfig } from "app/providers";
-import { userActions } from "entities/User";
-import { AddWorkTaskFormData } from "../type/addWorkTask";
-import { WorkTask } from "entities/WorkTask";
-import { fetchWorkTaskListByGroupId } from "pages/DirectoryWorkTaskGroupDetailPage";
-
-
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers';
+import { userActions } from 'entities/User';
+import { WorkTask } from 'entities/WorkTask';
+import { fetchWorkTaskListByGroupId } from 'pages/DirectoryWorkTaskGroupDetailPage';
+import { AddWorkTaskFormData } from '../type/addWorkTask';
 
 export const createWorkTask = createAsyncThunk<
-    void, 
-    AddWorkTaskFormData, 
+    void,
+    AddWorkTaskFormData,
     ThunkConfig<string>
 >(
     'addWorkTask/createWorkTask',
     async (formData, { extra, rejectWithValue, dispatch }) => {
+<<<<<<< HEAD
+        try {
+            const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData);
+            if (!response.data) {
+                throw new Error('Ошибка создания группы услуг');
+=======
 
         try{    
             const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData)
             if(!response.data){
                 throw new Error('Ошибка создания группы услуг')
+>>>>>>> main
             }
 
-            dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`))
-        }catch (e: any){
-            if(e.response.status === 401){
-                dispatch(userActions.logout())
+            dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`));
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                dispatch(userActions.logout());
             }
-            return rejectWithValue(e.response.message)
+            return rejectWithValue(e.response.message);
         }
-    }
-)
+    },
+);

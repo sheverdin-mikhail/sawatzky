@@ -1,5 +1,4 @@
 :root {
-
     --font-family-main: 'Calibri', 'sans-serif';
     --font-family-second: 'Inter', 'sans-serif';
 
@@ -24,10 +23,6 @@
     --font-weight-s2: 400;
     --font-s2: var(--font-weight-s2) var(--font-size-s2) / var(--font-line-s2) var(--font-family-second);
 
-    --font-size-s3: 11px;
-    --font-line-s3: normal;
-    --font-weight-s3: 400;
-    --font-s3: var(--font-weight-s3) var(--font-size-s3) / var(--font-line-s3) var(--font-family-main);
 
 
 
@@ -44,7 +39,6 @@
     --gray-bg-color: #F4F4F4;
     --blue-bg-color: #D8EEF8;
     --blue-light-bg-color: #F5FBFD;
-
     --dark-gray-color: #B7B7B7;
 
 

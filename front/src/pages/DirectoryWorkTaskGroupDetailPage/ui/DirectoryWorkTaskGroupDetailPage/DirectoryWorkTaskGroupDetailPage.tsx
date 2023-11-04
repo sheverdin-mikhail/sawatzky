@@ -2,10 +2,9 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './DirectoryWorkTaskGroupDetailPage.module.scss';
 import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
-import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { Table, TableItemsMod, TableType } from 'widgets/Table';
-import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
+import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg'
+import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg'
+import { TableItemsMod, TableType } from 'widgets/Table';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
@@ -19,6 +18,8 @@ import {
 import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAddWorkTaskFormIsOpen } from 'features/AddWorkTask';
 import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 import { getTime } from 'shared/lib/helpers/getTime';
+import { useTable } from 'shared/lib/hooks/useTable';
+import { table } from 'console';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -67,6 +68,13 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 		}))
 	}
 
+
+	const { Table } = useTable({
+		data: tableData,
+		mod: TableItemsMod.LINK,
+	})
+
+
 	return (
 		<DynamicModuleLoader reducers={reducers}>
 			<DirectoryPageWrapper className={classNames(cls.directoryWorkTaskGroupDetailPage, {}, [className])}>
@@ -78,7 +86,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 						<DeleteIcon />
 					</Button>
 				</div>
-				<Table mod={TableItemsMod.NORMAL} path={DirectoryPath.work_task_group_detail} data={tableData} />
+				{Table}
 				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={Number(id)} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>

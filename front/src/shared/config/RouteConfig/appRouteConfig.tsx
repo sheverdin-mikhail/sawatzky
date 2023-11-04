@@ -5,6 +5,8 @@ import { DirectoryLegalEntityPage } from "pages/DirectoryLegalEntityPage"
 import { DirectoryLegalEntitySawatzkyPage } from "pages/DirectoryLegalEntitySawatzkyPage"
 import { DirectoryObjectPage } from "pages/DirectoryObjectPage"
 import { DirectoryObjectsGroupPage } from "pages/DirectoryObjectsGroupPage"
+import { DirectoryWorkMaterialGroupDetailPage } from "pages/DirectoryWorkMaterialGroupDetailPage"
+import { DirectoryWorkMaterialGroupPage } from "pages/DirectoryWorkMaterialGroupPage"
 import { DirectoryWorkTaskGroupDetailPage } from "pages/DirectoryWorkTaskGroupDetailPage"
 import { DirectoryWorkTaskGroupPage } from "pages/DirectoryWorkTaskGroupPage"
 import { Navigate, RouteProps } from "react-router-dom"
@@ -39,7 +41,9 @@ export enum DirectoryRoutes{
     LEGAL_ENTITY = 'legal_entity',
     LEGAL_ENTITY_SAWATZKY = 'legal_entity_sawatzky',
     WORK_TASK_GROUP_DETAIL = 'work_task_group_detail',
+    WORK_MATERIAL_GROUP_DETAIL = 'work_material_group_detail',
     WORK_TASK_GROUP = 'work_task_group',
+    WORK_MATERIAL_GROUP = 'work_material_group',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string>= {
@@ -48,7 +52,9 @@ export const DirectoryPath: Record<DirectoryRoutes, string>= {
     [DirectoryRoutes.LEGAL_ENTITY]: '/directory/legal-entity',
     [DirectoryRoutes.LEGAL_ENTITY_SAWATZKY]: '/directory/legal-entity-sawatzky',
     [DirectoryRoutes.WORK_TASK_GROUP]: '/directory/work-task-group',
+    [DirectoryRoutes.WORK_MATERIAL_GROUP]: '/directory/work-material-group',
     [DirectoryRoutes.WORK_TASK_GROUP_DETAIL]: '/directory/work-task-group/',
+    [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: '/directory/work-material-group/',
 }
 
 
@@ -95,9 +101,19 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
         element: <DirectoryWorkTaskGroupPage />,
         authOnly: true
     },
+    [DirectoryRoutes.WORK_MATERIAL_GROUP] : {
+        path: DirectoryPath.work_material_group,
+        element: <DirectoryWorkMaterialGroupPage />,
+        authOnly: true
+    },
     [DirectoryRoutes.WORK_TASK_GROUP_DETAIL] : {
         path: `${DirectoryPath.work_task_group_detail}:id`,
         element: <DirectoryWorkTaskGroupDetailPage />,
+        authOnly: true
+    },
+    [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL] : {
+        path: `${DirectoryPath.work_material_group_detail}:id`,
+        element: <DirectoryWorkMaterialGroupDetailPage />,
         authOnly: true
     },
     

@@ -1,2 +1,1 @@
-
-export { DirectoryObjectPageAsync as  DirectoryObjectPage } from './ui/DirectoryObjectPage/DirectoryObjectPage.async';
+export { DirectoryObjectPageAsync as DirectoryObjectPage } from './ui/DirectoryObjectPage/DirectoryObjectPage.async';

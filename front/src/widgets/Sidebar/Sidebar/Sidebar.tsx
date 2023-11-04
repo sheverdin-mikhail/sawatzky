@@ -14,4 +14,4 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
             <Navigation />
         </div>
     );
-}
+};

@@ -1,8 +1,5 @@
-import { EntityState } from "@reduxjs/toolkit";
-import { WorkTask } from "entities/WorkTask";
-
-
-
+import { EntityState } from '@reduxjs/toolkit';
+import { WorkTask } from 'entities/WorkTask';
 
 export interface DirectoryWorkTaskGroupDetailSchema extends EntityState<WorkTask> {
 
