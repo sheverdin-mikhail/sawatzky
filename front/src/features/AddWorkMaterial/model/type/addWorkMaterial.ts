@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 export interface AddWorkMaterialFormData {
+=======
+
+
+
+export  interface AddWorkMaterialFormData {
+>>>>>>> main
     workMaterialGroup?: number;
     name?: string;
     price?: string;
@@ -6,9 +13,18 @@ export interface AddWorkMaterialFormData {
     status?: boolean;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
 export interface AddWorkMaterialFormSchema {
     formData?: AddWorkMaterialFormData;
     isLoading?: boolean;
     error?: string;
     isOpen?: boolean;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main
