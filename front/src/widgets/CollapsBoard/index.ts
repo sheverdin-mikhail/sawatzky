@@ -1,1 +1,1 @@
-export { CollapsBoard } from "./ui/CollapsBoard/CollapsBoard";
+export { CollapsBoard } from './ui/CollapsBoard/CollapsBoard';

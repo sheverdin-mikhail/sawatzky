@@ -1,3 +1,1 @@
-export { AddObjectForm } from "./ui/AddObjectForm/AddObjectForm";
-
-
+export { AddObjectForm } from './ui/AddObjectForm/AddObjectForm';

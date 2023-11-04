@@ -1,10 +1,10 @@
 export type { WorkMaterialGroupSchema, WorkMaterialGroupItem } from './model/type/workMaterialGroup';
 
-export { 
-    workMaterialGroupActions, 
-    workMaterialGroupReducer, 
+export {
+    workMaterialGroupActions,
+    workMaterialGroupReducer,
     workMaterialGroupAdapter,
-    getWorkMaterialGroup
+    getWorkMaterialGroup,
 } from './model/slice/workMaterialGroupSlice';
 
 export { fetchWorkMaterialGroupList } from './model/services/fetchWorkMaterialGroupList';

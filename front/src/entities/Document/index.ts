@@ -1,1 +1,1 @@
-export type { Document } from "./model/type/document";
+export type { Document } from './model/type/document';

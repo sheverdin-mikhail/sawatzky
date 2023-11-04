@@ -1,4 +1,4 @@
-import { Employee } from "entities/Employee";
+import { Employee } from 'entities/Employee';
 
 export interface User {
     id: string;
@@ -7,7 +7,6 @@ export interface User {
     employee?: Employee;
     phone_number?: string;
 }
-
 
 export interface UserSchema {
     data?: User;

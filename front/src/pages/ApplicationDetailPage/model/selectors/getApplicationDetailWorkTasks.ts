@@ -1,8 +1,8 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { getApplicationDetail } from "../slice/applicationDetailSlice";
-import { ApplicationWorkTask } from "entities/Application";
+import { createSelector } from '@reduxjs/toolkit';
+import { ApplicationWorkTask } from 'entities/Application';
+import { getApplicationDetail } from '../slice/applicationDetailSlice';
 
 export const getApplicationDetailWorkTasks = createSelector(
     getApplicationDetail.selectById,
-    ( application ) : ApplicationWorkTask[] | undefined => application?.workTasks
-)
+    (application) : ApplicationWorkTask[] | undefined => application?.workTasks,
+);

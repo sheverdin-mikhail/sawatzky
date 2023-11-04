@@ -1,20 +1,19 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { AddWorkTaskApplicationFormSchema, ApplicationWorkTaskForPatch, FormStep } from '../type/addWorkTaskApplicationForm'
-import { WorkTask } from 'entities/WorkTask'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { WorkTask } from 'entities/WorkTask';
+import { AddWorkTaskApplicationFormSchema, ApplicationWorkTaskForPatch, FormStep } from '../type/addWorkTaskApplicationForm';
 
 const initialState: AddWorkTaskApplicationFormSchema = {
     isOpen: false,
     isLoading: false,
     formStep: FormStep.CHOSE,
     formData: {},
-    _init: false
-} 
+    _init: false,
+};
 
 interface initialData {
   id: string;
   prevWorkTasks: ApplicationWorkTaskForPatch[];
 }
-
 
 export const addWorkTaskApplicationFormSlice = createSlice({
     name: 'addWorkTaskApplicationForm',
@@ -22,36 +21,36 @@ export const addWorkTaskApplicationFormSlice = createSlice({
     reducers: {
 
         initForm: (state, action: PayloadAction<initialData>) => {
-            state.formData.applicationId = action.payload.id
-            state.formData.prevWorkTasks = action.payload.prevWorkTasks
-            state._init = true
+            state.formData.applicationId = action.payload.id;
+            state.formData.prevWorkTasks = action.payload.prevWorkTasks;
+            state._init = true;
         },
 
         openModal: (state) => {
-            state.isOpen = true
+            state.isOpen = true;
         },
         closeModal: (state) => {
-            state.isOpen = false
-            state.selectedItem = undefined
-            state.actualTimeText = ''
-            state.formStep = FormStep.CHOSE
+            state.isOpen = false;
+            state.selectedItem = undefined;
+            state.actualTimeText = '';
+            state.formStep = FormStep.CHOSE;
         },
         setActualStep: (state) => {
-            state.formStep = FormStep.ACTUAL
+            state.formStep = FormStep.ACTUAL;
         },
         setChoseStep: (state) => {
-            state.formStep = FormStep.CHOSE
+            state.formStep = FormStep.CHOSE;
         },
         selectItem: (state, action: PayloadAction<WorkTask>) => {
-            state.selectedItem = action.payload
+            state.selectedItem = action.payload;
         },
         setActualTimeText: (state, action: PayloadAction<string>) => {
-            state.actualTimeText = action.payload
-        }
+            state.actualTimeText = action.payload;
+        },
     },
-    extraReducers: (builder) => builder 
+    extraReducers: (builder) => builder,
 
-})
+});
 
-export const { actions: addWorkTaskApplicationFormActions } = addWorkTaskApplicationFormSlice
-export const { reducer: addWorkTaskApplicationFormReducer } = addWorkTaskApplicationFormSlice
+export const { actions: addWorkTaskApplicationFormActions } = addWorkTaskApplicationFormSlice;
+export const { reducer: addWorkTaskApplicationFormReducer } = addWorkTaskApplicationFormSlice;

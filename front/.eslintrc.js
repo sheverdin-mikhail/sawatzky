@@ -5,10 +5,11 @@ module.exports = {
         jest: true,
     },
     extends: [
-        "react-app",
-        "react-app/jest",
-        'plugin:react/recommended', 
-        'plugin:react/jsx-runtime', 
+        'airbnb',
+        'react-app',
+        'react-app/jest',
+        'plugin:react/recommended',
+        'plugin:react/jsx-runtime',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -17,9 +18,10 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        // 'react/jsx-indent': [2, 4],
-        // indent: [2, 4],
-        // 'react/jsx-indent-props': [2, 4],
+        'no-tabs': ['error', { allowIndentationTabs: true }],
+        'react/jsx-indent': [2, 4],
+        indent: [2, 4],
+        'react/jsx-indent-props': [2, 4],
         'react/jsx-filename-extension': [1, {
             extensions: ['.js', '.jsx', '.tsx'],
         }],
@@ -46,6 +48,8 @@ module.exports = {
         'eslintjsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
+        'no-param-reassign': 'off',
+        'consistent-return': 'off',
     },
     globals: {
         __IS__DEV__: true,

@@ -20,6 +20,7 @@ import { WorkMaterialGroupSchema } from 'entities/WorkMaterialGroup';
 import { AddWorkMaterialGroupFormSchema } from 'features/AddWorkMaterialGroup';
 import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/addWorkMaterial';
 import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
+
 export interface StateSchema {
     user: UserSchema;
 
@@ -54,7 +55,6 @@ export interface ReducerManager {
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager;
 }
-
 
 export interface ThunkExtraArg {
     api: AxiosInstance;

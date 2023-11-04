@@ -5,7 +5,6 @@ export interface LoginSchema {
     error?: string
 }
 
-
 export interface TokensData {
     access: string;
     refresh: string;

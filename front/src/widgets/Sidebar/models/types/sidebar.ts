@@ -1,4 +1,4 @@
-import { DirectoryPath, RoutePath } from "shared/config/RouteConfig/appRouteConfig";
+import { DirectoryPath, RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
 import { ReactComponent as InfoIcon } from 'shared/assets/icons/info-icon.svg';
 import { ReactComponent as ApplicationIcon } from 'shared/assets/icons/application-icon.svg';
 import { ReactComponent as ReportIcon } from 'shared/assets/icons/report-icon.svg';
@@ -19,40 +19,40 @@ export const SidebarItemsList: SidebarItemType[] = [
         path: '/info',
         text: 'Информация',
         Icon: InfoIcon,
-        authOnly: true
+        authOnly: true,
     },
     {
         path: RoutePath.applications,
         text: 'Запросы',
         Icon: ApplicationIcon,
-        authOnly: true
+        authOnly: true,
     },
     {
         path: '/report',
         text: 'Отчеты',
         Icon: ReportIcon,
-        authOnly: true
+        authOnly: true,
 
     },
     {
         path: DirectoryPath.objects,
         text: 'Справочники',
         Icon: DirectoryIcon,
-        authOnly: true
+        authOnly: true,
 
     },
     {
         path: '/archive',
         text: 'Архив',
         Icon: ArchiveIcon,
-        authOnly: true
+        authOnly: true,
 
     },
     {
         path: '/documents',
         text: 'Документы',
         Icon: DocIcon,
-        authOnly: true
+        authOnly: true,
 
     },
-]
+];

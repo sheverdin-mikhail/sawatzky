@@ -1,11 +1,6 @@
-
-
-
-export  interface AddWorkMaterialGroupFormData {
+export interface AddWorkMaterialGroupFormData {
     name: string;
 }
-
-
 
 export interface AddWorkMaterialGroupFormSchema {
     formData?: AddWorkMaterialGroupFormData;
