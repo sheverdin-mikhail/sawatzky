@@ -5,7 +5,7 @@ import { getApplicationDetail } from '../slice/applicationDetailSlice';
 
 export const getApplicationDetailInfo = createSelector(
     getApplicationDetail.selectById,
-    (application) : ApplicationInfo => (
+    (application): ApplicationInfo => (
         {
             id: application?.id || '',
             title: application?.title || '',
@@ -16,13 +16,8 @@ export const getApplicationDetailInfo = createSelector(
             createdAt: application?.createdAt || '',
             startWorkDate: application?.startWorkDate,
             endWorkDate: application?.endWorkDate,
-<<<<<<< HEAD
-            step: application?.step || 0,
-
-=======
             step: application?.step || 0
-            
->>>>>>> main
+
         }
     ),
 );

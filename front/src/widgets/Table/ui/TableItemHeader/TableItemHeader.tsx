@@ -1,15 +1,8 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-<<<<<<< HEAD
-import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
-import { MouseEvent, useCallback } from 'react';
-import cls from './TableItemHeader.module.scss';
-import { TableItemType } from '../../model/type/table';
-=======
 import cls from './TableItemHeader.module.scss';
 import { TableItemType } from '../../model/type/table';
 import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { MouseEvent, useCallback } from 'react';
->>>>>>> main
 
 interface TableItemHeaderProps {
 	className?: string;
@@ -18,43 +11,16 @@ interface TableItemHeaderProps {
 	onSelectAll?: () => void;
 }
 
-<<<<<<< HEAD
-export const TableItemHeader: React.FC<TableItemHeaderProps> = (props) => {
-    const {
-        className, item, selectedAll, onSelectAll,
-    } = props;
-
-    const onCheckClick = useCallback((e: MouseEvent) => {
-        e.stopPropagation();
-        e.preventDefault();
-        onSelectAll?.();
-    }, [onSelectAll]);
-
-    return (
-        <div className={classNames(cls.tableItemHeader, {}, [className])}>
-            <Checkbox className={cls.checkbox} id={`${item?.id}`} onClick={(e) => onCheckClick(e)} checked={selectedAll} />
-            {
-                item && Object.keys(item).map((key, index) => (
-                    <div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length + 1)}%` }}>
-                        <span className={cls.text}>{item[key]}</span>
-                    </div>
-                ))
-            }
-            <div className={cls.column} style={{ flex: `1 0 ${100 / Object.keys(item!!).length}%` }} />
-        </div>
-    );
-};
-=======
 
 export const TableItemHeader: React.FC<TableItemHeaderProps> = (props) => {
-	const { className, item, selectedAll, onSelectAll} = props;
+	const { className, item, selectedAll, onSelectAll } = props;
 
 
-	const onCheckClick = useCallback((e: MouseEvent)=>{
+	const onCheckClick = useCallback((e: MouseEvent) => {
 		e.stopPropagation()
 		e.preventDefault()
 		onSelectAll?.()
-	},[onSelectAll])
+	}, [onSelectAll])
 
 
 
@@ -64,8 +30,8 @@ export const TableItemHeader: React.FC<TableItemHeaderProps> = (props) => {
 				<Checkbox className={cls.checkbox} id={`${item?.id}`} onClick={(e) => onCheckClick(e)} checked={selectedAll} />
 			}
 			{
-				item && Object.keys(item).map((key, index)=>(
-					<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length+1)}%` }} >
+				item && Object.keys(item).map((key, index) => (
+					<div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / (Object.keys(item).length + 1)}%` }} >
 						<span className={cls.text}>{item[key]}</span>
 					</div>
 				))
@@ -75,4 +41,3 @@ export const TableItemHeader: React.FC<TableItemHeaderProps> = (props) => {
 		</div>
 	);
 }
->>>>>>> main

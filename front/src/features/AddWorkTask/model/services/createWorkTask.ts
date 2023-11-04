@@ -12,18 +12,11 @@ export const createWorkTask = createAsyncThunk<
 >(
     'addWorkTask/createWorkTask',
     async (formData, { extra, rejectWithValue, dispatch }) => {
-<<<<<<< HEAD
-        try {
-            const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData);
-            if (!response.data) {
-                throw new Error('Ошибка создания группы услуг');
-=======
 
-        try{    
+        try {
             const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData)
-            if(!response.data){
+            if (!response.data) {
                 throw new Error('Ошибка создания группы услуг')
->>>>>>> main
             }
 
             dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`));

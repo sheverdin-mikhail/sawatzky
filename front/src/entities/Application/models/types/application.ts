@@ -1,16 +1,11 @@
 import { EntityState } from '@reduxjs/toolkit';
-<<<<<<< HEAD
-import { Employee } from 'entities/Employee';
-import { WorkTask } from 'entities/WorkTask';
-=======
 import { Employee } from "entities/Employee";
 import { WorkTask } from "entities/WorkTask";
 
->>>>>>> main
 
 export enum ApplicationStatus {
-    NEW ='new',
-    PROCESSED='processed',
+    NEW = 'new',
+    PROCESSED = 'processed',
     COORDINATION = 'coordination',
     PAYMENT_COORDINATION = 'paymentCoordination',
     IN_WORK = 'inWork',
@@ -50,11 +45,7 @@ export interface Application {
     performer?: Employee;
     workTasks?: ApplicationWorkTask[];
     workMaterials?: ApplicationWorkMaterial[];
-<<<<<<< HEAD
-    documents?: Document[]; // Поменять когда появится модель документов
-=======
     documents?: Document[]; //Поменять когда появится модель документов
->>>>>>> main
 
     createdAt: string;
     updatedAt?: string;
