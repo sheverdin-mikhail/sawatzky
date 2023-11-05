@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { fetchWorkTaskGroupList, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
 import { useEffect } from 'react';
 import { DocList } from 'widgets/DocList';
+import { docList } from 'widgets/DocList/model/type/docList';
 
 interface ApplicationDetailWorkPriceProps {
 	className?: string;
@@ -56,6 +57,17 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 			count: 20
 		},
 	]
+
+	const docList: docList[] = [
+		{ id: '1', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
+		{ id: '2', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
+		{ id: '3', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
+	];
+
+	const payList: docList[] = [
+		{ id: '1', title: 'Платежный документ.docx' },
+	];
+
 	const workTasksTable: TableType = {
 		header: {
 			id: 'ID',
@@ -153,7 +165,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 					<p className={cls.price}>Общая стоимость работ/услуг и материалов составляет <b className={cls.totalPrice}>{clearPrice} ₽</b> сумма с НДС </p>
 				</div>
 
-				<DocList title={'Список документов'} />
+				<DocList docs={docList} title={'Список документов'} />
+				<DocList docs={payList} title={'Платежный документ'} />
 			</CollapsBoard>
 			<AddWorkTaskApplicationModal
 				isOpen={addWorkTaskApplicationModalIsOpen}
