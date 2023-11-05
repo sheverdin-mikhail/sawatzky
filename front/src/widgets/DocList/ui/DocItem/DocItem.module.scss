@@ -1,0 +1,15 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 19px;
+  max-width: 430px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btns,
+.title {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
