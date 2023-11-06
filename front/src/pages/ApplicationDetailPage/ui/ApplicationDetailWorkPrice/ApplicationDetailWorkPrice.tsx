@@ -59,9 +59,9 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 	]
 
 	const docList: docList[] = [
-		{ id: '1', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
-		{ id: '2', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
-		{ id: '3', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx' },
+		{ id: '1', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00' },
+		{ id: '2', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00' },
+		{ id: '3', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00' },
 	];
 
 	const payList: docList[] = [
@@ -167,6 +167,18 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 
 				<DocList docs={docList} title={'Список документов'} />
 				<DocList docs={payList} title={'Платежный документ'} />
+			</CollapsBoard>
+
+			<CollapsBoard title='Исполнитель' className={cls.grayBg}>
+
+			</CollapsBoard>
+
+			<CollapsBoard title='Акт выполненных работ' className={cls.grayBg}>
+				<div className={cls.actsBlock}>
+					<Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn} >+ Добавить </Button>
+					<DocList docs={docList} title={'Список документов'} acts='acts' className={cls.docList} />
+					<Button theme={ButtonThemes.BLUE_SOLID} className={cls.blueBtn}>отправить на подтверждение заказчику</Button>
+				</div>
 			</CollapsBoard>
 			<AddWorkTaskApplicationModal
 				isOpen={addWorkTaskApplicationModalIsOpen}

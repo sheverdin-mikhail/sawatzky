@@ -1,0 +1,30 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 19px;
+  max-width: 540px;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+
+    .icon {
+      opacity: 1;
+    }
+  }
+}
+
+.icon {
+  opacity: 0;
+}
+
+.btns,
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: var(--font-size-s2);
+  gap: 16px;
+}
