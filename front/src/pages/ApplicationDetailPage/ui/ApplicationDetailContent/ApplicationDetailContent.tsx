@@ -16,6 +16,8 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 import { Progressbar } from 'widgets/Progressbar';
 import { getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
+import { ApplicationDetailActs } from '../ApplicationDetailActs/ApplicationDetailActs';
+import { ApplicationDetailPerformer } from '../ApplicationDetailPerformer/ApplicationDetailPerformer';
 
 
 interface ApplicationDetailContentProps {
@@ -50,6 +52,8 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
 				<Progressbar step={info.step} />
 
 				<ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
+				<ApplicationDetailPerformer />
+				<ApplicationDetailActs />
 			</div >
 			<SuccessModal
 				onClose={() => setIsOpen(false)}

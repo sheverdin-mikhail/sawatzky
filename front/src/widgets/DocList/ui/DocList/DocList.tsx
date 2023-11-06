@@ -13,8 +13,6 @@ interface DocListProps {
 
 export const DocList: React.FC<DocListProps> = (props) => {
   const { className, title, docs, acts } = props;
-  console.log(docs[1])
-
   return (
     <div className={cls.docs}>
       {acts ? '' : <h2 className={cls.title}>{title}</h2>}

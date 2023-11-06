@@ -8,10 +8,16 @@ interface CollapsBoardProps {
 	className?: string;
 	title: string;
 	children?: ReactNode;
+	theme?: CollapsBoardThemes;
+}
+
+export enum CollapsBoardThemes {
+	BLUE = 'blue',
+	GRAY = 'gray',
 }
 
 export const CollapsBoard: React.FC<CollapsBoardProps> = (props) => {
-	const { className, children, title } = props;
+	const { className, children, title, theme = CollapsBoardThemes.BLUE } = props;
 
 	const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
 
@@ -24,7 +30,7 @@ export const CollapsBoard: React.FC<CollapsBoardProps> = (props) => {
 	return (
 		<div className={classNames(cls.collapsBoard, {
 			[cls.collapsed]: isCollapsed
-		}, [className])}>
+		}, [className, cls[theme]])}>
 			<div className={cls.header} onClick={onToggleCollapsed}>
 				<Text title={title} size={TextSize.M} />
 				<div className={cls.iconContainer}><ArrowIcon className={cls.icon} /></div>

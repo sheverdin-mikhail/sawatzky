@@ -1,8 +1,14 @@
 .collapsBoard {
     padding: 16px 25px;
-    background: var(--blue-light-bg-color);
     border-radius: 5px;
-    margin-top: 32px;
+}
+
+.blue {
+    background: var(--blue-light-bg-color);
+}
+
+.gray {
+    background: var(--gray-bg-color);
 }
 
 .icon {
