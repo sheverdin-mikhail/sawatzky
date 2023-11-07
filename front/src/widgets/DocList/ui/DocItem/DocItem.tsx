@@ -15,7 +15,10 @@ export const DocItem: React.FC<DocItemProps> = (props) => {
 
   return (
     <li className={cls.item} id={docId}>
-      <p className={cls.title}><DocIcon /> {docTitle}</p>
+      <p className={cls.title}>
+        <Button theme={ButtonThemes.CLEAR} className={cls.icon}><DocIcon /></Button>
+        {docTitle}
+      </p>
       <div className={cls.btns}>
         <Button theme={ButtonThemes.WHITE_ROUND}> <CancelIcon /> </Button>
         <Button theme={ButtonThemes.WHITE_ROUND}> <DownloadIcon /> </Button>
