@@ -1,0 +1,57 @@
+.performer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.nameCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.addBtn {
+  text-align: start;
+  line-height: normal;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.nameBtn {
+  display: block;
+  width: 5px;
+  height: 9px;
+  transform: rotate(90deg);
+}
+
+.bold {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-xl);
+}
+
+.text {
+  font-weight: var(--font-weight-s);
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.datesText {
+  font-size: var(--font-size-s2);
+  line-height: normal;
+}
