@@ -1,64 +1,64 @@
 
 
 .select {
-    position: relative;
-    width: 100%;
-    cursor: pointer;
-    background: var(--gray-bg-color);
-    padding: 17px 20px;
-    border-radius: 9px;
-    appearance: none;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  background: var(--gray-bg-color);
+  padding: 17px 20px;
+  border-radius: 9px;
+  appearance: none;
 }
 
 
 .selectedItem {
-    display: block;
-    cursor: pointer;
+  display: block;
+  cursor: pointer;
 }
 
 .optionsList {
-    display: none;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    z-index: 10;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
+  display: none;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 10;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
 }
   
 .optionsList li {
-    padding: 10px;
-    cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .optionsList li:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .selectedItem:hover .optionsList {
-    display: block;
+  display: block;
 }
 
 .open {
-    .optionsList {
-        display: block;
-    }
+  .optionsList {
+    display: block;
+  }
 
-    &.select::before {
-        transform: translateY(-50%) rotate(-90deg);
-    }
+  &.select::before {
+    transform: translateY(-50%) rotate(-90deg);
+  }
 }
 
 .select::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%) rotate(90deg);
-    background: url('../../assets/icons/arrow-icon-right.svg') center no-repeat;
-    display: block;
-    width: 10px;
-    height: 10px;
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%) rotate(90deg);
+  background: url('../../assets/icons/arrow-icon-right.svg') center no-repeat;
+  display: block;
+  width: 10px;
+  height: 10px;
 }

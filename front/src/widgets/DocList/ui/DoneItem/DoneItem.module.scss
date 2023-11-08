@@ -1,0 +1,27 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 19px;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.iconHide {
+  opacity: 1;
+}
+
+.btns,
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: var(--font-size-s2);
+  gap: 16px;
+}

@@ -6,8 +6,8 @@ import { ReactNode } from 'react';
 import { Title } from 'shared/ui/Title/Title';
 
 interface DirectoryPageWrapperProps {
-	className?: string;
-	children: ReactNode;
+    className?: string;
+    children: ReactNode;
 }
 
 const reducers: ReducersList = {

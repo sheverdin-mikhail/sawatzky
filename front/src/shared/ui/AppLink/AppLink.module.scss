@@ -1,28 +1,28 @@
 .appLink {
-    text-decoration: none;
-    font: var(--font-s);
+  text-decoration: none;
+  font: var(--font-s);
 }
 
 .blue {
-    color: var(--blue-color);
-    font-weight: 700;
-    &:hover {
-        text-decoration: underline;
-    }
+  color: var(--blue-color);
+  font-weight: 700;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 
 .button {
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--dark-gray-color);
-    color: var(--dark-gray-color);
-    background: #fff;
-    &.active,
-    &:hover {
-        color: var(--blue-color);
-        font-weight: 700;
-        background: var(--blue-bg-color);
-        border: none;
-    }
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--dark-gray-color);
+  color: var(--dark-gray-color);
+  background: #fff;
+  &.active,
+  &:hover {
+    color: var(--blue-color);
+    font-weight: 700;
+    background: var(--blue-bg-color);
+    border: none;
+  }
 }

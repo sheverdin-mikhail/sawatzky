@@ -19,6 +19,7 @@ import { AddWorkTaskModal, addWorkTaskFormActions, addWorkTaskFormReducer, getAd
 import { getWorkTaskGroupName } from '../../model/selectors/directoryWorkTaskGroupDetailSelectors';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { table } from 'console';
 
 interface DirectoryObjectsGroupPageProps {
 	className?: string;
@@ -85,7 +86,7 @@ const DirectoryWorkTaskGroupDetailPage: React.FC<DirectoryObjectsGroupPageProps>
 						<DeleteIcon />
 					</Button>
 				</div>
-				{ Table }
+				{Table}
 				<AddWorkTaskModal className={cls.form} isOpen={isOpen} groupId={Number(id)} />
 			</DirectoryPageWrapper>
 		</DynamicModuleLoader>

@@ -3,11 +3,11 @@ import { TableHeaderType, TableItemsMod } from '../../model/type/table';
 import { ItemTheme, TableItem } from '../TableItem/TableItem';
 
 interface TableHeaderProps {
-	className?: string;
-	options?: TableHeaderType;
-	mod?: TableItemsMod;
-	onSelectAll?: () => void;
-	selectedAll?: boolean;
+    className?: string;
+    options?: TableHeaderType;
+    mod?: TableItemsMod;
+    onSelectAll?: () => void;
+    selectedAll?: boolean;
 }
 
 export const TableHeader: React.FC<TableHeaderProps> = (props) => {

@@ -2,8 +2,8 @@ import { WorkTask } from 'entities/WorkTask';
 import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 
 export const enum FormStep {
-    CHOSE='chose',
-    ACTUAL='actual'
+    CHOSE = 'chose',
+    ACTUAL = 'actual'
 }
 
 export interface ApplicationWorkTaskForPatch {

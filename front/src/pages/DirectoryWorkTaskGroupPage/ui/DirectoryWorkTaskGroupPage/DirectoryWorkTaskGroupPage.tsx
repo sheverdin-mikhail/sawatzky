@@ -22,7 +22,7 @@ import { useTable } from 'shared/lib/hooks/useTable';
 import cls from './DirectoryWorkTaskGroupPage.module.scss';
 
 interface DirectoryObjectsGroupPageProps {
-	className?: string;
+    className?: string;
 }
 
 const reducers: ReducersList = {
