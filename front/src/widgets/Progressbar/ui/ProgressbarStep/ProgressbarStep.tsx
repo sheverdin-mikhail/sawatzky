@@ -14,7 +14,7 @@ export const ProgressbarStep: React.FC<ProgressStepProps> = (props) => {
 
   const modsItem: Mods = {
     [cls.left]: +id > 1,
-    [cls.right]: +id < 7 ,
+    [cls.right]: +id < 7,
     [cls.done]: +id < step,
     [cls.step]: +id > step,
     [cls.current]: +id === step,
@@ -26,7 +26,7 @@ export const ProgressbarStep: React.FC<ProgressStepProps> = (props) => {
   }
 
   return (
-    <li className={classNames(cls.item, modsItem , [])} id={id}>
+    <li className={classNames(cls.item, modsItem, [])} id={id}>
       <div className={classNames(cls.icon, modsIcon, [])}>
         {+id > step ? id : <DoneIcon />}
       </div>

@@ -1,46 +1,46 @@
 .modal {
-    display: block;
-    position: fixed;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-    font: var(--font-s);
-    color: var(--black-color);
+  display: block;
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  font: var(--font-s);
+  color: var(--black-color);
 }
 
 .overlay {
-    width: 100%;
-    height: 100%;
-    background: rgba($color: #000, $alpha: 60%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba($color: #000, $alpha: 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
-    padding: 28px 40px 46px;
-    border-radius: 10px;
-    background: #fff;
-    transition: 0.3s transform;
-    transform: scale(0.5);
-    max-width: 60%;
+  padding: 28px 40px 46px;
+  border-radius: 10px;
+  background: #fff;
+  transition: 0.3s transform;
+  transform: scale(0.5);
+  max-width: 60%;
 }
 
 .opened {
-    &.modal {
-        z-index: 100;
-        opacity: 1;
-        pointer-events: all;
-    }
+  &.modal {
+    z-index: 100;
+    opacity: 1;
+    pointer-events: all;
+  }
 
-    .content {
-        transform: scale(1);
-    }
+  .content {
+    transform: scale(1);
+  }
 }
 
 .isClosing {
-    .content {
-        transform: scale(0.2);
-    }
+  .content {
+    transform: scale(0.2);
+  }
 }

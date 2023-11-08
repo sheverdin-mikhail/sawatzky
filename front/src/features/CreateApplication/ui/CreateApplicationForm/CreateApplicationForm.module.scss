@@ -1,32 +1,32 @@
 .createApplicationForm {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 500px;
 }
 
 .buttons {
-    display: flex;
-    margin: 0 -15px;
-    margin-top: 40px;
+  display: flex;
+  margin: 0 -15px;
+  margin-top: 40px;
 }
 
 .button {
-    margin: 0 15px;
-    flex: 1 1 auto;
+  margin: 0 15px;
+  flex: 1 1 auto;
 }
 
 .title {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .input{
-    &:not(:last-child){
-        margin-bottom: 16px;
-    }
+  &:not(:last-child){
+    margin-bottom: 16px;
+  }
 }
 
 
 .error {
-    margin-top: 15px;
+  margin-top: 15px;
 }

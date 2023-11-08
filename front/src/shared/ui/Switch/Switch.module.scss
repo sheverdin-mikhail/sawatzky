@@ -1,55 +1,55 @@
 .switch {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 
 .input {
-    display: none;
+  display: none;
 }
 
 .label {
-    padding-left: 16px + 33px;
-    position: relative;
-    cursor: pointer;
-    font-weight: 700;
+  padding-left: 16px + 33px;
+  position: relative;
+  cursor: pointer;
+  font-weight: 700;
 
-    &::before, 
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  &::before, 
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-    &::after {
-        left: 3px;
-        background: #fff;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        transition: transform 0.2s ease ;
-    }
+  &::after {
+    left: 3px;
+    background: #fff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transition: transform 0.2s ease ;
+  }
 
-    &::before {
-        width: 33px;
-        height: 18.5px;
-        left: 0;
-        border-radius: 23px;
-        background: var(--dark-gray-color);
-    }
+  &::before {
+    width: 33px;
+    height: 18.5px;
+    left: 0;
+    border-radius: 23px;
+    background: var(--dark-gray-color);
+  }
 }
 
 
 .input:checked {
-    &+.label{
-        &::before {
-            background: var(--blue-color);
-        }
-        &::after {
-            transform: translate(90%, -50%);
-        }
+  &+.label{
+    &::before {
+      background: var(--blue-color);
     }
+    &::after {
+      transform: translate(90%, -50%);
+    }
+  }
 }
 
