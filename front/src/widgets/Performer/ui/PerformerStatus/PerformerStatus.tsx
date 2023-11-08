@@ -15,4 +15,4 @@ export const PerformerStatus: React.FC<PerformerStatusProps> = (props) => {
       <span className={classNames('', {}, [classNameSec])}> {status}</span>
     </p>
   );
-}
+};

@@ -6,6 +6,7 @@ export type {
   Application,
   ApplicationSchema,
   ApplicationWorkTask,
+  ApplicationWorkMaterial,
 } from './models/types/application';
 
 export {

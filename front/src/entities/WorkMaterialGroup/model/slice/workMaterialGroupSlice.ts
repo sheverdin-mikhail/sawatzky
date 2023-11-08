@@ -26,7 +26,7 @@ export const workMaterialGroupSlice = createSlice({
     },
   },
   extraReducers: (builder) => builder
-    // Получение списка групп услуг
+    // Получение списка групп материалов
     .addCase(fetchWorkMaterialGroupList.pending, (state, action) => {
       state.error = undefined;
       state.isLoading = true;
@@ -40,7 +40,7 @@ export const workMaterialGroupSlice = createSlice({
       state.error = action.payload;
     })
 
-    // Удаление группы услуг
+    // Удаление группы материалов
     .addCase(deleteWorkMaterialGroup.pending, (state) => {
       state.error = undefined;
       state.isLoading = true;

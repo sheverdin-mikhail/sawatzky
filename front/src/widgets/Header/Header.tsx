@@ -8,12 +8,12 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
-    const { className } = props;
+  const { className } = props;
 
-    return (
-        <div className={classNames(cls.header, {}, [className ?? ''])}>
-            <Logo width={121} className={cls.logo} />
-            <DropdownMenu />
-        </div>
-    );
+  return (
+    <div className={classNames(cls.header, {}, [className ?? ''])}>
+      <Logo width={121} className={cls.logo} />
+      <DropdownMenu />
+    </div>
+  );
 };

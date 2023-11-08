@@ -22,10 +22,8 @@ export const Progressbar: React.FC<ProgressbarProps> = (props) => {
   return (
     <div className={cls.progressbar}>
       <ul className={cls.list}>
-        {ProgressSteps.map((item) =>
-          <ProgressbarStep step={step} id={item.id} title={item.title} key={item.id} />
-        )}
+        {ProgressSteps.map((item) => <ProgressbarStep step={step} id={item.id} title={item.title} key={item.id} />)}
       </ul>
     </div>
   );
-}
+};

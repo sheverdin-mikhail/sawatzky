@@ -7,14 +7,14 @@ interface ApplicationDetailPageProps {
 }
 
 const ApplicationDetailPage: React.FC<ApplicationDetailPageProps> = (props) => {
-    const { className } = props;
-    const { id } = useParams()
+  const { className } = props;
+  const { id } = useParams();
 
-    return (
-        <div className={classNames('', {}, [className])}>
-            <ApplicationDetailContent applicationId={id || ''} />
-        </div>
-    );
-}
+  return (
+    <div className={classNames('', {}, [className])}>
+      <ApplicationDetailContent applicationId={id || ''} />
+    </div>
+  );
+};
 
-export default ApplicationDetailPage
+export default ApplicationDetailPage;

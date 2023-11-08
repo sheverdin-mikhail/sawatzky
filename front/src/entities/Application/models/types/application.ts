@@ -1,5 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { Employee } from 'entities/Employee';
+import { WorkMaterial } from 'entities/WorkMaterial';
 import { WorkTask } from 'entities/WorkTask';
 
 export enum ApplicationStatus {
@@ -17,7 +18,7 @@ export interface ApplicationWorkTask {
 }
 
 export interface ApplicationWorkMaterial {
-    workTask: WorkTask;
+    workMaterial: WorkMaterial;
     actualCount: number;
 }
 

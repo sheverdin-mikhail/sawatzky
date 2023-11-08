@@ -15,7 +15,7 @@ import { getApplicationDetailInfo } from '../../model/selectors/getApplicationDe
 import { ApplicationDetailInfoComponent } from '../ApplicationDetailInfoComponent/ApplicationDetailInfoComponent';
 import { applicationDetailReducer } from '../../model/slice/applicationDetailSlice';
 import cls from './ApplicationDetailContent.module.scss';
-import { getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
+import { getApplicationDetailWorkMaterials, getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
 import { ApplicationDetailActs } from '../ApplicationDetailActs/ApplicationDetailActs';
 import { ApplicationDetailPerformer } from '../ApplicationDetailPerformer/ApplicationDetailPerformer';
 
@@ -25,39 +25,40 @@ interface ApplicationDetailContentProps {
 }
 
 const initialReducers: ReducersList = {
-    applicationDetail: applicationDetailReducer,
-    application: applicationReducer,
+  applicationDetail: applicationDetailReducer,
+  application: applicationReducer,
 };
 
 export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> = (props) => {
-    const { className, applicationId } = props;
-    const [isOpen, setIsOpen] = useState(false);
-    const dispatch = useAppDispatch();
+  const { className, applicationId } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(fetchApplicationDetail(applicationId));
-    }, [dispatch, applicationId]);
+  useEffect(() => {
+    dispatch(fetchApplicationDetail(applicationId));
+  }, [dispatch, applicationId]);
 
-    const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
-    const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
-    const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId));
+  const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
+  const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
+  const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId));
+  const workMaterials = useSelector((state: StateSchema) => getApplicationDetailWorkMaterials(state, applicationId));
 
-    return (
-        <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
-            <div className={classNames(cls.applicationDetailContent, {}, [className])}>
-                <Title className={cls.title}>{title}</Title>
-                <ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
-                <Progressbar step={info.step} />
-                <ApplicationDetailWorkPrice workTasks={workTasks} applicationId={applicationId} />
-                <ApplicationDetailPerformer />
-                <ApplicationDetailActs />
-            </div>
-            <SuccessModal
-                onClose={() => setIsOpen(false)}
-                isOpen={isOpen}
-                title="Успешно"
-                text="Подтверждение платежа"
-            />
-        </DynamicModuleLoader>
-    );
+  return (
+    <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
+      <div className={classNames(cls.applicationDetailContent, {}, [className])}>
+        <Title className={cls.title}>{title}</Title>
+        <ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
+        <Progressbar step={info.step} />
+        <ApplicationDetailWorkPrice workTasks={workTasks} workMaterials={workMaterials} applicationId={applicationId} />
+        <ApplicationDetailPerformer />
+        <ApplicationDetailActs />
+      </div>
+      <SuccessModal
+        onClose={() => setIsOpen(false)}
+        isOpen={isOpen}
+        title="Успешно"
+        text="Подтверждение платежа"
+      />
+    </DynamicModuleLoader>
+  );
 };

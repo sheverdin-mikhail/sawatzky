@@ -1,10 +1,10 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './Performer.module.scss';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { performer } from 'widgets/Performer/model/type/Performer';
 import { ReactComponent as ArrowIcon } from 'shared/assets/icons/arrow-icon-right.svg';
 import { ReactComponent as CancelIcon } from 'shared/assets/icons/cancel-icon.svg';
 import { ReactComponent as ClockIcon } from 'shared/assets/icons/clock-icon.svg';
+import cls from './Performer.module.scss';
 import { PerformerCheck } from '../PerformerCheck/PerformerCheck';
 import { PerformerPriority } from '../PerformerPriority/PerformerPriority';
 import { PerformerStatus } from '../PerformerStatus/PerformerStatus';
@@ -37,4 +37,4 @@ export const Performer: React.FC<PerformerProps> = (props) => {
       </div>
     </div>
   );
-}
+};

@@ -26,6 +26,7 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
       if (!key || reducers[key]) {
         return;
       }
+      // @ts-ignore
       reducers[key] = reducer;
 
       combinedReducer = combineReducers(reducers);

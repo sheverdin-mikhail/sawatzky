@@ -13,9 +13,8 @@ export const fetchWorkMaterialGroupList = createAsyncThunk<
     try {
       const response = await extra.api.get<WorkMaterialGroupItem[]>('/api/v1/work_material_groups/');
       if (!response.data) {
-        throw new Error('Ошибка получения списка групп услуг');
+        throw new Error('Ошибка получения списка групп материалов');
       }
-
       return response.data;
     } catch (e: any) {
       if (e.response.status === 401) {

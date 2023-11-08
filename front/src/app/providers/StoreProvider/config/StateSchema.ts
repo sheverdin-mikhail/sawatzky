@@ -20,6 +20,7 @@ import { WorkMaterialGroupSchema } from 'entities/WorkMaterialGroup';
 import { AddWorkMaterialGroupFormSchema } from 'features/AddWorkMaterialGroup';
 import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/addWorkMaterial';
 import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
+import { AddWorkMaterialApplicationFormSchema } from 'features/AddWorkMaterialToApplication';
 
 export interface StateSchema {
     user: UserSchema;
@@ -33,14 +34,16 @@ export interface StateSchema {
     direcotryNavigation?: DirectoryNavigaionSchema;
     workTaskGroup?: WorkTaskGroupSchema;
     workMaterialGroup?: WorkMaterialGroupSchema;
+    directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
+    directoryWorkMaterialGroupDetail?: DirectoryWorkMaterialGroupDetailSchema;
+    table?: TableSchema;
+    // features
     addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
     addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
     addWorkTaskForm?: AddWorkTaskFormSchema;
     addWorkMaterialForm?: AddWorkMaterialFormSchema;
-    directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
-    directoryWorkMaterialGroupDetail?: DirectoryWorkMaterialGroupDetailSchema;
-    table?: TableSchema;
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
+    addWorkMaterialApplicationForm?: AddWorkMaterialApplicationFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

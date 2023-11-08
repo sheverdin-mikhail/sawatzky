@@ -118,7 +118,7 @@ class ApplicationListView(generics.ListAPIView):
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка заявок по id создателя
     serializer_class = ApplicationWithCreatorSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
 
@@ -224,6 +224,21 @@ class WorkMaterialCreateView(generics.CreateAPIView):
     queryset = WorkMaterial.objects.all()
     serializer_class = WorkMaterialSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            group = WorkMaterialGroup.objects.get(id=request.data['workMaterialGroup'])
+            newWorkMaterialSerializer = self.get_serializer(data=request.data)
+            newWorkMaterial = newWorkMaterialSerializer.is_valid(raise_exception=True)
+            newWorkMaterial = newWorkMaterialSerializer.save()
+            group.materials.add(newWorkMaterial)
+            group.save()
+            return Response(newWorkMaterialSerializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
+
 
 class WorkMaterialListView(generics.ListAPIView):
     # представление на создание и вывод списка рабочих материалов для проведения работ
