@@ -3,6 +3,6 @@ import { ApplicationWorkTask } from 'entities/Application';
 import { getApplicationDetail } from '../slice/applicationDetailSlice';
 
 export const getApplicationDetailWorkTasks = createSelector(
-    getApplicationDetail.selectById,
-    (application) : ApplicationWorkTask[] | undefined => application?.workTasks,
+  getApplicationDetail.selectById,
+  (application) : ApplicationWorkTask[] | undefined => application?.workTasks,
 );

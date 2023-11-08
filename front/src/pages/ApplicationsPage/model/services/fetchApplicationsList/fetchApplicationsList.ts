@@ -8,19 +8,19 @@ export const fetchApplicationsList = createAsyncThunk<
     void,
     ThunkConfig<string>
 >(
-    'applicationsPage/fetchApplicationsList',
-    async (_, { extra, rejectWithValue, dispatch }) => {
-        try {
-            const response = await extra.api.get<Application[]>('/api/v1/applications/');
-            if (!response.data) {
-                throw new Error('Ошибка получения списка запросов!');
-            }
-            return response.data;
-        } catch (e: any) {
-            if (e.response.status === 401) {
-                dispatch(userActions.logout());
-            }
-            return rejectWithValue(e.response.message);
-        }
-    },
+  'applicationsPage/fetchApplicationsList',
+  async (_, { extra, rejectWithValue, dispatch }) => {
+    try {
+      const response = await extra.api.get<Application[]>('/api/v1/applications/');
+      if (!response.data) {
+        throw new Error('Ошибка получения списка запросов!');
+      }
+      return response.data;
+    } catch (e: any) {
+      if (e.response.status === 401) {
+        dispatch(userActions.logout());
+      }
+      return rejectWithValue(e.response.message);
+    }
+  },
 );

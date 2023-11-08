@@ -8,27 +8,27 @@ export const fetchUserDataByToken = createAsyncThunk<
     void,
     ThunkConfig<string>
 >(
-    'login/fetchUserDataByToken',
-    async (_, { extra, rejectWithValue, dispatch }) => {
-        const tokens = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_TOKENS) || '');
-        try {
-            const userResponse = await extra.api.get<User>('/api/v1/users/me/', {
-                headers: {
-                    Authorization: `Bearer ${tokens.access}`,
-                },
-            });
+  'login/fetchUserDataByToken',
+  async (_, { extra, rejectWithValue, dispatch }) => {
+    const tokens = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_TOKENS) || '');
+    try {
+      const userResponse = await extra.api.get<User>('/api/v1/users/me/', {
+        headers: {
+          Authorization: `Bearer ${tokens.access}`,
+        },
+      });
 
-            if (!userResponse.data) {
-                throw new Error('Ошибка авторизации пользователя');
-            }
+      if (!userResponse.data) {
+        throw new Error('Ошибка авторизации пользователя');
+      }
 
-            dispatch(userActions.setAuthData(userResponse.data));
-            return userResponse.data;
-        } catch (e: any) {
-            if (e.response.status === 401) {
-                dispatch(userActions.logout());
-            }
-            return rejectWithValue('error');
-        }
-    },
+      dispatch(userActions.setAuthData(userResponse.data));
+      return userResponse.data;
+    } catch (e: any) {
+      if (e.response.status === 401) {
+        dispatch(userActions.logout());
+      }
+      return rejectWithValue('error');
+    }
+  },
 );

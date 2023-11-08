@@ -1,18 +1,18 @@
 export { AddWorkTaskModal } from './ui/AddWorkTaskModal/AddWorkTaskModal';
 
 export {
-    addWorkTaskFormActions,
-    addWorkTaskFormReducer,
+  addWorkTaskFormActions,
+  addWorkTaskFormReducer,
 } from './model/slice/addWorkTaskFormSlice';
 
 export { createWorkTask } from './model/services/createWorkTask';
 
 export type {
-    AddWorkTaskFormData,
-    AddWorkTaskFormSchema,
+  AddWorkTaskFormData,
+  AddWorkTaskFormSchema,
 } from './model/type/addWorkTask';
 
 export {
 
-    getAddWorkTaskFormIsOpen,
+  getAddWorkTaskFormIsOpen,
 } from './model/selectors/addWorkTaskFormSelectors';

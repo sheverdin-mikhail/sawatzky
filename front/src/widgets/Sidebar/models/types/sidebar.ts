@@ -15,44 +15,44 @@ export interface SidebarItemType {
 
 export const SidebarItemsList: SidebarItemType[] = [
 
-    {
-        path: '/info',
-        text: 'Информация',
-        Icon: InfoIcon,
-        authOnly: true,
-    },
-    {
-        path: RoutePath.applications,
-        text: 'Запросы',
-        Icon: ApplicationIcon,
-        authOnly: true,
-    },
-    {
-        path: '/report',
-        text: 'Отчеты',
-        Icon: ReportIcon,
-        authOnly: true,
+  {
+    path: '/info',
+    text: 'Информация',
+    Icon: InfoIcon,
+    authOnly: true,
+  },
+  {
+    path: RoutePath.applications,
+    text: 'Запросы',
+    Icon: ApplicationIcon,
+    authOnly: true,
+  },
+  {
+    path: '/report',
+    text: 'Отчеты',
+    Icon: ReportIcon,
+    authOnly: true,
 
-    },
-    {
-        path: DirectoryPath.objects,
-        text: 'Справочники',
-        Icon: DirectoryIcon,
-        authOnly: true,
+  },
+  {
+    path: DirectoryPath.objects,
+    text: 'Справочники',
+    Icon: DirectoryIcon,
+    authOnly: true,
 
-    },
-    {
-        path: '/archive',
-        text: 'Архив',
-        Icon: ArchiveIcon,
-        authOnly: true,
+  },
+  {
+    path: '/archive',
+    text: 'Архив',
+    Icon: ArchiveIcon,
+    authOnly: true,
 
-    },
-    {
-        path: '/documents',
-        text: 'Документы',
-        Icon: DocIcon,
-        authOnly: true,
+  },
+  {
+    path: '/documents',
+    text: 'Документы',
+    Icon: DocIcon,
+    authOnly: true,
 
-    },
+  },
 ];

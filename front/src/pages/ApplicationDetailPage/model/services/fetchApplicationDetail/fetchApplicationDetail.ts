@@ -7,16 +7,16 @@ export const fetchApplicationDetail = createAsyncThunk<
     string,
     ThunkConfig<string>
 >(
-    'applicationsPage/fetchApplicationsList',
-    async (applicationId, { extra, rejectWithValue, dispatch }) => {
-        try {
-            const response = await extra.api.get<Application>(`/api/v1/applications/${applicationId}`);
-            if (!response.data) {
-                throw new Error('Ошибка сохранения запроса!');
-            }
-            return response.data;
-        } catch (e: any) {
-            return rejectWithValue(e.response.message);
-        }
-    },
+  'applicationsPage/fetchApplicationsList',
+  async (applicationId, { extra, rejectWithValue, dispatch }) => {
+    try {
+      const response = await extra.api.get<Application>(`/api/v1/applications/${applicationId}`);
+      if (!response.data) {
+        throw new Error('Ошибка сохранения запроса!');
+      }
+      return response.data;
+    } catch (e: any) {
+      return rejectWithValue(e.response.message);
+    }
+  },
 );

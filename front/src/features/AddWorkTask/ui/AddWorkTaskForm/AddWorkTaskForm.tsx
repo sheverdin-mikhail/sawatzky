@@ -7,7 +7,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback } from 'react';
 import { Switch } from 'shared/ui/Switch/Switch';
 import {
-    getAddWorkTaskName, getAddWorkTaskPrice, getAddWorkTaskStatus, getAddWorkTaskTime,
+  getAddWorkTaskName, getAddWorkTaskPrice, getAddWorkTaskStatus, getAddWorkTaskTime,
 } from '../../model/selectors/addWorkTaskFormSelectors';
 import { addWorkTaskFormActions } from '../../model/slice/addWorkTaskFormSlice';
 import { createWorkTask } from '../../model/services/createWorkTask';
@@ -20,65 +20,65 @@ interface AddWorkTaskFormProps {
 }
 
 export const AddWorkTaskForm: React.FC<AddWorkTaskFormProps> = (props) => {
-    const { className, groupId } = props;
+  const { className, groupId } = props;
 
-    const name = useSelector(getAddWorkTaskName);
-    const price = useSelector(getAddWorkTaskPrice);
-    const time = useSelector(getAddWorkTaskTime);
-    const status = useSelector(getAddWorkTaskStatus);
+  const name = useSelector(getAddWorkTaskName);
+  const price = useSelector(getAddWorkTaskPrice);
+  const time = useSelector(getAddWorkTaskTime);
+  const status = useSelector(getAddWorkTaskStatus);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const onNameChangeHandler = useCallback((value: string) => {
-        dispatch(addWorkTaskFormActions.setName(value));
-    }, [dispatch]);
+  const onNameChangeHandler = useCallback((value: string) => {
+    dispatch(addWorkTaskFormActions.setName(value));
+  }, [dispatch]);
 
-    const onPriceChangeHandler = useCallback((value: string) => {
-        dispatch(addWorkTaskFormActions.setPrice(value));
-    }, [dispatch]);
+  const onPriceChangeHandler = useCallback((value: string) => {
+    dispatch(addWorkTaskFormActions.setPrice(value));
+  }, [dispatch]);
 
-    const onTimeChangeHandler = useCallback((value: string) => {
-        dispatch(addWorkTaskFormActions.setTime(value));
-    }, [dispatch]);
+  const onTimeChangeHandler = useCallback((value: string) => {
+    dispatch(addWorkTaskFormActions.setTime(value));
+  }, [dispatch]);
 
-    const onStatusChangeHandler = useCallback((value: boolean) => {
-        dispatch(addWorkTaskFormActions.setStatus(value));
-    }, [dispatch]);
+  const onStatusChangeHandler = useCallback((value: boolean) => {
+    dispatch(addWorkTaskFormActions.setStatus(value));
+  }, [dispatch]);
 
-    const onSaveHandler = useCallback(() => {
-        dispatch(createWorkTask({
-            name,
-            price,
-            workTaskGroup: groupId,
-            status,
-            time,
-        }));
-    }, [dispatch, name, price, groupId, status, time]);
+  const onSaveHandler = useCallback(() => {
+    dispatch(createWorkTask({
+      name,
+      price,
+      workTaskGroup: groupId,
+      status,
+      time,
+    }));
+  }, [dispatch, name, price, groupId, status, time]);
 
-    return (
-        <div className={classNames(cls.AddWorkTaskForm, {}, [className])}>
-            <Text title="Создать услугу" textAlign={TextAlign.CENTER} className={cls.title} />
-            <Input placeholder="Название услуги" className={cls.input} value={name} onChange={onNameChangeHandler} />
-            <Input
-                placeholder="500 ₽"
-                label="Стоимость часа"
-                id="price"
-                className={cls.inputWithLabel}
-                value={price}
-                onChange={onPriceChangeHandler}
-            />
-            <Input
-                placeholder="1 час 20 мин"
-                label="Рекомендованный срок выполнения работ"
-                id="tiem"
-                className={cls.inputWithLabel}
-                value={time}
-                onChange={onTimeChangeHandler}
-            />
-            <Switch className={cls.switch} label="Статус услуги" id="status" onChange={onStatusChangeHandler} />
-            <div className={cls.buttons}>
-                <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button} onClick={onSaveHandler}>Сохранить</Button>
-            </div>
-        </div>
-    );
+  return (
+    <div className={classNames(cls.AddWorkTaskForm, {}, [className])}>
+      <Text title="Создать услугу" textAlign={TextAlign.CENTER} className={cls.title} />
+      <Input placeholder="Название услуги" className={cls.input} value={name ?? ''} onChange={onNameChangeHandler} />
+      <Input
+        placeholder="500 ₽"
+        label="Стоимость часа"
+        id="price"
+        className={cls.inputWithLabel}
+        value={price ?? ''}
+        onChange={onPriceChangeHandler}
+      />
+      <Input
+        placeholder="1 час 20 мин"
+        label="Рекомендованный срок выполнения работ"
+        id="time"
+        className={cls.inputWithLabel}
+        value={time ?? ''}
+        onChange={onTimeChangeHandler}
+      />
+      <Switch className={cls.switch} label="Статус услуги" id="status" checked={status ?? false} onChange={onStatusChangeHandler} />
+      <div className={cls.buttons}>
+        <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button} onClick={onSaveHandler}>Сохранить</Button>
+      </div>
+    </div>
+  );
 };

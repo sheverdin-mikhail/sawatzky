@@ -4,6 +4,6 @@ interface TimeString {
 }
 
 export const getTime = (num: number): TimeString => ({
-    hours: Math.floor(num / 60),
-    minuts: num % 60,
+  hours: Math.floor(num / 60),
+  minuts: num % 60,
 });

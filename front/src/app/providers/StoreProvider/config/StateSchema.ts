@@ -1,7 +1,7 @@
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import {
-    AnyAction, EnhancedStore, Reducer, ReducersMapObject,
+  AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { ApplicationSchema } from 'entities/Application';

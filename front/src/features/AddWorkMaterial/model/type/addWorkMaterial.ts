@@ -2,7 +2,7 @@ export interface AddWorkMaterialFormData {
     workMaterialGroup?: number;
     name?: string;
     price?: string;
-    time?: string;
+    count?: string;
     status?: boolean;
 }
 
