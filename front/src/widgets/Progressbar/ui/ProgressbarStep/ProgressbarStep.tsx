@@ -1,6 +1,6 @@
 import { Mods, classNames } from 'shared/lib/classNames/classNames';
-import cls from './ProgressbarStep.module.scss';
 import { ReactComponent as DoneIcon } from 'shared/assets/icons/done-status.svg';
+import cls from './ProgressbarStep.module.scss';
 
 interface ProgressStepProps {
   className?: string;
@@ -18,12 +18,12 @@ export const ProgressbarStep: React.FC<ProgressStepProps> = (props) => {
     [cls.done]: +id < step,
     [cls.step]: +id > step,
     [cls.current]: +id === step,
-  }
+  };
 
   const modsIcon: Mods = {
     [cls.done]: +id <= step,
-    [cls.step]: +id > step
-  }
+    [cls.step]: +id > step,
+  };
 
   return (
     <li className={classNames(cls.item, modsItem, [])} id={id}>
@@ -33,4 +33,4 @@ export const ProgressbarStep: React.FC<ProgressStepProps> = (props) => {
       <p className={cls.title}>{title}</p>
     </li>
   );
-}
+};

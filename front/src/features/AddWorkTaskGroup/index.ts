@@ -1,17 +1,17 @@
 export { AddWorkTaskGroupModal } from './ui/AddWorkTaskGroupModal/AddWorkTaskGroupModal';
 
 export {
-    addWorkTaskGroupFormActions,
-    addWorkTaskGroupFormReducer,
+  addWorkTaskGroupFormActions,
+  addWorkTaskGroupFormReducer,
 } from './model/slice/addWorkTaskGroupFormSlice';
 
 export { createWorkTaskGroup } from './model/services/createWorkTaskGroup';
 
 export type {
-    AddWorkTaskGroupFormSchema,
-    addWorkTaskGroupFormData,
+  AddWorkTaskGroupFormSchema,
+  addWorkTaskGroupFormData,
 } from './model/type/addWorkTaskGroup';
 
 export {
-    getAddWorkTaskGroupFormIsOpen,
+  getAddWorkTaskGroupFormIsOpen,
 } from './model/selectors/addWorkTaskGroupFormSelectors';

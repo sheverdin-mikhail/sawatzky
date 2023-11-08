@@ -8,8 +8,6 @@ export interface ApplicationDetailSchema extends EntityState<Application> {
     userData?: User;
 }
 
-
-
 export type ApplicationInfo = Omit<
     Application,
     'performer' | 'workTasks' | 'workMaterials' | 'documents' | 'updatedAt'

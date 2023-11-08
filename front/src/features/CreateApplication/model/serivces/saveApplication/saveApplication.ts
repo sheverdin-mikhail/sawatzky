@@ -12,39 +12,39 @@ export const saveApplication = createAsyncThunk<
     CreateApplicationFormType,
     ThunkConfig<string>
 >(
-    'login/saveApplication',
-    async (formData, { extra, rejectWithValue, dispatch }) => {
-        const creatorId = localStorage.getItem(USER_LOCALSTORAGE_DATA);
+  'login/saveApplication',
+  async (formData, { extra, rejectWithValue, dispatch }) => {
+    const creatorId = localStorage.getItem(USER_LOCALSTORAGE_DATA);
 
-        if (!creatorId) {
-            throw new Error('Ошибка аунтификации пользователя!');
-        }
+    if (!creatorId) {
+      throw new Error('Ошибка аунтификации пользователя!');
+    }
 
-        const applicationData: CreateApplicationData = {
-            title: formData.title ?? '',
-            description: formData.description ?? '',
-            startWorkDate: formData.startWorkDate ?? '',
-            endWorkDate: formData.endWorkDate ?? '',
-            status: ApplicationStatus.NEW,
-            creator: JSON.parse(creatorId).employee.id,
-            subject: formData.subject ?? '',
-        };
+    const applicationData: CreateApplicationData = {
+      title: formData.title ?? '',
+      description: formData.description ?? '',
+      startWorkDate: formData.startWorkDate ?? '',
+      endWorkDate: formData.endWorkDate ?? '',
+      status: ApplicationStatus.NEW,
+      creator: JSON.parse(creatorId).employee.id,
+      subject: formData.subject ?? '',
+    };
 
-        try {
-            const response = await extra.api.post<CreateApplicationData>('/api/v1/applications/create/', applicationData);
-            if (!response.data) {
-                throw new Error('Ошибка сохранения запроса!');
-            }
+    try {
+      const response = await extra.api.post<CreateApplicationData>('/api/v1/applications/create/', applicationData);
+      if (!response.data) {
+        throw new Error('Ошибка сохранения запроса!');
+      }
 
-            dispatch(createApplicationActions.clearForm());
-            dispatch(applicationsPageActions.closeModal());
-            dispatch(fetchApplicationsList());
-            return response.data;
-        } catch (e: any) {
-            if (e.response.status === 401) {
-                dispatch(userActions.logout());
-            }
-            return rejectWithValue(e.response.message);
-        }
-    },
+      dispatch(createApplicationActions.clearForm());
+      dispatch(applicationsPageActions.closeModal());
+      dispatch(fetchApplicationsList());
+      return response.data;
+    } catch (e: any) {
+      if (e.response.status === 401) {
+        dispatch(userActions.logout());
+      }
+      return rejectWithValue(e.response.message);
+    }
+  },
 );

@@ -3,44 +3,42 @@ import { AddWorkTaskGroupFormSchema, addWorkTaskGroupFormData } from '../type/ad
 import { createWorkTaskGroup } from '../services/createWorkTaskGroup';
 
 const initialState: AddWorkTaskGroupFormSchema = {
-    isOpen: false,
-    isLoading: false
-}
-
+  isOpen: false,
+  isLoading: false,
+};
 
 export const addWorkTaskGroupFormSlice = createSlice({
-    name: 'addWorkTaskGroupForm',
-    initialState,
-    reducers: {
+  name: 'addWorkTaskGroupForm',
+  initialState,
+  reducers: {
 
-        openModal: (state) => {
-            state.isOpen = true
-        },
-        closeModal: (state) => {
-            state.isOpen = false
-        },
-        setFormData: (state, action: PayloadAction<addWorkTaskGroupFormData>) => {
-            state.formData = action.payload
-        }
-
+    openModal: (state) => {
+      state.isOpen = true;
     },
-    extraReducers: (builder) => builder
-        //Получение списка групп услуг
-        .addCase(createWorkTaskGroup.pending, (state, action) => {
-            state.error = undefined
-            state.isLoading = true
-        })
-        .addCase(createWorkTaskGroup.fulfilled, (state) => {
-            state.isLoading = false
-            state.formData = undefined
-            state.isOpen = false
+    closeModal: (state) => {
+      state.isOpen = false;
+    },
+    setFormData: (state, action: PayloadAction<addWorkTaskGroupFormData>) => {
+      state.formData = action.payload;
+    },
 
-        })
-        .addCase(createWorkTaskGroup.rejected, (state, action) => {
-            state.isLoading = false
-            state.error = action.payload
-        })
-})
+  },
+  extraReducers: (builder) => builder
+    // Получение списка групп услуг
+    .addCase(createWorkTaskGroup.pending, (state, action) => {
+      state.error = undefined;
+      state.isLoading = true;
+    })
+    .addCase(createWorkTaskGroup.fulfilled, (state) => {
+      state.isLoading = false;
+      state.formData = undefined;
+      state.isOpen = false;
+    })
+    .addCase(createWorkTaskGroup.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    }),
+});
 
-export const { actions: addWorkTaskGroupFormActions } = addWorkTaskGroupFormSlice
-export const { reducer: addWorkTaskGroupFormReducer } = addWorkTaskGroupFormSlice
+export const { actions: addWorkTaskGroupFormActions } = addWorkTaskGroupFormSlice;
+export const { reducer: addWorkTaskGroupFormReducer } = addWorkTaskGroupFormSlice;

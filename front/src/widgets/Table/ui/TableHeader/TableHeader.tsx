@@ -11,18 +11,23 @@ interface TableHeaderProps {
 }
 
 export const TableHeader: React.FC<TableHeaderProps> = (props) => {
-    const { className, options, mod, onSelectAll, selectedAll } = props;
+  const {
+    className,
+    options,
+    mod,
+    onSelectAll,
+    selectedAll,
+  } = props;
 
-
-    return (
-        <div className={classNames('', {}, [className])}>
-            <TableItem
-                item={options}
-                type={ItemTheme.HEADER}
-                mod={mod}
-                onSelectAll={onSelectAll}
-                selectedAll={selectedAll}
-            />
-        </div>
-    );
-}
+  return (
+    <div className={classNames('', {}, [className])}>
+      <TableItem
+        item={options}
+        type={ItemTheme.HEADER}
+        mod={mod}
+        onSelectAll={onSelectAll}
+        selectedAll={selectedAll}
+      />
+    </div>
+  );
+};

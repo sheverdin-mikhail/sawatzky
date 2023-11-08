@@ -7,6 +7,6 @@ export const getModalIsOpen = (state: StateSchema) => state.applicationsPage?.mo
 export const getPageInit = (state: StateSchema) => state.applicationsPage?._init;
 
 export const getRowItemIsChecked = (id: string) => createSelector(
-    [getCheckedItems],
-    (checkedItems) => (checkedItems ? checkedItems.includes(id) : false),
+  [getCheckedItems],
+  (checkedItems) => (checkedItems ? checkedItems.includes(id) : false),
 );

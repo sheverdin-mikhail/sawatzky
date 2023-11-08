@@ -26,22 +26,20 @@ export const enum TextSize {
     XL = 'xl'
 }
 
-
 export const Text: React.FC<TextProps> = (props) => {
-    const { 
-            className, 
-            title, 
-            text, 
-            theme=TextTheme.NORMAL, 
-            textAlign=TextAlign.LEFT,
-            size=TextSize.XL
-        } = props;
+  const {
+    className,
+    title,
+    text,
+    theme = TextTheme.NORMAL,
+    textAlign = TextAlign.LEFT,
+    size = TextSize.XL,
+  } = props;
 
-
-    return (
-        <div className={classNames('', {}, [className, cls[textAlign], cls[theme]])}>
-            { title && <h2 className={classNames(cls.title, {}, [cls[size] ])}>{title}</h2> }
-            { text && <p className={classNames(cls.text, {}, [cls[size]])}>{text}</p> }
-        </div>
-    );
-}
+  return (
+    <div className={classNames('', {}, [className, cls[textAlign], cls[theme]])}>
+      { title && <h2 className={classNames(cls.title, {}, [cls[size]])}>{title}</h2> }
+      { text && <p className={classNames(cls.text, {}, [cls[size]])}>{text}</p> }
+    </div>
+  );
+};

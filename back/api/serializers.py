@@ -126,7 +126,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок с расширенным полем creator
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
-    workMaterials = ApplicationWorkMaterialSerializer(read_only=True, many=True)
+    workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
 
     class Meta:
         model = Application
@@ -214,6 +214,12 @@ class UpdateWorkMaterialSerializer(ModelSerializer):
         model = ApplicationWorkMaterial
         fields = ['actualCount', 'workMaterial']
 
+    def update(self, instance, validated_data):
+        instance.actualCount = validated_data.get('actualCount', instance.actualCount)
+        instance.workMaterial = validated_data.get('workMaterial', instance.workMaterial)
+        instance.save()
+        return instance
+
 
 class UpdateWorkTaskSerializer(ModelSerializer):
     
@@ -241,6 +247,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
+        print(validated_data)
         if work_task_data:
             current_work_tasks = ApplicationWorkTask.objects.filter(application=instance)
             # Удаляем workTasks, которых нет в validated_data

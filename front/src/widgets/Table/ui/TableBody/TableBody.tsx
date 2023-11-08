@@ -13,24 +13,26 @@ interface TableBodyProps {
 }
 
 export const TableBody: React.FC<TableBodyProps> = (props) => {
-	const { className, items, mod, path, onCheck, onDelete, selectedItems } = props;
+  const {
+    className, items, mod, path, onCheck, onDelete, selectedItems,
+  } = props;
 
-
-
-	return (
-		<div className={classNames('', {}, [className])}>
-			{
-				items?.map((item, index)=><TableItem  
-					path={path} 
-					mod={mod} 
-					key={`${index}`} 
-					type={ItemTheme.BODY} 
-					item={item} 
-					onCheck={() => onCheck?.(item)}
-					onDelete={() => onDelete?.(item)}
-					isChecked={Boolean(selectedItems?.find((selectedItem) => item.id === selectedItem.id))}
-				/>)
-			}
-		</div>
-	);
-}
+  return (
+    <div className={classNames('', {}, [className])}>
+      {
+        items?.map((item, index) => (
+          <TableItem
+            path={path}
+            mod={mod}
+            key={`TableBodyItem_${item.id}`}
+            type={ItemTheme.BODY}
+            item={item}
+            onCheck={() => onCheck?.(item)}
+            onDelete={() => onDelete?.(item)}
+            isChecked={Boolean(selectedItems?.find((selectedItem) => item.id === selectedItem.id))}
+          />
+        ))
+      }
+    </div>
+  );
+};

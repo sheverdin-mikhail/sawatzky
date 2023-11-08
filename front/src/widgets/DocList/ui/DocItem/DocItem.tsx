@@ -1,8 +1,8 @@
-import cls from './DocItem.module.scss';
 import { ReactComponent as DocIcon } from 'shared/assets/icons/docs-icon.svg';
 import { ReactComponent as DownloadIcon } from 'shared/assets/icons/download-icon.svg';
 import { ReactComponent as CancelIcon } from 'shared/assets/icons/cancel-icon.svg';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
+import cls from './DocItem.module.scss';
 
 interface DocItemProps {
   className?: string;
@@ -25,4 +25,4 @@ export const DocItem: React.FC<DocItemProps> = (props) => {
       </div>
     </li>
   );
-}
+};

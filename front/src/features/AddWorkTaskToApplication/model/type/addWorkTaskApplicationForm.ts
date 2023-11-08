@@ -1,8 +1,5 @@
-import { WorkTask } from "entities/WorkTask";
-import { WorkTaskGroupItem } from "entities/WorkTaskGroup";
-
-
-
+import { WorkTask } from 'entities/WorkTask';
+import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 
 export const enum FormStep {
     CHOSE = 'chose',
