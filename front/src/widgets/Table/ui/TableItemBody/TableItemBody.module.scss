@@ -1,74 +1,74 @@
 .tableItemBody {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 43px;
-    border-radius: 10px;
-    border: 1px solid #D5D5D5;
-    background: var(--gray-bg-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 43px;
+  border-radius: 10px;
+  border: 1px solid #D5D5D5;
+  background: var(--gray-bg-color);
     
 }
 
 .normal {
-    &:hover{
-        .buttons {
-            display: flex;
-        }
+  &:hover{
+    .buttons {
+      display: flex;
     }
+  }
 
-    .button svg {
-        stroke: #000;
-        fill: #000;
-    }
+  .button svg {
+    stroke: #000;
+    fill: #000;
+  }
 
 }
 
 .link {
-    &:hover{
-        background: var(--blue-color);
-        color: #fff;
+  &:hover{
+    background: var(--blue-color);
+    color: #fff;
         
-        .buttons {
-            display: flex;
-        }
+    .buttons {
+      display: flex;
+    }
 
-        .button svg{
-            fill: #fff;
-            stroke: #fff;
-        }
+    .button svg{
+      fill: #fff;
+      stroke: #fff;
     }
-    &:hover .checkbox label::before {
-        border: none;
-        background: var(--blue-bg-color);
-    }
-    &:hover .checkbox:checked+label::before {
-        background: 
-            var(--blue-bg-color)
-            url('data:image/svg+xml,<svg viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.47059 8C4.35477 7.99842 4.24373 7.95339 4.15925 7.87376L1.10044 4.80019C1.03075 4.71488 0.995145 4.60657 1.00053 4.49634C1.00592 4.38611 1.05192 4.28183 1.12959 4.20379C1.20725 4.12575 1.31103 4.07952 1.42073 4.07411C1.53044 4.0687 1.63822 4.10448 1.72312 4.1745L4.47059 6.94071L10.2769 1.10092C10.3618 1.0309 10.4696 0.995122 10.5793 1.00054C10.689 1.00595 10.7927 1.05217 10.8704 1.13021C10.9481 1.20825 10.9941 1.31253 10.9995 1.42276C11.0049 1.533 10.9692 1.6413 10.8996 1.72661L4.78194 7.87376C4.69746 7.95339 4.58641 7.99842 4.47059 8Z" fill="%233CACDD" stroke="%233CACDD" stroke-width="0.8"/></svg>') center no-repeat;
-    }
+  }
+  &:hover .checkbox label::before {
+    border: none;
+    background: var(--blue-bg-color);
+  }
+  &:hover .checkbox:checked+label::before {
+    background: 
+      var(--blue-bg-color)
+      url('data:image/svg+xml,<svg viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.47059 8C4.35477 7.99842 4.24373 7.95339 4.15925 7.87376L1.10044 4.80019C1.03075 4.71488 0.995145 4.60657 1.00053 4.49634C1.00592 4.38611 1.05192 4.28183 1.12959 4.20379C1.20725 4.12575 1.31103 4.07952 1.42073 4.07411C1.53044 4.0687 1.63822 4.10448 1.72312 4.1745L4.47059 6.94071L10.2769 1.10092C10.3618 1.0309 10.4696 0.995122 10.5793 1.00054C10.689 1.00595 10.7927 1.05217 10.8704 1.13021C10.9481 1.20825 10.9941 1.31253 10.9995 1.42276C11.0049 1.533 10.9692 1.6413 10.8996 1.72661L4.78194 7.87376C4.69746 7.95339 4.58641 7.99842 4.47059 8Z" fill="%233CACDD" stroke="%233CACDD" stroke-width="0.8"/></svg>') center no-repeat;
+  }
 }
 
 .checkbox {
-    margin-right: 25px;
+  margin-right: 25px;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    &:first-child, &:nth-child(2) {
-        align-items: flex-start;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:first-child, &:nth-child(2) {
+    align-items: flex-start;
+  }
 }
 
 .buttons {
-    align-items: center;
-    display: none;
+  align-items: center;
+  display: none;
 }
 
 .button {
-    margin: 0 16px;
+  margin: 0 16px;
 }
 
 .columnButtons {
-    align-items: flex-end;
+  align-items: flex-end;
 }

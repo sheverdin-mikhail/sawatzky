@@ -1,13 +1,13 @@
 .navigation {
-    display: flex;
-    flex-direction: column;
-    border-radius: 0 15px 15px 0;
-    background: #FFF;
-    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 15px 15px 0;
+  background: #FFF;
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
+  overflow: hidden;
 }
 
 
 .collapsed {
-    width: var(--sidebar-collapsed-width);
+  width: var(--sidebar-collapsed-width);
 }
