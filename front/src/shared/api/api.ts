@@ -17,7 +17,6 @@ $api.interceptors.request.use(
             tokens = JSON.parse(tokensJson);
         }
 
-<<<<<<< HEAD
         if (tokens) {
             config.headers.Authorization = `Bearer ${tokens.access}`;
         }
@@ -25,23 +24,6 @@ $api.interceptors.request.use(
     },
     (error) => Promise.reject(error),
 );
-=======
-
-$api.interceptors.request.use((config) => {
-    const tokens_json = localStorage.getItem(USER_LOCALSTORAGE_TOKENS)
-    let tokens: TokensData | null = null
-    if(tokens_json){
-        tokens = JSON.parse(tokens_json)
-    }
-
-    if (tokens) {
-        config.headers.Authorization = `Bearer ${tokens.access}`;
-    }
-    return config;
-},
-(error) => Promise.reject(error))
-
->>>>>>> main
 
 $api.interceptors.response.use(
     (response) => response,

@@ -24,7 +24,6 @@ export const loginSlice = createSlice({
             state.password = action.payload;
         },
     },
-<<<<<<< HEAD
     extraReducers: (builder) => {
         builder
         // Аунтификация пользователя
@@ -55,43 +54,6 @@ export const loginSlice = createSlice({
                 state.error = action.payload;
             });
     },
-=======
-    extraReducers:  (builder) => {
-        builder
-        //Аунтификация пользователя
-            .addCase(createTokensByUsername.pending, (state, action)=>{
-                state.error = undefined
-                state.isLoading = true
-            })
-            .addCase(createTokensByUsername.fulfilled, (state, action)=>{
-                state.isLoading = false
-                localStorage.setItem(USER_LOCALSTORAGE_TOKENS, JSON.stringify(action.payload))
-            })
-            .addCase(createTokensByUsername.rejected, (state, action)=>{
-                state.isLoading = false
-                state.error = action.payload
-            })
-        
-        //Получение информации о пользователе
-            .addCase(fetchUserDataByToken.pending, (state, action)=>{
-                state.error = undefined
-                state.isLoading = true
-            })
-            .addCase(fetchUserDataByToken.fulfilled, (state, action)=>{
-                state.isLoading = false
-                localStorage.setItem(USER_LOCALSTORAGE_DATA, JSON.stringify(action.payload))
-            
-            })
-            .addCase(fetchUserDataByToken.rejected, (state, action)=>{
-                state.isLoading = false
-                state.error = action.payload
-            })
-
-        
-    }
-  
-})
->>>>>>> main
 
 });
 

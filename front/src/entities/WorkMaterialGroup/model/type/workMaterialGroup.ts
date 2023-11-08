@@ -1,10 +1,5 @@
 import { EntityState } from '@reduxjs/toolkit';
-<<<<<<< HEAD
 import { WorkMaterial } from 'entities/WorkMaterial';
-=======
-import { WorkMaterial } from "entities/WorkMaterial";
-
->>>>>>> main
 
 export interface WorkMaterialGroupItem {
     id: number;
@@ -12,10 +7,6 @@ export interface WorkMaterialGroupItem {
     materials?: WorkMaterial[];
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 export interface WorkMaterialGroupSchema extends EntityState<WorkMaterialGroupItem> {
 
     isLoading?: boolean;
@@ -23,9 +14,4 @@ export interface WorkMaterialGroupSchema extends EntityState<WorkMaterialGroupIt
 
     workMaterialsGroupList?: WorkMaterialGroupItem[];
 
-<<<<<<< HEAD
 }
-=======
-
-}
->>>>>>> main

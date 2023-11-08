@@ -1,8 +1,8 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './AddWorkMaterialModal.module.scss';
 import { Modal } from 'shared/ui/Modal/Modal';
-import { AddWorkMaterialForm } from '../AddWorkMaterialForm/AddWorkMaterialForm';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import cls from './AddWorkMaterialModal.module.scss';
+import { AddWorkMaterialForm } from '../AddWorkMaterialForm/AddWorkMaterialForm';
 import { addWorkMaterialFormActions } from '../../model/slice/addWorkMaterialFormSlice';
 
 interface AddWorkMaterialModalModalProps {
@@ -13,18 +13,20 @@ interface AddWorkMaterialModalModalProps {
 }
 
 export const AddWorkMaterialModal: React.FC<AddWorkMaterialModalModalProps> = (props) => {
-	const { className, onClose, isOpen, groupId } = props;
+    const {
+        className, onClose, isOpen, groupId,
+    } = props;
 
-	const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
-	const onCloseHandler = () => {
-		onClose?.()
-		dispatch(addWorkMaterialFormActions.closeModal())
-	}
+    const onCloseHandler = () => {
+        onClose?.();
+        dispatch(addWorkMaterialFormActions.closeModal());
+    };
 
-	return (
-		<Modal className={classNames(cls.addWorkMaterialModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
-			<AddWorkMaterialForm groupId={groupId} onClose={onCloseHandler} />
-		</Modal>
-	);
-}
+    return (
+        <Modal className={classNames(cls.addWorkMaterialModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
+            <AddWorkMaterialForm groupId={groupId} onClose={onCloseHandler} />
+        </Modal>
+    );
+};

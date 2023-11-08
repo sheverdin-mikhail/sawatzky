@@ -1,19 +1,8 @@
-<<<<<<< HEAD
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
 import { WorkTaskGroupItem, fetchWorkTaskGroupList } from 'entities/WorkTaskGroup';
 import { AddWorkTaskFormData } from 'features/AddWorkTask';
-=======
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkConfig } from "app/providers";
-import { userActions } from "entities/User";
-import { WorkTaskGroupItem } from "entities/WorkTaskGroup";
-import { fetchWorkTaskGroupList } from "entities/WorkTaskGroup";
-import { AddWorkTaskFormData } from "features/AddWorkTask";
-
-
->>>>>>> main
 
 export const createWorkTaskGroup = createAsyncThunk<
     void,

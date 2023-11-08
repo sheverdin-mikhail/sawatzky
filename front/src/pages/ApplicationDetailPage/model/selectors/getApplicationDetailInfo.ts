@@ -16,13 +16,8 @@ export const getApplicationDetailInfo = createSelector(
             createdAt: application?.createdAt || '',
             startWorkDate: application?.startWorkDate,
             endWorkDate: application?.endWorkDate,
-<<<<<<< HEAD
             step: application?.step || 0,
 
-=======
-            step: application?.step || 0
-            
->>>>>>> main
         }
     ),
 );
