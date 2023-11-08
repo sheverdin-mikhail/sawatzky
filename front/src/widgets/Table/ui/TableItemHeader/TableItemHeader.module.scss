@@ -1,18 +1,18 @@
 .tableItemHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 43px;
-    border-radius: 10px;
-    border: 1px solid #D5D5D5;
-    background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 43px;
+  border-radius: 10px;
+  border: 1px solid #D5D5D5;
+  background: #fff;
 }
 
 .text {
-    font: var(--font-m);
-    font-weight: 700;
-    line-height: 24px;
-    text-align: center;
+  font: var(--font-m);
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
 }
 
 
@@ -21,11 +21,11 @@
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    &:first-child, &:nth-child(2) {
-        align-items: flex-start;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  &:first-child, &:nth-child(2) {
+    align-items: flex-start;
+  }
 }
