@@ -1,5 +1,3 @@
-import { User } from "entities/User";
+import { User } from 'entities/User';
 
-export interface Employee extends Omit<User, 'employee'>{
-    
-}
+export type Employee = Omit<User, 'employee'>

@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './DirectoryNavigationLinkItem.module.scss';
 import { DirectoryLinkType } from 'widgets/DirectoryNavigaion/model/type/directoryNavigation';
 import { AppLInkTheme, AppLink } from 'shared/ui/AppLink/AppLink';
 import { useLocation } from 'react-router-dom';
@@ -10,12 +9,12 @@ interface DirectoryNavigationLinkItemProps {
 }
 
 export const DirectoryNavigationLinkItem: React.FC<DirectoryNavigationLinkItemProps> = (props) => {
-	const { className, link } = props;
-	const { pathname } = useLocation()
+  const { className, link } = props;
+  const { pathname } = useLocation();
 
-	return (
-		<AppLink to={link.path} isActive={pathname === link.path}  theme={AppLInkTheme.BUTTON} className={classNames(cls.directoryNavigationLinkItem, {}, [className])}>
-			{link.text}
-		</AppLink>
-	);
-}
+  return (
+    <AppLink to={link.path} isActive={pathname === link.path} theme={AppLInkTheme.BUTTON} className={classNames('', {}, [className])}>
+      {link.text}
+    </AppLink>
+  );
+};

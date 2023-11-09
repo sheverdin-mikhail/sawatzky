@@ -1,0 +1,16 @@
+.docs {
+  margin-left: 25px;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--font-size-m);
+  margin-bottom: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

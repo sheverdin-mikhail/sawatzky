@@ -1,9 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './AddWorkTaskGroupModal.module.scss';
 import { Modal } from 'shared/ui/Modal/Modal';
-import { AddWorkTaskGroupForm } from '../AddWorkTaskGroupForm/AddWorkTaskGroupForm';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addWorkTaskGroupFormActions } from 'features/AddWorkTaskGroup/model/slice/addWorkTaskGroupFormSlice';
+import { AddWorkTaskGroupForm } from '../AddWorkTaskGroupForm/AddWorkTaskGroupForm';
+import cls from './AddWorkTaskGroupModal.module.scss';
 
 interface AddWorkTaskGroupModalProps {
 	className?: string;
@@ -12,18 +12,18 @@ interface AddWorkTaskGroupModalProps {
 }
 
 export const AddWorkTaskGroupModal: React.FC<AddWorkTaskGroupModalProps> = (props) => {
-	const { className, onClose, isOpen } = props;
+  const { className, onClose, isOpen } = props;
 
-	const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-	const onCloseHandler = () => {
-		onClose?.()
-		dispatch(addWorkTaskGroupFormActions.closeModal())
-	}
+  const onCloseHandler = () => {
+    onClose?.();
+    dispatch(addWorkTaskGroupFormActions.closeModal());
+  };
 
-	return (
-		<Modal className={classNames(cls.addWorkTaskGroupModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
-			<AddWorkTaskGroupForm onClose={onCloseHandler} />
-		</Modal>
-	);
-}
+  return (
+    <Modal className={classNames(cls.addWorkTaskGroupModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
+      <AddWorkTaskGroupForm onClose={onCloseHandler} />
+    </Modal>
+  );
+};

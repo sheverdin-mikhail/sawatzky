@@ -1,12 +1,9 @@
-import { WorkTask } from "entities/WorkTask";
-import { WorkTaskGroupItem } from "entities/WorkTaskGroup";
-
-
-
+import { WorkTask } from 'entities/WorkTask';
+import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 
 export const enum FormStep {
-    CHOSE='chose',
-    ACTUAL='actual'
+    CHOSE = 'chose',
+    ACTUAL = 'actual'
 }
 
 export interface ApplicationWorkTaskForPatch {
@@ -16,7 +13,7 @@ export interface ApplicationWorkTaskForPatch {
 
 export interface AddWorkTaskApplicationFormData {
     prevWorkTasks?: ApplicationWorkTaskForPatch[];
-    workTask?: ApplicationWorkTaskForPatch; 
+    workTask?: ApplicationWorkTaskForPatch;
     applicationId?: string;
 }
 

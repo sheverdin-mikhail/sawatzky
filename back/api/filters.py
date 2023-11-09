@@ -1,9 +1,7 @@
 from django_filters import rest_framework as filters
 
 from .models import (
-    Application,
-    WorkTask,
-    WorkMaterial,
+    Application
 )
 
 
@@ -15,21 +13,3 @@ class ApplicationFilter(filters.FilterSet):
     class Meta:
         model = Application
         fields = ['legal_entity', 'ordering']
-
-
-'''Фильтр для WorkTask'''
-class WorkTaskFilter(filters.FilterSet):
-    status = filters.BooleanFilter(field_name="status", lookup_expr="exact")
-
-    class Meta:
-        model = WorkTask
-        fields = ['status']
-
-
-'''Фильтр для WorkMaterial'''
-class WorkMaterialFilter(filters.FilterSet):
-    status = filters.BooleanFilter(field_name="status", lookup_expr="exact")
-
-    class Meta:
-        model = WorkMaterial
-        fields = ['status']

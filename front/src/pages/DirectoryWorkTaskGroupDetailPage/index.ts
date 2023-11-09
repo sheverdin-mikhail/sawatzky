@@ -1,10 +1,9 @@
-export { 
-    DirectoryWorkTaskGroupDetailPageAsync as  DirectoryWorkTaskGroupDetailPage 
+export {
+  DirectoryWorkTaskGroupDetailPageAsync as DirectoryWorkTaskGroupDetailPage,
 } from './ui/DirectoryWorkTaskGroupDetailPage/DirectoryWorkTaskGroupDetailPage.async';
 
-
 export type {
-    DirectoryWorkTaskGroupDetailSchema
-} from './model/type/directoryWorkTaskGroupDetail'
+  DirectoryWorkTaskGroupDetailSchema,
+} from './model/type/directoryWorkTaskGroupDetail';
 
-export { fetchWorkTaskListByGroupId } from './model/services/fetchWorkTaskListByGroupId'
+export { fetchWorkTaskListByGroupId } from './model/services/fetchWorkTaskListByGroupId';

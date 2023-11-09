@@ -1,6 +1,4 @@
-import { ApplicationStatus } from "entities/Application";
-
-
+import { ApplicationStatus } from 'entities/Application';
 
 export interface CreateApplicationFormType {
     title?: string;
@@ -19,9 +17,6 @@ export interface CreateApplicationData{
     status: ApplicationStatus;
     creator: number;
 }
-
-
-
 
 export interface CreateApplicationSchema {
     data?: CreateApplicationData;

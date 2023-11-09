@@ -1,27 +1,22 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkConfig } from "app/providers";
-import { WorkTaskGroupItem } from "entities/WorkTaskGroup";
-
-
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers';
+import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 
 export const fetchWorkTaskListByGroupId = createAsyncThunk<
-    WorkTaskGroupItem, 
-    string, 
+    WorkTaskGroupItem,
+    string,
     ThunkConfig<string>
 >(
-    'directoryWorkTaskGroupDetailPage/fetchWorkTaskListByGroupId',
-    async (groupId, { extra, rejectWithValue, dispatch }) => {
-
-        try{    
-            const response = await extra.api.get<WorkTaskGroupItem>('/api/v1/work_task_groups/'+groupId)
-            if(!response.data){
-            
-                throw new Error('Ошибка сохранения запроса!')
-            }
-            return response.data
-
-        }catch (e: any){
-            return rejectWithValue(e.response.message)
-        }
+  'directoryWorkTaskGroupDetailPage/fetchWorkTaskListByGroupId',
+  async (groupId, { extra, rejectWithValue, dispatch }) => {
+    try {
+      const response = await extra.api.get<WorkTaskGroupItem>(`/api/v1/work_task_groups/${groupId}`);
+      if (!response.data) {
+        throw new Error('Ошибка сохранения запроса!');
+      }
+      return response.data;
+    } catch (e: any) {
+      return rejectWithValue(e.response.message);
     }
-)
+  },
+);

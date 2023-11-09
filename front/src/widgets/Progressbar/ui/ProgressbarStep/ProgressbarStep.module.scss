@@ -1,0 +1,100 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.icon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.step {
+    border: 1px solid rgb(0 0 0 / 50%);
+    font-size: var(--font-size-s3);
+    color: var(--dark-gray-color);
+  }
+
+  &.done {
+    background: var(--green-color);
+  }
+}
+
+.left,
+.right {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 47%;
+    top: 6px;
+  }
+}
+
+.left {
+  &::before {
+    left: 0;
+  }
+}
+
+.right {
+  &::after {
+    right: 0;
+  }
+}
+
+.step {
+  &.right {
+    &::after {
+      background: var(--dark-gray-color);
+    }
+  }
+
+  &.left {
+    &::before {
+      background: var(--dark-gray-color);
+    }
+  }
+}
+
+.done {
+  &.right {
+    &::after {
+      background: var(--green-color);
+    }
+  }
+
+  &.left {
+    &::before {
+      background: var(--green-color);
+    }
+  }
+}
+
+.current {
+  &.right {
+    &::after {
+      background: var(--dark-gray-color);
+    }
+  }
+
+  &.left {
+    &::before {
+      background: var(--green-color);
+    }
+  }
+}
+
+.title {
+  font-size: var(--font-size-s);
+  width: 100px;
+}

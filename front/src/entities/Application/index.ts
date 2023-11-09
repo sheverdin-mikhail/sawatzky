@@ -1,12 +1,14 @@
-export { getApplication, applicationReducer, applicationActions, applicationAdapter } from "./models/slice/applicationSlice";
+export {
+  getApplication, applicationReducer, applicationActions, applicationAdapter,
+} from './models/slice/applicationSlice';
 
-export type { 
-    Application, 
-    ApplicationSchema, 
-    ApplicationWorkTask
-} from "./models/types/application";
+export type {
+  Application,
+  ApplicationSchema,
+  ApplicationWorkTask,
+  ApplicationWorkMaterial,
+} from './models/types/application';
 
 export {
-    ApplicationStatus 
-} from "./models/types/application";
-
+  ApplicationStatus,
+} from './models/types/application';

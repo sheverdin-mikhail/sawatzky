@@ -1,0 +1,36 @@
+.setWorkMaterialActualCountForm {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.title {
+  margin-bottom: 25px;
+}
+
+.input {
+  &:not(:last-child){
+    margin-bottom: 6px;
+  }
+}
+
+.inputWithLabel{
+  margin-top: 16px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin: 0 -15px;
+  margin-top: 28px;
+}
+
+.button {
+  margin: 0 15px;
+  flex: 1 1 40%;
+}
+
+
+.switch {
+  margin-top: 30px;
+}

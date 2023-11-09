@@ -1,7 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkConfig } from "app/providers";
-import { fetchUserDataByToken } from "../fetchUserDataByToken/fetchUserDataByToken";
-import { createTokensByUsername } from "../createTokensByUsername/createTokensByUsername";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers';
+import { fetchUserDataByToken } from '../fetchUserDataByToken/fetchUserDataByToken';
+import { createTokensByUsername } from '../createTokensByUsername/createTokensByUsername';
 
 interface loginByUsernameProps {
     username: string;
@@ -9,23 +9,22 @@ interface loginByUsernameProps {
 }
 
 export const loginByUsername = createAsyncThunk<
-    void, 
-    loginByUsernameProps, 
+    void,
+    loginByUsernameProps,
     ThunkConfig<string>
 >(
-    'login/loginByUsername',
-    async (authData, { extra, rejectWithValue, dispatch, getState }) => {
-        try{
-            dispatch(createTokensByUsername(authData))
-            dispatch(fetchUserDataByToken())
-
-            
-        }catch (e: any){
-            if(e.response.status === 401){
-                return rejectWithValue('Неверно введено имя пользователя или пароль')
-            }else{
-                return rejectWithValue('Ошибка авторизации пользвателя')
-            }
-        }
+  'login/loginByUsername',
+  async (authData, {
+    extra, rejectWithValue, dispatch, getState,
+  }) => {
+    try {
+      dispatch(createTokensByUsername(authData));
+      dispatch(fetchUserDataByToken());
+    } catch (e: any) {
+      if (e.response.status === 401) {
+        return rejectWithValue('Неверно введено имя пользователя или пароль');
+      }
+      return rejectWithValue('Ошибка авторизации пользвателя');
     }
-)
+  },
+);

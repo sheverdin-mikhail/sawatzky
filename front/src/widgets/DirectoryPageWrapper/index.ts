@@ -1,2 +1,1 @@
-export { DirectoryPageWrapper } from "./ui/DirectoryPageWrapper/DirectoryPageWrapper";
-
+export { DirectoryPageWrapper } from './ui/DirectoryPageWrapper/DirectoryPageWrapper';

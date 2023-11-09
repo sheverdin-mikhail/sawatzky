@@ -1,60 +1,60 @@
 .applicationPreviewItem {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .applicationPreviewItemRow {
-    display: flex;
-    background: var(--gray-bg-color);
-    padding: 9px 28px 9px 28px;
-    margin-top: 8px;
-    border-radius: 5px;
+  display: flex;
+  background: var(--gray-bg-color);
+  padding: 9px 28px;
+  margin-top: 8px;
+  border-radius: 5px;
 }
 
 .applicationPreviewItemRow:hover {
-    cursor: pointer;
-    background: var(--blue-bg-color);
+  cursor: pointer;
+  background: var(--blue-bg-color);
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .firstColumn {
-    flex: 0 0 200px;
-    align-items: flex-start;
+  flex: 0 0 200px;
+  align-items: flex-start;
 }
 
 .title {
-    font: var(--font-s);
-    font-weight: 700;
-    margin-left: 16px;
-    margin-right: 32px;
+  font: var(--font-s);
+  font-weight: 700;
+  margin-left: 16px;
+  margin-right: 32px;
 }
 
 .number {
-    font: var(--font-s);
+  font: var(--font-s);
 }
 
 .subtitle {
-    font: var(--font-s2);
-    font-weight: 700;
-    margin-bottom: 6px;
+  font: var(--font-s2);
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .tag {
-    margin: 12px 0 0 0;
+  margin: 12px 0 0;
 }
 
 .verticalLine {
-    display: block;
-    width: 2px;
-    background: var(--black-color);
-    border-radius: 23px;
-    margin:  0 25px;
+  display: block;
+  width: 2px;
+  background: var(--black-color);
+  border-radius: 23px;
+  margin:  0 25px;
 }

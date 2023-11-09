@@ -1,46 +1,54 @@
 .collapsBoard {
-    padding: 16px 25px;
-    background: var(--blue-light-bg-color);
-    border-radius: 5px;
-    margin-top: 32px;
+  padding: 16px 25px;
+  border-radius: 5px;
+}
+
+.blue {
+  background: var(--blue-light-bg-color);
+}
+
+.gray {
+  background: var(--gray-bg-color);
 }
 
 .icon {
-    fill: var(--black-color);
-    stroke: var(--black-color);
-    transform: rotate(-90deg);
-    width: 100%;
+  fill: var(--black-color);
+  stroke: var(--black-color);
+  transform: rotate(-90deg);
+  width: 100%;
 }
 
 .iconContainer {
-    width: 10px;
+  width: 10px;
 }
 
 .controls {
-    display: grid;
-    grid-template-rows: 1fr;
-    margin: 15px -12px 22px -15px;
-    transition: all 0.3 ease;
+  display: grid;
+  grid-template-rows: 1fr;
+  margin: 15px -12px 22px -15px;
+  transition: all 0.3 ease;
 }
 
 .collapsed {
-    .controls {
-        grid-template-rows: 0;
-        overflow: hidden;
-        margin: 0;
-    }
-    .icon {
-        transform: rotate(90deg);
-    }
+  .controls {
+    grid-template-rows: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .icon {
+    transform: rotate(90deg);
+  }
 }
 
 
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    &:hover {
-        cursor: pointer;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
