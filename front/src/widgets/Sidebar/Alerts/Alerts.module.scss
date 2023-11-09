@@ -14,17 +14,6 @@
     width: var(--sidebar-collapsed-width);
 }
 
-.icon {
-    position: absolute;
-    top: 16px;
-    left: 12px;
-
-    &.active {
-        top: 26px;
-        left: 20px;
-    }
-}
-
 .alertBtn {
     position: absolute;
     top: 11px;

@@ -13,6 +13,11 @@ export interface SidebarItemType {
     authOnly?: boolean;
 }
 
+export interface AlertType {
+    id: string,
+    name: string,
+}
+
 export const SidebarItemsList: SidebarItemType[] = [
 
     {
