@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
 import { createTokensByUsername } from '../../model/services/createTokensByUsername/createTokensByUsername';
 import { fetchUserDataByToken } from '../../model/services/fetchUserDataByToken/fetchUserDataByToken';
+import { Logo } from 'shared/ui/Logo/Logo';
+import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 
 interface LoginFormProps {
     className?: string;
@@ -29,42 +31,45 @@ const initialReducers: ReducersList = {
 export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
     const { className } = props;
 
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const username = useSelector(getLoginUsername)
-    const password = useSelector(getLoginPassword)
-    const error = useSelector(getLoginError)
-    const isLoading = useSelector(getLoginIsLoading)
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const username = useSelector(getLoginUsername);
+    const password = useSelector(getLoginPassword);
+    const error = useSelector(getLoginError);
+    const isLoading = useSelector(getLoginIsLoading);
 
-    
+    const onChangeUsername = useCallback((value: string) => {
+        dispatch(loginActions.setUsername(value));
+    }, [dispatch]);
 
-    const onChangeUsername = useCallback((value: string)=>{
-        dispatch(loginActions.setUsername(value))
-    }, [dispatch])
+    const onChangePassword = useCallback((value: string) => {
+        dispatch(loginActions.setPassword(value));
+    }, [dispatch]);
 
-    const onChangePassword = useCallback((value: string)=>{
-        dispatch(loginActions.setPassword(value))
-    }, [dispatch])
-
-    const onLoginClick = useCallback( async ()=>{
-        dispatch(createTokensByUsername({username, password})).then(data=>{
-            dispatch(fetchUserDataByToken()).then(()=>{
-                navigate(RoutePath.applications)
+    const onLoginClick = useCallback(async () => {
+        dispatch(createTokensByUsername({ username, password })).then(data => {
+            dispatch(fetchUserDataByToken()).then(() => {
+                navigate(RoutePath.applications);
             })
         })
 
-    }, [dispatch, username, password, navigate])
+    }, [dispatch, username, password, navigate]);
 
 
     return (
         <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
             <div className={classNames(cls.loginForm, {}, [className ?? ''])}>
+                <Logo width={159} className={cls.logo} />
                 <Title className={cls.title}>Вход</Title>
-                <Input placeholder='Логин' onChange={onChangeUsername} value={username} className={cls.input}/>
+                <Input placeholder='Логин' onChange={onChangeUsername} value={username} className={cls.input} />
                 <Input placeholder='Пароль' onChange={onChangePassword} value={password} className={cls.input} />
-                <Button className={cls.button} disabled={isLoading}  onClick={onLoginClick} >Войти</Button>
-                { error && <Text text={error} theme={TextTheme.ERROR} className={cls.error} /> }
+                <div className={cls.checkbox}>
+                    <Checkbox id={'login'} />
+                    Я не робот
+                </div>
+                <Button className={cls.button} disabled={isLoading} onClick={onLoginClick} >Войти</Button>
+                {error && <Text text={error} theme={TextTheme.ERROR} className={cls.error} />}
             </div>
         </DynamicModuleLoader>
     );
-})
+});

@@ -13,7 +13,6 @@ const AuthorizationPage: React.FC<AuthorizationPageProps> = (props) => {
 
     return (
         <div className={classNames(cls.authorizationPage, {}, [className ?? ''])}>
-            <Logo width={197} className={cls.logo} />
             <LoginForm className={cls.form} />
         </div>
     );

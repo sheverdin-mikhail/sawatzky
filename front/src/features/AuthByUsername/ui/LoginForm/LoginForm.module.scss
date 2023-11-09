@@ -11,7 +11,8 @@
   min-width: var(--login-form-width);
 }
 
-.input, .button {
+.input,
+.button {
   align-self: stretch;
 }
 
@@ -27,4 +28,16 @@
   margin-top: 10px;
   color: var(--red-color);
   font: var(--font-m);
+}
+
+.logo {
+  margin-bottom: 24px;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  gap: 14px;
+  margin-bottom: 32px;
 }
