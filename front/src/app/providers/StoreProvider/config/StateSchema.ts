@@ -21,23 +21,28 @@ import { AddWorkMaterialGroupFormSchema } from 'features/AddWorkMaterialGroup';
 import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/addWorkMaterial';
 import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
 import { AddWorkMaterialApplicationFormSchema } from 'features/AddWorkMaterialToApplication';
+import { WorkObjectGroupSchema } from 'entities/WorkObjectGroup/model/types/workObjectGroup';
 
 export interface StateSchema {
     user: UserSchema;
 
     // Асинхронные редюсеры
-    loginForm?: LoginSchema;
-    application?: ApplicationSchema;
+    // pages
     applicationDetail?: ApplicationDetailSchema;
-    createApplication?: CreateApplicationSchema;
     applicationsPage?: ApplicationsPageSchema;
-    direcotryNavigation?: DirectoryNavigaionSchema;
-    workTaskGroup?: WorkTaskGroupSchema;
-    workMaterialGroup?: WorkMaterialGroupSchema;
     directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
     directoryWorkMaterialGroupDetail?: DirectoryWorkMaterialGroupDetailSchema;
+    // entities
+    application?: ApplicationSchema;
+    workTaskGroup?: WorkTaskGroupSchema;
+    workMaterialGroup?: WorkMaterialGroupSchema;
+    workObjectGroup?: WorkObjectGroupSchema;
+    // widgets
     table?: TableSchema;
+    direcotryNavigation?: DirectoryNavigaionSchema;
     // features
+    loginForm?: LoginSchema;
+    createApplication?: CreateApplicationSchema;
     addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
     addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
     addWorkTaskForm?: AddWorkTaskFormSchema;

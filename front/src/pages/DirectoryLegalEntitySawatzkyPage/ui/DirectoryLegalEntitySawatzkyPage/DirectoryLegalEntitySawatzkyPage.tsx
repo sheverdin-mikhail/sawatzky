@@ -12,47 +12,47 @@ interface DirectoryLegalEntitySawatzkyPageProps {
 }
 
 const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPageProps> = (props) => {
-    const { className } = props;
+  const { className } = props;
 
-    const tableData: TableType = {
-        header: {
-            id: 'ID',
-            name: 'Наименование компании',
-            group: 'Группа объектов',
-            object: 'Объект',
-        },
-        items: [
-            {
-                id: '1',
-                name: 'Наименование Юр. лица',
-                group: 'Группа объектов № 15',
-                object: '12345',
-            },
+  const tableData: TableType = {
+    header: {
+      id: 'ID',
+      name: 'Наименование компании',
+      group: 'Группа объектов',
+      object: 'Объект',
+    },
+    items: [
+      {
+        id: '1',
+        name: 'Наименование Юр. лица',
+        group: 'Группа объектов № 15',
+        object: '12345',
+      },
 
-            {
-                id: '2',
-                name: 'Наименование Юр. лица 2',
-                group: 'Группа объектов № 15',
-                object: '12346',
-            },
+      {
+        id: '2',
+        name: 'Наименование Юр. лица 2',
+        group: 'Группа объектов № 15',
+        object: '12346',
+      },
 
-        ],
-    };
+    ],
+  };
 
-    return (
-        <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
-            <div className={cls.buttons}>
-                <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON}>
-                    <AddIcon />
-                </Button>
-                <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
-                    <DeleteIcon />
-                </Button>
-            </div>
-            <Table data={tableData} />
-            <CreateLegalEntitySawatzkyModal className={cls.form} />
-        </DirectoryPageWrapper>
-    );
+  return (
+    <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
+      <div className={cls.buttons}>
+        <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON}>
+          <AddIcon />
+        </Button>
+        <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
+          <DeleteIcon />
+        </Button>
+      </div>
+      <Table data={tableData} />
+      <CreateLegalEntitySawatzkyModal className={cls.form} />
+    </DirectoryPageWrapper>
+  );
 };
 
 export default DirectoryLegalEntitySawatzkyPage;
