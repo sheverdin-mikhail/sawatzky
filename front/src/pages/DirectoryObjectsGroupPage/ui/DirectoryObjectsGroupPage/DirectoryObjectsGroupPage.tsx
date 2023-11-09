@@ -16,6 +16,7 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { addWorkObjectGroupFormReducer } from 'features/AddObjectsGroup';
 import cls from './DirectoryObjectsGroupPage.module.scss';
 
 interface DirectoryObjectsGroupPageProps {
@@ -24,6 +25,7 @@ interface DirectoryObjectsGroupPageProps {
 
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
+  addWorkObjectGroupForm: addWorkObjectGroupFormReducer,
 };
 
 const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (props) => {

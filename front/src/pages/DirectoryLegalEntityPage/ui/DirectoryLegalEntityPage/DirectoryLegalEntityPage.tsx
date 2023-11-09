@@ -4,7 +4,8 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
-import { CreateLegalEntity } from 'features/CreateLegalEntity';
+import { useCallback, useState } from 'react';
+import { CreateLegalEntityModal } from 'features/CreateLegalEntity';
 import cls from './DirectoryLegalEntityPage.module.scss';
 
 interface DirectoryLegalEntityPageProps {
@@ -13,6 +14,11 @@ interface DirectoryLegalEntityPageProps {
 
 const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props) => {
   const { className } = props;
+  const [legalEntityFormIsOpen, setLegalEntityFormIsOpen] = useState(false);
+
+  const onLegalEntityFormCloseHandler = useCallback(() => {
+    setLegalEntityFormIsOpen(false);
+  }, []);
 
   const tableData: TableType = {
     header: {
@@ -42,15 +48,19 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
   return (
     <DirectoryPageWrapper className={classNames(cls.directoryLegalEntityPage, {}, [className])}>
       <div className={cls.buttons}>
-        <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON}>
+        <Button helpInfo="Добавить юр. лицо" onClick={() => setLegalEntityFormIsOpen(true)} className={cls.button} theme={ButtonThemes.ICON}>
           <AddIcon />
         </Button>
-        <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
+        <Button helpInfo="Удалить юр. лицо" className={cls.button} theme={ButtonThemes.ICON}>
           <DeleteIcon />
         </Button>
       </div>
       <Table data={tableData} />
-      <CreateLegalEntity className={cls.form} />
+      <CreateLegalEntityModal
+        onClose={onLegalEntityFormCloseHandler}
+        isOpen={legalEntityFormIsOpen}
+        className={cls.form}
+      />
 
     </DirectoryPageWrapper>
   );

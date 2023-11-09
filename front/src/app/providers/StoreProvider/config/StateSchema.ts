@@ -22,6 +22,8 @@ import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/a
 import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
 import { AddWorkMaterialApplicationFormSchema } from 'features/AddWorkMaterialToApplication';
 import { WorkObjectGroupSchema } from 'entities/WorkObjectGroup/model/types/workObjectGroup';
+import { AddWorkObjectGroupFormSchema } from 'features/AddObjectsGroup/model/type/addWorkObjectGroup';
+import { LegalEntitySchema } from 'entities/LegalEntity';
 
 export interface StateSchema {
     user: UserSchema;
@@ -37,6 +39,7 @@ export interface StateSchema {
     workTaskGroup?: WorkTaskGroupSchema;
     workMaterialGroup?: WorkMaterialGroupSchema;
     workObjectGroup?: WorkObjectGroupSchema;
+    legalEntity?: LegalEntitySchema;
     // widgets
     table?: TableSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
@@ -45,6 +48,7 @@ export interface StateSchema {
     createApplication?: CreateApplicationSchema;
     addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
     addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
+    addWorkObjectGroupForm?: AddWorkObjectGroupFormSchema;
     addWorkTaskForm?: AddWorkTaskFormSchema;
     addWorkMaterialForm?: AddWorkMaterialFormSchema;
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
