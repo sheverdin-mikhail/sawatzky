@@ -38,10 +38,15 @@
   }
 }
 
-
 .clearBlue {
   color: var(--blue-color);
   font-weight: 700;
+}
+
+.clearBlack {
+  color: var(--black-color);
+  text-decoration-line: underline;
+  background-color: transparent;
 }
 
 .icon {

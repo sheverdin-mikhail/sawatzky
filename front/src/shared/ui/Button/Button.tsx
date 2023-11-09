@@ -17,6 +17,7 @@ export enum ButtonThemes {
     CLEAR_BLUE = 'clearBlue',
     ICON = 'icon',
     WHITE_ROUND = 'whiteRound',
+    CLEAR_BLACK = 'clearBlack',
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
