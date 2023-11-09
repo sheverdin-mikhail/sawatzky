@@ -1,4 +1,3 @@
-import { classNames } from 'shared/lib/classNames/classNames';
 import { Modal } from 'shared/ui/Modal/Modal';
 import { AddObjectsGroupForm } from '../AddObjectsGroupForm/AddObjectsGroupForm';
 import cls from './AddObjectsGroupModal.module.scss';
