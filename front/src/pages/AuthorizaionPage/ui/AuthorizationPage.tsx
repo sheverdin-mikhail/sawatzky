@@ -2,7 +2,6 @@ import React from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './AuthorizationPage.module.scss';
 import { LoginForm } from 'features/AuthByUsername';
-import { Logo } from 'shared/ui/Logo/Logo';
 
 interface AuthorizationPageProps {
     className?: string;
