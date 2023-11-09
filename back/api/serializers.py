@@ -243,12 +243,13 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
         model = Application
         fields = ['workTasks', 'workMaterials']
 
-
     def update(self, instance, validated_data):
+
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
         print(validated_data)
         if work_task_data:
+
             current_work_tasks = ApplicationWorkTask.objects.filter(application=instance)
             # Удаляем workTasks, которых нет в validated_data
             for current_work_task in current_work_tasks:
@@ -263,11 +264,13 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                 work_task_instance.actualTime = item['actualTime']
                 work_task_instance.save()
 
+
+
         # Обработка обновления workMaterials
         work_material_data = validated_data.get('applicationworkmaterial_set')
         if work_material_data:
-            current_work_materials = ApplicationWorkMaterial.objects.filter(application=instance)
 
+            current_work_materials = ApplicationWorkMaterial.objects.filter(application=instance)
             # Удаляем workMaterials, которых нет в validated_data
             for current_work_material in current_work_materials:
                 if not any(item['workMaterial'] == current_work_material.workMaterial for item in work_material_data):
