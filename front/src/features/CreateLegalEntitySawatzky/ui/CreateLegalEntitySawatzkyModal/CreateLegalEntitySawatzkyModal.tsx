@@ -8,14 +8,14 @@ interface CreateLegalEntitySawatzkyModalProps {
 }
 
 export const CreateLegalEntitySawatzkyModal: React.FC<CreateLegalEntitySawatzkyModalProps> = (props) => {
-    const {
-        className,
-        isOpen = false,
-    } = props;
+  const {
+    className,
+    isOpen = false,
+  } = props;
 
-    return (
-        <Modal className={classNames('', {}, [className])} isOpen={isOpen}>
-            <CreateLegalEntitySawatzkyForm />
-        </Modal>
-    );
+  return (
+    <Modal className={classNames('', {}, [className])} isOpen={isOpen}>
+      <CreateLegalEntitySawatzkyForm />
+    </Modal>
+  );
 };

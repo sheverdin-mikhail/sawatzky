@@ -75,10 +75,10 @@ const DirectoryWorkMaterialGroupDetailPage: React.FC<DirectoryObjectsGroupPagePr
     <DynamicModuleLoader reducers={reducers}>
       <DirectoryPageWrapper className={classNames(cls.directoryWorkMaterialGroupDetailPage, {}, [className])}>
         <div className={cls.buttons}>
-          <Button helpInfo="Добавить услугу" onClick={openFormHandler} className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Добавить материал" onClick={openFormHandler} className={cls.button} theme={ButtonThemes.ICON}>
             <AddIcon />
           </Button>
-          <Button helpInfo="Удалить услугу" className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Удалить материал" className={cls.button} theme={ButtonThemes.ICON}>
             <DeleteIcon />
           </Button>
         </div>

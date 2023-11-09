@@ -16,30 +16,30 @@ interface AddWorkMaterialGroupFormProps {
 }
 
 export const AddWorkMaterialGroupForm: React.FC<AddWorkMaterialGroupFormProps> = (props) => {
-    const { className } = props;
+  const { className } = props;
 
-    const formData = useSelector(getAddWorkMaterialGroupFormData);
-    const dispatch = useAppDispatch();
+  const formData = useSelector(getAddWorkMaterialGroupFormData);
+  const dispatch = useAppDispatch();
 
-    const onNameChangeHandler = useCallback((value: string) => {
-        dispatch(addWorkMaterialGroupFormActions.setFormData({
-            name: value,
-        }));
-    }, [dispatch]);
+  const onNameChangeHandler = useCallback((value: string) => {
+    dispatch(addWorkMaterialGroupFormActions.setFormData({
+      name: value,
+    }));
+  }, [dispatch]);
 
-    const onSaveHandler = useCallback(() => {
-        if (formData) {
-            dispatch(createWorkMaterialGroup(formData));
-        }
-    }, [formData, dispatch]);
+  const onSaveHandler = useCallback(() => {
+    if (formData) {
+      dispatch(createWorkMaterialGroup(formData));
+    }
+  }, [formData, dispatch]);
 
-    return (
-        <div className={classNames(cls.addWorkMaterialGroupForm, {}, [className])}>
-            <Text title="Создать группу услуг" textAlign={TextAlign.CENTER} className={cls.title} />
-            <Input placeholder="Наименование группы" className={cls.input} value={formData?.name} onChange={onNameChangeHandler} />
-            <div className={cls.buttons}>
-                <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button} onClick={onSaveHandler}>Сохранить</Button>
-            </div>
-        </div>
-    );
+  return (
+    <div className={classNames(cls.addWorkMaterialGroupForm, {}, [className])}>
+      <Text title="Создать группу материалов" textAlign={TextAlign.CENTER} className={cls.title} />
+      <Input placeholder="Наименование группы" className={cls.input} value={formData?.name} onChange={onNameChangeHandler} />
+      <div className={cls.buttons}>
+        <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button} onClick={onSaveHandler}>Сохранить</Button>
+      </div>
+    </div>
+  );
 };

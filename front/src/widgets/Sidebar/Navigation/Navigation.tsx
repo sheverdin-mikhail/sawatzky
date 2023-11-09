@@ -10,29 +10,29 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-    const { className } = props;
-    const { pathname } = useLocation();
+  const { className } = props;
+  const { pathname } = useLocation();
 
-    const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-    return (
-        <div
-            className={classNames(cls.navigation, {
-                [cls.collapsed]: isCollapsed,
-            }, [className ?? ''])}
-            onMouseEnter={() => setIsCollapsed(false)}
-            onMouseLeave={() => setIsCollapsed(true)}
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  return (
+    <div
+      className={classNames(cls.navigation, {
+        [cls.collapsed]: isCollapsed,
+      }, [className ?? ''])}
+      onMouseEnter={() => setIsCollapsed(false)}
+      onMouseLeave={() => setIsCollapsed(true)}
 
-        >
-            {
-                SidebarItemsList.map((item) => (
-                    <SidebarItem
-                        item={item}
-                        key={item.path}
-                        isCollapsed={isCollapsed}
-                        isActive={pathname.split('/')[1] === item.path.split('/')[1]}
-                    />
-                ))
-            }
-        </div>
-    );
+    >
+      {
+        SidebarItemsList.map((item) => (
+          <SidebarItem
+            item={item}
+            key={item.path}
+            isCollapsed={isCollapsed}
+            isActive={pathname.split('/')[1] === item.path.split('/')[1]}
+          />
+        ))
+      }
+    </div>
+  );
 };

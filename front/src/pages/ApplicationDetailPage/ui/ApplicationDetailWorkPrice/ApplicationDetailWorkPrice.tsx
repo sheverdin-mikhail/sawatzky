@@ -127,7 +127,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
     }, 0);
 
     const materialTotalPrice = workMaterials.reduce((prev, item) => {
-      const sum = item.workMaterial.count * item.workMaterial.price;
+      const sum = item.actualCount * item.workMaterial.price;
       return prev + sum;
     }, 0);
 

@@ -6,7 +6,6 @@ import { useCallback } from 'react';
 import { WorkMaterialGroupItem } from 'entities/WorkMaterialGroup';
 import { Input } from 'shared/ui/Input/Input';
 import { useSelector } from 'react-redux';
-import { parseTimeString } from 'shared/lib/helpers/parseTimeString';
 import {
   getAddWorkMaterialApplicationFormActualCountText,
   getAddWorkMaterialApplicationFormData,
