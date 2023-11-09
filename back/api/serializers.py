@@ -41,6 +41,8 @@ class WorkObjectSerializer(ModelSerializer):
 
 class WorkObjectsGroupSerializer(ModelSerializer):
     # Сериализатор модели WorkObjectsGroup, расширяющей профиль клиента
+    workObjects = WorkObjectSerializer(read_only=True, many=True, required=False)
+
     class Meta:
         model = WorkObjectsGroup
         fields = '__all__'
