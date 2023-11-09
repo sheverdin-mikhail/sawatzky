@@ -6,7 +6,7 @@ import { getUserAuthData, getUserInited, userActions } from 'entities/User';
 import { useSelector } from 'react-redux';
 import { AppRouter } from './router';
 
-const App = function () {
+const App = () => {
   const isAuth = useSelector(getUserAuthData);
   const dispatch = useAppDispatch();
   const inited = useSelector(getUserInited);

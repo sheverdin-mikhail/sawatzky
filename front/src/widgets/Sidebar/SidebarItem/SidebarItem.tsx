@@ -11,27 +11,27 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem: React.FC<SidebarItemProps> = (props) => {
-    const {
-        className,
-        item,
-        isCollapsed,
-        isActive,
-    } = props;
+  const {
+    className,
+    item,
+    isCollapsed,
+    isActive,
+  } = props;
 
-    return (
-        <AppLink
-            className={classNames(cls.link, {
-                [cls.collapsed]: isCollapsed,
-                [cls.active]: isActive,
-            }, [className])}
-            to={item.path}
-        >
-            <div className={cls.iconContainer}>
-                <item.Icon className={cls.icon} />
-            </div>
-            <span className={cls.text}>
-                {item.text}
-            </span>
-        </AppLink>
-    );
+  return (
+    <AppLink
+      className={classNames(cls.link, {
+        [cls.collapsed]: isCollapsed,
+        [cls.active]: isActive,
+      }, [className])}
+      to={item.path}
+    >
+      <div className={cls.iconContainer}>
+        <item.Icon className={cls.icon} />
+      </div>
+      <span className={cls.text}>
+        {item.text}
+      </span>
+    </AppLink>
+  );
 };

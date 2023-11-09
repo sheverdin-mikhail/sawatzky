@@ -7,14 +7,14 @@ interface PerformerPriorityProps {
 }
 
 export const PerformerPriority: React.FC<PerformerPriorityProps> = (props) => {
-    const { className, classNameSec, priority } = props;
+  const { className, classNameSec, priority } = props;
 
-    return (
-        <p className={classNames('', {}, [className])}>
-            Приоритет:
-            <span className={classNames('', {}, [classNameSec])}>
-                {priority}
-            </span>
-        </p>
-    );
+  return (
+    <p className={classNames('', {}, [className])}>
+      Приоритет:
+      <span className={classNames('', {}, [classNameSec])}>
+        {priority}
+      </span>
+    </p>
+  );
 };

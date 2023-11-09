@@ -12,18 +12,18 @@ interface AddWorkMaterialGroupModalProps {
 }
 
 export const AddWorkMaterialGroupModal: React.FC<AddWorkMaterialGroupModalProps> = (props) => {
-    const { className, onClose, isOpen } = props;
+  const { className, onClose, isOpen } = props;
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const onCloseHandler = () => {
-        onClose?.();
-        dispatch(addWorkMaterialGroupFormActions.closeModal());
-    };
+  const onCloseHandler = () => {
+    onClose?.();
+    dispatch(addWorkMaterialGroupFormActions.closeModal());
+  };
 
-    return (
-        <Modal className={classNames(cls.addWorkMaterialGroupModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
-            <AddWorkMaterialGroupForm onClose={onCloseHandler} />
-        </Modal>
-    );
+  return (
+    <Modal className={classNames(cls.addWorkMaterialGroupModal, {}, [className])} isOpen={isOpen} onClose={onCloseHandler}>
+      <AddWorkMaterialGroupForm onClose={onCloseHandler} />
+    </Modal>
+  );
 };

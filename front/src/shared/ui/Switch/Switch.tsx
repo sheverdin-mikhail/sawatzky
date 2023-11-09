@@ -11,35 +11,35 @@ interface SwitchProps{
 }
 
 export const Switch: React.FC<SwitchProps> = (props) => {
-    const {
-        className,
-        checked,
-        id,
-        label,
-        onChange,
-        ...otherProps
-    } = props;
+  const {
+    className,
+    checked,
+    id,
+    label,
+    onChange,
+    ...otherProps
+  } = props;
 
-    const changeHandler = useCallback((value: boolean) => {
-        onChange?.(value);
-    }, [onChange]);
+  const changeHandler = useCallback((value: boolean) => {
+    onChange?.(value);
+  }, [onChange]);
 
-    return (
-        <div className={classNames(cls.switch, {}, [className])}>
-            <input
-                type="checkbox"
-                id={id}
-                checked={checked}
-                className={cls.input}
-                onChange={(e) => changeHandler(e.target.checked)}
-                {...otherProps}
-            />
-            <label
-                htmlFor={id}
-                className={cls.label}
-            >
-                {label}
-            </label>
-        </div>
-    );
+  return (
+    <div className={classNames(cls.switch, {}, [className])}>
+      <input
+        type="checkbox"
+        id={id}
+        checked={checked}
+        className={cls.input}
+        onChange={(e) => changeHandler(e.target.checked)}
+        {...otherProps}
+      />
+      <label
+        htmlFor={id}
+        className={cls.label}
+      >
+        {label}
+      </label>
+    </div>
+  );
 };
