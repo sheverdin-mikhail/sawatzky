@@ -16,8 +16,9 @@ export const directoryNavigationSlice = createSlice({
   initialState: directoryNavigationAdapter.getInitialState<DirectoryNavigaionSchema>({
     ids: [
       DirectoryPath.objects,
-      // DirectoryPath.legal_entity,
-      // DirectoryPath.legal_entity_sawatzky,
+      DirectoryPath.object_tree,
+      DirectoryPath.legal_entity,
+      DirectoryPath.legal_entity_sawatzky,
       DirectoryPath.work_task_group,
       DirectoryPath.work_material_group,
     ],
@@ -26,14 +27,14 @@ export const directoryNavigationSlice = createSlice({
         path: DirectoryPath.objects,
         text: 'Группа объектов',
       },
-      // [DirectoryPath.legal_entity]: {
-      //   path: DirectoryPath.legal_entity,
-      //   text: 'Контрагенты (Юр. лиц заказчиков)',
-      // },
-      // [DirectoryPath.legal_entity_sawatzky]: {
-      //   path: DirectoryPath.legal_entity_sawatzky,
-      //   text: 'Юр. лица Sawatzky',
-      // },
+      [DirectoryPath.legal_entity]: {
+        path: DirectoryPath.legal_entity,
+        text: 'Контрагенты (Юр. лиц заказчиков)',
+      },
+      [DirectoryPath.legal_entity_sawatzky]: {
+        path: DirectoryPath.legal_entity_sawatzky,
+        text: 'Юр. лица Sawatzky',
+      },
       [DirectoryPath.work_task_group]: {
         path: DirectoryPath.work_task_group,
         text: 'Группа услуг',
@@ -41,6 +42,10 @@ export const directoryNavigationSlice = createSlice({
       [DirectoryPath.work_material_group]: {
         path: DirectoryPath.work_material_group,
         text: 'Группа материалов',
+      },
+      [DirectoryPath.object_tree]: {
+        path: DirectoryPath.object_tree,
+        text: 'Дерево объектов',
       },
     },
     error: undefined,

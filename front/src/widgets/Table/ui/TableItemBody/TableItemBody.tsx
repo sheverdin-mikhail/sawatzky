@@ -63,7 +63,7 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
                 >
                   <CrossIcon />
                 </Button>
-                {/* <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon /></Button> */}
+                <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon /></Button>
               </div>
             </div>
           </AppLink>
@@ -93,7 +93,7 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
                 >
                   <CrossIcon />
                 </Button>
-                {/* <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon /></Button> */}
+                <Button className={cls.button} theme={ButtonThemes.CLEAR}><PenIcon /></Button>
               </div>
             </div>
           </div>

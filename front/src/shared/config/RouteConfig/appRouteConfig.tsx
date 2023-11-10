@@ -4,6 +4,7 @@ import { AuthorizationPage } from 'pages/AuthorizaionPage';
 import { DirectoryLegalEntityPage } from 'pages/DirectoryLegalEntityPage';
 import { DirectoryLegalEntitySawatzkyPage } from 'pages/DirectoryLegalEntitySawatzkyPage';
 import { DirectoryObjectPage } from 'pages/DirectoryObjectPage';
+import { DirectoryObjectTreePage } from 'pages/DirectoryObjectTreePage';
 import { DirectoryObjectsGroupPage } from 'pages/DirectoryObjectsGroupPage';
 import { DirectoryWorkMaterialGroupDetailPage } from 'pages/DirectoryWorkMaterialGroupDetailPage';
 import { DirectoryWorkMaterialGroupPage } from 'pages/DirectoryWorkMaterialGroupPage';
@@ -36,6 +37,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 export enum DirectoryRoutes{
     OBJECTS = 'objects',
     OBJECT = 'object',
+    OBJECT_TREE = 'object_tree',
     LEGAL_ENTITY = 'legal_entity',
     LEGAL_ENTITY_SAWATZKY = 'legal_entity_sawatzky',
     WORK_TASK_GROUP_DETAIL = 'work_task_group_detail',
@@ -47,6 +49,7 @@ export enum DirectoryRoutes{
 export const DirectoryPath: Record<DirectoryRoutes, string> = {
   [DirectoryRoutes.OBJECTS]: '/directory/objects',
   [DirectoryRoutes.OBJECT]: '/directory/objects/',
+  [DirectoryRoutes.OBJECT_TREE]: '/directory/objects-tree',
   [DirectoryRoutes.LEGAL_ENTITY]: '/directory/legal-entity',
   [DirectoryRoutes.LEGAL_ENTITY_SAWATZKY]: '/directory/legal-entity-sawatzky',
   [DirectoryRoutes.WORK_TASK_GROUP]: '/directory/work-task-group',
@@ -81,6 +84,11 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
   [DirectoryRoutes.OBJECT]: {
     path: `${DirectoryPath.object}:id`,
     element: <DirectoryObjectPage />,
+    authOnly: true,
+  },
+  [DirectoryRoutes.OBJECT_TREE]: {
+    path: `${DirectoryPath.object_tree}`,
+    element: <DirectoryObjectTreePage />,
     authOnly: true,
   },
   [DirectoryRoutes.LEGAL_ENTITY]: {

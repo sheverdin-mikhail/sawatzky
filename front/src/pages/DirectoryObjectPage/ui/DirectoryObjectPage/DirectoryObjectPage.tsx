@@ -13,7 +13,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback, useEffect, useMemo } from 'react';
 import { deleteWorkObject } from 'entities/WorkObject/model/services/deleteWorObject';
 import { useTable } from 'shared/lib/hooks/useTable';
-import { fetchWorkObjectGroupList, getworkObjectGroup, workObjectGroupReducer } from 'entities/WorkObjectGroup';
+import { fetchWorkObjectGroupList, getWorkObjectGroup, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useParams } from 'react-router-dom';
 import { StateSchema } from 'app/providers';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
@@ -34,7 +34,7 @@ const DirectoryObjectPage: React.FC<DirectoryObjectPageProps> = (props) => {
 
   const addObjectsIsOpen = useSelector(getWorkObjectFormIsOpen);
   const { id } = useParams();
-  const workObjectGroup = useSelector((state: StateSchema) => getworkObjectGroup.selectById(state, id!!));
+  const workObjectGroup = useSelector((state: StateSchema) => getWorkObjectGroup.selectById(state, id!!));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
