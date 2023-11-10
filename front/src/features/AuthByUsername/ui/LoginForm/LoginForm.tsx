@@ -21,7 +21,7 @@ import { createTokensByUsername } from '../../model/services/createTokensByUsern
 import { fetchUserDataByToken } from '../../model/services/fetchUserDataByToken/fetchUserDataByToken';
 
 interface LoginFormProps {
-    className?: string;
+  className?: string;
 }
 
 const initialReducers: ReducersList = {
@@ -60,11 +60,11 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
         <Logo width={159} className={cls.logo} />
         <Title className={cls.title}>Вход</Title>
         <Input placeholder="Логин" onChange={onChangeUsername} value={username} className={cls.input} />
-        <Input placeholder="Пароль" onChange={onChangePassword} value={password} className={cls.input} />
-        <div className={cls.checkbox}>
+        <Input placeholder="Пароль" type="password" onChange={onChangePassword} value={password} className={cls.input} />
+        {/* <div className={cls.checkbox}>
           <Checkbox id="login" />
           Я не робот
-        </div>
+        </div> */}
         <Button className={cls.button} disabled={isLoading} onClick={onLoginClick}>Войти</Button>
         {error && <Text text={error} theme={TextTheme.ERROR} className={cls.error} />}
       </div>

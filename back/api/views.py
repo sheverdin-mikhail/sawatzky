@@ -12,6 +12,7 @@ from .filters import (
     ApplicationFilter,
     WorkTaskFilter,
     WorkMaterialFilter,
+    LegalEntityFilter,
 )
 
 
@@ -176,6 +177,9 @@ class LegalEntityListView(generics.ListAPIView):
     queryset = LegalEntity.objects.all()
     serializer_class = LegalEntitySerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = LegalEntityFilter
+
 
 class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление Юр. лица по id

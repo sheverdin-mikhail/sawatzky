@@ -5,7 +5,7 @@ export { deleteWorkObjectGroup } from './model/services/deleteWorObjectGroup';
 
 export {
   workObjectGroupActions,
-  getworkObjectGroup,
+  getWorkObjectGroup,
   workObjectGroupAdapter,
   workObjectGroupReducer,
   workObjectGroupSlice,

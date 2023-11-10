@@ -11,7 +11,7 @@ import { AddObjectsGroupModal } from 'features/AddObjectsGroup/ui/AddObjectsGrou
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getworkObjectGroup, workObjectGroupReducer, fetchWorkObjectGroupList, deleteWorkObjectGroup,
+  getWorkObjectGroup, workObjectGroupReducer, fetchWorkObjectGroupList, deleteWorkObjectGroup,
 } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
@@ -32,7 +32,7 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
   const { className } = props;
 
   const addObjectsIsOpen = useSelector(getWorkObjectGroupFormIsOpen);
-  const workObjectGroups = useSelector(getworkObjectGroup.selectAll);
+  const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

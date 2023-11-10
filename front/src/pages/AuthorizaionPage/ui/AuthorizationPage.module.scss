@@ -10,3 +10,11 @@
   background-position: right;
   background-size: cover;
 }
+
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translateY(-50%);
+}
