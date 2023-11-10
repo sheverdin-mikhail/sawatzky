@@ -12,6 +12,10 @@ export type {
 } from './model/type/addWorkMaterialApplicationForm';
 
 export {
-
   getAddWorkMaterialApplicationFormIsOpen,
+  getAddWorkMaterialApplicationFormActualCountText,
+  getAddWorkMaterialApplicationFormData,
+  getAddWorkMaterialApplicationFormInit,
+  getAddWorkMaterialApplicationFormSelectedItem,
+  getAddWorkMaterialApplicationFormStep,
 } from './model/selectors/addWorkMaterialApplicationFormSelectors';

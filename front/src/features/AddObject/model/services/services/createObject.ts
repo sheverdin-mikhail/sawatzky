@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { WorkObject, fetchWorkObjectList } from 'entities/WorkObject';
+import { WorkObject } from 'entities/WorkObject';
+import { fetchWorkObjectGroupList } from 'entities/WorkObjectGroup';
 import { FormData } from '../../type/addObject';
 import { addWorkObjectFormActions } from '../../slice/addObjectSlice';
 
@@ -17,7 +18,7 @@ export const createWorkObject = createAsyncThunk<
       if (!response.data) {
         throw new Error('Ошибка создания объекта');
       }
-      dispatch(fetchWorkObjectList());
+      dispatch(fetchWorkObjectGroupList());
       dispatch(addWorkObjectFormActions.closeModal());
     } catch (e: any) {
       if (e.response.status === 401) {
