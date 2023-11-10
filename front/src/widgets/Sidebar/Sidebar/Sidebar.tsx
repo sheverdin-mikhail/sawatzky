@@ -13,7 +13,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
   return (
     <div className={classNames(cls.sidebar, {}, [className ?? ''])}>
       <Navigation />
-      <Alerts />
+      {/* <Alerts /> */}
     </div>
   );
 };
