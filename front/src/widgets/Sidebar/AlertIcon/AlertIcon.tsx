@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './AlertIcon.module.scss';
 import { ReactComponent as BlackIcon } from 'shared/assets/icons/alert-icon.svg';
 import { ReactComponent as BlueIcon } from 'shared/assets/icons/alert-blue-icon.svg';
+import cls from './AlertIcon.module.scss';
 
 interface AlertIconProps {
   className?: string;
@@ -17,4 +17,4 @@ export const AlertIcon: React.FC<AlertIconProps> = (props) => {
       {length === 0 ? <BlackIcon /> : <BlueIcon />}
     </div>
   );
-}
+};

@@ -7,16 +7,16 @@ export const fetchWorkTaskListByGroupId = createAsyncThunk<
     string,
     ThunkConfig<string>
 >(
-    'directoryWorkTaskGroupDetailPage/fetchWorkTaskListByGroupId',
-    async (groupId, { extra, rejectWithValue, dispatch }) => {
-        try {
-            const response = await extra.api.get<WorkTaskGroupItem>(`/api/v1/work_task_groups/${groupId}`);
-            if (!response.data) {
-                throw new Error('Ошибка сохранения запроса!');
-            }
-            return response.data;
-        } catch (e: any) {
-            return rejectWithValue(e.response.message);
-        }
-    },
+  'directoryWorkTaskGroupDetailPage/fetchWorkTaskListByGroupId',
+  async (groupId, { extra, rejectWithValue, dispatch }) => {
+    try {
+      const response = await extra.api.get<WorkTaskGroupItem>(`/api/v1/work_task_groups/${groupId}`);
+      if (!response.data) {
+        throw new Error('Ошибка сохранения запроса!');
+      }
+      return response.data;
+    } catch (e: any) {
+      return rejectWithValue(e.response.message);
+    }
+  },
 );

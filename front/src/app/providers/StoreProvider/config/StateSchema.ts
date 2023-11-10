@@ -1,7 +1,7 @@
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import {
-    AnyAction, EnhancedStore, Reducer, ReducersMapObject,
+  AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { ApplicationSchema } from 'entities/Application';
@@ -20,26 +20,43 @@ import { WorkMaterialGroupSchema } from 'entities/WorkMaterialGroup';
 import { AddWorkMaterialGroupFormSchema } from 'features/AddWorkMaterialGroup';
 import { AddWorkMaterialFormSchema } from 'features/AddWorkMaterial/model/type/addWorkMaterial';
 import { DirectoryWorkMaterialGroupDetailSchema } from 'pages/DirectoryWorkMaterialGroupDetailPage';
+import { AddWorkMaterialApplicationFormSchema } from 'features/AddWorkMaterialToApplication';
+import { WorkObjectGroupSchema } from 'entities/WorkObjectGroup';
+import { AddWorkObjectGroupFormSchema } from 'features/AddObjectsGroup';
+import { LegalEntitySchema } from 'entities/LegalEntity';
+import { WorkObjectSchema } from 'entities/WorkObject';
+import { AddWorkObjectFormSchema } from 'features/AddObject';
+
 export interface StateSchema {
     user: UserSchema;
 
     // Асинхронные редюсеры
-    loginForm?: LoginSchema;
-    application?: ApplicationSchema;
+    // pages
     applicationDetail?: ApplicationDetailSchema;
-    createApplication?: CreateApplicationSchema;
     applicationsPage?: ApplicationsPageSchema;
-    direcotryNavigation?: DirectoryNavigaionSchema;
-    workTaskGroup?: WorkTaskGroupSchema;
-    workMaterialGroup?: WorkMaterialGroupSchema;
-    addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
-    addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
-    addWorkTaskForm?: AddWorkTaskFormSchema;
-    addWorkMaterialForm?: AddWorkMaterialFormSchema;
     directoryWorkTaskGroupDetail?: DirectoryWorkTaskGroupDetailSchema;
     directoryWorkMaterialGroupDetail?: DirectoryWorkMaterialGroupDetailSchema;
+    // entities
+    application?: ApplicationSchema;
+    workTaskGroup?: WorkTaskGroupSchema;
+    workMaterialGroup?: WorkMaterialGroupSchema;
+    workObjectGroup?: WorkObjectGroupSchema;
+    legalEntity?: LegalEntitySchema;
+    workObject?: WorkObjectSchema;
+    // widgets
     table?: TableSchema;
+    direcotryNavigation?: DirectoryNavigaionSchema;
+    // features
+    loginForm?: LoginSchema;
+    createApplication?: CreateApplicationSchema;
+    addWorkTaskGroupForm?: AddWorkTaskGroupFormSchema;
+    addWorkMaterialGroupForm?: AddWorkMaterialGroupFormSchema;
+    addWorkObjectGroupForm?: AddWorkObjectGroupFormSchema;
+    addWorkTaskForm?: AddWorkTaskFormSchema;
+    addWorkObjectForm?: AddWorkObjectFormSchema;
+    addWorkMaterialForm?: AddWorkMaterialFormSchema;
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
+    addWorkMaterialApplicationForm?: AddWorkMaterialApplicationFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -1,7 +1,9 @@
 import { Mods, classNames } from 'shared/lib/classNames/classNames';
-import cls from './Modal.module.scss';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ReactNode, useCallback, useEffect, useRef, useState,
+} from 'react';
 import { Portal } from 'shared/ui/Portal/Portal';
+import cls from './Modal.module.scss';
 
 interface ModalProps {
 	className?: string;
@@ -10,67 +12,64 @@ interface ModalProps {
 	onClose?: () => void;
 }
 
-const ANIMATION_DELAY = 200
+const ANIMATION_DELAY = 200;
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const { 
-		className, 
-		children,
-		isOpen=false,
-		onClose
-	} = props;
+  const {
+    className,
+    children,
+    isOpen = false,
+    onClose,
+  } = props;
 
-	
-	const [isClosing, setIsClosing] = useState(false)
-	const timerRef = useRef<ReturnType<typeof setTimeout>>();
-	
-	const closeHandler = useCallback(() => {
-		if(onClose){
-			setIsClosing(true)
-			timerRef.current = setTimeout(()=>{
-				onClose()
-				setIsClosing(false)
-			}, ANIMATION_DELAY)
-		}
-	},[onClose])
+  const [isClosing, setIsClosing] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-	const onContentClick = useCallback((e: any) => {
-		e.stopPropagation()
-	}, [])
+  const closeHandler = useCallback(() => {
+    if (onClose) {
+      setIsClosing(true);
+      timerRef.current = setTimeout(() => {
+        onClose();
+        setIsClosing(false);
+      }, ANIMATION_DELAY);
+    }
+  }, [onClose]);
 
-	const onKeyDown = useCallback((e: KeyboardEvent) => {
-		if(e.key === 'Escape') {
-			closeHandler()
-		}
-	}, [closeHandler])
+  const onContentClick = useCallback((e: any) => {
+    e.stopPropagation();
+  }, []);
 
-	useEffect(() => {
+  const onKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      closeHandler();
+    }
+  }, [closeHandler]);
 
-		if(isOpen){
-			window.addEventListener('keydown', onKeyDown)
-		}
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', onKeyDown);
+    }
 
-		return () => { 
-			clearTimeout(timerRef.current)
-			window.removeEventListener('keydown', onKeyDown)
-		}
-	},[isOpen, onKeyDown])
+    return () => {
+      clearTimeout(timerRef.current);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen, onKeyDown]);
 
-	const mods: Mods = {
-		[cls.opened]: isOpen,
-		[cls.isClosing]: isClosing
-	}
-	
+  const mods: Mods = {
+    [cls.opened]: isOpen,
+    [cls.isClosing]: isClosing,
+  };
 
-	return (
-		<Portal>
-			<div className={classNames(cls.modal, mods)}>
-				<div className={cls.overlay} onClick={closeHandler}>
-					<div className={classNames(cls.content, {}, [className])} onClick={onContentClick}>
-						{children}
-					</div>
-				</div>
-			</div>
-		</Portal>
-	);
-}
+  return (
+    <Portal>
+      <div className={classNames(cls.modal, mods)}>
+        <div className={cls.overlay} onClick={closeHandler}>
+          <div className={classNames(cls.content, {}, [className])} onClick={onContentClick}>
+            {children}
+          </div>
+        </div>
+      </div>
+    </Portal>
+  );
+};

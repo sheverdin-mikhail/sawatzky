@@ -12,7 +12,9 @@ export const PerformerPriority: React.FC<PerformerPriorityProps> = (props) => {
   return (
     <p className={classNames('', {}, [className])}>
       Приоритет:
-      <span className={classNames('', {}, [classNameSec])}> {priority}</span>
+      <span className={classNames('', {}, [classNameSec])}>
+        {priority}
+      </span>
     </p>
   );
-}
+};

@@ -9,12 +9,12 @@ interface DirectoryNavigationLinkItemProps {
 }
 
 export const DirectoryNavigationLinkItem: React.FC<DirectoryNavigationLinkItemProps> = (props) => {
-	const { className, link } = props;
-	const { pathname } = useLocation()
+  const { className, link } = props;
+  const { pathname } = useLocation();
 
-	return (
-		<AppLink to={link.path} isActive={pathname === link.path}  theme={AppLInkTheme.BUTTON} className={classNames('', {}, [className])}>
-			{link.text}
-		</AppLink>
-	);
-}
+  return (
+    <AppLink to={link.path} isActive={pathname === link.path} theme={AppLInkTheme.BUTTON} className={classNames('', {}, [className])}>
+      {link.text}
+    </AppLink>
+  );
+};

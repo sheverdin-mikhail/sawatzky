@@ -8,12 +8,12 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {
-    const { className } = props;
+  const { className } = props;
 
-    return (
-        <div className={classNames(cls.sidebar, {}, [className ?? ''])}>
-            <Navigation />
-            <Alerts />
-        </div>
-    );
+  return (
+    <div className={classNames(cls.sidebar, {}, [className ?? ''])}>
+      <Navigation />
+      <Alerts />
+    </div>
+  );
 };

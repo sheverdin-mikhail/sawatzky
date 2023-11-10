@@ -10,21 +10,20 @@ export const createWorkTask = createAsyncThunk<
     AddWorkTaskFormData,
     ThunkConfig<string>
 >(
-    'addWorkTask/createWorkTask',
-    async (formData, { extra, rejectWithValue, dispatch }) => {
+  'addWorkTask/createWorkTask',
+  async (formData, { extra, rejectWithValue, dispatch }) => {
+    try {
+      const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData);
+      if (!response.data) {
+        throw new Error('Ошибка создания группы услуг');
+      }
 
-        try {
-            const response = await extra.api.post<WorkTask>('/api/v1/work_tasks/create/', formData)
-            if (!response.data) {
-                throw new Error('Ошибка создания группы услуг')
-            }
-
-            dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`));
-        } catch (e: any) {
-            if (e.response.status === 401) {
-                dispatch(userActions.logout());
-            }
-            return rejectWithValue(e.response.message);
-        }
-    },
+      dispatch(fetchWorkTaskListByGroupId(`${formData.workTaskGroup}`));
+    } catch (e: any) {
+      if (e.response.status === 401) {
+        dispatch(userActions.logout());
+      }
+      return rejectWithValue(e.response.message);
+    }
+  },
 );

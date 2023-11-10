@@ -8,7 +8,11 @@ from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
 
 from django_filters.rest_framework import DjangoFilterBackend
-from .filters import ApplicationFilter
+from .filters import (
+    ApplicationFilter,
+    WorkTaskFilter,
+    WorkMaterialFilter,
+)
 
 
 from .serializers import (
@@ -118,7 +122,7 @@ class ApplicationListView(generics.ListAPIView):
 class ApplicationDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление списка заявок по id создателя
     serializer_class = ApplicationWithCreatorSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
 
@@ -225,11 +229,28 @@ class WorkMaterialCreateView(generics.CreateAPIView):
     serializer_class = WorkMaterialSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def post(self, request, *args, **kwargs):
+
+        try:
+            group = WorkMaterialGroup.objects.get(id=request.data['workMaterialGroup'])
+            newWorkMaterialSerializer = self.get_serializer(data=request.data)
+            newWorkMaterial = newWorkMaterialSerializer.is_valid(raise_exception=True)
+            newWorkMaterial = newWorkMaterialSerializer.save()
+            group.materials.add(newWorkMaterial)
+            group.save()
+            return Response(newWorkMaterialSerializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
+
+
 class WorkMaterialListView(generics.ListAPIView):
     # представление на создание и вывод списка рабочих материалов для проведения работ
     queryset = WorkMaterial.objects.all()
     serializer_class = WorkMaterialSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = WorkMaterialFilter
 
 class WorkMaterialDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление рабочих материалов для проведения работ по id
@@ -274,6 +295,8 @@ class WorkTaskListView(generics.ListAPIView):
     queryset = WorkTask.objects.all()
     serializer_class = WorkTaskSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = WorkTaskFilter
 
 class WorkTaskDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление работ проводимых на объекте по id
@@ -298,6 +321,7 @@ class WorkTaskGroupCreateView(generics.CreateAPIView):
     queryset = WorkTaskGroup.objects.all()
     serializer_class = WorkTaskGroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class WorkTaskGroupListView(generics.ListAPIView):
     # представление на создание и вывод списка групп услуг
@@ -357,6 +381,20 @@ class WorkObjectCreateView(generics.CreateAPIView):
     queryset = WorkObject.objects.all()
     serializer_class = WorkObjectSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            group = WorkObjectsGroup.objects.get(id=request.data['workObjectGroup'])
+            newWorkObjectSerializer = self.get_serializer(data=request.data)
+            newWorkObject = newWorkObjectSerializer.is_valid(raise_exception=True)
+            newWorkObject = newWorkObjectSerializer.save()
+            group.workObjects.add(newWorkObject)
+            group.save()
+            return Response(newWorkObjectSerializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
 
 class WorkObjectListView(generics.ListAPIView):
     # представление на создание и вывод списка рабочих объектов

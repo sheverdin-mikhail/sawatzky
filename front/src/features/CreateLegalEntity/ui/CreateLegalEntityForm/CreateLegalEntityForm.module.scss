@@ -1,0 +1,33 @@
+.body {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  align-items: stretch;
+}
+
+
+.title {
+  margin-bottom: 25px;
+}
+
+.input {
+  &:not(:last-child){
+    margin-bottom: 6px;
+  }
+}
+
+.buttons {
+  display: flex;
+  margin: 0 -15px;
+  margin-top: 28px;
+}
+
+.button {
+  margin: 0 15px;
+  flex: 0 1 40%
+}
+
