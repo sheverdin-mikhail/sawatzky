@@ -38,6 +38,7 @@ from .serializers import (
     EmployeeWithUserUPSerializer,
     UserRegistrationSerializer,
     ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
+    LegalEntityDetailSerializer,
 )
 
 from .models import (
@@ -183,7 +184,8 @@ class LegalEntityListView(generics.ListAPIView):
 
 class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление Юр. лица по id
-    serializer_class = LegalEntitySerializer
+    # serializer_class = LegalEntitySerializer
+    serializer_class = LegalEntityDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
