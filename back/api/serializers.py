@@ -26,21 +26,21 @@ class EmployeeSerializer(ModelSerializer):
 
 
 class LegalEntitySerializer(ModelSerializer):
-    # Сериализатор модели LegalEntity, расширяющей профиль клиента
+    # Сериализатор модели LegalEntity
     class Meta:
         model = LegalEntity
         fields = '__all__'
 
 
 class WorkObjectSerializer(ModelSerializer):
-    # Сериализатор модели WorkObject, расширяющей профиль клиента
+    # Сериализатор модели WorkObject
     class Meta:
         model = WorkObject
         fields = '__all__'
 
 
 class WorkObjectsGroupSerializer(ModelSerializer):
-    # Сериализатор модели WorkObjectsGroup, расширяющей профиль клиента
+    # Сериализатор модели WorkObjectsGroup
     workObjects = WorkObjectSerializer(read_only=True, many=True, required=False)
 
     class Meta:
