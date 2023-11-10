@@ -33,6 +33,7 @@ class LegalEntity(models.Model):
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
     swatzki = models.BooleanField(("Относится к Swatzky"), default=False)
+    workTaskGroups = models.ManyToManyField("api.WorkTaskGroup", verbose_name=("Предоставляемые группы услуг"), blank=True, null=True)
     
 
     class Meta:
@@ -81,8 +82,7 @@ class WorkObjectsGroup(models.Model):
     """Группа рабочих объектов"""
 
     name = models.CharField(("Наименование группы"), max_length=50)
-    code = models.CharField(("Код объекта"), max_length=50)
-    workObjects = models.ManyToManyField("api.WorkObject", verbose_name=("Список объектов"), related_name='work_objects_group')
+    workObjects = models.ManyToManyField("api.WorkObject", verbose_name=("Список объектов"), related_name='workObjectsGroup', blank=True, null=True)
     
 
     class Meta:
