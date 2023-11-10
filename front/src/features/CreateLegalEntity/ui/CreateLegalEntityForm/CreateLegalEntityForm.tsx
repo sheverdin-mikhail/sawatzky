@@ -3,13 +3,13 @@ import { Text, TextAlign } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
-import cls from './CreateLegalEntity.module.scss';
+import cls from './CreateLegalEntityForm.module.scss';
 
-interface CreateLegalEntityProps {
+interface CreateLegalEntityFormProps {
 	className?: string;
 }
 
-export const CreateLegalEntity: React.FC<CreateLegalEntityProps> = (props) => {
+export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (props) => {
   const { className } = props;
 
   const workObjectGrops = [
@@ -40,7 +40,7 @@ export const CreateLegalEntity: React.FC<CreateLegalEntityProps> = (props) => {
   }));
 
   return (
-    <div className={classNames(cls.createLegalEntity, {}, [className])}>
+    <div className={classNames(cls.createLegalEntityForm, {}, [className])}>
       <Text title="Создать Контрагента (Юр. лиц Заказчиков)" textAlign={TextAlign.CENTER} className={cls.title} />
       <div className={cls.body}>
         <div className={cls.column}>
@@ -61,7 +61,7 @@ export const CreateLegalEntity: React.FC<CreateLegalEntityProps> = (props) => {
             <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button}>Создать</Button>
           </div>
         </div>
-        <div className={cls.column} />
+        {/* <div className={cls.column} /> */}
       </div>
     </div>
   );

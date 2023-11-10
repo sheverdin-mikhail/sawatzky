@@ -1,5 +1,5 @@
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { TableType } from 'widgets/Table';
+import { TableItemType, TableType } from 'widgets/Table';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { CollapsBoard } from 'widgets/CollapsBoard';
 import { ApplicationWorkMaterial, ApplicationWorkTask } from 'entities/Application';
@@ -8,19 +8,21 @@ import {
   AddWorkTaskApplicationModal,
   addWorkTaskApplicationFormActions,
   addWorkTaskApplicationFormReducer,
+  addWorkTaskToApplication,
   getAddWorkTaskApplicationFormIsOpen,
 } from 'features/AddWorkTaskToApplication';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
 import { fetchWorkTaskGroupList, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { DocList } from 'widgets/DocList';
 import { docList } from 'widgets/DocList/model/type/docList';
 import {
   AddWorkMaterialApplicationModal,
   addWorkMaterialApplicationFormActions,
   addWorkMaterialApplicationFormReducer,
+  addWorkMaterialToApplication,
   getAddWorkMaterialApplicationFormIsOpen,
 } from 'features/AddWorkMaterialToApplication';
 import { fetchWorkMaterialGroupList, getWorkMaterialGroup, workMaterialGroupReducer } from 'entities/WorkMaterialGroup';
@@ -139,16 +141,40 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
     };
   }, [workMaterials, workTasks]);
 
+  const onDeleteMaterialHandler = useCallback((item: TableItemType) => {
+    dispatch(addWorkMaterialToApplication({
+      prevWorkMaterials: workMaterials
+        .filter((material) => material.workMaterial.id !== item.id)
+        .map((item) => ({
+          workMaterial: item.workMaterial.id,
+          actualCount: item.actualCount,
+        })),
+      applicationId,
+    }));
+  }, [dispatch, workMaterials, applicationId]);
+
+  const onDeleteTaskHandler = useCallback((item: TableItemType) => {
+    dispatch(addWorkTaskToApplication({
+      prevWorkTasks: workTasks
+        .filter((material) => material.workTask.id !== item.id)
+        .map((item) => ({
+          workTask: item.workTask.id,
+          actualTime: item.actualTime,
+        })),
+      applicationId,
+    }));
+  }, [dispatch, workTasks, applicationId]);
+
   const { Table: WorkTasksTable } = useTable({
     data: workTasksTable,
     className: cls.table,
-    // onDelete: onTableDeleteHandler
+    onDelete: onDeleteTaskHandler,
   });
 
   const { Table: WorkMaterialsTable } = useTable({
     data: workMaterialsTable,
     className: cls.table,
-    // onDelete: onTableDeleteHandler
+    onDelete: onDeleteMaterialHandler,
   });
 
   return (
@@ -167,7 +193,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           onClick={() => dispatch(addWorkMaterialApplicationFormActions.openModal())}
         >+ Добавить расходный материал
         </Button>
-        <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Загрузить документ </Button>
+        {/* <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Загрузить документ </Button> */}
         <div className={cls.tablesBlock}>
           {WorkTasksTable}
           {WorkMaterialsTable}
@@ -191,8 +217,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           </p>
         </div>
 
-        <DocList docs={docList} title="Список документов" />
-        <DocList docs={payList} title="Платежный документ" />
+        {/* <DocList docs={docList} title="Список документов" /> */}
+        {/* <DocList docs={payList} title="Платежный документ" /> */}
       </CollapsBoard>
 
       <AddWorkTaskApplicationModal

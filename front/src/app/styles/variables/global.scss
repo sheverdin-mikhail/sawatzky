@@ -17,6 +17,10 @@
   --font-line-s2: normal;
   --font-weight-s2: 400;
   --font-s2: var(--font-weight-s2) var(--font-size-s2) / var(--font-line-s2) var(--font-family-second);
+  --font-size-s3: 13px;
+  --font-line-s3: normal;
+  --font-weight-s3: 400;
+  --font-s3: var(--font-weight-s3) var(--font-size-s3) / var(--font-line-s3) var(--font-family-second);
 
 
 
@@ -42,7 +46,7 @@
 
   --sidebar-width: 158px;
   --sidebar-collapsed-width: 50px;
-  --login-form-width: 500px;
+  --login-form-width: 40%;
 
 
 }

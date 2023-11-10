@@ -32,7 +32,7 @@ class LegalEntity(models.Model):
     correspondentAccount = models.CharField(("Корреспондентский счёт"), max_length=50)
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
-    sawatzki = models.BooleanField(("Относится к Sawatzky"), default=False)
+    swatzki = models.BooleanField(("Относится к Swatzky"), default=False)
     workTaskGroups = models.ManyToManyField("api.WorkTaskGroup", verbose_name=("Предоставляемые группы услуг"), blank=True, null=True)
     
 

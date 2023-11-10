@@ -1,9 +1,12 @@
 import { ApplicationDetailPage } from 'pages/ApplicationDetailPage';
 import { ApplicationsPage } from 'pages/ApplicationsPage';
 import { AuthorizationPage } from 'pages/AuthorizaionPage';
+import { DirectoryEmployeePage } from 'pages/DirectoryEmployeePage';
+import { DirectoryEmployeeSawatzkyPage } from 'pages/DirectoryEmployeeSawatzkyPage';
 import { DirectoryLegalEntityPage } from 'pages/DirectoryLegalEntityPage';
 import { DirectoryLegalEntitySawatzkyPage } from 'pages/DirectoryLegalEntitySawatzkyPage';
 import { DirectoryObjectPage } from 'pages/DirectoryObjectPage';
+import { DirectoryObjectTreePage } from 'pages/DirectoryObjectTreePage';
 import { DirectoryObjectsGroupPage } from 'pages/DirectoryObjectsGroupPage';
 import { DirectoryWorkMaterialGroupDetailPage } from 'pages/DirectoryWorkMaterialGroupDetailPage';
 import { DirectoryWorkMaterialGroupPage } from 'pages/DirectoryWorkMaterialGroupPage';
@@ -36,23 +39,30 @@ export const RoutePath: Record<AppRoutes, string> = {
 export enum DirectoryRoutes{
     OBJECTS = 'objects',
     OBJECT = 'object',
+    OBJECT_TREE = 'object_tree',
     LEGAL_ENTITY = 'legal_entity',
     LEGAL_ENTITY_SAWATZKY = 'legal_entity_sawatzky',
     WORK_TASK_GROUP_DETAIL = 'work_task_group_detail',
     WORK_MATERIAL_GROUP_DETAIL = 'work_material_group_detail',
     WORK_TASK_GROUP = 'work_task_group',
     WORK_MATERIAL_GROUP = 'work_material_group',
+    EMPLOYEE = 'employee',
+    EMPLOYEE_SAWATZKY = 'employee_sawatzky',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string> = {
   [DirectoryRoutes.OBJECTS]: '/directory/objects',
   [DirectoryRoutes.OBJECT]: '/directory/objects/',
+  [DirectoryRoutes.OBJECT_TREE]: '/directory/objects-tree',
   [DirectoryRoutes.LEGAL_ENTITY]: '/directory/legal-entity',
   [DirectoryRoutes.LEGAL_ENTITY_SAWATZKY]: '/directory/legal-entity-sawatzky',
   [DirectoryRoutes.WORK_TASK_GROUP]: '/directory/work-task-group',
   [DirectoryRoutes.WORK_MATERIAL_GROUP]: '/directory/work-material-group',
   [DirectoryRoutes.WORK_TASK_GROUP_DETAIL]: '/directory/work-task-group/',
   [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: '/directory/work-material-group/',
+  [DirectoryRoutes.EMPLOYEE]: '/directory/employee',
+  [DirectoryRoutes.EMPLOYEE_SAWATZKY]: '/directory/employee-sawatzky',
+
 };
 
 //------------------------------------------------------------------------------------
@@ -83,6 +93,11 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     element: <DirectoryObjectPage />,
     authOnly: true,
   },
+  [DirectoryRoutes.OBJECT_TREE]: {
+    path: `${DirectoryPath.object_tree}`,
+    element: <DirectoryObjectTreePage />,
+    authOnly: true,
+  },
   [DirectoryRoutes.LEGAL_ENTITY]: {
     path: DirectoryPath.legal_entity,
     element: <DirectoryLegalEntityPage />,
@@ -111,6 +126,16 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
   [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: {
     path: `${DirectoryPath.work_material_group_detail}:id`,
     element: <DirectoryWorkMaterialGroupDetailPage />,
+    authOnly: true,
+  },
+  [DirectoryRoutes.EMPLOYEE]: {
+    path: `${DirectoryPath.employee}`,
+    element: <DirectoryEmployeePage />,
+    authOnly: true,
+  },
+  [DirectoryRoutes.EMPLOYEE_SAWATZKY]: {
+    path: `${DirectoryPath.employee_sawatzky}`,
+    element: <DirectoryEmployeeSawatzkyPage />,
     authOnly: true,
   },
 
