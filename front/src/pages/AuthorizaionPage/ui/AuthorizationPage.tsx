@@ -1,7 +1,6 @@
 import React from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { LoginForm } from 'features/AuthByUsername';
-import { Logo } from 'shared/ui/Logo/Logo';
 import cls from './AuthorizationPage.module.scss';
 
 interface AuthorizationPageProps {
@@ -13,7 +12,6 @@ const AuthorizationPage: React.FC<AuthorizationPageProps> = (props) => {
 
   return (
     <div className={classNames(cls.authorizationPage, {}, [className ?? ''])}>
-      <Logo width={197} className={cls.logo} />
       <LoginForm className={cls.form} />
     </div>
   );

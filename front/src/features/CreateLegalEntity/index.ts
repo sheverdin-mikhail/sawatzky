@@ -1,1 +1,1 @@
-export { CreateLegalEntity } from './ui/CreateLegalEntity/CreateLegalEntity';
+export { CreateLegalEntityModal } from './ui/CreateLegalEntityModal/CreateLegalEntityModal';

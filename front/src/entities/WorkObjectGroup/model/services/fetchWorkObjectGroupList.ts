@@ -3,7 +3,7 @@ import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
 import { WorkObjectGroup } from '../types/workObjectGroup';
 
-export const fetchWorObjectGroupList = createAsyncThunk<
+export const fetchWorkObjectGroupList = createAsyncThunk<
     WorkObjectGroup[],
     void,
     ThunkConfig<string>

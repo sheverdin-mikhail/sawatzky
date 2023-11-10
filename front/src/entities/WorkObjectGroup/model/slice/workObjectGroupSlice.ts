@@ -1,13 +1,13 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers';
 import { WorkObjectGroup, WorkObjectGroupSchema } from '../types/workObjectGroup';
-import { fetchWorObjectGroupList } from '../services/fetchWorkObjectGroupList';
+import { fetchWorkObjectGroupList } from '../services/fetchWorkObjectGroupList';
 
 export const workObjectGroupAdapter = createEntityAdapter<WorkObjectGroup>({
   selectId: (workObjectGroup) => workObjectGroup.id,
 });
 
-export const getworkObjectGroup = workObjectGroupAdapter.getSelectors<StateSchema>(
+export const getWorkObjectGroup = workObjectGroupAdapter.getSelectors<StateSchema>(
   (state) => state.workObjectGroup || workObjectGroupAdapter.getInitialState(),
 );
 
@@ -22,14 +22,14 @@ export const workObjectGroupSlice = createSlice({
   },
 
   extraReducers: (builder) => builder
-    .addCase(fetchWorObjectGroupList.pending, (state, action) => {
+    .addCase(fetchWorkObjectGroupList.pending, (state, action) => {
       state.isLoading = true;
     })
-    .addCase(fetchWorObjectGroupList.fulfilled, (state, action) => {
+    .addCase(fetchWorkObjectGroupList.fulfilled, (state, action) => {
       state.isLoading = false;
       workObjectGroupAdapter.setAll(state, action.payload);
     })
-    .addCase(fetchWorObjectGroupList.rejected, (state, action) => {
+    .addCase(fetchWorkObjectGroupList.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     }),

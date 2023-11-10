@@ -8,14 +8,15 @@ import {
 } from 'widgets/Table';
 import { DirectoryPath } from 'shared/config/RouteConfig/appRouteConfig';
 import { AddObjectsGroupModal } from 'features/AddObjectsGroup/ui/AddObjectsGroupModal/AddObjectsGroupModal';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getworkObjectGroup, workObjectGroupReducer, fetchWorObjectGroupList, deleteWorkObjectGroup,
+  getWorkObjectGroup, workObjectGroupReducer, fetchWorkObjectGroupList, deleteWorkObjectGroup,
 } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { addWorkObjectGroupFormActions, addWorkObjectGroupFormReducer, getWorkObjectGroupFormIsOpen } from 'features/AddObjectsGroup';
 import cls from './DirectoryObjectsGroupPage.module.scss';
 
 interface DirectoryObjectsGroupPageProps {
@@ -24,18 +25,18 @@ interface DirectoryObjectsGroupPageProps {
 
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
+  addWorkObjectGroupForm: addWorkObjectGroupFormReducer,
 };
 
 const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (props) => {
   const { className } = props;
 
-  const [addObjectsIsOpen, setAddObjectsIsOpen] = useState(false);
-
-  const workObjectGroups = useSelector(getworkObjectGroup.selectAll);
+  const addObjectsIsOpen = useSelector(getWorkObjectGroupFormIsOpen);
+  const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchWorObjectGroupList());
+    dispatch(fetchWorkObjectGroupList());
   }, [dispatch]);
 
   const tableData: TableType = {
@@ -48,6 +49,14 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
       name: item.name,
     })),
   };
+
+  const openAddWorkObjectForm = useCallback(() => {
+    dispatch(addWorkObjectGroupFormActions.openModal());
+  }, [dispatch]);
+
+  const closeAddWorkObjectForm = useCallback(() => {
+    dispatch(addWorkObjectGroupFormActions.closeModal());
+  }, [dispatch]);
 
   const onTableDeleteHandler = useCallback((item: TableItemType) => {
     dispatch(deleteWorkObjectGroup(`${item.id}`));
@@ -72,7 +81,7 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
     <DirectoryPageWrapper className={classNames(cls.directoryObjectsGroupPage, {}, [className])}>
       <DynamicModuleLoader reducers={reducers}>
         <div className={cls.buttons}>
-          <Button helpInfo="Добавить группу объектов" onClick={() => setAddObjectsIsOpen(true)} className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Добавить группу объектов" onClick={openAddWorkObjectForm} className={cls.button} theme={ButtonThemes.ICON}>
             <AddIcon />
           </Button>
           <Button helpInfo="Удалить группу объектов" onClick={onButtonDeleteHandler} className={cls.button} theme={ButtonThemes.ICON}>
@@ -80,7 +89,7 @@ const DirectoryObjectsGroupPage: React.FC<DirectoryObjectsGroupPageProps> = (pro
           </Button>
         </div>
         {Table}
-        <AddObjectsGroupModal isOpen={addObjectsIsOpen} onClose={() => setAddObjectsIsOpen(false)} className={cls.form} />
+        <AddObjectsGroupModal isOpen={addObjectsIsOpen} onClose={closeAddWorkObjectForm} className={cls.form} />
       </DynamicModuleLoader>
     </DirectoryPageWrapper>
   );

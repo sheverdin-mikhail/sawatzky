@@ -1,11 +1,11 @@
-export type { WorkObjectGroup } from './model/types/workObjectGroup';
+export type { WorkObjectGroup, WorkObjectGroupSchema } from './model/types/workObjectGroup';
 
-export { fetchWorObjectGroupList } from './model/services/fetchWorkObjectGroupList';
+export { fetchWorkObjectGroupList } from './model/services/fetchWorkObjectGroupList';
 export { deleteWorkObjectGroup } from './model/services/deleteWorObjectGroup';
 
 export {
   workObjectGroupActions,
-  getworkObjectGroup,
+  getWorkObjectGroup,
   workObjectGroupAdapter,
   workObjectGroupReducer,
   workObjectGroupSlice,

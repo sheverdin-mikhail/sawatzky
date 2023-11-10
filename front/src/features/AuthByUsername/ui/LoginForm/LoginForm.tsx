@@ -9,6 +9,8 @@ import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/RouteConfig/appRouteConfig';
+import { Logo } from 'shared/ui/Logo/Logo';
+import { Checkbox } from 'shared/ui/Checkbox/Checkbox';
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
@@ -55,11 +57,16 @@ export const LoginForm: React.FC<LoginFormProps> = memo((props) => {
   return (
     <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
       <div className={classNames(cls.loginForm, {}, [className ?? ''])}>
+        <Logo width={159} className={cls.logo} />
         <Title className={cls.title}>Вход</Title>
         <Input placeholder="Логин" onChange={onChangeUsername} value={username} className={cls.input} />
-        <Input placeholder="Пароль" onChange={onChangePassword} value={password} className={cls.input} />
+        <Input placeholder="Пароль" type="password" onChange={onChangePassword} value={password} className={cls.input} />
+        {/* <div className={cls.checkbox}>
+          <Checkbox id="login" />
+          Я не робот
+        </div> */}
         <Button className={cls.button} disabled={isLoading} onClick={onLoginClick}>Войти</Button>
-        { error && <Text text={error} theme={TextTheme.ERROR} className={cls.error} /> }
+        {error && <Text text={error} theme={TextTheme.ERROR} className={cls.error} />}
       </div>
     </DynamicModuleLoader>
   );
