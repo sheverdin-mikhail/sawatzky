@@ -29,14 +29,14 @@ export const directoryNavigationSlice = createSlice({
         path: DirectoryPath.objects,
         text: 'Группа объектов',
       },
-      // [DirectoryPath.legal_entity]: {
-      //   path: DirectoryPath.legal_entity,
-      //   text: 'Контрагенты (Юр. лиц заказчиков)',
-      // },
-      // [DirectoryPath.legal_entity_sawatzky]: {
-      //   path: DirectoryPath.legal_entity_sawatzky,
-      //   text: 'Юр. лица Sawatzky',
-      // },
+      [DirectoryPath.legal_entity]: {
+        path: DirectoryPath.legal_entity,
+        text: 'Контрагенты (Юр. лиц заказчиков)',
+      },
+      [DirectoryPath.legal_entity_sawatzky]: {
+        path: DirectoryPath.legal_entity_sawatzky,
+        text: 'Юр. лица Sawatzky',
+      },
       [DirectoryPath.work_task_group]: {
         path: DirectoryPath.work_task_group,
         text: 'Группа услуг',
