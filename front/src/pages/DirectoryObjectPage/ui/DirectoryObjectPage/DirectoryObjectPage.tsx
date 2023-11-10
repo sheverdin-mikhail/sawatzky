@@ -8,7 +8,7 @@ import {
   AddObjectModal, addWorkObjectFormActions, addWorkObjectFormReducer, getWorkObjectFormIsOpen,
 } from 'features/AddObject';
 import { useSelector } from 'react-redux';
-import { fetchWorkObjectList, getWorkObject, workObjectReducer } from 'entities/WorkObject';
+import { workObjectReducer } from 'entities/WorkObject';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback, useEffect, useMemo } from 'react';
 import { deleteWorkObject } from 'entities/WorkObject/model/services/deleteWorObject';
