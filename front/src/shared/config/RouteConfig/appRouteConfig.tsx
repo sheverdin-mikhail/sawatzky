@@ -1,6 +1,8 @@
 import { ApplicationDetailPage } from 'pages/ApplicationDetailPage';
 import { ApplicationsPage } from 'pages/ApplicationsPage';
 import { AuthorizationPage } from 'pages/AuthorizaionPage';
+import { DirectoryEmployeePage } from 'pages/DirectoryEmployeePage';
+import { DirectoryEmployeeSawatzkyPage } from 'pages/DirectoryEmployeeSawatzkyPage';
 import { DirectoryLegalEntityPage } from 'pages/DirectoryLegalEntityPage';
 import { DirectoryLegalEntitySawatzkyPage } from 'pages/DirectoryLegalEntitySawatzkyPage';
 import { DirectoryObjectPage } from 'pages/DirectoryObjectPage';
@@ -44,6 +46,8 @@ export enum DirectoryRoutes{
     WORK_MATERIAL_GROUP_DETAIL = 'work_material_group_detail',
     WORK_TASK_GROUP = 'work_task_group',
     WORK_MATERIAL_GROUP = 'work_material_group',
+    EMPLOYEE = 'employee',
+    EMPLOYEE_SAWATZKY = 'employee_sawatzky',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string> = {
@@ -56,6 +60,9 @@ export const DirectoryPath: Record<DirectoryRoutes, string> = {
   [DirectoryRoutes.WORK_MATERIAL_GROUP]: '/directory/work-material-group',
   [DirectoryRoutes.WORK_TASK_GROUP_DETAIL]: '/directory/work-task-group/',
   [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: '/directory/work-material-group/',
+  [DirectoryRoutes.EMPLOYEE]: '/directory/employee',
+  [DirectoryRoutes.EMPLOYEE_SAWATZKY]: '/directory/employee-sawatzky',
+
 };
 
 //------------------------------------------------------------------------------------
@@ -119,6 +126,16 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
   [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: {
     path: `${DirectoryPath.work_material_group_detail}:id`,
     element: <DirectoryWorkMaterialGroupDetailPage />,
+    authOnly: true,
+  },
+  [DirectoryRoutes.EMPLOYEE]: {
+    path: `${DirectoryPath.employee}`,
+    element: <DirectoryEmployeePage />,
+    authOnly: true,
+  },
+  [DirectoryRoutes.EMPLOYEE_SAWATZKY]: {
+    path: `${DirectoryPath.employee_sawatzky}`,
+    element: <DirectoryEmployeeSawatzkyPage />,
     authOnly: true,
   },
 
