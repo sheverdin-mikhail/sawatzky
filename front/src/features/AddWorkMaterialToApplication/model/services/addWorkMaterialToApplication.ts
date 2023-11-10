@@ -17,11 +17,21 @@ export const addWorkMaterialToApplication = createAsyncThunk<
       if (!formData.applicationId) {
         throw new Error('Не найдено ID запроса');
       }
-      const response = await extra.api.patch<WorkMaterial>(`/api/v1/applications/update/${formData.applicationId}/`, {
-        workMaterials: [...formData?.prevWorkMaterials ?? [], formData.workMaterial],
-      });
-      if (!response.data) {
-        throw new Error('Ошибка добавления услуги');
+
+      if (formData.workMaterial) {
+        const response = await extra.api.patch<WorkMaterial>(`/api/v1/applications/update/${formData.applicationId}/`, {
+          workMaterials: [...formData?.prevWorkMaterials ?? [], formData.workMaterial],
+        });
+        if (!response.data) {
+          throw new Error('Ошибка добавления услуги');
+        }
+      } else {
+        const response = await extra.api.patch<WorkMaterial>(`/api/v1/applications/update/${formData.applicationId}/`, {
+          workMaterials: [...formData?.prevWorkMaterials ?? []],
+        });
+        if (!response.data) {
+          throw new Error('Ошибка добавления услуги');
+        }
       }
       dispatch(addWorkMaterialApplicationFormActions.closeModal());
       dispatch(fetchApplicationDetail(formData.applicationId));

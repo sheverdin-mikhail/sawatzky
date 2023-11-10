@@ -7,7 +7,7 @@ export const workObjectGroupAdapter = createEntityAdapter<WorkObjectGroup>({
   selectId: (workObjectGroup) => workObjectGroup.id,
 });
 
-export const getworkObjectGroup = workObjectGroupAdapter.getSelectors<StateSchema>(
+export const getWorkObjectGroup = workObjectGroupAdapter.getSelectors<StateSchema>(
   (state) => state.workObjectGroup || workObjectGroupAdapter.getInitialState(),
 );
 

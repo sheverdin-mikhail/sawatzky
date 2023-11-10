@@ -16,10 +16,13 @@ export const directoryNavigationSlice = createSlice({
   initialState: directoryNavigationAdapter.getInitialState<DirectoryNavigaionSchema>({
     ids: [
       DirectoryPath.objects,
-      // DirectoryPath.legal_entity,
-      // DirectoryPath.legal_entity_sawatzky,
+      DirectoryPath.object_tree,
+      DirectoryPath.legal_entity,
+      DirectoryPath.legal_entity_sawatzky,
       DirectoryPath.work_task_group,
       DirectoryPath.work_material_group,
+      DirectoryPath.employee,
+      DirectoryPath.employee_sawatzky,
     ],
     entities: {
       [DirectoryPath.objects]: {
@@ -41,6 +44,18 @@ export const directoryNavigationSlice = createSlice({
       [DirectoryPath.work_material_group]: {
         path: DirectoryPath.work_material_group,
         text: 'Группа материалов',
+      },
+      [DirectoryPath.object_tree]: {
+        path: DirectoryPath.object_tree,
+        text: 'Дерево объектов',
+      },
+      [DirectoryPath.employee]: {
+        path: DirectoryPath.employee,
+        text: 'Представители заказчика',
+      },
+      [DirectoryPath.employee_sawatzky]: {
+        path: DirectoryPath.employee_sawatzky,
+        text: 'Сотрудники Sawatzky',
       },
     },
     error: undefined,
