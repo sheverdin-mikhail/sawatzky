@@ -322,6 +322,7 @@ class WorkTaskGroupCreateView(generics.CreateAPIView):
     serializer_class = WorkTaskGroupSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class WorkTaskGroupListView(generics.ListAPIView):
     # представление на создание и вывод списка групп услуг
     queryset = WorkTaskGroup.objects.all()
@@ -380,6 +381,20 @@ class WorkObjectCreateView(generics.CreateAPIView):
     queryset = WorkObject.objects.all()
     serializer_class = WorkObjectSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            group = WorkObjectsGroup.objects.get(id=request.data['workObjectGroup'])
+            newWorkObjectSerializer = self.get_serializer(data=request.data)
+            newWorkObject = newWorkObjectSerializer.is_valid(raise_exception=True)
+            newWorkObject = newWorkObjectSerializer.save()
+            group.workObjects.add(newWorkObject)
+            group.save()
+            return Response(newWorkObjectSerializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
 
 class WorkObjectListView(generics.ListAPIView):
     # представление на создание и вывод списка рабочих объектов
