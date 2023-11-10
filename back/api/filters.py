@@ -4,6 +4,7 @@ from .models import (
     Application,
     WorkTask,
     WorkMaterial,
+    LegalEntity,
 )
 
 
@@ -34,4 +35,12 @@ class WorkMaterialFilter(filters.FilterSet):
         model = WorkMaterial
         fields = ['status']
 
+
+'''Фильтр для LegalEntity'''
+class LegalEntityFilter(filters.FilterSet):
+    status = filters.BooleanFilter(field_name="sawatzki", lookup_expr="exact")
+
+    class Meta:
+        model = LegalEntity
+        fields = ['sawatzki']
 
