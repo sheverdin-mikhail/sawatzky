@@ -18,7 +18,7 @@ export const addWorkObjectGroupFormSlice = createSlice({
     },
     closeModal: (state) => {
       state.isOpen = false;
-      state.formData = undefined;
+      state.formData = {};
     },
     setName: (state, action: PayloadAction<string>) => {
       state.formData = { ...state.formData, name: action.payload };

@@ -1,22 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { WorkObjectGroup } from '../types/workObjectGroup';
-import { fetchWorkObjectGroupList } from './fetchWorkObjectGroupList';
+import { WorkObject } from '../types/workObject';
+import { fetchWorkObjectList } from './fetchWorkObjectList';
 
-export const deleteWorkObjectGroup = createAsyncThunk<
+export const deleteWorkObject = createAsyncThunk<
     void,
     number | string,
     ThunkConfig<string>
 >(
-  'workMaterialGroup/deleteWorkMaterialGroup',
-  async (groupId, { extra, rejectWithValue, dispatch }) => {
+  'workMaterial/deleteWorkMaterial',
+  async (objectId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<WorkObjectGroup>(`/api/v1/work_objects_groups/${groupId}`);
+      const response = await extra.api.delete<WorkObject>(`/api/v1/work_objects/${objectId}`);
       if (response.status !== 204) {
         throw new Error('Ошибка удаления группы объектов');
       }
-      dispatch(fetchWorkObjectGroupList());
+      dispatch(fetchWorkObjectList());
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());

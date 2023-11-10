@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { WorkObjectGroup, fetchWorObjectGroupList } from 'entities/WorkObjectGroup';
+import { WorkObjectGroup, fetchWorkObjectGroupList } from 'entities/WorkObjectGroup';
 import { FormData } from '../../type/addWorkObjectGroup';
+import { addWorkObjectGroupFormActions } from '../../slice/addWorkObjectGroupSlice';
 
 export const createWorkObjectGroup = createAsyncThunk<
     void,
@@ -16,7 +17,8 @@ export const createWorkObjectGroup = createAsyncThunk<
       if (!response.data) {
         throw new Error('Ошибка создания группы услуг');
       }
-      dispatch(fetchWorObjectGroupList());
+      dispatch(fetchWorkObjectGroupList());
+      dispatch(addWorkObjectGroupFormActions.closeModal());
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());
