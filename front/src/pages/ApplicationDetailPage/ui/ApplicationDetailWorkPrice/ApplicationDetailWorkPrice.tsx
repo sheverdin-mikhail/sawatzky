@@ -167,7 +167,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           onClick={() => dispatch(addWorkMaterialApplicationFormActions.openModal())}
         >+ Добавить расходный материал
         </Button>
-        <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Загрузить документ </Button>
+        {/* <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Загрузить документ </Button> */}
         <div className={cls.tablesBlock}>
           {WorkTasksTable}
           {WorkMaterialsTable}
@@ -191,8 +191,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           </p>
         </div>
 
-        <DocList docs={docList} title="Список документов" />
-        <DocList docs={payList} title="Платежный документ" />
+        {/* <DocList docs={docList} title="Список документов" /> */}
+        {/* <DocList docs={payList} title="Платежный документ" /> */}
       </CollapsBoard>
 
       <AddWorkTaskApplicationModal

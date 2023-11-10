@@ -66,9 +66,9 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
       </Title>
       <div className={cls.navigation}>
         <Checkbox id="all" checked={allIsChecked} onChange={checkAllHandler} />
-        <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
+        {/* <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
           <OrderLogo />
-        </Button>
+        </Button> */}
         <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo="добавить запрос" onClick={openModalHandler}>
           <AddLogo />
         </Button>
