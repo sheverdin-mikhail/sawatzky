@@ -7,4 +7,4 @@ tasks.txt
 nginx.conf
 **/.idea/**
 .vscode
-# docker-compose.dev.yml
+docker-compose.dev.yml
