@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     'no-tabs': ['error', { allowIndentationTabs: true }],
     'react/jsx-indent': [1, 2],
+    'linebreak-style': 'off',
     indent: [1, 2],
     'react/jsx-indent-props': [1, 2],
     'react/jsx-filename-extension': [1, {
