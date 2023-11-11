@@ -50,8 +50,8 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
         <ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
         <Progressbar step={info.step} />
         <ApplicationDetailWorkPrice workTasks={workTasks} workMaterials={workMaterials} applicationId={applicationId} />
-        {/* <ApplicationDetailPerformer /> */}
-        {/* <ApplicationDetailActs /> */}
+        <ApplicationDetailPerformer />
+        <ApplicationDetailActs />
       </div>
       <SuccessModal
         onClose={() => setIsOpen(false)}
