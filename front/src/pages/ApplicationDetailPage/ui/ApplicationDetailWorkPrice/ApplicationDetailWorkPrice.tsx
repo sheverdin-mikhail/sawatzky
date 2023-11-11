@@ -29,10 +29,10 @@ import { fetchWorkMaterialGroupList, getWorkMaterialGroup, workMaterialGroupRedu
 import cls from './ApplicationDetailWorkPrice.module.scss';
 
 interface ApplicationDetailWorkPriceProps {
-	className?: string;
-	applicationId: string;
-	workTasks?: ApplicationWorkTask[];
-	workMaterials?: ApplicationWorkMaterial[];
+  className?: string;
+  applicationId: string;
+  workTasks?: ApplicationWorkTask[];
+  workMaterials?: ApplicationWorkMaterial[];
 }
 
 const reducers: ReducersList = {
