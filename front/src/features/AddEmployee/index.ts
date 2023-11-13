@@ -1,1 +1,1 @@
-export { AddEmployeeModal } from './ui/AddEmployeeModal/AddEmployeeModal';
+export { CreateEmployeeModal } from './ui/CreateEmployeeModal/CreateEmployeeModal';
