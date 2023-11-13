@@ -9,7 +9,7 @@ import { CreateApplicationModal } from 'features/CreateApplication';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { CreateEmployeeModal } from 'features/AddEmployee';
+import { CreateEmployeeModal } from 'features/CreateEmployee';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import cls from './ApplicationsPageContent.module.scss';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
