@@ -1,0 +1,82 @@
+.directoryObjectTreeBranch {
+  max-width: 156px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  line-height: 14px;
+  text-align: center;
+
+  &.active {
+    max-width: 320px;
+  }
+}
+
+.chief {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding: 14px;
+  color: #fff;
+  background-color: var(--dark-gray-bg-color);
+  border-radius: 10px;
+  border: 2px solid var(--dark-gray-bg-color);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border .3s ease-in-out;
+
+  &.active,
+  &:hover {
+    border: 2px solid var(--blue-color);
+  }
+}
+
+.bold {
+  font-weight: var(--font-weight-xl);
+}
+
+.info {
+  color: var(--dark-gray-bg-color);
+}
+
+.object {
+  width: 100%;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: var(--gray-bg-color);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background-color .3s ease-in-out, width .3s ease-in-out;
+
+  &.active,
+  &:hover {
+    background-color: var(--blue-bg-color);
+  }
+}
+
+.lists {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--dark-gray-color);
+
+  &.blue {
+    background-color: var(--blue-bg-color);
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
