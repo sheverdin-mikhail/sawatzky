@@ -14,6 +14,7 @@ from .models import (
     WorkMaterialGroup,
     ApplicationWorkTask,
     ApplicationWorkMaterial,
+    Document,
 )
 
 
@@ -236,14 +237,30 @@ class UpdateWorkTaskSerializer(ModelSerializer):
         return instance
 
 
+class DocumentUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Document
+        fields = ['docType', 'file']
+
+    def update(self, instance, validated_data):
+        instance.docType = validated_data.get('docType', instance.docType)
+        file = validated_data.get('file')
+        if file:
+            instance.file = file
+        instance.save()
+        return instance
+
+
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
+    documents = DocumentUpdateSerializer(many=True)
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials']
+        fields = ['workTasks', 'workMaterials', 'documents']
 
     def update(self, instance, validated_data):
 
@@ -280,6 +297,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
             else:
                 # Если work_material_data пуст, удаляем все связанные workMaterials
                 instance.applicationworkmaterial_set.all().delete()
+
 
             return instance
 
