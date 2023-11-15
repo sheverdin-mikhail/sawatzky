@@ -38,6 +38,7 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
           counterparties={item.counterparties}
           employee={item.employee}
           isActive={isActive}
+          setIsActiveSub={setIsActiveSub}
         />
       ))}
     </div>

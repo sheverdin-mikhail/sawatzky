@@ -9,29 +9,32 @@ interface DirectoryObjectTreeSubBranchProps {
   counterparties: string[];
   employee: string[];
   isActive: boolean;
+  setIsActiveSub: any;
 }
 
 export const DirectoryObjectTreeSubBranch: React.FC<DirectoryObjectTreeSubBranchProps> = (props) => {
   const {
-    number, name, counterparties, employee, isActive,
+    number, name, counterparties, employee, isActive, setIsActiveSub,
   } = props;
 
-  const [isActiveSub, setIsActiveSub] = useState<boolean>(false);
+  const [isActiveSubTree, setIsActiveSubTree] = useState<boolean>(false);
 
   const onToggleActiveSub = useCallback(() => {
-    setIsActiveSub((prev) => !prev);
+    setIsActiveSubTree((prev) => !prev);
   }, []);
+
+  setIsActiveSub(isActiveSubTree);
 
   return (
     <div className={classNames(cls.info, { [cls.active]: isActive }, [])}>
       <div
-        className={classNames(cls.object, { [cls.active]: isActiveSub }, [])}
+        className={classNames(cls.object, { [cls.active]: isActiveSubTree }, [])}
         onClick={onToggleActiveSub}
       >
         <p className={cls.text}>{number}</p>
         <p className={cls.bold}>{name}</p>
       </div>
-      <div className={classNames(cls.lists, { [cls.active]: isActiveSub }, [])}>
+      <div className={classNames(cls.lists, { [cls.active]: isActiveSubTree }, [])}>
         <div className={cls.names}>
           <div className={cls.name}>Контрагенты</div>
           <ul className={classNames(cls.name, {}, [cls.list])}>
