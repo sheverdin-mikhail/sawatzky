@@ -1,3 +1,6 @@
 .directoryObjectTreeBranches {
-  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  overflow-y: auto;
 }
