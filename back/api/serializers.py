@@ -237,16 +237,17 @@ class UpdateWorkTaskSerializer(ModelSerializer):
         return instance
 
 
-class DocumentUpdateSerializer(ModelSerializer):
+class UpdateDocumentSerializer(ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['docType', 'file']
+        fields = ['name', 'docType', 'file']
 
     def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
         instance.docType = validated_data.get('docType', instance.docType)
         file = validated_data.get('file')
-        if file:
+        if file is not None:
             instance.file = file
         instance.save()
         return instance
@@ -256,7 +257,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
-    documents = DocumentUpdateSerializer(many=True)
+    documents = UpdateDocumentSerializer(many=True)
 
     class Meta:
         model = Application
@@ -298,6 +299,25 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                 # Если work_material_data пуст, удаляем все связанные workMaterials
                 instance.applicationworkmaterial_set.all().delete()
 
+            # Обработка обновления documents
+            document_data = validated_data.get('documents')
+            if document_data is not None:
+                current_documents = Document.objects.filter(application=instance)
+                for current_document in current_documents:
+                    if not any(item['id'] == current_document.id for item in document_data):
+                        current_document.delete()
+                for item in document_data:
+                    document_instance, created = Document.objects.get_or_create(id=item['id'],
+                                                                                defaults={'application': instance})
+                    document_instance.name = item.get('name', document_instance.name)
+                    document_instance.docType = item.get('docType', document_instance.docType)
+                    file = item.get('file')
+                    if file is not None:
+                        document_instance.file = file
+                    document_instance.save()
+            else:
+                # Если document_data пуст, удаляем все связанные документы
+                instance.documents.all().delete()
 
             return instance
 
