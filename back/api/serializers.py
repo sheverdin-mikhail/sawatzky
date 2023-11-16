@@ -125,11 +125,25 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
         fields = ['actualCount', 'workMaterial']
 
 
+class ActSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = ['id', 'name', 'created_at', 'file']
+
+
+class PaymentSlipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = ['id', 'name', 'created_at', 'file']
+
+
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок с расширенным полем creator
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
+    acts = ActSerializer(many=True, read_only=True, source='documents.filter(docType="Act")')
+    payment_slips = PaymentSlipSerializer(many=True, read_only=True, source='documents.filter(docType="Payment_slip")')
 
     class Meta:
         model = Application
