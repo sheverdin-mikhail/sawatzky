@@ -18,14 +18,13 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
   } = props;
 
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isActiveSub, setIsActiveSub] = useState<boolean>(false);
 
   const onToggleActive = useCallback(() => {
     setIsActive((prev) => !prev);
   }, []);
 
   return (
-    <div className={classNames(cls.directoryObjectTreeBranch, { [cls.active]: isActiveSub }, [])}>
+    <div className={cls.directoryObjectTreeBranch}>
       <div className={classNames(cls.chief, { [cls.active]: isActive }, [])} onClick={onToggleActive}>
         <p className={cls.text}>{department}</p>
         <p className={cls.text}>{position} <span className={cls.bold}>{name}</span></p>
@@ -38,7 +37,6 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
           counterparties={item.counterparties}
           employee={item.employee}
           isActive={isActive}
-          setIsActiveSub={setIsActiveSub}
         />
       ))}
     </div>
