@@ -317,13 +317,14 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
             if document_data is not None:
                 current_documents = Document.objects.filter(application=instance)
                 for current_document in current_documents:
-                    if not any(item['id'] == current_document.id for item in document_data):
+                    if not any(item['documents'] == current_document.documents for item in document_data):
                         current_document.delete()
                 for item in document_data:
-                    document_instance, created = Document.objects.get_or_create(id=item['id'],
-                                                                                defaults={'application': instance})
-                    document_instance.docType = item.get('docType', document_instance.docType)
-                    file = item.get('file')
+                    document_instance, created = Document.objects.get_or_create(
+                        application=instance, documents=item['documents']
+                    )
+                    document_instance.docType = item['docType']
+                    file = item['file']
                     if file is not None:
                         document_instance.file = file
                     document_instance.save()
