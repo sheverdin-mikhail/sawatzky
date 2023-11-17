@@ -49,7 +49,7 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
       <Input className={cls.input} placeholder="Должность" />
 
       <p className={cls.subtitle}>Диспетчер объектов</p>
-      <Select className={classNames(cls.input, {}, [className])} placeholder="Выбор нескольких объектов" options={workObjectsOptions} />
+      <Select className={classNames(cls.input, {}, [cls.select])} placeholder="Выбор нескольких объектов" options={workObjectsOptions} />
 
       <Switch className={cls.switch} id="status" label="Статус сотрудника" checked />
 

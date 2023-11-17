@@ -9,7 +9,6 @@ import { CreateApplicationModal } from 'features/CreateApplication';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { CreateEmployeeModal } from 'features/CreateEmployee';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import cls from './ApplicationsPageContent.module.scss';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
@@ -79,7 +78,6 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
       </div>
       <ApplicationPreviewList className={cls.list} applications={applications} />
       <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
-      <CreateEmployeeModal />
     </DynamicModuleLoader>
 
   );
