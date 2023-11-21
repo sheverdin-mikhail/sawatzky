@@ -5,11 +5,11 @@ import cls from './Checkbox.module.scss';
 type HTMLCheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
 interface CheckboxProps extends HTMLCheckboxProps {
-    className?: string;
-    label?: string
-    id: string;
-    checked?: boolean;
-    onChange?: (value: boolean) => void
+  className?: string;
+  label?: string
+  id: string;
+  checked?: boolean;
+  onChange?: (value: boolean) => void
 }
 
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
@@ -30,7 +30,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
         onChange={onChangeHandler}
         className={classNames(cls.checkbox, {}, [className])}
       />
-      <label htmlFor={id} className={cls.label}>{ label && label }</label>
+      <label htmlFor={id} className={cls.label}>{label && label}</label>
     </div>
   );
 };
