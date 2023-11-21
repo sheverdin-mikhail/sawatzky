@@ -255,10 +255,11 @@ class UpdateDocumentSerializer(ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['docType', 'file']
+        fields = ['docType', 'name', 'file', ]
 
     def update(self, instance, validated_data):
         instance.docType = validated_data.get('docType', instance.docType)
+        instance.name = validated_data.get('name', instance.name)
         file = validated_data.get('file')
         if file is not None:
             instance.file = file
@@ -324,6 +325,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                         application=instance, documents=item['documents']
                     )
                     document_instance.docType = item['docType']
+                    document_instance.name = item['name']
                     file = item['file']
                     if file is not None:
                         document_instance.file = file
