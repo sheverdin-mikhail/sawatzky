@@ -60,6 +60,33 @@
   height: 10px;
 }
 
+.selectedList {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.selected {
+  font-size: var(--font-size-s2);
+  line-height: var(--font-line-s);
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid #000;
+}
+
+.more {
+  font-size: var(--font-size-s2);
+  line-height: var(--font-line-s);
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: var(--blue-bg-color);
+}
+
 .optionCheckbox {
   display: flex;
   flex-direction: row;
@@ -69,4 +96,8 @@
 
 .checkbox {
   margin-left: 10px;
+}
+
+.checkedText {
+  color: var(--blue-color);
 }

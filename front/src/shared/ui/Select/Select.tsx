@@ -1,7 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useState } from 'react';
+import { ReactComponent as CloseIcon } from 'shared/assets/icons/close-icon.svg';
 import cls from './Select.module.scss';
-import { Checkbox } from '../Checkbox/Checkbox';
+import { Checkbox, CheckboxThemes } from '../Checkbox/Checkbox';
+import { Button, ButtonThemes } from '../Button/Button';
 
 interface SelectProps {
   className?: string;
@@ -10,6 +12,7 @@ interface SelectProps {
   onChange?: (value: SelectOptionType) => void;
   value?: SelectOptionType;
   multi?: boolean;
+  selected?: SelectOptionType[];
 }
 
 export interface SelectOptionType {
@@ -19,7 +22,7 @@ export interface SelectOptionType {
 
 export const Select: React.FC<SelectProps> = (props) => {
   const {
-    className, placeholder, options, onChange, multi,
+    className, placeholder, options, onChange, multi, selected,
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({ value: null, text: placeholder ?? 'Выберите опцию' });
@@ -40,36 +43,56 @@ export const Select: React.FC<SelectProps> = (props) => {
       }, [className])}
       onClick={toggleSelect}
     >
-      <span className={cls.selectedItem}>{selectedOption.text}</span>
       {multi ? (
-        <ul className={cls.optionsList}>
-          {
-            options?.map((option) => (
-              <li
-                key={option.value}
-                className={cls.optionCheckbox}
-              >
-                <Checkbox className={cls.checkbox} id={option.value} />
-                {option.text}
-              </li>
-            ))
-          }
-        </ul>
+        <div>
+          {selected?.length === 0
+            ? <span className={cls.selectedItem}>{selectedOption.text}</span>
+            : (
+              <div className={cls.selectedList}>
+                {selected?.map((item) => (
+                  <div
+                    className={cls.selected}
+                    key={item.value}
+                  >
+                    {item.text}
+                    <Button theme={ButtonThemes.CLEAR}><CloseIcon /></Button>
+                  </div>
+                ))}
+                {/* указать при какой именно длине массива выводить этот спан */}
+                <span className={cls.more}>ещё</span>
+              </div>
+            )}
+          <ul className={cls.optionsList}>
+            {
+              options?.map((option) => (
+                <li
+                  key={option.value}
+                  className={classNames(cls.optionCheckbox, {}, [])}
+                >
+                  <Checkbox className={cls.checkbox} id={option.value} theme={CheckboxThemes.BLUE} />
+                  {option.text}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       ) : (
-        <ul className={cls.optionsList}>
-          {
-            options?.map((option) => (
-              <li
-                key={option.value}
-                className={cls.option}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.text}
-              </li>
-            ))
-          }
-        </ul>
-
+        <div>
+          <span className={cls.selectedItem}>{selectedOption.text}</span>
+          <ul className={cls.optionsList}>
+            {
+              options?.map((option) => (
+                <li
+                  key={option.value}
+                  className={cls.option}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.text}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       )}
     </div>
   );
