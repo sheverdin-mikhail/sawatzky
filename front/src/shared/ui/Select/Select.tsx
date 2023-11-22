@@ -2,8 +2,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useState } from 'react';
 import { ReactComponent as CloseIcon } from 'shared/assets/icons/close-icon.svg';
 import cls from './Select.module.scss';
-import { Checkbox, CheckboxThemes } from '../Checkbox/Checkbox';
 import { Button, ButtonThemes } from '../Button/Button';
+import { MultiselectItem } from './MultiselectItem/MultiselectItem';
 
 interface SelectProps {
   className?: string;
@@ -65,13 +65,11 @@ export const Select: React.FC<SelectProps> = (props) => {
           <ul className={cls.optionsList}>
             {
               options?.map((option) => (
-                <li
+                <MultiselectItem
                   key={option.value}
-                  className={classNames(cls.optionCheckbox, {}, [])}
-                >
-                  <Checkbox className={cls.checkbox} id={option.value} theme={CheckboxThemes.BLUE} />
-                  {option.text}
-                </li>
+                  id={option.value}
+                  text={option.text}
+                />
               ))
             }
           </ul>
