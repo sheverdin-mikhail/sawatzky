@@ -4,6 +4,7 @@ import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Input } from 'shared/ui/Input/Input';
 import { Switch } from 'shared/ui/Switch/Switch';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
+import { useCallback, useState } from 'react';
 import cls from './CreateEmployeeForm.module.scss';
 
 interface CreateEmployeeFormProps {
@@ -12,6 +13,12 @@ interface CreateEmployeeFormProps {
 
 export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
   const { className } = props;
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const onToggleChecked = useCallback(() => {
+    setIsChecked((prev) => !prev);
+  }, []);
 
   const workObjectGrops = [
     {
@@ -51,7 +58,7 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
       <p className={cls.subtitle}>Диспетчер объектов</p>
       <Select className={classNames(cls.input, {}, [cls.select])} placeholder="Выбор нескольких объектов" options={workObjectsOptions} />
 
-      <Switch className={cls.switch} id="status" label="Статус сотрудника" checked />
+      <Switch className={cls.switch} id="status" label="Статус сотрудника" checked={isChecked} onChange={onToggleChecked} />
 
       <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID}>Создать</Button>
     </div>
