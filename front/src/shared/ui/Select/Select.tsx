@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ReactComponent as CloseIcon } from 'shared/assets/icons/close-icon.svg';
 import cls from './Select.module.scss';
 import { Button, ButtonThemes } from '../Button/Button';
@@ -27,6 +27,23 @@ export const Select: React.FC<SelectProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({ value: null, text: placeholder ?? 'Выберите опцию' });
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const closeSelect = (e: any) => {
+      console.log('nope');
+      if (e.target instanceof Node && isOpen && !ref.current?.contains(e.target)) {
+        console.log('yep');
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('click', closeSelect);
+    return () => {
+      window.removeEventListener('click', closeSelect);
+    };
+  }, [isOpen]);
+
   const toggleSelect = () => {
     setIsOpen((prev) => !prev);
   };
@@ -42,6 +59,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         [cls.open]: isOpen,
       }, [className])}
       onClick={toggleSelect}
+      ref={ref}
     >
       {multi ? (
         <div>
