@@ -23,6 +23,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   } = props;
 
   const [isClosing, setIsClosing] = useState(false);
+  const overlayRef = useRef(null);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const closeHandler = useCallback(() => {
@@ -35,9 +36,11 @@ export const Modal: React.FC<ModalProps> = (props) => {
     }
   }, [onClose]);
 
-  const onContentClick = useCallback((e: any) => {
-    e.stopPropagation();
-  }, []);
+  const overlayClickHandler = useCallback((e: any) => {
+    if (e.target === overlayRef.current) {
+      closeHandler();
+    }
+  }, [closeHandler]);
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -64,8 +67,8 @@ export const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Portal>
       <div className={classNames(cls.modal, mods)}>
-        <div className={cls.overlay} onClick={closeHandler}>
-          <div className={classNames(cls.content, {}, [className])} onClick={onContentClick}>
+        <div className={cls.overlay} onClick={overlayClickHandler} ref={overlayRef}>
+          <div className={classNames(cls.content, {}, [className])}>
             {children}
           </div>
         </div>

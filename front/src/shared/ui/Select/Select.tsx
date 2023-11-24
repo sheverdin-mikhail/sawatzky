@@ -31,9 +31,7 @@ export const Select: React.FC<SelectProps> = (props) => {
 
   useEffect(() => {
     const closeSelect = (e: any) => {
-      console.log('nope');
       if (e.target instanceof Node && isOpen && !ref.current?.contains(e.target)) {
-        console.log('yep');
         setIsOpen(false);
       }
     };
