@@ -293,8 +293,9 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                     work_task_instance.actualTime = item['actualTime']
                     work_task_instance.save()
             else:
+                pass
                 # Если work_task_data пуст, удаляем все связанные workTasks
-                instance.applicationworktask_set.all().delete()
+                # instance.applicationworktask_set.all().delete()
 
             # Обработка обновления workMaterials
             work_material_data = validated_data.get('applicationworkmaterial_set')
@@ -310,8 +311,9 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                     work_material_instance.actualCount = item['actualCount']
                     work_material_instance.save()
             else:
+                pass
                 # Если work_material_data пуст, удаляем все связанные workMaterials
-                instance.applicationworkmaterial_set.all().delete()
+                # instance.applicationworkmaterial_set.all().delete()
 
             # Обработка обновления documents
             document_data = validated_data.get('documents')
