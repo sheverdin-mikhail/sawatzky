@@ -21,7 +21,7 @@ import { createTokensByUsername } from '../../model/services/createTokensByUsern
 import { fetchUserDataByToken } from '../../model/services/fetchUserDataByToken/fetchUserDataByToken';
 
 interface LoginFormProps {
-    className?: string;
+  className?: string;
 }
 
 const initialReducers: ReducersList = {

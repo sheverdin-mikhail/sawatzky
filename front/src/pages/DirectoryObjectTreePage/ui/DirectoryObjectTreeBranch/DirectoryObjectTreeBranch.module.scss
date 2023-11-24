@@ -1,0 +1,39 @@
+.directoryObjectTreeBranch {
+  max-width: 320px;
+  min-width: 156px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  line-height: 14px;
+  text-align: center;
+  transition: min-width .3s ease-in-out;
+}
+
+//для правильной работы должно срабатывать на класс collapse, но срабатывает только на active
+.directoryObjectTreeBranch:has(.object, .active) {
+  min-width: 320px;
+  max-width: 320px;
+}
+
+.chief {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding: 14px;
+  color: #fff;
+  background-color: var(--dark-gray-bg-color);
+  border-radius: 10px;
+  border: 2px solid var(--dark-gray-bg-color);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border .3s ease-in-out;
+
+  &.active,
+  &:hover {
+    border: 2px solid var(--blue-color);
+  }
+}
+
+.bold {
+  font-weight: var(--font-weight-xl);
+}

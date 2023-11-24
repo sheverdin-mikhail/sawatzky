@@ -1,0 +1,14 @@
+.optionCheckbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.checkbox {
+  margin-left: 10px;
+}
+
+.checkedText {
+  color: var(--blue-color);
+}

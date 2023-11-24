@@ -5,11 +5,11 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
 import { useCallback, useState } from 'react';
-import { CreateLegalEntityModal } from 'features/CreateLegalEntity';
+import { CreateEmployeeModal } from 'features/CreateEmployee';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
-	className?: string;
+  className?: string;
 }
 
 const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps> = (props) => {
@@ -43,10 +43,9 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
         </Button>
       </div>
       <Table data={tableData} />
-      <CreateLegalEntityModal
-        onClose={onLegalEntityFormCloseHandler}
+      <CreateEmployeeModal
         isOpen={legalEntityFormIsOpen}
-        className={cls.form}
+        onClose={onLegalEntityFormCloseHandler}
       />
 
     </DirectoryPageWrapper>

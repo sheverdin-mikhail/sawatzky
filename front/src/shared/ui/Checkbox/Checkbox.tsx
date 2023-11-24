@@ -5,16 +5,22 @@ import cls from './Checkbox.module.scss';
 type HTMLCheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
 interface CheckboxProps extends HTMLCheckboxProps {
-    className?: string;
-    label?: string
-    id: string;
-    checked?: boolean;
-    onChange?: (value: boolean) => void
+  className?: string;
+  label?: string
+  id: string;
+  checked?: boolean;
+  onChange?: (value: boolean) => void;
+  theme?: CheckboxThemes;
+}
+
+export enum CheckboxThemes {
+  USUAL = 'label',
+  BLUE = 'blue',
 }
 
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
   const {
-    className, label, id, onChange, checked = false, ...otherProps
+    className, label, id, onChange, checked = false, theme = CheckboxThemes.USUAL, ...otherProps
   } = props;
 
   const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +36,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
         onChange={onChangeHandler}
         className={classNames(cls.checkbox, {}, [className])}
       />
-      <label htmlFor={id} className={cls.label}>{ label && label }</label>
+      <label htmlFor={id} className={classNames(cls.label, {}, [cls[theme]])}>{label && label}</label>
     </div>
   );
 };
