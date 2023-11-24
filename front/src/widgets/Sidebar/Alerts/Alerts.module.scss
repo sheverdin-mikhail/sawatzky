@@ -8,16 +8,18 @@
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
     min-height: 47px;
     max-width: var(--sidebar-width);
+    transition: max-width 0.3s ease-in-out;
 }
 
 .collapsed {
-    width: var(--sidebar-collapsed-width);
+    max-width: var(--sidebar-collapsed-width);
 }
 
 .alertBtn {
     position: absolute;
     top: 11px;
     right: -10px;
+    transition: top 0.3s ease-in-out;
 
     &.active {
         top: 24px;

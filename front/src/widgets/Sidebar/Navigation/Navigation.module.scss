@@ -5,6 +5,8 @@
   background: #FFF;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 15%);
   overflow: hidden;
+  width: var(--sidebar-width);
+  transition: width 0.3s ease-in-out;
 }
 
 
