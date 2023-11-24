@@ -23,8 +23,8 @@ export const Modal: React.FC<ModalProps> = (props) => {
   } = props;
 
   const [isClosing, setIsClosing] = useState(false);
+  const overlayRef = useRef(null);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
-  const ref = useRef<HTMLDivElement>(null);
 
   const closeHandler = useCallback(() => {
     if (onClose) {
@@ -36,8 +36,8 @@ export const Modal: React.FC<ModalProps> = (props) => {
     }
   }, [onClose]);
 
-  const closeModal = useCallback((e: any) => {
-    if (e.target === ref.current) {
+  const overlayClickHandler = useCallback((e: any) => {
+    if (e.target === overlayRef.current) {
       closeHandler();
     }
   }, [closeHandler]);
@@ -67,7 +67,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Portal>
       <div className={classNames(cls.modal, mods)}>
-        <div className={cls.overlay} onClick={closeModal} ref={ref}>
+        <div className={cls.overlay} onClick={overlayClickHandler} ref={overlayRef}>
           <div className={classNames(cls.content, {}, [className])}>
             {children}
           </div>
