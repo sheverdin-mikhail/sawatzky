@@ -44,4 +44,7 @@ urlpatterns = [
     path('work_objects/<int:pk>/', views.WorkObjectDetailView.as_view()),
 
     path('employee/create/', views.EmployeeCreateView.as_view()),
+
+    path('documents/create/', views.DocumentsCreateView.as_view()),
+    path('documents/<int:pk>/', views.DocumentsDetailView.as_view()),
 ]

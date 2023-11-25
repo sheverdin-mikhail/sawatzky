@@ -39,6 +39,7 @@ from .serializers import (
     UserRegistrationSerializer,
     ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
     LegalEntityDetailSerializer,
+    DocumentsSerializer,
 )
 
 from .models import (
@@ -53,6 +54,7 @@ from .models import (
     WorkTaskGroup,
     WorkMaterialGroup,
     WorkObject,
+Document,
 )
 
 
@@ -111,7 +113,6 @@ class ApplicationUpdateView(generics.UpdateAPIView):
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
-          
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
@@ -453,3 +454,25 @@ class EmployeeCreateView(generics.CreateAPIView):
 
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
+
+
+"""Document"""
+class DocumentsCreateView(generics.CreateAPIView):
+    serializer_class = DocumentsSerializer
+    queryset = Document.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class DocumentsDetailView(generics.RetrieveDestroyAPIView):
+    serializer_class = DocumentsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            doc = Document.objects.filter(id=pk)
+            return doc
+
+        except (KeyError, Document.DoesNotExist):
+            return Response({'message': 'Документ не найден'}, status=status.HTTP_404_NOT_FOUND)
