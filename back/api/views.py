@@ -457,10 +457,10 @@ class EmployeeCreateView(generics.CreateAPIView):
 
 
 """Document"""
-# class DocumentsCreateView(generics.CreateAPIView):
-#     serializer_class = DocumentsSerializer
-#     queryset = Document.objects.all()
-#     permission_classes = [permissions.IsAuthenticated]
+class DocumentsCreateView(generics.CreateAPIView):
+    serializer_class = DocumentsSerializer
+    queryset = Document.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class DocumentsDetailView(generics.RetrieveDestroyAPIView):
