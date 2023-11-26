@@ -1,5 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useEffect, useRef, useState } from 'react';
+import {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import { ReactComponent as CloseIcon } from 'shared/assets/icons/close-icon.svg';
 import cls from './Select.module.scss';
 import { Button, ButtonThemes } from '../Button/Button';
@@ -61,14 +63,22 @@ export const Select: React.FC<SelectProps> = (props) => {
     onChange?.(option);
   };
 
-  const addTag = (item: any) => {
+  const addTag = useCallback((item: any) => {
     setSelectedItems(selectedItems.concat(item));
-  };
+  }, [selectedItems]);
 
-  const removeTag = (item: any) => {
+  const removeTag = useCallback((item: any) => {
     const filtered = selectedItems.filter((e) => e !== item);
     setSelectedItems(filtered);
-  };
+  }, [selectedItems]);
+  const onMultiChange = useCallback((item: any) => {
+    const changedOption = options?.find((option) => option.value === item.id);
+    if (item.value) {
+      addTag(changedOption);
+    } else {
+      removeTag(changedOption);
+    }
+  }, [addTag, removeTag, options]);
 
   return (
     <div
@@ -90,7 +100,14 @@ export const Select: React.FC<SelectProps> = (props) => {
                     key={item.value}
                   >
                     {item.text}
-                    <Button theme={ButtonThemes.CLEAR} onClick={() => removeTag(item.value)}><CloseIcon /></Button>
+                    <Button
+                      theme={ButtonThemes.CLEAR}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeTag(item);
+                      }}
+                    ><CloseIcon />
+                    </Button>
                   </div>
                 ))}
                 {/* указать при какой именно длине массива выводить этот спан */}
@@ -104,6 +121,8 @@ export const Select: React.FC<SelectProps> = (props) => {
                   key={option.value}
                   id={option.value}
                   text={option.text}
+                  onChange={onMultiChange}
+                  checked={Boolean(selectedItems.find((item) => item.value === option.value))}
                 />
               ))
             }
