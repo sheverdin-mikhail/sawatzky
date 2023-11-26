@@ -457,10 +457,10 @@ class EmployeeCreateView(generics.CreateAPIView):
 
 
 """Document"""
-class DocumentsCreateView(generics.CreateAPIView):
-    serializer_class = DocumentsSerializer
-    queryset = Document.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+# class DocumentsCreateView(generics.CreateAPIView):
+#     serializer_class = DocumentsSerializer
+#     queryset = Document.objects.all()
+#     permission_classes = [permissions.IsAuthenticated]
 
 
 class DocumentsDetailView(generics.RetrieveDestroyAPIView):
@@ -476,3 +476,26 @@ class DocumentsDetailView(generics.RetrieveDestroyAPIView):
 
         except (KeyError, Document.DoesNotExist):
             return Response({'message': 'Документ не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class DocumentToApplicationCreateView(generics.CreateAPIView):
+    #документ с привязкой к заявке
+    serializer_class = DocumentsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        try:
+
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            document = serializer.save()
+
+            application_pk = self.kwargs.get('pk')
+            application = Application.objects.get(pk=application_pk)
+
+            application.documents.add(document)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except Application.DoesNotExist:
+            return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)

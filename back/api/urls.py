@@ -45,6 +45,6 @@ urlpatterns = [
 
     path('employee/create/', views.EmployeeCreateView.as_view()),
 
-    path('documents/create/', views.DocumentsCreateView.as_view()),
+    path('documents/create/', views.DocumentToApplicationCreateView.as_view()),
     path('documents/<int:pk>/', views.DocumentsDetailView.as_view()),
 ]
