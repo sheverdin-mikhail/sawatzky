@@ -22,10 +22,20 @@ export interface SelectOptionType {
 
 export const Select: React.FC<SelectProps> = (props) => {
   const {
-    className, placeholder, options, onChange, multi, selected,
+    className, placeholder, options, onChange, multi,
   } = props;
+
+  const selected: any[] = [
+  ];
+
+  const selectedItemsOptions: SelectOptionType[] = selected.map((item) => ({
+    value: item.id,
+    text: item.name,
+  }));
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({ value: null, text: placeholder ?? 'Выберите опцию' });
+  const [selectedItems, setSelectedItems] = useState(selectedItemsOptions);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -51,6 +61,15 @@ export const Select: React.FC<SelectProps> = (props) => {
     onChange?.(option);
   };
 
+  const addTag = (item: any) => {
+    setSelectedItems(selectedItems.concat(item));
+  };
+
+  const removeTag = (item: any) => {
+    const filtered = selectedItems.filter((e) => e !== item);
+    setSelectedItems(filtered);
+  };
+
   return (
     <div
       className={classNames(cls.select, {
@@ -61,17 +80,17 @@ export const Select: React.FC<SelectProps> = (props) => {
     >
       {multi ? (
         <div>
-          {selected?.length === 0
+          {selectedItems?.length === 0
             ? <span className={cls.selectedItem}>{selectedOption.text}</span>
             : (
               <div className={cls.selectedList}>
-                {selected?.map((item) => (
+                {selectedItems?.map((item) => (
                   <div
                     className={cls.selected}
                     key={item.value}
                   >
                     {item.text}
-                    <Button theme={ButtonThemes.CLEAR}><CloseIcon /></Button>
+                    <Button theme={ButtonThemes.CLEAR} onClick={() => removeTag(item.value)}><CloseIcon /></Button>
                   </div>
                 ))}
                 {/* указать при какой именно длине массива выводить этот спан */}

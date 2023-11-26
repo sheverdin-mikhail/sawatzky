@@ -27,21 +27,6 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
     text: item.name,
   }));
 
-  const selectedItems: any[] = [
-    {
-      id: '15',
-      name: 'Группа объектов № 15',
-    },
-    {
-      id: '16',
-      name: 'Группа объектов № 16',
-    },
-  ];
-  const selectedItemsOptions: SelectOptionType[] = selectedItems.map((item) => ({
-    value: item.id,
-    text: item.name,
-  }));
-
   const workObjects = [
     {
       id: '1',
@@ -91,7 +76,7 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
         <div className={cls.column}>
           <Select className={cls.input} placeholder="Группа объектов" options={workObjectGropsOptions} />
           <Select className={cls.input} placeholder="Объект" options={workObjectsOptions} />
-          <Select className={cls.input} placeholder="Выбор нескольких категорий" options={categoriesOptions} selected={selectedItemsOptions} multi />
+          <Select className={cls.input} placeholder="Выбор нескольких категорий" options={categoriesOptions} multi />
           <Input placeholder="Название" className={cls.input} />
           <Input placeholder="Руководитель" className={cls.input} />
           <Input placeholder="Юридический адрес" className={cls.input} />
