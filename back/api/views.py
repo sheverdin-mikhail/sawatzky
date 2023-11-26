@@ -425,6 +425,7 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
             return Response({'message': 'Рабочий объект не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
+
 """Employee"""
 class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
@@ -456,14 +457,17 @@ class EmployeeCreateView(generics.CreateAPIView):
             return Response(error.detail, status=error.status_code)
 
 
+
 """Document"""
 class DocumentsCreateView(generics.CreateAPIView):
+    # представление на создание документов
     serializer_class = DocumentsSerializer
     queryset = Document.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
 
 class DocumentsDetailView(generics.RetrieveDestroyAPIView):
+    # представление на вывод списка рабочих объектов
     serializer_class = DocumentsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -479,7 +483,7 @@ class DocumentsDetailView(generics.RetrieveDestroyAPIView):
 
 
 class DocumentToApplicationCreateView(generics.CreateAPIView):
-    #документ с привязкой к заявке
+    # представление на создание документа с привязкой к заявке
     serializer_class = DocumentsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
