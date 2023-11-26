@@ -137,6 +137,20 @@ class PaymentSlipSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'created_at', 'file']
 
 
+class DocumentsSerializer(ModelSerializer):
+
+    class Meta:
+        model = Document
+        fields = '__all__'
+
+    def update(self, instance, validated_data):
+        instance.docType = validated_data.get('docType', instance.docType)
+        instance.name = validated_data.get('name', instance.name)
+        instance.file = validated_data.get('file', instance.file)
+        instance.save()
+        return instance
+
+
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок с расширенным полем creator
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
@@ -144,7 +158,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
     acts = ActSerializer(many=True, read_only=True, source='documents.filter(docType="Act")')
     payment_slips = PaymentSlipSerializer(many=True, read_only=True, source='documents.filter(docType="Payment_slip")')
-
+    documents = DocumentsSerializer(many=True)
     class Meta:
         model = Application
         fields = '__all__'
@@ -275,19 +289,6 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 #             return document
 #         else:
 #             return Document.objects.create(**validated_data)
-
-class DocumentsSerializer(ModelSerializer):
-
-    class Meta:
-        model = Document
-        fields = '__all__'
-
-    def update(self, instance, validated_data):
-        instance.docType = validated_data.get('docType', instance.docType)
-        instance.name = validated_data.get('name', instance.name)
-        instance.file = validated_data.get('file', instance.file)
-        instance.save()
-        return instance
 
 
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):

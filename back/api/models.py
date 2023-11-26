@@ -51,7 +51,7 @@ class Employee(models.Model):
     ROLES = (
         ('dispatcher', 'Диспетчер'),
         ('performer', 'Исполнитель'),
-        ('dispatcher_performer', 'Диспетчер/Исполнитель'),
+        ('dispatcherPerformer', 'Диспетчер/Исполнитель'),
     )
 
     GROUPS = (
@@ -241,8 +241,8 @@ class Application(models.Model):
         ("new", 'Создана'),
         ('processed', 'Обрабатывается'),
         ('coordination', 'На согласовании у заказчика'),
-        ('payment_coordination', 'Ожидается оплата'),
-        ('in_work', 'Передано исполнителю'),
+        ('paymentCoordination', 'Ожидается оплата'),
+        ('inWork', 'Передано исполнителю'),
         ('finished', 'Выполнено'),
     ]
 
@@ -318,10 +318,10 @@ class Document(models.Model):
     """Документы"""
 
     DOC_TYPE_CHOICES = [
-        ("Act", "Акт"),
-        ("Power_of_attorney", "Доверенность"),
-        ("Payment_slip", "Платежка"),
-        ("Other", "Прочее"),
+        ("act", "Акт"),
+        ("powerOfAttorney", "Доверенность"),
+        ("paymentSlip", "Платежка"),
+        ("other", "Прочее"),
     ]
 
     name = models.CharField(("Наименование документа"), max_length=50)
