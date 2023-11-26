@@ -26,6 +26,24 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
     value: item.id,
     text: item.name,
   }));
+<<<<<<< HEAD
+=======
+
+  const selectedItems: any[] = [
+    {
+      id: '15',
+      name: 'Группа объектов № 15',
+    },
+    {
+      id: '16',
+      name: 'Группа объектов № 16',
+    },
+  ];
+  const selectedItemsOptions: SelectOptionType[] = selectedItems.map((item) => ({
+    value: item.id,
+    text: item.name,
+  }));
+>>>>>>> dev
 
   const workObjects = [
     {
