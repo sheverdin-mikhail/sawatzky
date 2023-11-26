@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Checkbox, CheckboxThemes } from 'shared/ui/Checkbox/Checkbox';
-import { useCallback, useState, MouseEvent } from 'react';
+import { useCallback, MouseEvent } from 'react';
 import cls from './MultiselectItem.module.scss';
 
 interface MultiselectItemProps {

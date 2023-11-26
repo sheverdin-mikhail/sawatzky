@@ -71,6 +71,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     const filtered = selectedItems.filter((e) => e !== item);
     setSelectedItems(filtered);
   }, [selectedItems]);
+
   const onMultiChange = useCallback((item: any) => {
     const changedOption = options?.find((option) => option.value === item.id);
     if (item.value) {
