@@ -51,7 +51,7 @@ class Employee(models.Model):
     ROLES = (
         ('dispatcher', 'Диспетчер'),
         ('performer', 'Исполнитель'),
-        ('dispatcher_performer', 'Диспетчер/Исполнитель'),
+        ('dispatcherPerformer', 'Диспетчер/Исполнитель'),
     )
 
     GROUPS = (
@@ -241,8 +241,8 @@ class Application(models.Model):
         ("new", 'Создана'),
         ('processed', 'Обрабатывается'),
         ('coordination', 'На согласовании у заказчика'),
-        ('payment_coordination', 'Ожидается оплата'),
-        ('in_work', 'Передано исполнителю'),
+        ('paymentCoordination', 'Ожидается оплата'),
+        ('inWork', 'Передано исполнителю'),
         ('finished', 'Выполнено'),
     ]
 
@@ -316,12 +316,18 @@ class Report(models.Model):
 
 class Document(models.Model):
     """Документы"""
-    
+
+    DOC_TYPE_CHOICES = [
+        ("act", "Акт"),
+        ("powerOfAttorney", "Доверенность"),
+        ("paymentSlip", "Платежка"),
+        ("other", "Прочее"),
+    ]
 
     name = models.CharField(("Наименование документа"), max_length=50)
-    docType = models.CharField(("Тип документа"), max_length=32)
-
+    docType = models.CharField(("Тип документа"), choices=DOC_TYPE_CHOICES, max_length=32)
     created_at = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
+    file = models.FileField(("Файл документа"), upload_to='documents/', blank=True, null=True, default=1)
 
     class Meta:
         verbose_name = ("Документ")
