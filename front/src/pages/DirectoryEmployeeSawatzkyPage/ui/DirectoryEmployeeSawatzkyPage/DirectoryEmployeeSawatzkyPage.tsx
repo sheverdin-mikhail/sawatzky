@@ -4,17 +4,34 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
-import { useCallback, useState } from 'react';
-import { CreateLegalEntityModal } from 'features/CreateLegalEntity';
+import { useCallback, useEffect, useState } from 'react';
+import { CreateEmployeeModal } from 'features/CreateEmployee';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { createEmployeeReducer } from 'features/CreateEmployee/model/slice/createEmployeeSlice';
+import { workObjectReducer } from 'entities/WorkObject';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
-	className?: string;
+  className?: string;
 }
+
+const reducers: ReducersList = {
+  workObjectGroup: workObjectGroupReducer,
+  workObject: workObjectReducer,
+  createEmployee: createEmployeeReducer,
+};
 
 const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps> = (props) => {
   const { className } = props;
   const [legalEntityFormIsOpen, setLegalEntityFormIsOpen] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchWorkObjectGroupList());
+  }, [dispatch]);
 
   const onLegalEntityFormCloseHandler = useCallback(() => {
     setLegalEntityFormIsOpen(false);
@@ -33,23 +50,24 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
   };
 
   return (
-    <DirectoryPageWrapper className={classNames(cls.directoryEmployeeSawatzkyPage, {}, [className])}>
-      <div className={cls.buttons}>
-        <Button helpInfo="Добавить сотрудника Sawatzky" onClick={() => setLegalEntityFormIsOpen(true)} className={cls.button} theme={ButtonThemes.ICON}>
-          <AddIcon />
-        </Button>
-        <Button helpInfo="Удалить сотрудника Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
-          <DeleteIcon />
-        </Button>
-      </div>
-      <Table data={tableData} />
-      <CreateLegalEntityModal
-        onClose={onLegalEntityFormCloseHandler}
-        isOpen={legalEntityFormIsOpen}
-        className={cls.form}
-      />
+    <DynamicModuleLoader reducers={reducers}>
+      <DirectoryPageWrapper className={classNames(cls.directoryEmployeeSawatzkyPage, {}, [className])}>
+        <div className={cls.buttons}>
+          <Button helpInfo="Добавить сотрудника Sawatzky" onClick={() => setLegalEntityFormIsOpen(true)} className={cls.button} theme={ButtonThemes.ICON}>
+            <AddIcon />
+          </Button>
+          <Button helpInfo="Удалить сотрудника Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
+            <DeleteIcon />
+          </Button>
+        </div>
+        <Table data={tableData} />
+        <CreateEmployeeModal
+          isOpen={legalEntityFormIsOpen}
+          onClose={onLegalEntityFormCloseHandler}
+        />
 
-    </DirectoryPageWrapper>
+      </DirectoryPageWrapper>
+    </DynamicModuleLoader>
   );
 };
 

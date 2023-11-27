@@ -11,7 +11,7 @@ from .models import (
 '''Фильтр для Application'''
 class ApplicationFilter(filters.FilterSet):
     legal_entity = filters.CharFilter(field_name="creator__legalEntity", lookup_expr="exact")
-    ordering = filters.OrderingFilter(fields=("createdAt",'id'), field_labels={"createdAt": "Дата создания"})
+    ordering = filters.OrderingFilter(fields=("createdAt", 'id'), field_labels={"createdAt": "Дата создания"})
 
     class Meta:
         model = Application

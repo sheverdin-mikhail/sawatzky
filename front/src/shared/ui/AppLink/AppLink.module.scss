@@ -6,6 +6,7 @@
 .blue {
   color: var(--blue-color);
   font-weight: 700;
+
   &:hover {
     text-decoration: underline;
   }
@@ -18,11 +19,13 @@
   border: 1px solid var(--dark-gray-color);
   color: var(--dark-gray-color);
   background: #fff;
+
   &.active,
   &:hover {
     color: var(--blue-color);
     font-weight: 700;
     background: var(--blue-bg-color);
     border: none;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
   }
 }
