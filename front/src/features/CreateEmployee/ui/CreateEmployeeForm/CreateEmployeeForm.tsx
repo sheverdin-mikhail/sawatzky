@@ -45,7 +45,6 @@ const roles: EmployeeRoleOption[] = [
 export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
   const { className } = props;
 
-  const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
   const workObjectGroup = useSelector(getCreateEmployeeFormWorkObjectGroup);
   const workObject = useSelector(getCreateEmployeeFormWorkObject);
