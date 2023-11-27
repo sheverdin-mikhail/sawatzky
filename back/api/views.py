@@ -39,6 +39,7 @@ from .serializers import (
     UserRegistrationSerializer,
     ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
     LegalEntityDetailSerializer,
+    DocumentsSerializer,
 )
 
 from .models import (
@@ -53,6 +54,7 @@ from .models import (
     WorkTaskGroup,
     WorkMaterialGroup,
     WorkObject,
+Document,
 )
 
 
@@ -111,7 +113,6 @@ class ApplicationUpdateView(generics.UpdateAPIView):
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
-          
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
@@ -424,6 +425,7 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
             return Response({'message': 'Рабочий объект не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
+
 """Employee"""
 class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
@@ -453,3 +455,51 @@ class EmployeeCreateView(generics.CreateAPIView):
 
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
+
+
+
+"""Document"""
+class DocumentsCreateView(generics.CreateAPIView):
+    # представление на создание документов
+    serializer_class = DocumentsSerializer
+    queryset = Document.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class DocumentsDetailView(generics.RetrieveDestroyAPIView):
+    # представление на вывод списка рабочих объектов
+    serializer_class = DocumentsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            doc = Document.objects.filter(id=pk)
+            return doc
+
+        except (KeyError, Document.DoesNotExist):
+            return Response({'message': 'Документ не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class DocumentToApplicationCreateView(generics.CreateAPIView):
+    # представление на создание документа с привязкой к заявке
+    serializer_class = DocumentsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        try:
+
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            document = serializer.save()
+
+            application_pk = self.kwargs.get('pk')
+            application = Application.objects.get(pk=application_pk)
+
+            application.documents.add(document)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except Application.DoesNotExist:
+            return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)

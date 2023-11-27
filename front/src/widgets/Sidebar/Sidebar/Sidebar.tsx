@@ -4,7 +4,7 @@ import { Navigation } from '../Navigation/Navigation';
 import { Alerts } from '../Alerts/Alerts';
 
 interface SidebarProps {
-    className?: string;
+  className?: string;
 }
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {

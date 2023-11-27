@@ -1,0 +1,21 @@
+.directoryObjectTreeHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+  margin-bottom: 28px;
+}
+
+.textMain {
+  font-size: var(--font-size-m);
+  line-height: 14px;
+}
+
+.bold {
+  font-weight: var(--font-weight-xl);
+}
+
+.textSub {
+  line-height: 14px;
+}

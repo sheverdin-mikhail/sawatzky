@@ -6,9 +6,11 @@ import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/Dynamic
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import cls from './DirectoryObjectTreePage.module.scss';
+import { DirectoryObjectTreeHeader } from '../DirectoryObjectTreeHeader/DirectoryObjectTreeHeader';
+import { DirectoryObjectTreeBranches } from '../DirectoryObjectTreeBranches/DirectoryObjectTreeBranches';
 
 interface DirectoryObjectTreePageProps {
-	className?: string;
+  className?: string;
 }
 
 const reducers: ReducersList = {
@@ -28,19 +30,8 @@ const DirectoryObjectTreePage: React.FC<DirectoryObjectTreePageProps> = (props) 
   return (
     <DirectoryPageWrapper className={classNames(cls.directoryObjectTreePage, {}, [className])}>
       <DynamicModuleLoader reducers={reducers}>
-        {/* Ниже просто чтобы было видно, что данные есть, это можно удалить */}
-        <pre>
-          {workObjectGroupList.map((item) => (
-            <>
-              {item.name}
-              <br />
-              {item.workObjects?.map((workObject) => (
-                <>{workObject.name}  </>
-              ))}
-              <br />
-            </>
-          ))}
-        </pre>
+        <DirectoryObjectTreeHeader />
+        <DirectoryObjectTreeBranches />
       </DynamicModuleLoader>
     </DirectoryPageWrapper>
   );
