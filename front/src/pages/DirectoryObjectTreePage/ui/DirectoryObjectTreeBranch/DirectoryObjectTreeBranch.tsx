@@ -32,7 +32,7 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
   }, [subObjects]);
 
   return (
-    <div className={classNames(cls.directoryObjectTreeBranch, { [cls.active]: isActiveSub }, [])}>
+    <div className={classNames(cls.directoryObjectTreeBranch, { [cls.active]: isActiveSub && isActive }, [])}>
       <div className={classNames(cls.chief, { [cls.active]: isActive }, [])} onClick={onToggleActive}>
         <p className={cls.text}>{department}</p>
         <p className={cls.text}>{position} <span className={cls.bold}>{name}</span></p>

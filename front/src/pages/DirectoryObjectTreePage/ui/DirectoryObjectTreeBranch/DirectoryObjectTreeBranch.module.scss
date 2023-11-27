@@ -7,6 +7,10 @@
   line-height: 14px;
   text-align: center;
   transition: min-width .3s ease-in-out;
+
+  &.active {
+    min-width: 320px;
+  }
 }
 
 //для правильной работы должно срабатывать на класс collapse, но срабатывает только на active
