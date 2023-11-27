@@ -6,6 +6,8 @@ import { useCallback } from 'react';
 import { WorkTaskGroupItem } from 'entities/WorkTaskGroup';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { addWorkTaskApplicationFormActions } from 'features/AddWorkTaskToApplication/model/slice/addWorkTaskApplicationFormSlice';
+import { getAddWorkTaskApplicationFormSelectedItem } from 'features/AddWorkTaskToApplication/model/selectors/addWorkTaskApplicationFormSelectors';
+import { useSelector } from 'react-redux';
 import cls from './AddWorkTaskApplicationForm.module.scss';
 
 interface AddWorkTaskApplicationFormProps {
@@ -19,6 +21,7 @@ export const AddWorkTaskApplicationForm: React.FC<AddWorkTaskApplicationFormProp
   const { className, workTaskGroups } = props;
 
   const dispatch = useAppDispatch();
+  const selectedItem = useSelector(getAddWorkTaskApplicationFormSelectedItem);
 
   const onChangeHandler = (value: SelectOptionType) => {
     workTaskGroups?.forEach((workTaskGroup) => {
@@ -42,6 +45,7 @@ export const AddWorkTaskApplicationForm: React.FC<AddWorkTaskApplicationFormProp
             className={cls.input}
             placeholder={workTaskGroup.name}
             onChange={onChangeHandler}
+            value={selectedItem ? { value: selectedItem.id, text: selectedItem.name } : undefined}
             key={`workTaskGroup_${workTaskGroup.id}`}
             options={workTaskGroup.tasks?.map((task) => ({
               text: task.name,

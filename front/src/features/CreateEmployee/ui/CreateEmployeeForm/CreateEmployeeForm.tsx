@@ -5,7 +5,7 @@ import { Input } from 'shared/ui/Input/Input';
 import { Switch } from 'shared/ui/Switch/Switch';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import {
-  useCallback, useMemo, useState,
+  useCallback, useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
@@ -45,7 +45,6 @@ const roles: EmployeeRoleOption[] = [
 export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
   const { className } = props;
 
-  const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
   const workObjectGroup = useSelector(getCreateEmployeeFormWorkObjectGroup);
   const workObject = useSelector(getCreateEmployeeFormWorkObject);

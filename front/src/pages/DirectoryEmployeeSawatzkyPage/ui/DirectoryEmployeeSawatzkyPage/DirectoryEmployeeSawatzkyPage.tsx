@@ -10,7 +10,7 @@ import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/Dynamic
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { createEmployeeReducer } from 'features/CreateEmployee/model/slice/createEmployeeSlice';
-import { fetchWorkObjectList, workObjectReducer } from 'entities/WorkObject';
+import { workObjectReducer } from 'entities/WorkObject';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {

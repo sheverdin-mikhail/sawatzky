@@ -5,6 +5,8 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback } from 'react';
 import { WorkMaterialGroupItem } from 'entities/WorkMaterialGroup';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
+import { useSelector } from 'react-redux';
+import { getAddWorkMaterialApplicationFormSelectedItem } from 'features/AddWorkMaterialToApplication/model/selectors/addWorkMaterialApplicationFormSelectors';
 import { addWorkMaterialApplicationFormActions } from '../../model/slice/addWorkMaterialApplicationFormSlice';
 import cls from './AddWorkMaterialApplicationForm.module.scss';
 
@@ -19,6 +21,7 @@ export const AddWorkMaterialApplicationForm: React.FC<AddWorkMaterialApplication
   const { className, workMaterialGroups } = props;
 
   const dispatch = useAppDispatch();
+  const selectedItem = useSelector(getAddWorkMaterialApplicationFormSelectedItem);
 
   const onChangeHandler = (value: SelectOptionType) => {
     workMaterialGroups?.forEach((workMaterialGroup) => {
@@ -43,6 +46,7 @@ export const AddWorkMaterialApplicationForm: React.FC<AddWorkMaterialApplication
             placeholder={workMaterialGroup.name}
             onChange={onChangeHandler}
             key={`workMaterialGroup_${workMaterialGroup.id}`}
+            value={selectedItem ? { value: selectedItem.id, text: selectedItem.name } : undefined}
             options={workMaterialGroup.materials?.map((material) => ({
               text: material.name,
               value: material.id,

@@ -52,7 +52,6 @@ class UserFIOSerializer(ModelSerializer):
         model = User
         fields = ['fio']
 
-
 '''UserRegistration'''
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # Сериализатор для регистрации пользователя
