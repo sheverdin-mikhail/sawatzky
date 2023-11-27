@@ -5,27 +5,18 @@ import { CollapsBoard } from 'widgets/CollapsBoard';
 import { ApplicationWorkMaterial, ApplicationWorkTask } from 'entities/Application';
 import { useTable } from 'shared/lib/hooks/useTable';
 import {
-  AddWorkTaskApplicationModal,
   addWorkTaskApplicationFormActions,
-  addWorkTaskApplicationFormReducer,
   addWorkTaskToApplication,
-  getAddWorkTaskApplicationFormIsOpen,
 } from 'features/AddWorkTaskToApplication';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { useSelector } from 'react-redux';
-import { fetchWorkTaskGroupList, getWorkTaskGroup, workTaskGroupReducer } from 'entities/WorkTaskGroup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { DocList } from 'widgets/DocList';
 import { docList } from 'widgets/DocList/model/type/docList';
 import {
-  AddWorkMaterialApplicationModal,
   addWorkMaterialApplicationFormActions,
-  addWorkMaterialApplicationFormReducer,
   addWorkMaterialToApplication,
-  getAddWorkMaterialApplicationFormIsOpen,
 } from 'features/AddWorkMaterialToApplication';
-import { fetchWorkMaterialGroupList, getWorkMaterialGroup, workMaterialGroupReducer } from 'entities/WorkMaterialGroup';
+import { addDocumentFormActions } from 'features/AddDocument';
 import cls from './ApplicationDetailWorkPrice.module.scss';
 
 interface ApplicationDetailWorkPriceProps {
@@ -35,27 +26,10 @@ interface ApplicationDetailWorkPriceProps {
   workMaterials?: ApplicationWorkMaterial[];
 }
 
-const reducers: ReducersList = {
-  addWorkTaskApplicationForm: addWorkTaskApplicationFormReducer,
-  addWorkMaterialApplicationForm: addWorkMaterialApplicationFormReducer,
-  workTaskGroup: workTaskGroupReducer,
-  workMaterialGroup: workMaterialGroupReducer,
-};
-
 export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProps> = (props) => {
   const { workTasks = [], workMaterials = [], applicationId } = props;
 
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchWorkTaskGroupList());
-    dispatch(fetchWorkMaterialGroupList());
-  }, [dispatch]);
-
-  const addWorkTaskApplicationModalIsOpen = useSelector(getAddWorkTaskApplicationFormIsOpen);
-  const addWorkMaterialApplicationModalIsOpen = useSelector(getAddWorkMaterialApplicationFormIsOpen);
-  const workTaskGroups = useSelector(getWorkTaskGroup.selectAll);
-  const workMaterialGroups = useSelector(getWorkMaterialGroup.selectAll);
 
   const docList: docList[] = [
     {
@@ -178,7 +152,7 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
   });
 
   return (
-    <DynamicModuleLoader reducers={reducers}>
+    <div>
       <CollapsBoard title="Стоимость работ">
         <Button
           theme={ButtonThemes.CLEAR_BLUE}
@@ -193,7 +167,12 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           onClick={() => dispatch(addWorkMaterialApplicationFormActions.openModal())}
         >+ Добавить расходный материал
         </Button>
-        <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Загрузить документ </Button>
+        <Button
+          theme={ButtonThemes.CLEAR_BLUE}
+          className={cls.controlBtn}
+          onClick={() => dispatch(addDocumentFormActions.openModal())}
+        >+ Загрузить документ
+        </Button>
         <div className={cls.tablesBlock}>
           {WorkTasksTable}
           {WorkMaterialsTable}
@@ -221,18 +200,6 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
         <DocList docs={payList} title="Платежный документ" />
       </CollapsBoard>
 
-      <AddWorkTaskApplicationModal
-        isOpen={addWorkTaskApplicationModalIsOpen}
-        workTaskGroups={workTaskGroups}
-        applicationId={applicationId}
-        prevWorkTasks={workTasks}
-      />
-      <AddWorkMaterialApplicationModal
-        isOpen={addWorkMaterialApplicationModalIsOpen}
-        workMaterialGroups={workMaterialGroups}
-        applicationId={applicationId}
-        prevWorkMaterials={workMaterials}
-      />
-    </DynamicModuleLoader>
+    </div>
   );
 };
