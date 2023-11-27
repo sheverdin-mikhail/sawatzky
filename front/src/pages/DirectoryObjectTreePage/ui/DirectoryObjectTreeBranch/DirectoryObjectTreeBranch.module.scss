@@ -13,12 +13,6 @@
   }
 }
 
-//для правильной работы должно срабатывать на класс collapse, но срабатывает только на active
-// .directoryObjectTreeBranch:has(.object, .active) {
-//   min-width: 320px;
-//   max-width: 320px;
-// }
-
 .chief {
   display: flex;
   flex-direction: column;
