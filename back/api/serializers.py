@@ -169,7 +169,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
-    payment_slips = serializers.SerializerMethodField()
+    paymentSlips = serializers.SerializerMethodField()
     other = serializers.SerializerMethodField()
 
     class Meta:
@@ -181,7 +181,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
         acts_serializer = ActSerializer(acts_queryset, many=True)
         return acts_serializer.data
 
-    def get_payment_slips(self, obj):
+    def get_paymentSlips(self, obj):
         payment_slips_queryset = obj.documents.filter(docType='paymentSlip')
         payment_slips_serializer = PaymentSlipSerializer(payment_slips_queryset, many=True)
         return payment_slips_serializer.data
