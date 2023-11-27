@@ -12,32 +12,32 @@ interface SelectProps {
   options?: SelectOptionType[];
   placeholder?: string;
   onChange?: (value: SelectOptionType) => void;
+  onMultiChange?: (selected: SelectOptionType[]) => void;
   value?: SelectOptionType;
   multi?: boolean;
   selected?: SelectOptionType[];
 }
 
 export interface SelectOptionType {
-  value: string;
+  value: string | number;
   text: string;
 }
 
 export const Select: React.FC<SelectProps> = (props) => {
   const {
-    className, placeholder, options, onChange, multi,
+    className,
+    placeholder,
+    options,
+    onChange,
+    onMultiChange,
+    multi,
+    selected = [],
+    value,
   } = props;
 
-  const selected: any[] = [
-  ];
-
-  const selectedItemsOptions: SelectOptionType[] = selected.map((item) => ({
-    value: item.id,
-    text: item.name,
-  }));
-
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState({ value: null, text: placeholder ?? 'Выберите опцию' });
-  const [selectedItems, setSelectedItems] = useState(selectedItemsOptions);
+  // const [selectedOption, setSelectedOption] = useState({ value: null, text: placeholder ?? 'Выберите опцию' });
+  // const [selectedItems, setSelectedItems] = useState(selected);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -59,22 +59,21 @@ export const Select: React.FC<SelectProps> = (props) => {
   };
 
   const handleOptionClick = (option: any) => {
-    setSelectedOption(option);
     onChange?.(option);
   };
 
-  const addTag = useCallback((item: any) => {
-    setSelectedItems(selectedItems.concat(item));
-  }, [selectedItems]);
+  const addTag = useCallback((item: SelectOptionType) => {
+    onMultiChange?.([...selected, item]);
+  }, [selected, onMultiChange]);
 
   const removeTag = useCallback((item: any) => {
-    const filtered = selectedItems.filter((e) => e !== item);
-    setSelectedItems(filtered);
-  }, [selectedItems]);
+    const filtered = selected.filter((e) => e !== item);
+    onMultiChange?.(filtered);
+  }, [selected, onMultiChange]);
 
-  const onMultiChange = useCallback((item: any) => {
-    const changedOption = options?.find((option) => option.value === item.id);
-    if (item.value) {
+  const onMultiChangeHandler = useCallback((item: any) => {
+    const changedOption = options?.find((option) => option.value.toString() === item.id.toString());
+    if (item.value && changedOption) {
       addTag(changedOption);
     } else {
       removeTag(changedOption);
@@ -91,11 +90,11 @@ export const Select: React.FC<SelectProps> = (props) => {
     >
       {multi ? (
         <div>
-          {selectedItems?.length === 0
-            ? <span className={cls.selectedItem}>{selectedOption.text}</span>
+          {selected?.length === 0
+            ? <span className={cls.selectedItem}>{placeholder}</span>
             : (
               <div className={cls.selectedList}>
-                {selectedItems?.map((item) => (
+                {selected?.map((item) => (
                   <div
                     className={cls.selected}
                     key={item.value}
@@ -112,7 +111,7 @@ export const Select: React.FC<SelectProps> = (props) => {
                   </div>
                 ))}
                 {/* указать при какой именно длине массива выводить этот спан */}
-                <span className={cls.more}>ещё</span>
+                {/* <span className={cls.more}>ещё</span> */}
               </div>
             )}
           <ul className={cls.optionsList}>
@@ -120,10 +119,10 @@ export const Select: React.FC<SelectProps> = (props) => {
               options?.map((option) => (
                 <MultiselectItem
                   key={option.value}
-                  id={option.value}
+                  id={option.value.toString()}
                   text={option.text}
-                  onChange={onMultiChange}
-                  checked={Boolean(selectedItems.find((item) => item.value === option.value))}
+                  onChange={onMultiChangeHandler}
+                  checked={Boolean(selected.find((item) => item.value === option.value))}
                 />
               ))
             }
@@ -131,7 +130,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         </div>
       ) : (
         <div>
-          <span className={cls.selectedItem}>{selectedOption.text}</span>
+          <span className={cls.selectedItem}>{value?.text ?? placeholder}</span>
           <ul className={cls.optionsList}>
             {
               options?.map((option) => (
