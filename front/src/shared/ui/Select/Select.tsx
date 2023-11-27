@@ -94,7 +94,7 @@ export const Select: React.FC<SelectProps> = (props) => {
             ? <span className={cls.selectedItem}>{placeholder}</span>
             : (
               <div className={cls.selectedList}>
-                {selectedItems?.map((item) => (
+                {selected?.map((item) => (
                   <div
                     className={cls.selected}
                     key={item.value}
