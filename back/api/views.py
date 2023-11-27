@@ -40,6 +40,10 @@ from .serializers import (
     ApplicationWithWorkTasksWorkMaterialsUpdateSerializer,
     LegalEntityDetailSerializer,
     DocumentsSerializer,
+    SawatzkyEmployeeSerializer,
+    SawatzkyEmployeeWithWorkObjectSerializer,
+    SawatzkyEmployeeWithoutworkingObjectsSerializer,
+
 )
 
 from .models import (
@@ -54,7 +58,8 @@ from .models import (
     WorkTaskGroup,
     WorkMaterialGroup,
     WorkObject,
-Document,
+    Document,
+    SawatzkyEmployee,
 )
 
 
@@ -503,3 +508,36 @@ class DocumentToApplicationCreateView(generics.CreateAPIView):
 
         except Application.DoesNotExist:
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+"""SawatzkyEmployee"""
+class SawatzkyEmployeeCreateView(generics.CreateAPIView):
+    # представление на создание пользователя Sawatzky
+    serializer_class = SawatzkyEmployeeSerializer
+    queryset = SawatzkyEmployee.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class SawatzkyEmployeeListView(generics.ListAPIView):
+    # представление на создание и вывод списка пользователей Sawatzky
+    serializer_class = SawatzkyEmployeeWithoutworkingObjectsSerializer
+    queryset = SawatzkyEmployee.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class SawatzkyEmployeeDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление пользователей Sawatzky по id
+    serializer_class = SawatzkyEmployeeWithWorkObjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            sawatzkyEmployee = SawatzkyEmployee.objects.filter(id=pk)
+            return sawatzkyEmployee
+
+        except (KeyError, SawatzkyEmployee.DoesNotExist):
+            return Response({'message': 'Пользователь Sawatzky не найден'}, status=status.HTTP_404_NOT_FOUND)
+
