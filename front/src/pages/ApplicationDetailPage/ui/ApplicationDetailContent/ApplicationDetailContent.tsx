@@ -7,10 +7,15 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Progressbar } from 'widgets/Progressbar';
 import { AddWorkTaskApplicationModal, getAddWorkTaskApplicationFormIsOpen } from 'features/AddWorkTaskToApplication';
 import { AddWorkMaterialApplicationModal, getAddWorkMaterialApplicationFormIsOpen } from 'features/AddWorkMaterialToApplication';
-import { DocEntity, addDocumentFormActions, AddDocumentModal } from 'features/AddDocument';
+import {
+  DocEntity,
+  addDocumentFormActions,
+  AddDocumentModal,
+  getAddDocumentFormIsOpen,
+} from 'features/AddDocument';
 import { getWorkTaskGroup } from 'entities/WorkTaskGroup/';
 import { getWorkMaterialGroup } from 'entities/WorkMaterialGroup';
-import { getAddDocumentTaskFormIsOpen } from 'features/AddDocument/model/selectors/addDocumentFormSelectors';
+import { getApplicationDetail } from 'pages/ApplicationDetailPage/model/slice/applicationDetailSlice';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 import { ApplicationDetailWorkPrice } from '../ApplicationDetailWorkPrice/ApplicationDetailWorkPrice';
 import { getApplicationDetailTitle } from '../../model/selectors/getApplicationDetailTitle';
@@ -34,13 +39,14 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
     dispatch(fetchApplicationDetail(applicationId));
   }, [dispatch, applicationId]);
 
+  const detail = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId));
   const info = useSelector((state: StateSchema) => getApplicationDetailInfo(state, applicationId));
   const title = useSelector((state: StateSchema) => getApplicationDetailTitle(state, applicationId));
   const workTasks = useSelector((state: StateSchema) => getApplicationDetailWorkTasks(state, applicationId));
   const workMaterials = useSelector((state: StateSchema) => getApplicationDetailWorkMaterials(state, applicationId));
   const addWorkTaskApplicationModalIsOpen = useSelector(getAddWorkTaskApplicationFormIsOpen);
   const addWorkMaterialApplicationModalIsOpen = useSelector(getAddWorkMaterialApplicationFormIsOpen);
-  const addDocumentModalIsOpen = useSelector(getAddDocumentTaskFormIsOpen);
+  const addDocumentModalIsOpen = useSelector(getAddDocumentFormIsOpen);
   const workTaskGroups = useSelector(getWorkTaskGroup.selectAll);
   const workMaterialGroups = useSelector(getWorkMaterialGroup.selectAll);
 
@@ -51,7 +57,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
       <Progressbar step={info.step} />
       <ApplicationDetailWorkPrice workTasks={workTasks} workMaterials={workMaterials} applicationId={applicationId} />
       <ApplicationDetailPerformer />
-      <ApplicationDetailActs />
+      <ApplicationDetailActs acts={detail?.acts} />
 
       {/* Modals */}
       <AddDocumentModal

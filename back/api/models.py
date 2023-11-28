@@ -33,7 +33,6 @@ class LegalEntity(models.Model):
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
     sawatzki = models.BooleanField(("Относится к Sawatzky"), default=False)
-    workTaskGroups = models.ManyToManyField("api.WorkTaskGroup", verbose_name=("Предоставляемые группы услуг"), blank=True, null=True)
     
 
     class Meta:
@@ -125,6 +124,11 @@ class Client(models.Model):
     )
     prepayment = models.BooleanField(("Работа по предоплате"), default=False)
     status = models.BooleanField(("Статус контрагента"), default=False)
+    workTaskGroups = models.ManyToManyField("api.WorkTaskGroup", verbose_name=("Предоставляемые группы услуг"),
+                                            blank=True, null=True)
+    workMaterialGroups = models.ManyToManyField("api.WorkMaterialGroup", verbose_name=("Предоставляемые группы материалов"),
+                                            blank=True, null=True)
+
 
     class Meta:
         verbose_name = "Закачик/Контрагент"
@@ -326,7 +330,7 @@ class Document(models.Model):
 
     name = models.CharField(("Наименование документа"), max_length=50)
     docType = models.CharField(("Тип документа"), choices=DOC_TYPE_CHOICES, max_length=32)
-    created_at = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
+    createdAt = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
     file = models.FileField(("Файл документа"), upload_to='documents/', blank=True, null=True, default=1)
 
     class Meta:
@@ -338,4 +342,21 @@ class Document(models.Model):
 
 
 
-   
+class SawatzkyEmployee(models.Model):
+    """Пользователь Sawatzky"""
+
+    user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='sawatzky_employee')
+    position = models.CharField(("Должность"), max_length=100)
+    workObjectGroup = models.ForeignKey(WorkObjectsGroup, verbose_name=("Группа рабочих объектов"), on_delete=models.CASCADE)
+    workObject = models.ForeignKey(WorkObject, verbose_name=("Рабочий объект"), on_delete=models.CASCADE)
+    workingObjects = models.ManyToManyField(WorkObject, verbose_name=("Обслуживаемые объекты"), related_name='sawatzky_employees')
+    status = models.BooleanField(("Статус"), default=False)
+
+    class Meta:
+        verbose_name = "Сотрудник Sawatzky"
+        verbose_name_plural = "Сотрудники Sawatzky"
+
+    def __str__(self):
+        return (f"{self.user.fio} - {self.position} "
+                f"- {self.workObjectGroup} - {self.workObject} "
+                f"- {self.workingObjects} - {self.status}")

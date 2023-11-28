@@ -15,6 +15,7 @@ from .models import (
     ApplicationWorkTask,
     ApplicationWorkMaterial,
     Document,
+    SawatzkyEmployee,
 )
 
 
@@ -43,6 +44,13 @@ class UserSerializerWithoutEmployee(ModelSerializer):
         model = User
         fields = ['id', 'fio', 'phoneNumber']
 
+
+'''UserFIO'''
+class UserFIOSerializer(ModelSerializer):
+    # Сериализатор модели пользователя без поля Employee
+    class Meta:
+        model = User
+        fields = ['fio']
 
 '''UserRegistration'''
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -101,6 +109,13 @@ class WorkObjectsGroupSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class WorkObjectsGroupWithoutworkObjectsSerializer(ModelSerializer):
+    # Сериализатор модели WorkObjectsGroup не расширенный
+    class Meta:
+        model = WorkObjectsGroup
+        fields = '__all__'
+
+
 '''WorkMaterial'''
 class WorkMaterialSerializer(ModelSerializer):
     # Сериализатор модели WorkMaterial
@@ -141,14 +156,14 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
 class ActSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ['id', 'name', 'created_at', 'file']
+        fields = ['id', 'name', 'createdAt', 'file']
 
 
 '''PaymentSlip'''
 class PaymentSlipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ['id', 'name', 'created_at', 'file']
+        fields = ['id', 'name', 'createdAt', 'file']
 
 
 '''Documents'''
@@ -372,3 +387,37 @@ class LegalEntityDetailSerializer(ModelSerializer):
     class Meta:
         model = LegalEntity
         fields = '__all__'
+
+
+'''SawatzkyEmployee'''
+class SawatzkyEmployeeSerializer(ModelSerializer):
+    # Сериализатор для создания пользователя Sawatzky
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+
+
+class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):
+    # Сериализатор для детейла с расширенными полями
+    workingObjects = WorkObjectSerializer(read_only=True, many=True)
+    workObject = WorkObjectSerializer(read_only=True, many=False)
+    workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
+    fio = UserFIOSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+
+
+class SawatzkyEmployeeWithoutworkingObjectsSerializer(ModelSerializer):
+    # Сериализатор для вывода списка с расширенными полями
+    workObject = WorkObjectSerializer(read_only=True, many=False)
+    workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
+    fio = UserFIOSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+
+
+
