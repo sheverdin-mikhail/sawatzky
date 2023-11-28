@@ -14,7 +14,7 @@
   cursor: pointer;
   font-weight: 700;
 
-  &::before, 
+  &::before,
   &::after {
     content: '';
     display: block;
@@ -29,7 +29,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    transition: transform 0.2s ease ;
+    transition: transform 0.2s ease;
   }
 
   &::before {
@@ -43,13 +43,13 @@
 
 
 .input:checked {
-  &+.label{
+  &+.label {
     &::before {
       background: var(--blue-color);
     }
+
     &::after {
       transform: translate(90%, -50%);
     }
   }
 }
-

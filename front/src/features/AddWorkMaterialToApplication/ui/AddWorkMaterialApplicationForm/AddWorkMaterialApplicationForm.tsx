@@ -11,9 +11,9 @@ import { addWorkMaterialApplicationFormActions } from '../../model/slice/addWork
 import cls from './AddWorkMaterialApplicationForm.module.scss';
 
 interface AddWorkMaterialApplicationFormProps {
-	className?: string;
-	onClose?: () => void;
-	workMaterialGroups?: WorkMaterialGroupItem[];
+  className?: string;
+  onClose?: () => void;
+  workMaterialGroups?: WorkMaterialGroupItem[];
 
 }
 
@@ -38,7 +38,7 @@ export const AddWorkMaterialApplicationForm: React.FC<AddWorkMaterialApplication
 
   return (
     <div className={classNames(cls.addWorkMaterialToApplicationForm, {}, [className])}>
-      <Text title="Выбор услуги" textAlign={TextAlign.CENTER} className={cls.title} />
+      <Text title="Выбор материала" textAlign={TextAlign.CENTER} className={cls.title} />
       {
         workMaterialGroups?.map((workMaterialGroup) => (
           <Select
