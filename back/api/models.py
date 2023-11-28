@@ -197,6 +197,7 @@ class WorkMaterialGroup(models.Model):
         return self.name
 
 
+
 class WorkMaterial(models.Model):
     """ Рабочие материалы для проведения работ """
 
@@ -222,9 +223,10 @@ class ApplicationWorkTask(models.Model):
     workTask = models.ForeignKey(WorkTask, on_delete=models.CASCADE)
     actualTime = models.PositiveIntegerField(("Актуальное время"), null=True, blank=True)
 
-
     def __str__(self):
         return f'application №{self.application.id} workTask №{self.workTask.id}'
+
+
 
 class ApplicationWorkMaterial(models.Model):
     """Промежуточная таблица с actualCount"""
@@ -237,8 +239,8 @@ class ApplicationWorkMaterial(models.Model):
         return f'application №{self.application.id} workTask №{self.workMaterial.id}'
 
 
-class Application(models.Model):
 
+class Application(models.Model):
     """Заявка на выполнение работ"""
 
     STATUSES = [

@@ -47,10 +47,11 @@ class UserSerializerWithoutEmployee(ModelSerializer):
 
 '''UserFIO'''
 class UserFIOSerializer(ModelSerializer):
-    # Сериализатор модели пользователя без поля Employee
+    # Сериализатор модели пользователя
     class Meta:
         model = User
         fields = ['fio']
+
 
 '''UserRegistration'''
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -389,9 +390,22 @@ class LegalEntityDetailSerializer(ModelSerializer):
         fields = '__all__'
 
 
+
+
 '''SawatzkyEmployee'''
+class SawatzkyEmployeeWithUserSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника Sawatzky с расширенным полем юзера
+    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+
+
 class SawatzkyEmployeeSerializer(ModelSerializer):
     # Сериализатор для создания пользователя Sawatzky
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
     class Meta:
         model = SawatzkyEmployee
         fields = '__all__'
@@ -413,7 +427,7 @@ class SawatzkyEmployeeWithoutworkingObjectsSerializer(ModelSerializer):
     # Сериализатор для вывода списка с расширенными полями
     workObject = WorkObjectSerializer(read_only=True, many=False)
     workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
-    fio = UserFIOSerializer(read_only=True, many=False)
+    fio = UserFIOSerializer(read_only=True)
 
     class Meta:
         model = SawatzkyEmployee
