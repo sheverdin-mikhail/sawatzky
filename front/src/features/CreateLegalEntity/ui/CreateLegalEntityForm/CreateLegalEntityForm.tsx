@@ -3,6 +3,9 @@ import { Text, TextAlign } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
+import { Switch } from 'shared/ui/Switch/Switch';
+import { ReactComponent as FolderIcon } from 'shared/assets/icons/folder-icon.svg';
+import { FileInput } from 'shared/ui/FileInput/FileInput';
 import cls from './CreateLegalEntityForm.module.scss';
 
 interface CreateLegalEntityFormProps {
@@ -88,11 +91,28 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
           <Input placeholder="Корреспондентский счёт" className={cls.input} />
           <Input placeholder="Банк" className={cls.input} />
           <Input placeholder="БИК" className={cls.input} />
-          <div className={cls.buttons}>
-            <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button}>Создать</Button>
+          <div className={cls.switches}>
+            <Switch className={cls.switch} id="pay" label="Работа по предоплате" />
+            <Switch className={cls.switch} id="status" label="Статус контрагента" />
           </div>
+          <Button className={cls.addLogoBtn} theme={ButtonThemes.CLEAR_BLUE}>+ Добавить логотип компании</Button>
         </div>
-        {/* <div className={cls.column} /> */}
+        <div className={cls.column}>
+          <div className={cls.folder}><FolderIcon />Введите название</div>
+
+          <FileInput
+            className={cls.fileInput}
+            label={(
+              <div className={cls.fileInputContent}>
+                <p className={cls.textBlack}>Перетащите файлы сюда или кликните для выбора</p>
+                <p className={cls.textBlue}>Максимальный объем: 70 MB</p>
+              </div>
+            )}
+          />
+        </div>
+      </div>
+      <div className={cls.buttons}>
+        <Button theme={ButtonThemes.BLUE_SOLID} className={cls.button}>Создать</Button>
       </div>
     </div>
   );
