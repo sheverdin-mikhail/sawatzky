@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AddDocumentFormSchema } from '../type/addDocument';
+import { AddDocumentFormSchema, DocType } from '../type/addDocument';
 
 const initialState: AddDocumentFormSchema = {
   isOpen: false,
   isLoading: false,
+  formData: {},
 };
 
 export const addDocumentFormSlice = createSlice({
@@ -17,6 +18,12 @@ export const addDocumentFormSlice = createSlice({
     closeModal: (state) => {
       state.isOpen = false;
       state.formData = {};
+    },
+    setFileName: (state, action: PayloadAction<string>) => {
+      state.formData.name = action.payload;
+    },
+    setDocType: (state, action: PayloadAction<DocType>) => {
+      state.formData.docType = action.payload;
     },
 
   },

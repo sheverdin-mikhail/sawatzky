@@ -156,14 +156,14 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
 class ActSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ['id', 'name', 'created_at', 'file']
+        fields = ['id', 'name', 'createdAt', 'file']
 
 
 '''PaymentSlip'''
 class PaymentSlipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ['id', 'name', 'created_at', 'file']
+        fields = ['id', 'name', 'createdAt', 'file']
 
 
 '''Documents'''

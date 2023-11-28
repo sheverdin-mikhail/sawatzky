@@ -28,6 +28,10 @@ export function createReduxStore(
       thunk: {
         extraArgument: extraArg,
       },
+      serializableCheck: {
+        // Ignore these action types
+        ignoredActions: ['addDocumentForm/setFile'],
+      },
     }),
   });
 

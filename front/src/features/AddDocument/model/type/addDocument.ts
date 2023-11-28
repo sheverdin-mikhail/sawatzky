@@ -1,11 +1,17 @@
 export interface AddDocumentFormData {
-    file?: string;
+    file?: File;
     name?: string;
     docType?: DocType;
 }
 
+export interface AddDocumentToApplicationData {
+    formData: AddDocumentFormData;
+    docEntity: DocEntity.APPLICATION;
+    applicationId: string;
+}
+
 export interface AddDocumentFormSchema {
-    formData?: AddDocumentFormData;
+    formData: AddDocumentFormData;
     isLoading?: boolean;
     error?: string;
     isOpen?: boolean;
