@@ -1,0 +1,30 @@
+.createCustomerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--font-size-xl2);
+  margin-bottom: 26px;
+}
+
+.input {
+  &:not(:last-child) {
+    margin-bottom: 6px;
+  }
+
+  &.select {
+    padding: 12px 20px;
+  }
+}
+
+.addBtn {
+  margin-top: 10px;
+  margin-bottom: 32px;
+  align-self: flex-start;
+}
+
+.btn {
+  padding: 9px;
+  width: 47%;
+}
