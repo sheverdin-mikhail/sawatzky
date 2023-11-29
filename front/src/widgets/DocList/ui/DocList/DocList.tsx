@@ -7,13 +7,14 @@ import { DoneItem } from '../DoneItem/DoneItem';
 interface DocListProps {
   className?: string;
   acts?: string;
-  title: string;
+  title?: string;
   docs: docList[];
+  modal?: boolean;
 }
 
 export const DocList: React.FC<DocListProps> = (props) => {
   const {
-    className, title, docs, acts,
+    className, title, docs, acts, modal,
   } = props;
   return (
     <div className={cls.docs}>
@@ -26,6 +27,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
             date={item.date}
             time={item.time}
             key={item.id}
+            modal={modal}
           />
         ))
           : docs.map((item) => (

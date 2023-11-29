@@ -11,11 +11,12 @@ interface DoneItemProps {
   docId: string;
   date?: string;
   time?: string;
+  modal?: boolean;
 }
 
 export const DoneItem: React.FC<DoneItemProps> = (props) => {
   const {
-    docTitle, docId, date, time,
+    docTitle, docId, date, time, modal,
   } = props;
 
   const modsItem: Mods = {
@@ -31,7 +32,10 @@ export const DoneItem: React.FC<DoneItemProps> = (props) => {
       <Button theme={ButtonThemes.WHITE_ROUND}> <DownloadIcon /> </Button>
       <p className={cls.title}>{date}</p>
       <p className={cls.title}>{time}</p>
-      <Button theme={ButtonThemes.CLEAR} className={classNames(cls.icon, modsItem, [])} disabled={docId !== '1'}><MoreIcon /></Button>
+      {!modal
+        && (
+          <Button theme={ButtonThemes.CLEAR} className={classNames(cls.icon, modsItem, [])} disabled={docId !== '1'}><MoreIcon /></Button>
+        )}
     </li>
   );
 };
