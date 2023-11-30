@@ -18,18 +18,26 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
   } = props;
 
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActiveSub, setIsActiveSub] = useState<boolean>(false);
+  const [subObjects, setSubObjects] = useState<any[]>(object.map((item) => ({ ...item, isActiveSub: false })));
 
   const onToggleActive = useCallback(() => {
     setIsActive((prev) => !prev);
   }, []);
 
+  const onToggleSubBranch = useCallback((value: any) => {
+    const newObjects = subObjects.map((item) => (item.number === value.number ? { ...item, isActiveSub: value.isActiveSub } : item));
+    setSubObjects(newObjects);
+    setIsActiveSub(Boolean(newObjects.find((item) => item.isActiveSub)));
+  }, [subObjects]);
+
   return (
-    <div className={cls.directoryObjectTreeBranch}>
+    <div className={classNames(cls.directoryObjectTreeBranch, { [cls.active]: isActiveSub && isActive }, [])}>
       <div className={classNames(cls.chief, { [cls.active]: isActive }, [])} onClick={onToggleActive}>
         <p className={cls.text}>{department}</p>
         <p className={cls.text}>{position} <span className={cls.bold}>{name}</span></p>
       </div>
-      {object.map((item) => (
+      {subObjects.map((item: any) => (
         <DirectoryObjectTreeSubBranch
           key={item.number}
           number={item.number}
@@ -37,6 +45,8 @@ export const DirectoryObjectTreeBranch: React.FC<DirectoryObjectTreeBranchProps>
           counterparties={item.counterparties}
           employee={item.employee}
           isActive={isActive}
+          isActiveSub={item.isActiveSub}
+          onToggle={onToggleSubBranch}
         />
       ))}
     </div>

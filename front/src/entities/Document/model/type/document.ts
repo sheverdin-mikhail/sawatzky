@@ -3,4 +3,5 @@ export interface Document {
     name: string;
     createdAt: string;
     docType: string;
+    fileUrl: string;
 }

@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import cls from './DirectoryObjectTreeSubBranch.module.scss';
 
 interface DirectoryObjectTreeSubBranchProps {
@@ -9,29 +9,35 @@ interface DirectoryObjectTreeSubBranchProps {
   counterparties: string[];
   employee: string[];
   isActive: boolean;
+  isActiveSub: boolean;
+  onToggle: (item: any) => void;
 }
 
 export const DirectoryObjectTreeSubBranch: React.FC<DirectoryObjectTreeSubBranchProps> = (props) => {
   const {
-    number, name, counterparties, employee, isActive,
+    number, name, counterparties, employee, isActive, onToggle, isActiveSub,
   } = props;
 
-  const [isActiveSubTree, setIsActiveSubTree] = useState<boolean>(false);
-
   const onToggleActiveSub = useCallback(() => {
-    setIsActiveSubTree((prev) => !prev);
-  }, []);
+    onToggle({
+      number,
+      name,
+      counterparties,
+      employee,
+      isActiveSub: !isActiveSub,
+    });
+  }, [onToggle, isActiveSub, number, name, counterparties, employee]);
 
   return (
-    <div className={classNames(cls.info, { [cls.active]: isActive, [cls.collapse]: isActiveSubTree }, [])}>
+    <div className={classNames(cls.info, { [cls.active]: isActive, [cls.collapse]: isActiveSub }, [])}>
       <div
-        className={classNames(cls.object, { [cls.collapse]: isActiveSubTree }, [])}
+        className={classNames(cls.object, { [cls.collapse]: isActiveSub }, [])}
         onClick={onToggleActiveSub}
       >
         <p className={cls.text}>{number}</p>
         <p className={cls.bold}>{name}</p>
       </div>
-      <div className={classNames(cls.lists, { [cls.active]: isActiveSubTree }, [])}>
+      <div className={classNames(cls.lists, { [cls.active]: isActiveSub }, [])}>
         <div className={cls.names}>
           <div className={cls.name}>Контрагенты</div>
           <ul className={classNames(cls.name, {}, [cls.list])}>

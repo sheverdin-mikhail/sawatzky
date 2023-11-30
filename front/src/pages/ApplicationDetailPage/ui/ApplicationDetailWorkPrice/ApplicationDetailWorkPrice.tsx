@@ -11,13 +11,17 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback, useMemo } from 'react';
 import { DocList } from 'widgets/DocList';
-import { docList } from 'widgets/DocList/model/type/docList';
 import {
   addWorkMaterialApplicationFormActions,
   addWorkMaterialToApplication,
 } from 'features/AddWorkMaterialToApplication';
 import { addDocumentFormActions } from 'features/AddDocument';
+import { useSelector } from 'react-redux';
+import { StateSchema } from 'app/providers';
+import { Document } from 'entities/Document';
 import cls from './ApplicationDetailWorkPrice.module.scss';
+import { getApplicationDetail } from '../../model/slice/applicationDetailSlice';
+import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 
 interface ApplicationDetailWorkPriceProps {
   className?: string;
@@ -31,21 +35,26 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 
   const dispatch = useAppDispatch();
 
-  const docList: docList[] = [
-    {
-      id: '1', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00',
-    },
-    {
-      id: '2', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00',
-    },
-    {
-      id: '3', title: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.docx', date: '12.05.23', time: '15:00',
-    },
-  ];
+  const detail = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId));
 
-  const payList: docList[] = [
-    { id: '1', title: 'Платежный документ.docx' },
-  ];
+  const docList = useMemo<Document[] | undefined>(() => {
+    const docs: Document[] = [];
+    if (detail?.acts) {
+      docs.push(...detail.acts);
+    }
+    if (detail?.other) {
+      docs.push(...detail.other);
+    }
+    if (detail?.paymentSlips) {
+      docs.push(...detail.paymentSlips);
+    }
+    if (docs) {
+      return docs;
+    }
+    return undefined;
+  }, [detail]);
+
+  const payList: Document[] | undefined = detail?.paymentSlips;
 
   const workTasksTable: TableType = {
     header: {
@@ -196,8 +205,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           </p>
         </div>
 
-        <DocList docs={docList} title="Список документов" />
-        <DocList docs={payList} title="Платежный документ" />
+        { docList && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
+        { payList && <DocList docs={payList} title="Платежный документ" /> }
       </CollapsBoard>
 
     </div>

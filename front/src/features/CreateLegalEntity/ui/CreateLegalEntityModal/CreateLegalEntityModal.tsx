@@ -5,9 +5,9 @@ import cls from './CreateLegalEntityModal.module.scss';
 import { CreateLegalEntityForm } from '../CreateLegalEntityForm/CreateLegalEntityForm';
 
 interface CreateLegalEntityModalProps {
-	className?: string;
-	isOpen?: boolean;
-	onClose?: () => void;
+  className?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export const CreateLegalEntityModal: React.FC<CreateLegalEntityModalProps> = (props) => {

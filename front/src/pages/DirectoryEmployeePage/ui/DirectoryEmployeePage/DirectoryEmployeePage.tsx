@@ -5,11 +5,11 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
 import { useCallback, useState } from 'react';
-import { CreateLegalEntityModal } from 'features/CreateLegalEntity';
+import { CreateCustomerModal } from 'features/CreateCustomer';
 import cls from './DirectoryEmployeePage.module.scss';
 
 interface DirectoryEmployeePageProps {
-	className?: string;
+  className?: string;
 }
 
 const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
@@ -43,7 +43,7 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
         </Button>
       </div>
       <Table data={tableData} />
-      <CreateLegalEntityModal
+      <CreateCustomerModal
         onClose={onLegalEntityFormCloseHandler}
         isOpen={legalEntityFormIsOpen}
         className={cls.form}

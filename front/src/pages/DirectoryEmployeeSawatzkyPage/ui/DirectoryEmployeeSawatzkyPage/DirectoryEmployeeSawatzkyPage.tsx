@@ -5,11 +5,10 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
 import { useCallback, useEffect, useState } from 'react';
-import { CreateEmployeeModal } from 'features/CreateSawatzkyEmployee';
+import { CreateSawatzkyEmployeeModal, createSawatzkyEmployeeReducer } from 'features/CreateSawatzkyEmployee';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { createEmployeeReducer } from 'features/CreateEmployee/model/slice/createEmployeeSlice';
 import { workObjectReducer } from 'entities/WorkObject';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
@@ -20,7 +19,7 @@ interface DirectoryEmployeeSawatzkyPageProps {
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
   workObject: workObjectReducer,
-  createEmployee: createEmployeeReducer,
+  createSawatzkyEmployee: createSawatzkyEmployeeReducer,
 };
 
 const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps> = (props) => {
@@ -61,7 +60,7 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
           </Button>
         </div>
         <Table data={tableData} />
-        <CreateEmployeeModal
+        <CreateSawatzkyEmployeeModal
           isOpen={legalEntityFormIsOpen}
           onClose={onLegalEntityFormCloseHandler}
         />
