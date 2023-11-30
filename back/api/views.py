@@ -494,6 +494,7 @@ class DocumentToApplicationCreateView(generics.CreateAPIView):
     # представление на создание документа с привязкой к заявке
     serializer_class = DocumentsSerializer
     permission_classes = [permissions.IsAuthenticated]
+    queryset = Document.objects.all()
 
     def create(self, request, *args, **kwargs):
         try:
