@@ -5,7 +5,7 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
 import { useCallback, useEffect, useState } from 'react';
-import { CreateEmployeeModal } from 'features/CreateEmployee';
+import { CreateEmployeeModal } from 'features/CreateSawatzkyEmployee';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
