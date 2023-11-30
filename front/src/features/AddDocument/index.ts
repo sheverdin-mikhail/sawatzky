@@ -5,3 +5,10 @@ export type{ AddDocumentFormSchema, AddDocumentFormData } from './model/type/add
 export { addDocumentFormActions, addDocumentFormReducer } from './model/slice/addDocumentFormSlice';
 
 export { AddDocumentModal } from './ui/AddDocumentModal/AddDocumentModal';
+
+export {
+  getAddDocumentDocType,
+  getAddDocumentFile,
+  getAddDocumentFormData,
+  getAddDocumentFormIsOpen,
+} from './model/selectors/addDocumentFormSelectors';
