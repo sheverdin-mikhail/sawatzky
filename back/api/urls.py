@@ -48,4 +48,8 @@ urlpatterns = [
 
     path('documents/create/', views.DocumentsCreateView.as_view()),
     path('documents/<int:pk>/', views.DocumentsDetailView.as_view()),
+
+    path('sawatzky_employee/', views.SawatzkyEmployeeListView.as_view()),
+    path('sawatzky_employee/create/', views.SawatzkyEmployeeCreateView.as_view()),
+    path('sawatzky_employee/<int:pk>/', views.SawatzkyEmployeeDetailView.as_view()),
 ]

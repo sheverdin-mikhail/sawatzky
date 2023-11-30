@@ -1,12 +1,12 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Application } from 'entities/Application';
 import { getDateString } from 'shared/lib/getDateString/getDateString';
 import { Tag } from 'shared/ui/Tag/Tag';
 import cls from './ApplicationDetailInfoComponent.module.scss';
+import { ApplicationInfo } from '../../model/type/applicationDetail';
 
 interface ApplicationDetailInfoComponentProps {
 	className?: string;
-	info: Application;
+	info: ApplicationInfo;
 }
 
 export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoComponentProps> = (props) => {

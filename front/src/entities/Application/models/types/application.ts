@@ -1,4 +1,5 @@
 import { EntityState } from '@reduxjs/toolkit';
+import { Document } from 'entities/Document';
 import { Employee } from 'entities/Employee';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { WorkTask } from 'entities/WorkTask';
@@ -33,7 +34,9 @@ export interface Application {
     performer?: Employee;
     workTasks?: ApplicationWorkTask[];
     workMaterials?: ApplicationWorkMaterial[];
-    documents?: Document[]; // Поменять когда появится модель документов
+    other?: Document[];
+    paymentSlips: Document[];
+    acts: Document[];
 
     createdAt: string;
     updatedAt?: string;

@@ -6,7 +6,7 @@
   gap: 16px;
   line-height: 14px;
   text-align: center;
-  transition: all .3s ease-in-out;
+  transition: min-width .3s ease-in-out;
 
   &.active {
     min-width: 320px;
