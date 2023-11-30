@@ -40,7 +40,7 @@ export const DocItem: React.FC<DocItemProps> = (props) => {
       </p>
       <div className={cls.btns}>
         <Button theme={ButtonThemes.WHITE_ROUND} onClick={onDeleteHandler}> <CancelIcon /> </Button>
-        {modal
+        {!modal
           && (<Button theme={ButtonThemes.WHITE_ROUND} onClick={onDownloadClick}> <DownloadIcon /> </Button>)}
       </div>
     </li>

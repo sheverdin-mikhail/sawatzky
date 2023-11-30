@@ -4,8 +4,11 @@ import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Switch } from 'shared/ui/Switch/Switch';
+import { ReactComponent as BlueFolderIcon } from 'shared/assets/icons/blue-folder-icon.svg';
 import { ReactComponent as FolderIcon } from 'shared/assets/icons/folder-icon.svg';
 import { FileInput } from 'shared/ui/FileInput/FileInput';
+import { Document } from 'entities/Document';
+import { DocList } from 'widgets/DocList';
 import cls from './CreateLegalEntityForm.module.scss';
 
 interface CreateLegalEntityFormProps {
@@ -72,6 +75,18 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
     text: item.code,
   }));
 
+  const docs: Document[] = [
+    {
+      id: '1', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '2', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '3', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+  ];
+
   return (
     <div className={classNames(cls.createLegalEntityForm, {}, [className])}>
       <Text title="Создать Контрагента (Юр. лиц Заказчиков)" textAlign={TextAlign.CENTER} className={cls.title} />
@@ -98,7 +113,19 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
           <Button className={cls.addLogoBtn} theme={ButtonThemes.CLEAR_BLUE}>+ Добавить логотип компании</Button>
         </div>
         <div className={cls.column}>
-          <div className={cls.folder}><FolderIcon />Введите название</div>
+
+          <div className={cls.list}>
+            <div className={classNames(cls.folder, {}, [cls.folderCurrent])}><FolderIcon />Другие документы от 20.05.2022</div>
+            <DocList className={cls.docList} docs={docs} modal />
+          </div>
+
+          <div className={cls.folders}>
+            <h2 className={cls.foldersTitle}>Добавить в папку:</h2>
+            <div className={cls.folder}><BlueFolderIcon />На подпись</div>
+            <div className={cls.folder}><BlueFolderIcon />Документы от Ярмакова</div>
+          </div>
+
+          <div className={classNames(cls.folder, {}, [cls.folderNew])}><FolderIcon />Введите название</div>
 
           <FileInput
             className={cls.fileInput}
