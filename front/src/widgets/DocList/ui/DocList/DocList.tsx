@@ -35,6 +35,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
               docId={item.id}
               docTitle={item.title}
               key={item.id}
+              modal={modal}
             />
           ))}
       </ul>

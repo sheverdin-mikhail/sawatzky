@@ -8,10 +8,11 @@ interface DocItemProps {
   className?: string;
   docTitle: string;
   docId: string;
+  modal?: boolean;
 }
 
 export const DocItem: React.FC<DocItemProps> = (props) => {
-  const { docTitle, docId } = props;
+  const { docTitle, docId, modal } = props;
 
   return (
     <li className={cls.item} id={docId}>
@@ -21,7 +22,9 @@ export const DocItem: React.FC<DocItemProps> = (props) => {
       </p>
       <div className={cls.btns}>
         <Button theme={ButtonThemes.WHITE_ROUND}> <CancelIcon /> </Button>
-        <Button theme={ButtonThemes.WHITE_ROUND}> <DownloadIcon /> </Button>
+        {!modal && (
+          <Button theme={ButtonThemes.WHITE_ROUND}> <DownloadIcon /> </Button>
+        )}
       </div>
     </li>
   );
