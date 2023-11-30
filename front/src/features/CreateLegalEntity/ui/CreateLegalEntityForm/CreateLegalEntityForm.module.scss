@@ -1,5 +1,7 @@
 .body {
   display: flex;
+  flex-direction: row;
+  gap: 70px;
 }
 
 .column {
@@ -9,15 +11,71 @@
   align-items: stretch;
 }
 
-
 .title {
   margin-bottom: 25px;
 }
 
 .input {
-  &:not(:last-child){
+  width: 425px;
+
+  &:not(:last-child) {
     margin-bottom: 6px;
   }
+}
+
+.switches {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 29px;
+  margin-bottom: 20px;
+}
+
+.switch {
+  font-size: var(--font-size-s3);
+}
+
+.addLogoBtn {
+  align-self: flex-start;
+}
+
+.folder {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  color: var(--blue-color);
+  font-weight: var(--font-weight-xl);
+  margin-bottom: 26px;
+  cursor: pointer;
+}
+
+.fileInput {
+  padding: 0px 55px;
+}
+
+.fileInputContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-family-second);
+  line-height: normal;
+}
+
+.textBlack {
+  font-size: 11px;
+  color: var(--black-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.textBlue {
+  font-size: 9px;
 }
 
 .buttons {
@@ -28,6 +86,6 @@
 
 .button {
   margin: 0 15px;
+  padding: 9px 0;
   flex: 0 1 40%
 }
-

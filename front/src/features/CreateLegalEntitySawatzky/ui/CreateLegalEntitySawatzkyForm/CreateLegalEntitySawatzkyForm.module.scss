@@ -14,7 +14,7 @@
 }
 
 .input {
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-bottom: 6px;
   }
 }
@@ -27,6 +27,6 @@
 
 .button {
   margin: 0 15px;
+  padding: 9px 0;
   flex: 0 1 40%
 }
-
