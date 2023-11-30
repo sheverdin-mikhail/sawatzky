@@ -11,10 +11,11 @@ interface DocItemProps {
   className?: string;
   doc: Document;
   onDelete?: () => void;
+  modal?: boolean;
 }
 
 export const DocItem: React.FC<DocItemProps> = (props) => {
-  const { doc, onDelete } = props;
+  const { doc, onDelete, modal } = props;
 
   const dispatch = useAppDispatch();
 
@@ -39,7 +40,8 @@ export const DocItem: React.FC<DocItemProps> = (props) => {
       </p>
       <div className={cls.btns}>
         <Button theme={ButtonThemes.WHITE_ROUND} onClick={onDeleteHandler}> <CancelIcon /> </Button>
-        <Button theme={ButtonThemes.WHITE_ROUND} onClick={onDownloadClick}> <DownloadIcon /> </Button>
+        {modal
+          && (<Button theme={ButtonThemes.WHITE_ROUND} onClick={onDownloadClick}> <DownloadIcon /> </Button>)}
       </div>
     </li>
   );

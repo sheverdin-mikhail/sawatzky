@@ -5,11 +5,11 @@ import {
 import cls from './FileInput.module.scss';
 
 interface FileInputProps {
-    className?: string;
-    label?: string;
-    id?: string;
-    file?: File;
-    onFileChange?: (file: File) => void;
+  className?: string;
+  label?: any;
+  id?: string;
+  file?: File;
+  onFileChange?: (file: File) => void;
 }
 
 export const FileInput: React.FC<FileInputProps> = (props) => {
@@ -61,10 +61,10 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
           )
         }
         {
-          file && <span className={cls.fileName}>Выбранный файл: <a href={`${URL.createObjectURL(file)}`} download={file.name}>{ file.name }</a> </span>
+          file && <span className={cls.fileName}>Выбранный файл: <a href={`${URL.createObjectURL(file)}`} download={file.name}>{file.name}</a> </span>
         }
         <input type="file" onChange={(e) => onChangeHandler(e)} id={`${id}`} className={cls.input} />
-        <label htmlFor={`${id}`} className={cls.label}> { label } </label>
+        <label htmlFor={`${id}`} className={cls.label}> {label} </label>
       </div>
     </div>
   );
