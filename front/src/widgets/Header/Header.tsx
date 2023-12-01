@@ -4,7 +4,7 @@ import { DropdownMenu } from 'widgets/DropdownMenu/DropdownMenu';
 import cls from './Header.module.scss';
 
 interface HeaderProps {
-    className?: string;
+  className?: string;
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
