@@ -109,7 +109,7 @@ class LegalEntitySerializer(ModelSerializer):
         model = LegalEntity
         fields = ['id', 'name', 'head', 'legalAddress', 'actualAddress', 'phone',
                   'mail', 'INN', 'settlementAccount', 'correspondentAccount',
-                  'bank', 'bik', 'sawatzki', 'status']
+                  'bank', 'bik', 'sawatzki', 'status', 'workObject', 'workObjectsGroup']
 
 
 class ClientLESerializer(ModelSerializer):
@@ -128,6 +128,15 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
         if 'context' in kwargs and 'request' in kwargs['context']:
             sawatzki_value = kwargs['context']['request'].data.get('sawatzki')
 
+            if sawatzki_value:
+                true_required_fields = [
+                    'name', 'head', 'legalAddress', 'actualAddress', 'phone', 'mail', 'INN',
+                    'settlementAccount', 'correspondentAccount', 'bank', 'bik', 'workObjectsGroup',
+                    'workObject'
+                ]
+                for field_name in true_required_fields:
+                    self.fields[field_name].required = True
+
             if sawatzki_value is not None and not sawatzki_value:
                 non_required_fields = [
                     'name', 'head', 'legalAddress', 'actualAddress', 'phone', 'mail', 'INN',
@@ -138,11 +147,16 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
 
             if sawatzki_value is not None and not sawatzki_value:
                 required_fields = [
-                    'workObjectsGroup', 'workObject', 'workTaskGroups', 'workMaterialGroups'
+                    'workObjectsGroup', 'workObject', 'workTaskGroups',
+                    'workMaterialGroups', 'prepayment', 'sawatzki', 'status'
                 ]
                 for field_name in required_fields:
                     self.fields[field_name].required = True
     def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['workObject'] = instance.workObject.id if instance.workObject else None
+        representation['workObjectsGroup'] = instance.workObjectsGroup.id if instance.workObjectsGroup else None
+
         if instance.sawatzki:
             return LegalEntitySerializer(instance, context=self.context).data
         else:
