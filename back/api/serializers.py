@@ -158,9 +158,9 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
 
         super().__init__(*args, **kwargs)
         if 'context' in kwargs and 'request' in kwargs['context']:
-            sawatzki_value = kwargs['context']['request'].data.get('sawatzky')
+            sawatzky_value = kwargs['context']['request'].data.get('sawatzky')
 
-            if sawatzki_value:
+            if sawatzky_value:
                 true_required_fields = [
                     'name', 'head', 'legalAddress', 'actualAddress', 'phone', 'mail', 'INN',
                     'settlementAccount', 'correspondentAccount', 'bank', 'bik', 'workObjectsGroup',
@@ -169,7 +169,7 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
                 for field_name in true_required_fields:
                     self.fields[field_name].required = True
 
-            if sawatzki_value is not None and not sawatzki_value:
+            if sawatzky_value is not None and not sawatzky_value:
                 non_required_fields = [
                     'name', 'head', 'legalAddress', 'actualAddress', 'phone', 'mail', 'INN',
                     'settlementAccount', 'correspondentAccount', 'bank', 'bik',
@@ -177,7 +177,7 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
                 for field_name in non_required_fields:
                     self.fields[field_name].required = False
 
-            if sawatzki_value is not None and not sawatzki_value:
+            if sawatzky_value is not None and not sawatzky_value:
                 required_fields = [
                     'workObjectsGroup', 'workObject', 'workTaskGroups',
                     'workMaterialGroups', 'prepayment', 'sawatzky', 'status'
@@ -189,7 +189,7 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
         representation['workObject'] = instance.workObject.id if instance.workObject else None
         representation['workObjectsGroup'] = instance.workObjectsGroup.id if instance.workObjectsGroup else None
 
-        if instance.sawatzki:
+        if instance.sawatzky:
             return LegalEntitySerializer(instance, context=self.context).data
         else:
             return ClientLESerializer(instance, context=self.context).data
