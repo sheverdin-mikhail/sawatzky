@@ -39,8 +39,8 @@ class WorkMaterialFilter(filters.FilterSet):
 '''Фильтр для LegalEntity'''
 class LegalEntityFilter(filters.FilterSet):
     status = filters.BooleanFilter(field_name="status", lookup_expr="exact")
-    sawatzki = filters.BooleanFilter(field_name="sawatzki", lookup_expr="exact")
+    sawatzky = filters.BooleanFilter(field_name="sawatzky", lookup_expr="exact")
     class Meta:
         model = LegalEntity
-        fields = ['sawatzki']
+        fields = ['sawatzky']
 

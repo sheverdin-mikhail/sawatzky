@@ -17,7 +17,7 @@ export interface LegalEntity {
     correspondentAccount?: string;
     bank?: string;
     bik?: string;
-    sawatzki?: boolean;
+    sawatzky?: boolean;
     prepayment?: boolean;
     status?: boolean;
 

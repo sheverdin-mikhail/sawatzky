@@ -64,7 +64,7 @@ export const createLegalEntitySlice = createSlice({
       state.formData.prepayment = action.payload;
     },
     setSawatzky: (state, action: PayloadAction<boolean>) => {
-      state.formData.sawatzki = action.payload;
+      state.formData.sawatzky = action.payload;
     },
     setSettlementAccount: (state, action: PayloadAction<string>) => {
       state.formData.settlementAccount = action.payload;

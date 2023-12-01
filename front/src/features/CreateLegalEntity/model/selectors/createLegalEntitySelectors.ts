@@ -6,7 +6,7 @@ export const getCreateLegalEntityFormBank = (state: StateSchema) => state.create
 export const getCreateLegalEntityFormBik = (state: StateSchema) => state.createLegalEntityForm?.formData.bik;
 export const getCreateLegalEntityFormCorrespondentAccount = (state: StateSchema) => state.createLegalEntityForm?.formData.correspondentAccount;
 export const getCreateLegalEntityFormHead = (state: StateSchema) => state.createLegalEntityForm?.formData.head;
-export const getCreateLegalEntityFormIs = (state: StateSchema) => state.createLegalEntityForm?.formData.sawatzki;
+export const getCreateLegalEntityFormIs = (state: StateSchema) => state.createLegalEntityForm?.formData.sawatzky;
 export const getCreateLegalEntityFormLegalAddress = (state: StateSchema) => state.createLegalEntityForm?.formData.legalAddress;
 export const getCreateLegalEntityFormMail = (state: StateSchema) => state.createLegalEntityForm?.formData.mail;
 export const getCreateLegalEntityFormName = (state: StateSchema) => state.createLegalEntityForm?.formData.name;
