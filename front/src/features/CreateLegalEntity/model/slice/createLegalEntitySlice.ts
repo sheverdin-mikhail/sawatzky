@@ -20,8 +20,8 @@ export const createLegalEntitySlice = createSlice({
       state.formData = {
       };
     },
-    setWorkObjectGroup: (state, action: PayloadAction<number>) => {
-      state.formData.workObjectGroup = action.payload;
+    setWorkObjectsGroup: (state, action: PayloadAction<number>) => {
+      state.formData.workObjectsGroup = action.payload;
       state.formData.workObject = undefined;
     },
     setWorkObject: (state, action: PayloadAction<number>) => {
@@ -45,7 +45,36 @@ export const createLegalEntitySlice = createSlice({
     setStatus: (state, action: PayloadAction<boolean>) => {
       state.formData.status = action.payload;
     },
-
+    setHead: (state, action: PayloadAction<string>) => {
+      state.formData.head = action.payload;
+    },
+    setLegalAddress: (state, action: PayloadAction<string>) => {
+      state.formData.legalAddress = action.payload;
+    },
+    setMail: (state, action: PayloadAction<string>) => {
+      state.formData.mail = action.payload;
+    },
+    setName: (state, action: PayloadAction<string>) => {
+      state.formData.name = action.payload;
+    },
+    setPhone: (state, action: PayloadAction<string>) => {
+      state.formData.phone = action.payload;
+    },
+    setPrepayment: (state, action: PayloadAction<boolean>) => {
+      state.formData.prepayment = action.payload;
+    },
+    setSawatzky: (state, action: PayloadAction<boolean>) => {
+      state.formData.sawatzki = action.payload;
+    },
+    setSettlementAccount: (state, action: PayloadAction<string>) => {
+      state.formData.settlementAccount = action.payload;
+    },
+    setWorkMaterialGroups: (state, action: PayloadAction<number[]>) => {
+      state.formData.workMaterialGroups = action.payload;
+    },
+    setWorkTaskGroups: (state, action: PayloadAction<number[]>) => {
+      state.formData.workTaskGroups = action.payload;
+    },
   },
 });
 

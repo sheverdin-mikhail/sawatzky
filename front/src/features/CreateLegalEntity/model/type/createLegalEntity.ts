@@ -15,9 +15,9 @@ export interface CreateLegalEntityFormData {
     status?: boolean;
 
     workObject?: number;
-    workObjectGroup?: number;
-    workTaskGroup?: number;
-    workMaterialGroup?: number;
+    workObjectsGroup?: number;
+    workTaskGroups?: number[];
+    workMaterialGroups?: number[];
 }
 
 export interface CreateLegalEntitySchema {

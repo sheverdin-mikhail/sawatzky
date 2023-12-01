@@ -12,12 +12,14 @@ export const getCreateLegalEntityFormMail = (state: StateSchema) => state.create
 export const getCreateLegalEntityFormName = (state: StateSchema) => state.createLegalEntityForm?.formData.name;
 export const getCreateLegalEntityFormPhone = (state: StateSchema) => state.createLegalEntityForm?.formData.phone;
 export const getCreateLegalEntityFormSettlementAccount = (state: StateSchema) => state.createLegalEntityForm?.formData.settlementAccount;
+export const getCreateLegalEntityFormPrepayment = (state: StateSchema) => state.createLegalEntityForm?.formData.prepayment;
+export const getCreateLegalEntityFormStatus = (state: StateSchema) => state.createLegalEntityForm?.formData.status;
 export const getCreateLegalEntityFormData = (state: StateSchema) => state.createLegalEntityForm?.formData;
 
-export const getCreateLegalEntityFormWorkObjectGroup = (state: StateSchema) => state.createLegalEntityForm?.formData.workObjectGroup;
+export const getCreateLegalEntityFormWorkObjectGroup = (state: StateSchema) => state.createLegalEntityForm?.formData.workObjectsGroup;
 export const getCreateLegalEntityFormWorkObject = (state: StateSchema) => state.createLegalEntityForm?.formData.workObject;
-export const getCreateLegalEntityFormWorkTaskGroup = (state: StateSchema) => state.createLegalEntityForm?.formData.workTaskGroup;
-export const getCreateLegalEntityFormWorkMaterialGroup = (state: StateSchema) => state.createLegalEntityForm?.formData.workMaterialGroup;
+export const getCreateLegalEntityFormWorkTaskGroups = (state: StateSchema) => state.createLegalEntityForm?.formData.workTaskGroups;
+export const getCreateLegalEntityFormWorkMaterialGroups = (state: StateSchema) => state.createLegalEntityForm?.formData.workMaterialGroups;
 
 export const getCreateLegalEntityError = (state: StateSchema) => state.createLegalEntityForm?.error;
 export const getCreateLegalEntityIsLoading = (state: StateSchema) => state.createLegalEntityForm?.isLoading;
