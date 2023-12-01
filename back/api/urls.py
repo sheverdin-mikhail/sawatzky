@@ -11,9 +11,9 @@ urlpatterns = [
     path('applications/<int:pk>/', views.ApplicationDetailView.as_view()),
     path('applications/<int:pk>/documents/', views.DocumentToApplicationCreateView.as_view()),
 
-    path('clients/', views.ClientListView.as_view()),
-    path('clients/create/', views.ClientCreateView.as_view()),
-    path('clients/<int:pk>/', views.ClientDetailView.as_view()),
+    # path('clients/', views.ClientListView.as_view()),
+    # path('clients/create/', views.ClientCreateView.as_view()),
+    # path('clients/<int:pk>/', views.ClientDetailView.as_view()),
 
     path('entities/', views.LegalEntityListView.as_view()),
     path('entities/create/', views.LegalEntityCreateView.as_view()),
