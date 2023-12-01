@@ -4,7 +4,7 @@ import { Logo } from 'shared/ui/Logo/Logo';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { docList } from 'widgets/DocList/model/type/docList';
+import { Document } from 'entities/Document';
 import { DocList } from 'widgets/DocList';
 import cls from './CreateCustomerForm.module.scss';
 
@@ -42,15 +42,15 @@ export const CreateCustomerForm: React.FC<CreateCustomerFormProps> = (props) => 
     text: item.code,
   }));
 
-  const docs: docList[] = [
+  const docs: Document[] = [
     {
-      id: '1', title: 'Доверенность 3.doсx', date: '12.05.23', time: '15:00',
+      id: '1', name: 'Доверенность 3.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
     },
     {
-      id: '2', title: 'Доверенность 2.doсx', date: '12.05.23', time: '15:00',
+      id: '2', name: 'Доверенность 2.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
     },
     {
-      id: '3', title: 'Доверенность 1.doсx', date: '12.05.23', time: '15:00',
+      id: '3', name: 'Доверенность 1.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
     },
   ];
 

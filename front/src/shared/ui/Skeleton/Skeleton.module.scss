@@ -1,0 +1,28 @@
+.skeleton {
+  background: var(--skeleton-color);
+  background: linear-gradient(110deg, var(--skeleton-color) 8%, var(--blue-bg-color) 18%, var(--skeleton-color) 33%);
+  background-size: 200% 100%;
+  animation: 1.7s anim linear infinite;
+
+  &.roundLittle {
+    border-radius: 5px;
+  }
+
+  &.roundSmall {
+    border-radius: 10px;
+  }
+
+  &.roundMedium {
+    border-radius: 15px;
+  }
+
+  &.round {
+    border-radius: 50%;
+  }
+}
+
+@keyframes anim {
+  to {
+    background-position-x: -200%;
+  }
+}
