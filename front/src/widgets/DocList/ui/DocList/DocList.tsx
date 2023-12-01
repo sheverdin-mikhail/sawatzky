@@ -7,14 +7,15 @@ import { DoneItem } from '../DoneItem/DoneItem';
 interface DocListProps {
   className?: string;
   acts?: string;
-  title: string;
+  title?: string;
   docs?: Document[];
   onDelete?: () => void;
+  modal?: boolean;
 }
 
 export const DocList: React.FC<DocListProps> = (props) => {
   const {
-    className, title, docs, acts, onDelete,
+    className, title, docs, acts, onDelete, modal,
   } = props;
   return (
     <div className={cls.docs}>
@@ -25,7 +26,6 @@ export const DocList: React.FC<DocListProps> = (props) => {
             index={index}
             doc={item}
             key={item.id}
-            modal={modal}
           />
         ))
           : docs?.map((item) => (
@@ -33,6 +33,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
               onDelete={onDelete}
               doc={item}
               key={item.id}
+              modal={modal}
             />
           ))}
       </ul>
