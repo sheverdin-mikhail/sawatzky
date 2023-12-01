@@ -3,4 +3,17 @@
   flex-direction: row;
   gap: 24px;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--blue-bg-color);
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-button {
+    height: 4px;
+  }
 }

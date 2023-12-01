@@ -25,6 +25,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
             index={index}
             doc={item}
             key={item.id}
+            modal={modal}
           />
         ))
           : docs?.map((item) => (

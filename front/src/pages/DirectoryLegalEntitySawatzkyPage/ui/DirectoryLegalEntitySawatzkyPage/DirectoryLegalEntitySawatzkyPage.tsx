@@ -5,14 +5,21 @@ import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
 import { CreateLegalEntitySawatzkyModal } from 'features/CreateLegalEntitySawatzky';
+import { useCallback, useState } from 'react';
 import cls from './DirectoryLegalEntitySawatzkyPage.module.scss';
 
 interface DirectoryLegalEntitySawatzkyPageProps {
-	className?: string;
+  className?: string;
 }
 
 const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPageProps> = (props) => {
   const { className } = props;
+
+  const [legalEntitySawatzkyFormIsOpen, setLegalEntitySawatzkyFormIsOpen] = useState(false);
+
+  const onLegalEntitySawatzkyFormCloseHandler = useCallback(() => {
+    setLegalEntitySawatzkyFormIsOpen(false);
+  }, []);
 
   const tableData: TableType = {
     header: {
@@ -42,7 +49,7 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
   return (
     <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
       <div className={cls.buttons}>
-        <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON}>
+        <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON} onClick={() => setLegalEntitySawatzkyFormIsOpen(true)}>
           <AddIcon />
         </Button>
         <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
@@ -50,7 +57,7 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
         </Button>
       </div>
       <Table data={tableData} />
-      <CreateLegalEntitySawatzkyModal className={cls.form} />
+      <CreateLegalEntitySawatzkyModal className={cls.form} isOpen={legalEntitySawatzkyFormIsOpen} onClose={onLegalEntitySawatzkyFormCloseHandler} />
     </DirectoryPageWrapper>
   );
 };
