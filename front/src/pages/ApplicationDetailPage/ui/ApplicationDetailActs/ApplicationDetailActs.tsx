@@ -1,7 +1,6 @@
 import { CollapsBoard } from 'widgets/CollapsBoard';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { DocList } from 'widgets/DocList';
-import { docList } from 'widgets/DocList/model/type/docList';
 import { CollapsBoardThemes } from 'widgets/CollapsBoard/ui/CollapsBoard/CollapsBoard';
 import { Document } from 'entities/Document';
 import cls from './ApplicationDetailActs.module.scss';

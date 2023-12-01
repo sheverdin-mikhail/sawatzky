@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { CreateSawatzkyEmployeeFormData } from '../type/createSawatzkyEmployee';
+import { CreateLegalEntityFormData } from '../type/createLegalEntity';
 
 export const createSawatzkyEmployee = createAsyncThunk<
     void,
-    CreateSawatzkyEmployeeFormData,
+    CreateLegalEntityFormData,
     ThunkConfig<string>
 >(
-  'createSawatzkyEmployee/createSawatzkyEmployee',
+  'createEmployee/createEmployee',
   async (formData, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.post<CreateSawatzkyEmployeeFormData>('/api/v1/sawatzky_employee/create/', formData);
+      const response = await extra.api.post<CreateLegalEntityFormData>('/api/v1/entity/create/', formData);
       if (!response.data) {
         throw new Error('Ошибка создания группы услуг');
       }

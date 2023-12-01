@@ -4,18 +4,31 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { Table, TableType } from 'widgets/Table';
-import { CreateLegalEntitySawatzkyModal } from 'features/CreateLegalEntitySawatzky';
-import { useCallback, useState } from 'react';
+import { CreateLegalEntityModal, createLegalEntityReducer } from 'features/CreateLegalEntity';
+import { useCallback, useEffect, useState } from 'react';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import cls from './DirectoryLegalEntitySawatzkyPage.module.scss';
 
 interface DirectoryLegalEntitySawatzkyPageProps {
   className?: string;
 }
 
+const reducers: ReducersList = {
+  workObjectGroup: workObjectGroupReducer,
+  createLegalEntityForm: createLegalEntityReducer,
+};
+
 const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPageProps> = (props) => {
   const { className } = props;
 
   const [legalEntitySawatzkyFormIsOpen, setLegalEntitySawatzkyFormIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchWorkObjectGroupList());
+  }, [dispatch]);
 
   const onLegalEntitySawatzkyFormCloseHandler = useCallback(() => {
     setLegalEntitySawatzkyFormIsOpen(false);
@@ -29,36 +42,24 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
       object: 'Объект',
     },
     items: [
-      {
-        id: '1',
-        name: 'Наименование Юр. лица',
-        group: 'Группа объектов № 15',
-        object: '12345',
-      },
-
-      {
-        id: '2',
-        name: 'Наименование Юр. лица 2',
-        group: 'Группа объектов № 15',
-        object: '12346',
-      },
-
     ],
   };
 
   return (
-    <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
-      <div className={cls.buttons}>
-        <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON} onClick={() => setLegalEntitySawatzkyFormIsOpen(true)}>
-          <AddIcon />
-        </Button>
-        <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
-          <DeleteIcon />
-        </Button>
-      </div>
-      <Table data={tableData} />
-      <CreateLegalEntitySawatzkyModal className={cls.form} isOpen={legalEntitySawatzkyFormIsOpen} onClose={onLegalEntitySawatzkyFormCloseHandler} />
-    </DirectoryPageWrapper>
+    <DynamicModuleLoader reducers={reducers}>
+      <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
+        <div className={cls.buttons}>
+          <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON} onClick={() => setLegalEntitySawatzkyFormIsOpen(true)}>
+            <AddIcon />
+          </Button>
+          <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
+            <DeleteIcon />
+          </Button>
+        </div>
+        <Table data={tableData} />
+        <CreateLegalEntityModal className={cls.form} isOpen={legalEntitySawatzkyFormIsOpen} onClose={onLegalEntitySawatzkyFormCloseHandler} />
+      </DirectoryPageWrapper>
+    </DynamicModuleLoader>
   );
 };
 

@@ -1,5 +1,6 @@
 import { StateSchema } from 'app/providers';
 
+export const getCreateSawatzkyEmployeeFormData = (state: StateSchema) => state.createSawatzkyEmployee?.formData;
 export const getCreateSawatzkyEmployeeFormWorkObjectGroup = (state: StateSchema) => state.createSawatzkyEmployee?.formData.workObjectGroup;
 export const getCreateSawatzkyEmployeeFormWorkObject = (state: StateSchema) => state.createSawatzkyEmployee?.formData.workObject;
 export const getCreateSawatzkyEmployeeFormWorkingObjects = (state: StateSchema) => state.createSawatzkyEmployee?.formData.workingObjects;

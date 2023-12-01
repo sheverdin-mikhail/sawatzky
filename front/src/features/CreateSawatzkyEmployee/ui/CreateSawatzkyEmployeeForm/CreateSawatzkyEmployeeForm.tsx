@@ -13,6 +13,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { EmployeeRoleOption } from 'features/CreateSawatzkyEmployee/model/type/createSawatzkyEmployee';
 import { EmployeeRole } from 'entities/Employee';
 import {
+  getCreateSawatzkyEmployeeFormData,
   getCreateSawatzkyEmployeeFormFio,
   getCreateSawatzkyEmployeeFormPassword,
   getCreateSawatzkyEmployeeFormPhoneNumber,
@@ -25,6 +26,7 @@ import {
 } from '../../model/selectors/createSawatzkyEmployeeSelectors';
 import { createSawatzkyEmployeeActions } from '../../model/slice/createSawatzkyEmployeeSlice';
 import cls from './CreateSawatzkyEmployeeForm.module.scss';
+import { createSawatzkyEmployee } from '../../model/services/createSawatzkyEmployee';
 
 interface CreateSawatzkyEmployeeFormProps {
   className?: string;
@@ -59,6 +61,7 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
   const password = useSelector(getCreateSawatzkyEmployeeFormPassword);
   const position = useSelector(getCreateSawatzkyEmployeeFormPosition);
   const status = useSelector(getCreateSawatzkyEmployeeFormStatus);
+  const formData = useSelector(getCreateSawatzkyEmployeeFormData);
   const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
 
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
@@ -97,6 +100,12 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
     dispatch(createSawatzkyEmployeeActions.setStatus(value));
   }, [dispatch]);
 
+  const onSubmitForm = useCallback(() => {
+    if (formData) {
+      dispatch(createSawatzkyEmployee(formData));
+    }
+  }, [dispatch, formData]);
+
   const workObjectOptions = useMemo(() => {
     const workObjects = workObjectGroups.find((item) => item.id === workObjectGroup)?.workObjects;
     if (workObjects) {
@@ -108,6 +117,13 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
     return undefined;
   }, [workObjectGroups, workObjectGroup]);
   const workObjectGroupOptions: SelectOptionType[] = workObjectGroups.map((item) => ({ value: item.id, text: item.name }));
+
+  const workingObjectsOptions = useMemo(() => {
+    if (workingObjects) {
+      return workObjectOptions?.filter((item) => workingObjects.find((object) => object === item.value));
+    }
+    return undefined;
+  }, [workingObjects, workObjectOptions]);
 
   const roleOption = useMemo(() => {
     if (role) {
@@ -122,13 +138,6 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
     }
     return undefined;
   }, [workObject, workObjectOptions]);
-
-  const workingObjectsOptions = useMemo(() => {
-    if (workingObjects) {
-      return workObjectOptions?.filter((item) => workingObjects.find((object) => object === item.value));
-    }
-    return undefined;
-  }, [workingObjects, workObjectOptions]);
 
   const workObjectGroupOption = useMemo(() => {
     if (workObjectGroup) {
@@ -190,7 +199,7 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
 
       <Switch className={cls.switch} id="status" label="Статус сотрудника" checked={status ?? false} onChange={onChangeStatus} />
 
-      <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID}>Создать</Button>
+      <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID} onClick={onSubmitForm}>Создать</Button>
     </div>
   );
 };
