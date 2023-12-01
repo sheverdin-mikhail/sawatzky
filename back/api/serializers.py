@@ -135,6 +135,13 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
                 ]
                 for field_name in non_required_fields:
                     self.fields[field_name].required = False
+
+            if sawatzki_value is not None and not sawatzki_value:
+                required_fields = [
+                    'workObjectsGroup', 'workObject', 'workTaskGroups', 'workMaterialGroups'
+                ]
+                for field_name in required_fields:
+                    self.fields[field_name].required = True
     def to_representation(self, instance):
         if instance.sawatzki:
             return LegalEntitySerializer(instance, context=self.context).data
