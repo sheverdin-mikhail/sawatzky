@@ -35,7 +35,7 @@ class LegalEntity(models.Model):
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
 
-    sawatzki = models.BooleanField(("Относится к Sawatzky"), default=False)
+    sawatzky = models.BooleanField(("Относится к Sawatzky"), default=False)
 
     status = models.BooleanField(("Статус контрагента"), default=False)
     prepayment = models.BooleanField(("Работа по предоплате"), default=False)
