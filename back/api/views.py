@@ -43,6 +43,7 @@ from .serializers import (
     SawatzkyEmployeeWithoutworkingObjectsSerializer,
     SawatzkyEmployeeWithUserSerializer,
     LegalEntityOrClientLESerializer,
+    LegalEntityListSerializer,
 
 )
 
@@ -181,7 +182,7 @@ class LegalEntityCreateView(generics.CreateAPIView):
 class LegalEntityListView(generics.ListAPIView):
     # представление на создание и вывод списка Юр. лиц
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntityOrClientLESerializer
+    serializer_class = LegalEntityListSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = LegalEntityFilter

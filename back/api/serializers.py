@@ -101,6 +101,38 @@ class WorkTaskGroupWithWorkTaskSerializer(ModelSerializer):
         fields = '__all__'
 
 
+'''WorkObject'''
+class WorkObjectSerializer(ModelSerializer):
+    # Сериализатор модели WorkObject
+    class Meta:
+        model = WorkObject
+        fields = '__all__'
+
+
+'''WorkObjectsGroup'''
+class WorkObjectsGroupSerializer(ModelSerializer):
+    # Сериализатор модели WorkObjectsGroup
+    workObjects = WorkObjectSerializer(read_only=True, many=True, required=False)
+
+    class Meta:
+        model = WorkObjectsGroup
+        fields = '__all__'
+
+
+class WorkObjectsGroupWithoutworkObjectsSerializer(ModelSerializer):
+    # Сериализатор модели WorkObjectsGroup не расширенный
+    class Meta:
+        model = WorkObjectsGroup
+        fields = '__all__'
+
+
+'''WorkMaterialGroup'''
+class WorkMaterialGroupSerializer(ModelSerializer):
+    # Сериализатор для вывода списка групп материалов
+    class Meta:
+        model = WorkMaterialGroup
+        fields = '__all__'
+
 
 '''LegalEntity'''
 class LegalEntitySerializer(ModelSerializer):
@@ -109,7 +141,7 @@ class LegalEntitySerializer(ModelSerializer):
         model = LegalEntity
         fields = ['id', 'name', 'head', 'legalAddress', 'actualAddress', 'phone',
                   'mail', 'INN', 'settlementAccount', 'correspondentAccount',
-                  'bank', 'bik', 'sawatzki', 'status', 'workObject', 'workObjectsGroup']
+                  'bank', 'bik', 'sawatzky', 'status', 'workObject', 'workObjectsGroup']
 
 
 class ClientLESerializer(ModelSerializer):
@@ -117,7 +149,7 @@ class ClientLESerializer(ModelSerializer):
     class Meta:
         model = LegalEntity
         fields = ['id', 'workTaskGroups', 'workMaterialGroups', 'workObject',
-                  'workObjectsGroup', 'prepayment', 'sawatzki', 'status']
+                  'workObjectsGroup', 'prepayment', 'sawatzky', 'status']
 
 
 class LegalEntityOrClientLESerializer(ModelSerializer):
@@ -126,7 +158,7 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
 
         super().__init__(*args, **kwargs)
         if 'context' in kwargs and 'request' in kwargs['context']:
-            sawatzki_value = kwargs['context']['request'].data.get('sawatzki')
+            sawatzki_value = kwargs['context']['request'].data.get('sawatzky')
 
             if sawatzki_value:
                 true_required_fields = [
@@ -148,7 +180,7 @@ class LegalEntityOrClientLESerializer(ModelSerializer):
             if sawatzki_value is not None and not sawatzki_value:
                 required_fields = [
                     'workObjectsGroup', 'workObject', 'workTaskGroups',
-                    'workMaterialGroups', 'prepayment', 'sawatzki', 'status'
+                    'workMaterialGroups', 'prepayment', 'sawatzky', 'status'
                 ]
                 for field_name in required_fields:
                     self.fields[field_name].required = True
@@ -176,28 +208,15 @@ class LegalEntityDetailSerializer(ModelSerializer):
         fields = '__all__'
 
 
-'''WorkObject'''
-class WorkObjectSerializer(ModelSerializer):
-    # Сериализатор модели WorkObject
-    class Meta:
-        model = WorkObject
-        fields = '__all__'
-
-
-'''WorkObjectsGroup'''
-class WorkObjectsGroupSerializer(ModelSerializer):
-    # Сериализатор модели WorkObjectsGroup
-    workObjects = WorkObjectSerializer(read_only=True, many=True, required=False)
+class LegalEntityListSerializer(ModelSerializer):
+    # Сериализатор модели LegalEntity для DetailView
+    workTaskGroups = WorkTaskGroupWithWorkTaskSerializer(read_only=True, many=True)
+    workMaterialGroups = WorkMaterialGroupSerializer(read_only=True, many=True)
+    workObjectsGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
+    workObject = WorkObjectSerializer(read_only=True, many=False)
 
     class Meta:
-        model = WorkObjectsGroup
-        fields = '__all__'
-
-
-class WorkObjectsGroupWithoutworkObjectsSerializer(ModelSerializer):
-    # Сериализатор модели WorkObjectsGroup не расширенный
-    class Meta:
-        model = WorkObjectsGroup
+        model = LegalEntity
         fields = '__all__'
 
 
@@ -325,14 +344,6 @@ class WorkMaterialGroupWithWorkMaterialSerializer(ModelSerializer):
     # Сериализатор для вывода списка групп материалов с расширенным полем workMaterial
     materials = WorkMaterialSerializer(read_only=True, many=True)
 
-    class Meta:
-        model = WorkMaterialGroup
-        fields = '__all__'
-
-
-'''WorkMaterialGroup'''
-class WorkMaterialGroupSerializer(ModelSerializer):
-    # Сериализатор для вывода списка групп материалов
     class Meta:
         model = WorkMaterialGroup
         fields = '__all__'
