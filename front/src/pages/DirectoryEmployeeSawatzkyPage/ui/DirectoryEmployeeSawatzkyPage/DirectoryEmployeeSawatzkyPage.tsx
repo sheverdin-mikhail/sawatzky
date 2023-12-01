@@ -3,13 +3,14 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { Table, TableType } from 'widgets/Table';
+import { TableType } from 'widgets/Table';
 import { useCallback, useEffect, useState } from 'react';
 import { CreateSawatzkyEmployeeModal, createSawatzkyEmployeeReducer } from 'features/CreateSawatzkyEmployee';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { workObjectReducer } from 'entities/WorkObject';
+import { useTable } from 'shared/lib/hooks/useTable';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
@@ -48,6 +49,10 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
     ],
   };
 
+  const { Table } = useTable({
+    data: tableData,
+  });
+
   return (
     <DynamicModuleLoader reducers={reducers}>
       <DirectoryPageWrapper className={classNames(cls.directoryEmployeeSawatzkyPage, {}, [className])}>
@@ -59,7 +64,7 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
             <DeleteIcon />
           </Button>
         </div>
-        <Table data={tableData} />
+        { Table }
         <CreateSawatzkyEmployeeModal
           isOpen={legalEntityFormIsOpen}
           onClose={onLegalEntityFormCloseHandler}

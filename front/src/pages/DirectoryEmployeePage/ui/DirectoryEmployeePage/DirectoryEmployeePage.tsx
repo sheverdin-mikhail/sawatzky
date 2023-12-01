@@ -3,9 +3,10 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { Table, TableType } from 'widgets/Table';
+import { TableType } from 'widgets/Table';
 import { useCallback, useState } from 'react';
 import { CreateCustomerModal } from 'features/CreateCustomer';
+import { useTable } from 'shared/lib/hooks/useTable';
 import cls from './DirectoryEmployeePage.module.scss';
 
 interface DirectoryEmployeePageProps {
@@ -32,6 +33,10 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
     ],
   };
 
+  const { Table } = useTable({
+    data: tableData,
+  });
+
   return (
     <DirectoryPageWrapper className={classNames(cls.directoryEmployeePage, {}, [className])}>
       <div className={cls.buttons}>
@@ -42,7 +47,7 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
           <DeleteIcon />
         </Button>
       </div>
-      <Table data={tableData} />
+      {Table}
       <CreateCustomerModal
         onClose={onLegalEntityFormCloseHandler}
         isOpen={legalEntityFormIsOpen}

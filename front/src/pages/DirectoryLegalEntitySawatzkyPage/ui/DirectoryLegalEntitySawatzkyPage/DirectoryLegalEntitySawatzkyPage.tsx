@@ -70,7 +70,9 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
 
   const {
     Table,
-  } = useTable({ data: tableData });
+  } = useTable({
+    data: tableData,
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers}>

@@ -73,7 +73,9 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
 
   const {
     Table,
-  } = useTable({ data: tableData });
+  } = useTable({
+    data: tableData,
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers}>
