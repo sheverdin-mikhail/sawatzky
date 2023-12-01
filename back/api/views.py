@@ -21,8 +21,6 @@ from .serializers import (
     ApplicationWithCreatorSerializer,
     ApplicationWorkMaterialSerializer,
     ApplicationSerializer,
-    ClientWithCLWWSerializers,
-    ClientSerializers,
     LegalEntitySerializer,
     WorkObjectsGroupSerializer,
     WorkObjectsGroupWithWorkObjectSerializer,
@@ -44,13 +42,14 @@ from .serializers import (
     SawatzkyEmployeeWithWorkObjectSerializer,
     SawatzkyEmployeeWithoutworkingObjectsSerializer,
     SawatzkyEmployeeWithUserSerializer,
+    LegalEntityOrClientLESerializer,
+
 )
 
 from .models import (
     User,
     Employee,
     Application,
-    Client,
     LegalEntity,
     WorkObjectsGroup,
     WorkMaterial,
@@ -136,53 +135,53 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
 
         try:
             pk = self.kwargs['pk']
-            applications = Application.objects.filter(id=pk)
+            applications = Application.objects.filter(id=pk).order_by('-createdAt')
             return applications
 
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
 
-"""Client"""
-class ClientCreateView(generics.CreateAPIView):
-    # представление на создание клиента
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-class ClientListView(generics.ListAPIView):
-    # представление на создание и вывод списка клиентов
-    queryset = Client.objects.all()
-    serializer_class = ClientWithCLWWSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-class ClientDetailView(generics.RetrieveDestroyAPIView):
-    # представление на получение, обновление, удаление списка клиентов по id создателя
-    serializer_class = ClientWithCLWWSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-
-        try:
-            pk = self.kwargs['pk']
-            clients = Client.objects.filter(id=pk)
-            return clients
-
-        except (KeyError, Client.DoesNotExist):
-            return Response({'message': 'Клиент не найден'}, status=status.HTTP_404_NOT_FOUND)
-
+# """Client"""
+# class ClientCreateView(generics.CreateAPIView):
+#     # представление на создание клиента
+#     queryset = Client.objects.all()
+#     serializer_class = ClientSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+# class ClientListView(generics.ListAPIView):
+#     # представление на создание и вывод списка клиентов
+#     queryset = Client.objects.all()
+#     serializer_class = ClientWithCLWWSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+# class ClientDetailView(generics.RetrieveDestroyAPIView):
+#     # представление на получение, обновление, удаление списка клиентов по id создателя
+#     serializer_class = ClientWithCLWWSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+#     def get_queryset(self):
+#
+#         try:
+#             pk = self.kwargs['pk']
+#             clients = Client.objects.filter(id=pk)
+#             return clients
+#
+#         except (KeyError, Client.DoesNotExist):
+#             return Response({'message': 'Клиент не найден'}, status=status.HTTP_404_NOT_FOUND)
+#
 
 """LegalEntity"""
 class LegalEntityCreateView(generics.CreateAPIView):
     # представление на создание Юр. лица
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
+    serializer_class = LegalEntityOrClientLESerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class LegalEntityListView(generics.ListAPIView):
     # представление на создание и вывод списка Юр. лиц
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
+    serializer_class = LegalEntityOrClientLESerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = LegalEntityFilter
@@ -190,7 +189,6 @@ class LegalEntityListView(generics.ListAPIView):
 
 class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление Юр. лица по id
-    # serializer_class = LegalEntitySerializer
     serializer_class = LegalEntityDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
 

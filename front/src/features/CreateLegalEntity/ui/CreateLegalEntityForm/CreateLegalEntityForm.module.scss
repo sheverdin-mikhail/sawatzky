@@ -47,8 +47,36 @@
   align-items: center;
   color: var(--blue-color);
   font-weight: var(--font-weight-xl);
-  margin-bottom: 26px;
   cursor: pointer;
+
+  &.folderNew {
+    margin-bottom: 26px;
+  }
+
+  &.folderCurrent {
+    color: var(--black-color);
+    margin-bottom: 17px;
+  }
+}
+
+.folders {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.foldersTitle {
+  font-weight: var(--font-weight-xl2);
+  line-height: normal;
+  margin-bottom: 16px;
+}
+
+.list {
+  margin-bottom: 25px;
+}
+
+.docList {
+  margin-left: -25px;
 }
 
 .fileInput {
@@ -87,5 +115,5 @@
 .button {
   margin: 0 15px;
   padding: 9px 0;
-  flex: 0 1 40%
+  width: 193px;
 }

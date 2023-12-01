@@ -34,6 +34,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
               onDelete={onDelete}
               doc={item}
               key={item.id}
+              modal={modal}
             />
           ))}
       </ul>
