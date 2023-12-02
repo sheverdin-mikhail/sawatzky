@@ -26,8 +26,9 @@ import { AddWorkObjectGroupFormSchema } from 'features/AddObjectsGroup';
 import { LegalEntitySchema } from 'entities/LegalEntity';
 import { WorkObjectSchema } from 'entities/WorkObject';
 import { AddWorkObjectFormSchema } from 'features/AddObject';
-import { CreateEmployeeSchema } from 'features/CreateEmployee';
+import { CreateSawatzkyEmployeeSchema } from 'features/CreateSawatzkyEmployee';
 import { AddDocumentFormSchema } from 'features/AddDocument';
+import { CreateLegalEntitySchema } from 'features/CreateLegalEntity';
 
 export interface StateSchema {
     user: UserSchema;
@@ -60,7 +61,8 @@ export interface StateSchema {
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
     addDocumentForm?: AddDocumentFormSchema;
     addWorkMaterialApplicationForm?: AddWorkMaterialApplicationFormSchema;
-    createEmployee?: CreateEmployeeSchema
+    createSawatzkyEmployee?: CreateSawatzkyEmployeeSchema
+    createLegalEntityForm?: CreateLegalEntitySchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -10,14 +10,13 @@
 .page-wrapper {
   flex: 1 1 100%;
   overflow: hidden;
+  margin-right: 32px;
 }
 
 .content-page {
   display: flex;
   flex: 1 1 100%;
 }
-
-
 
 // Calendar settings
 .tp-calendar {

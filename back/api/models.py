@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     """Общая модель пользователя"""
+
     fio = models.CharField(("ФИО"), max_length=255)
     phoneNumber = models.CharField(("Номер телефона"), max_length=20)
     avatar = models.ImageField(
@@ -21,6 +22,7 @@ class User(AbstractUser):
 
 class LegalEntity(models.Model):
     """Юр. лицо"""
+
     name = models.CharField(("Наименование юридиеского лица"), max_length=100)
     head = models.CharField(("Руководитель"), max_length=100)
     legalAddress = models.CharField(("Юридический адрес"), max_length=255)
@@ -32,15 +34,41 @@ class LegalEntity(models.Model):
     correspondentAccount = models.CharField(("Корреспондентский счёт"), max_length=50)
     bank = models.CharField(("Банк"), max_length=50)
     bik = models.CharField(("БИК"), max_length=50)
-    sawatzki = models.BooleanField(("Относится к Sawatzky"), default=False)
-    
+
+    sawatzky = models.BooleanField(("Относится к Sawatzky"), default=False)
+
+    status = models.BooleanField(("Статус контрагента"), default=False)
+    prepayment = models.BooleanField(("Работа по предоплате"), default=False)
+    workObjectsGroup = models.ForeignKey(
+        "api.WorkObjectsGroup",
+        verbose_name=("Группы рабочих объектов"),
+        related_name='client',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
+    workObject = models.ForeignKey(
+        "api.WorkObject",
+        verbose_name=("Рабочий объект"),
+        on_delete=models.CASCADE,
+        related_name='client',
+        blank=True,
+        null=True
+    )
+    workTaskGroups = models.ManyToManyField("api.WorkTaskGroup",
+                                            verbose_name=("Предоставляемые группы услуг"),
+                                            blank=True, null=True)
+    workMaterialGroups = models.ManyToManyField("api.WorkMaterialGroup",
+                                                verbose_name=("Предоставляемые группы материалов"),
+                                                blank=True, null=True)
+
 
     class Meta:
         verbose_name = "Юр. Лицо"
         verbose_name_plural = "Юр. Лица"
 
+
     def __str__(self):
-        return self.name
+        return f"{self.id}: {self.name} "
 
     
 
@@ -106,39 +134,6 @@ class WorkObject(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-class Client(models.Model):
-    """Заказчик/Контрагент"""
-
-    legalEntity = models.ForeignKey(LegalEntity, verbose_name=("Юридическое лицо"), on_delete=models.CASCADE)
-    workObjectsGroup = models.ManyToManyField(WorkObjectsGroup, verbose_name=("Группы рабочих объектов"), related_name='client')
-    workObject = models.ForeignKey(
-        WorkObject,
-        verbose_name=("Рабочий объект"),
-        on_delete=models.CASCADE, 
-        related_name='client', 
-        blank=True, 
-        null=True
-    )
-    prepayment = models.BooleanField(("Работа по предоплате"), default=False)
-    status = models.BooleanField(("Статус контрагента"), default=False)
-    workTaskGroups = models.ManyToManyField("api.WorkTaskGroup", verbose_name=("Предоставляемые группы услуг"),
-                                            blank=True, null=True)
-    workMaterialGroups = models.ManyToManyField("api.WorkMaterialGroup", verbose_name=("Предоставляемые группы материалов"),
-                                            blank=True, null=True)
-
-
-    class Meta:
-        verbose_name = "Закачик/Контрагент"
-        verbose_name_plural = "Заказчики/Контрагент"
-
-    def __str__(self):
-        return f"{self.id}: { self.legal_entity } | {self.user.fio}"
-    
-
-
 
 
 class WorkTaskGroup(models.Model):
@@ -298,9 +293,8 @@ class Application(models.Model):
 
 class Report(models.Model):
     """Отчет"""
-    
 
-    client = models.ForeignKey(Client, verbose_name=("Заказчик в рамках которого создается отчет"), on_delete=models.CASCADE)
+    client = models.ForeignKey(LegalEntity, verbose_name=("Заказчик в рамках которого создается отчет"), on_delete=models.CASCADE)
     creator = models.ForeignKey(Employee, verbose_name=("Сотрудник, создавший отчет"), null=True, on_delete=models.CASCADE)
 
     foundedApllications = models.ManyToManyField(Application, verbose_name=("Найденные заявки"), related_name='report')
@@ -347,6 +341,21 @@ class Document(models.Model):
 class SawatzkyEmployee(models.Model):
     """Пользователь Sawatzky"""
 
+    ROLES = (
+        ('dispatcher', 'Диспетчер'),
+        ('performer', 'Исполнитель'),
+        ('dispatcherPerformer', 'Диспетчер/Исполнитель'),
+    )
+
+    GROUPS = (
+        ('S1', 'Управляющий Объекта'),
+        ('S2', 'Руководитель Отдела Управления'),
+        ('S3', 'Исполнительный директор'),
+        ('S4', 'Руководство'),
+        ('S5', 'Администратор системы'),
+        ('S6', 'Разработчик системы'),
+    )
+
     user = models.OneToOneField(User, verbose_name=("Пользователь"), on_delete=models.CASCADE, related_name='sawatzky_employee')
     position = models.CharField(("Должность"), max_length=100)
     workObjectGroup = models.ForeignKey(WorkObjectsGroup, verbose_name=("Группа рабочих объектов"), on_delete=models.CASCADE)
@@ -354,6 +363,8 @@ class SawatzkyEmployee(models.Model):
     workingObjects = models.ManyToManyField(WorkObject, verbose_name=("Обслуживаемые объекты"), related_name='sawatzky_employees')
     status = models.BooleanField(("Статус"), default=False)
 
+    role = models.CharField(choices=ROLES, default='user', max_length=20, verbose_name='Роль пользователя Sawatzky')
+    group = models.CharField(choices=GROUPS, default='S1', max_length=20, verbose_name='Группа пользователя Sawatzky')
     class Meta:
         verbose_name = "Сотрудник Sawatzky"
         verbose_name_plural = "Сотрудники Sawatzky"
