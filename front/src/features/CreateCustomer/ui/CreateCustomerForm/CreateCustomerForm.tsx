@@ -1,11 +1,10 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Text, TextAlign } from 'shared/ui/Text/Text';
-import { Logo } from 'shared/ui/Logo/Logo';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { Document } from 'entities/Document';
 import { DocList } from 'widgets/DocList';
+import { Document } from 'entities/Document';
 import cls from './CreateCustomerForm.module.scss';
 
 interface CreateCustomerFormProps {
@@ -42,21 +41,10 @@ export const CreateCustomerForm: React.FC<CreateCustomerFormProps> = (props) => 
     text: item.code,
   }));
 
-  const docs: Document[] = [
-    {
-      id: '1', name: 'Доверенность 3.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
-    },
-    {
-      id: '2', name: 'Доверенность 2.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
-    },
-    {
-      id: '3', name: 'Доверенность 1.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
-    },
-  ];
+  const docs: Document[] = [];
 
   return (
     <div className={classNames(cls.createCustomerForm, {}, [className])}>
-      <Logo width={102} />
       <Text className={cls.title} textAlign={TextAlign.CENTER} title="Создать Представителя заказчика" />
 
       <Select className={classNames(cls.input, {}, [cls.select])} placeholder="Компания" options={companiesOptions} />

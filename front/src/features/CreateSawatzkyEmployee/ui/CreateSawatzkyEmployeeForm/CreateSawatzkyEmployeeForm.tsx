@@ -9,21 +9,26 @@ import {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
-import {
-  getCreateEmployeeFormFio,
-  getCreateEmployeeFormRole,
-  getCreateEmployeeFormStatus,
-  getCreateEmployeeFormWorkObject,
-  getCreateEmployeeFormWorkObjectGroup,
-  getCreateEmployeeFormWorkingObjects,
-} from 'features/CreateEmployee/model/selectors/createEmployeeSelectors';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { EmployeeRoleOption } from 'features/CreateEmployee/model/type/createEmployee';
+import { EmployeeRoleOption } from 'features/CreateSawatzkyEmployee/model/type/createSawatzkyEmployee';
 import { EmployeeRole } from 'entities/Employee';
-import { createEmployeeActions } from '../../model/slice/createEmployeeSlice';
-import cls from './CreateEmployeeForm.module.scss';
+import {
+  getCreateSawatzkyEmployeeFormData,
+  getCreateSawatzkyEmployeeFormFio,
+  getCreateSawatzkyEmployeeFormPassword,
+  getCreateSawatzkyEmployeeFormPhoneNumber,
+  getCreateSawatzkyEmployeeFormPosition,
+  getCreateSawatzkyEmployeeFormRole, getCreateSawatzkyEmployeeFormStatus,
+  getCreateSawatzkyEmployeeFormUsername,
+  getCreateSawatzkyEmployeeFormWorkObject,
+  getCreateSawatzkyEmployeeFormWorkObjectGroup,
+  getCreateSawatzkyEmployeeFormWorkingObjects,
+} from '../../model/selectors/createSawatzkyEmployeeSelectors';
+import { createSawatzkyEmployeeActions } from '../../model/slice/createSawatzkyEmployeeSlice';
+import cls from './CreateSawatzkyEmployeeForm.module.scss';
+import { createSawatzkyEmployee } from '../../model/services/createSawatzkyEmployee';
 
-interface CreateEmployeeFormProps {
+interface CreateSawatzkyEmployeeFormProps {
   className?: string;
 }
 
@@ -42,41 +47,64 @@ const roles: EmployeeRoleOption[] = [
   },
 ];
 
-export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
+export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProps> = (props) => {
   const { className } = props;
 
   const dispatch = useAppDispatch();
-  const workObjectGroup = useSelector(getCreateEmployeeFormWorkObjectGroup);
-  const workObject = useSelector(getCreateEmployeeFormWorkObject);
-  const workingObjects = useSelector(getCreateEmployeeFormWorkingObjects);
-  const role = useSelector(getCreateEmployeeFormRole);
-  const fio = useSelector(getCreateEmployeeFormFio);
-  const status = useSelector(getCreateEmployeeFormStatus);
+  const workObjectGroup = useSelector(getCreateSawatzkyEmployeeFormWorkObjectGroup);
+  const workObject = useSelector(getCreateSawatzkyEmployeeFormWorkObject);
+  const workingObjects = useSelector(getCreateSawatzkyEmployeeFormWorkingObjects);
+  const role = useSelector(getCreateSawatzkyEmployeeFormRole);
+  const fio = useSelector(getCreateSawatzkyEmployeeFormFio);
+  const phoneNumber = useSelector(getCreateSawatzkyEmployeeFormPhoneNumber);
+  const username = useSelector(getCreateSawatzkyEmployeeFormUsername);
+  const password = useSelector(getCreateSawatzkyEmployeeFormPassword);
+  const position = useSelector(getCreateSawatzkyEmployeeFormPosition);
+  const status = useSelector(getCreateSawatzkyEmployeeFormStatus);
+  const formData = useSelector(getCreateSawatzkyEmployeeFormData);
   const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
 
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
-    dispatch(createEmployeeActions.setWorkObjectGroup(+item.value));
+    dispatch(createSawatzkyEmployeeActions.setWorkObjectGroup(+item.value));
   }, [dispatch]);
 
   const onChangeWorkObject = useCallback((item: SelectOptionType) => {
-    dispatch(createEmployeeActions.setWorkObject(+item.value));
+    dispatch(createSawatzkyEmployeeActions.setWorkObject(+item.value));
   }, [dispatch]);
 
   const onChangeRole = useCallback((item: SelectOptionType) => {
-    dispatch(createEmployeeActions.setRole(item.value.toString()));
+    dispatch(createSawatzkyEmployeeActions.setRole(item.value.toString()));
   }, [dispatch]);
 
   const onChangeFio = useCallback((value: string) => {
-    dispatch(createEmployeeActions.setFio(value));
+    dispatch(createSawatzkyEmployeeActions.setFio(value));
+  }, [dispatch]);
+  const onChangePhoneNumber = useCallback((value: string) => {
+    dispatch(createSawatzkyEmployeeActions.setPhoneNumber(value));
+  }, [dispatch]);
+  const onChangeUsername = useCallback((value: string) => {
+    dispatch(createSawatzkyEmployeeActions.setUsername(value));
+  }, [dispatch]);
+  const onChangePassword = useCallback((value: string) => {
+    dispatch(createSawatzkyEmployeeActions.setPassword(value));
+  }, [dispatch]);
+  const onChangePosition = useCallback((value: string) => {
+    dispatch(createSawatzkyEmployeeActions.setPosition(value));
   }, [dispatch]);
 
   const onChangeWorkingObjects = useCallback((items: SelectOptionType[]) => {
-    dispatch(createEmployeeActions.setWorkingObjects(items.map((item) => +item.value)));
+    dispatch(createSawatzkyEmployeeActions.setWorkingObjects(items.map((item) => +item.value)));
   }, [dispatch]);
 
   const onChangeStatus = useCallback((value: boolean) => {
-    dispatch(createEmployeeActions.setStatus(value));
+    dispatch(createSawatzkyEmployeeActions.setStatus(value));
   }, [dispatch]);
+
+  const onSubmitForm = useCallback(() => {
+    if (formData) {
+      dispatch(createSawatzkyEmployee(formData));
+    }
+  }, [dispatch, formData]);
 
   const workObjectOptions = useMemo(() => {
     const workObjects = workObjectGroups.find((item) => item.id === workObjectGroup)?.workObjects;
@@ -89,6 +117,13 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
     return undefined;
   }, [workObjectGroups, workObjectGroup]);
   const workObjectGroupOptions: SelectOptionType[] = workObjectGroups.map((item) => ({ value: item.id, text: item.name }));
+
+  const workingObjectsOptions = useMemo(() => {
+    if (workingObjects) {
+      return workObjectOptions?.filter((item) => workingObjects.find((object) => object === item.value));
+    }
+    return undefined;
+  }, [workingObjects, workObjectOptions]);
 
   const roleOption = useMemo(() => {
     if (role) {
@@ -103,13 +138,6 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
     }
     return undefined;
   }, [workObject, workObjectOptions]);
-
-  const workingObjectsOptions = useMemo(() => {
-    if (workingObjects) {
-      return workObjectOptions?.filter((item) => workingObjects.find((object) => object === item.value));
-    }
-    return undefined;
-  }, [workingObjects, workObjectOptions]);
 
   const workObjectGroupOption = useMemo(() => {
     if (workObjectGroup) {
@@ -138,6 +166,10 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
         />
       ) }
       <Input className={cls.input} placeholder="ФИО" onChange={onChangeFio} value={fio} />
+      <Input className={cls.input} placeholder="Телефон" onChange={onChangePhoneNumber} value={phoneNumber} />
+      <Input className={cls.input} placeholder="Логин (ivanov22)" onChange={onChangeUsername} value={username} />
+      <Input className={cls.input} placeholder="Пароль (Ivanov_22)" onChange={onChangePassword} value={password} />
+      <Input className={cls.input} placeholder="Должность" onChange={onChangePosition} value={position} />
       {
         workObject && (
           <Select
@@ -167,7 +199,7 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
 
       <Switch className={cls.switch} id="status" label="Статус сотрудника" checked={status ?? false} onChange={onChangeStatus} />
 
-      <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID}>Создать</Button>
+      <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID} onClick={onSubmitForm}>Создать</Button>
     </div>
   );
 };
