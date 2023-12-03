@@ -29,11 +29,27 @@ class EmployeeSerializer(ModelSerializer):
 '''User'''
 class UserSerializer(ModelSerializer):
     # Сериализатор модели пользователя для отображения данных о нем
-    employee = EmployeeSerializer(read_only=True, many=False)
+    employee = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ['id', 'fio', 'phoneNumber', 'employee']
+
+    def get_employee(self, obj):
+        try:
+
+            employee = Employee.objects.get(user=obj)
+
+            return EmployeeSerializer(employee).data
+        except Employee.DoesNotExist:
+            try:
+
+                sawatzky_employee = SawatzkyEmployee.objects.get(user=obj)
+
+                return SawatzkyEmployeeWithWorkObjectSerializer(sawatzky_employee).data
+            except SawatzkyEmployee.DoesNotExist:
+
+                return None
 
 
 '''UserWithoutEmployee'''
@@ -77,6 +93,15 @@ class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
 class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
     user = UserSerializerWithoutEmployee(read_only=True, many=False)
+
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
+class EmployeeListSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера, password + username
+    user = UserRegistrationSerializer(write_only=True)
 
     class Meta:
         model = Employee
@@ -217,6 +242,15 @@ class LegalEntityListSerializer(ModelSerializer):
 
     class Meta:
         model = LegalEntity
+        fields = '__all__'
+
+
+class EmployeeDetailSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера, password + username
+    user = UserRegistrationSerializer(write_only=True)
+    legalEntity = LegalEntitySerializer(read_only=True, many=False)
+    class Meta:
+        model = Employee
         fields = '__all__'
 
 
@@ -477,6 +511,8 @@ class SawatzkyEmployeeWithoutworkingObjectsSerializer(ModelSerializer):
     workObject = WorkObjectSerializer(read_only=True, many=False)
     workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True)
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
 
     class Meta:
         model = SawatzkyEmployee
