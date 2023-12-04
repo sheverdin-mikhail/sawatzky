@@ -18,7 +18,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = (props) => {
           <Skeleton height={16} width="250px" theme={SkeletonThemes.ROUND_S} />
           <Skeleton height={16} width="131px" theme={SkeletonThemes.ROUND_S} />
         </div>
-        <Skeleton height={80} width="1000px" theme={SkeletonThemes.ROUND_S} />
+        <Skeleton height={80} width="100%" theme={SkeletonThemes.ROUND_S} />
       </div>
       <div className={cls.item}>
         <div className={cls.row}>
@@ -27,7 +27,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = (props) => {
           <Skeleton height={16} width="250px" theme={SkeletonThemes.ROUND_S} />
           <Skeleton height={16} width="131px" theme={SkeletonThemes.ROUND_S} />
         </div>
-        <Skeleton height={80} width="1000px" theme={SkeletonThemes.ROUND_S} />
+        <Skeleton height={80} width="100%" theme={SkeletonThemes.ROUND_S} />
       </div>
       <div className={cls.item}>
         <div className={cls.row}>
@@ -36,7 +36,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = (props) => {
           <Skeleton height={16} width="250px" theme={SkeletonThemes.ROUND_S} />
           <Skeleton height={16} width="131px" theme={SkeletonThemes.ROUND_S} />
         </div>
-        <Skeleton height={80} width="1000px" theme={SkeletonThemes.ROUND_S} />
+        <Skeleton height={80} width="100%" theme={SkeletonThemes.ROUND_S} />
       </div>
       <div className={cls.item}>
         <div className={cls.row}>
@@ -45,7 +45,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = (props) => {
           <Skeleton height={16} width="250px" theme={SkeletonThemes.ROUND_S} />
           <Skeleton height={16} width="131px" theme={SkeletonThemes.ROUND_S} />
         </div>
-        <Skeleton height={80} width="1000px" theme={SkeletonThemes.ROUND_S} />
+        <Skeleton height={80} width="100%" theme={SkeletonThemes.ROUND_S} />
       </div>
       <div className={cls.item}>
         <div className={cls.row}>
@@ -54,7 +54,7 @@ export const ApplicationLoader: React.FC<ApplicationLoaderProps> = (props) => {
           <Skeleton height={16} width="250px" theme={SkeletonThemes.ROUND_S} />
           <Skeleton height={16} width="131px" theme={SkeletonThemes.ROUND_S} />
         </div>
-        <Skeleton height={80} width="1000px" theme={SkeletonThemes.ROUND_S} />
+        <Skeleton height={80} width="100%" theme={SkeletonThemes.ROUND_S} />
       </div>
     </div>
   );
