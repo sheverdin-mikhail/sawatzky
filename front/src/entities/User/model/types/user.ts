@@ -1,11 +1,13 @@
 import { Employee } from 'entities/Employee';
+import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
 
 export interface User {
     id: string;
     username: string;
     fio?: string;
     employee?: Employee;
-    phone_number?: string;
+    sawatzkyEmployee?: SawatzkyEmployee;
+    phoneNumber?: string;
 }
 
 export interface UserSchema {

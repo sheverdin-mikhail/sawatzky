@@ -205,8 +205,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           </p>
         </div>
 
-        { docList && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
-        { payList && <DocList docs={payList} title="Платежный документ" /> }
+        { docList?.length !== 0 && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
+        { payList?.length !== 0 && <DocList docs={payList} onDelete={() => dispatch(fetchApplicationDetail(applicationId))} title="Платежный документ" /> }
       </CollapsBoard>
 
     </div>

@@ -15,7 +15,8 @@ import { DirectoryWorkTaskGroupPage } from 'pages/DirectoryWorkTaskGroupPage';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export type AppRouteProps = RouteProps & {
-    authOnly?: boolean;
+  authOnly?: boolean;
+  sawatzkyOnly?: boolean;
 }
 
 // global routing
@@ -74,11 +75,13 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     path: RoutePath.applications,
     element: <ApplicationsPage />,
     authOnly: true,
+    sawatzkyOnly: false,
   },
   [AppRoutes.Application_DETAIL]: {
     path: `${RoutePath.application_detail}:id`,
     element: <ApplicationDetailPage />,
     authOnly: true,
+    sawatzkyOnly: false,
 
   },
 
@@ -87,56 +90,67 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     path: DirectoryPath.objects,
     element: <DirectoryObjectsGroupPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.OBJECT]: {
     path: `${DirectoryPath.object}:id`,
     element: <DirectoryObjectPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.OBJECT_TREE]: {
     path: `${DirectoryPath.object_tree}`,
     element: <DirectoryObjectTreePage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.LEGAL_ENTITY]: {
     path: DirectoryPath.legal_entity,
     element: <DirectoryLegalEntityPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.LEGAL_ENTITY_SAWATZKY]: {
     path: DirectoryPath.legal_entity_sawatzky,
     element: <DirectoryLegalEntitySawatzkyPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.WORK_TASK_GROUP]: {
     path: DirectoryPath.work_task_group,
     element: <DirectoryWorkTaskGroupPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.WORK_MATERIAL_GROUP]: {
     path: DirectoryPath.work_material_group,
     element: <DirectoryWorkMaterialGroupPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.WORK_TASK_GROUP_DETAIL]: {
     path: `${DirectoryPath.work_task_group_detail}:id`,
     element: <DirectoryWorkTaskGroupDetailPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.WORK_MATERIAL_GROUP_DETAIL]: {
     path: `${DirectoryPath.work_material_group_detail}:id`,
     element: <DirectoryWorkMaterialGroupDetailPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
   [DirectoryRoutes.EMPLOYEE]: {
     path: `${DirectoryPath.employee}`,
     element: <DirectoryEmployeePage />,
     authOnly: true,
+    sawatzkyOnly: false,
   },
   [DirectoryRoutes.EMPLOYEE_SAWATZKY]: {
     path: `${DirectoryPath.employee_sawatzky}`,
     element: <DirectoryEmployeeSawatzkyPage />,
     authOnly: true,
+    sawatzkyOnly: true,
   },
 
   // No Private pages
@@ -145,6 +159,7 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     path: RoutePath.authorization,
     element: <AuthorizationPage />,
     authOnly: false,
+    sawatzkyOnly: false,
 
   },
   [AppRoutes.HOME]: {
@@ -154,5 +169,6 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
       replace // <-- redirect
     />,
     authOnly: false,
+    sawatzkyOnly: false,
   },
 };

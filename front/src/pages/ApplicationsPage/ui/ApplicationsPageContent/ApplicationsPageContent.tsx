@@ -6,9 +6,10 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { CreateApplicationModal } from 'features/CreateApplication';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import cls from './ApplicationsPageContent.module.scss';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
@@ -35,6 +36,15 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
   const modalIsOpen = useSelector(getModalIsOpen);
   const init = useSelector(getPageInit);
 
+  const { isSawatzky, employee, sawatzkyEmployee } = useUserData();
+
+  const fetchingParams = useMemo(() => {
+    if (isSawatzky) {
+      return { params: { workObject: sawatzkyEmployee?.workingObjects } };
+    }
+    return { params: { legalEntity: employee?.legalEntity } };
+  }, [isSawatzky, employee?.legalEntity, sawatzkyEmployee?.workingObjects]);
+
   const checkAllHandler = useCallback(() => {
     dispatch(applicationsPageActions.toggleAllCheckboxes());
   }, [dispatch]);
@@ -55,11 +65,11 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
 
   useEffect(() => {
     if (init) {
-      dispatch(fetchApplicationsList());
+      dispatch(fetchApplicationsList(fetchingParams));
     } else {
       dispatch(applicationsPageActions.initPage());
     }
-  }, [dispatch, init]);
+  }, [dispatch, init, fetchingParams]);
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
@@ -72,12 +82,18 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
         <Button className={cls.iconBtn} theme={ButtonThemes.ICON}>
           <OrderLogo />
         </Button>
-        <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo="добавить запрос" onClick={openModalHandler}>
-          <AddLogo />
-        </Button>
-        <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo="удалить запрос" onClick={onDeleteHandler}>
-          <DeleteLogo />
-        </Button>
+        {
+          !isSawatzky && (
+            <>
+              <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo="добавить запрос" onClick={openModalHandler}>
+                <AddLogo />
+              </Button>
+              <Button className={cls.iconBtn} theme={ButtonThemes.ICON} helpInfo="удалить запрос" onClick={onDeleteHandler}>
+                <DeleteLogo />
+              </Button>
+            </>
+          )
+        }
       </div>
       {
         isLoading

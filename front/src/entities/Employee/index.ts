@@ -1,5 +1,5 @@
 export type { Employee, EmployeeSchema } from './model/type/employee';
-export { EmployeeRole } from './model/type/employee';
+export { EmployeeRole, EmployeeRoleValue } from './model/type/employee';
 
 export {
   employeeActions,
