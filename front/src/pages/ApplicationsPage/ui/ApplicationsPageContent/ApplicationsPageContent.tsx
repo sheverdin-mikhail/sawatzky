@@ -6,10 +6,9 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { CreateApplicationModal } from 'features/CreateApplication';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Skeleton, SkeletonThemes } from 'shared/ui/Skeleton/Skeleton';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import cls from './ApplicationsPageContent.module.scss';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';

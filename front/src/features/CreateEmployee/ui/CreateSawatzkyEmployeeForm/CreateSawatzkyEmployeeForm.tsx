@@ -10,21 +10,23 @@ import {
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { EmployeeRoleOption } from 'features/CreateSawatzkyEmployee/model/type/createSawatzkyEmployee';
 import { EmployeeRole } from 'entities/Employee';
+import { EmployeeRoleOption } from '../../model/type/createEmployee';
 import {
-  getCreateSawatzkyEmployeeFormData,
-  getCreateSawatzkyEmployeeFormFio,
-  getCreateSawatzkyEmployeeFormPassword,
-  getCreateSawatzkyEmployeeFormPhoneNumber,
-  getCreateSawatzkyEmployeeFormPosition,
-  getCreateSawatzkyEmployeeFormRole, getCreateSawatzkyEmployeeFormStatus,
-  getCreateSawatzkyEmployeeFormUsername,
-  getCreateSawatzkyEmployeeFormWorkObject,
-  getCreateSawatzkyEmployeeFormWorkObjectGroup,
-  getCreateSawatzkyEmployeeFormWorkingObjects,
-} from '../../model/selectors/createSawatzkyEmployeeSelectors';
-import { createSawatzkyEmployeeActions } from '../../model/slice/createSawatzkyEmployeeSlice';
+  getCreateEmployeeSawatzkyFormData,
+  getCreateEmployeeSawatzkyFormPosition,
+  getCreateEmployeeSawatzkyFormRole,
+  getCreateEmployeeSawatzkyFormStatus,
+  getCreateEmployeeSawatzkyFormWorkObject,
+  getCreateEmployeeSawatzkyFormWorkObjectGroup,
+  getCreateEmployeeSawatzkyFormWorkingObjects,
+  getCreateEmployeeUser,
+  getCreateEmployeeUserFormFio,
+  getCreateEmployeeUserFormPassword,
+  getCreateEmployeeUserFormPhoneNumber,
+  getCreateEmployeeUserFormUsername,
+} from '../../model/selectors/createEmployeeSelectors';
+import { createEmployeeActions } from '../../model/slice/createEmployeeSlice';
 import cls from './CreateSawatzkyEmployeeForm.module.scss';
 import { createSawatzkyEmployee } from '../../model/services/createSawatzkyEmployee';
 
@@ -51,60 +53,61 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
   const { className } = props;
 
   const dispatch = useAppDispatch();
-  const workObjectGroup = useSelector(getCreateSawatzkyEmployeeFormWorkObjectGroup);
-  const workObject = useSelector(getCreateSawatzkyEmployeeFormWorkObject);
-  const workingObjects = useSelector(getCreateSawatzkyEmployeeFormWorkingObjects);
-  const role = useSelector(getCreateSawatzkyEmployeeFormRole);
-  const fio = useSelector(getCreateSawatzkyEmployeeFormFio);
-  const phoneNumber = useSelector(getCreateSawatzkyEmployeeFormPhoneNumber);
-  const username = useSelector(getCreateSawatzkyEmployeeFormUsername);
-  const password = useSelector(getCreateSawatzkyEmployeeFormPassword);
-  const position = useSelector(getCreateSawatzkyEmployeeFormPosition);
-  const status = useSelector(getCreateSawatzkyEmployeeFormStatus);
-  const formData = useSelector(getCreateSawatzkyEmployeeFormData);
+  const workObjectGroup = useSelector(getCreateEmployeeSawatzkyFormWorkObjectGroup);
+  const workObject = useSelector(getCreateEmployeeSawatzkyFormWorkObject);
+  const workingObjects = useSelector(getCreateEmployeeSawatzkyFormWorkingObjects);
+  const role = useSelector(getCreateEmployeeSawatzkyFormRole);
+  const fio = useSelector(getCreateEmployeeUserFormFio);
+  const phoneNumber = useSelector(getCreateEmployeeUserFormPhoneNumber);
+  const username = useSelector(getCreateEmployeeUserFormUsername);
+  const password = useSelector(getCreateEmployeeUserFormPassword);
+  const position = useSelector(getCreateEmployeeSawatzkyFormPosition);
+  const status = useSelector(getCreateEmployeeSawatzkyFormStatus);
+  const formData = useSelector(getCreateEmployeeSawatzkyFormData);
   const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
+  const user = useSelector(getCreateEmployeeUser);
 
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
-    dispatch(createSawatzkyEmployeeActions.setWorkObjectGroup(+item.value));
+    dispatch(createEmployeeActions.setWorkObjectGroup(+item.value));
   }, [dispatch]);
 
   const onChangeWorkObject = useCallback((item: SelectOptionType) => {
-    dispatch(createSawatzkyEmployeeActions.setWorkObject(+item.value));
+    dispatch(createEmployeeActions.setWorkObject(+item.value));
   }, [dispatch]);
 
   const onChangeRole = useCallback((item: SelectOptionType) => {
-    dispatch(createSawatzkyEmployeeActions.setRole(item.value.toString()));
+    dispatch(createEmployeeActions.setRole(item.value.toString()));
   }, [dispatch]);
 
   const onChangeFio = useCallback((value: string) => {
-    dispatch(createSawatzkyEmployeeActions.setFio(value));
+    dispatch(createEmployeeActions.setFio(value));
   }, [dispatch]);
   const onChangePhoneNumber = useCallback((value: string) => {
-    dispatch(createSawatzkyEmployeeActions.setPhoneNumber(value));
+    dispatch(createEmployeeActions.setPhoneNumber(value));
   }, [dispatch]);
   const onChangeUsername = useCallback((value: string) => {
-    dispatch(createSawatzkyEmployeeActions.setUsername(value));
+    dispatch(createEmployeeActions.setUsername(value));
   }, [dispatch]);
   const onChangePassword = useCallback((value: string) => {
-    dispatch(createSawatzkyEmployeeActions.setPassword(value));
+    dispatch(createEmployeeActions.setPassword(value));
   }, [dispatch]);
   const onChangePosition = useCallback((value: string) => {
-    dispatch(createSawatzkyEmployeeActions.setPosition(value));
+    dispatch(createEmployeeActions.setPosition(value));
   }, [dispatch]);
 
   const onChangeWorkingObjects = useCallback((items: SelectOptionType[]) => {
-    dispatch(createSawatzkyEmployeeActions.setWorkingObjects(items.map((item) => +item.value)));
+    dispatch(createEmployeeActions.setWorkingObjects(items.map((item) => +item.value)));
   }, [dispatch]);
 
   const onChangeStatus = useCallback((value: boolean) => {
-    dispatch(createSawatzkyEmployeeActions.setStatus(value));
+    dispatch(createEmployeeActions.setStatus(value));
   }, [dispatch]);
 
   const onSubmitForm = useCallback(() => {
     if (formData) {
-      dispatch(createSawatzkyEmployee(formData));
+      dispatch(createSawatzkyEmployee({ ...formData, user }));
     }
-  }, [dispatch, formData]);
+  }, [dispatch, formData, user]);
 
   const workObjectOptions = useMemo(() => {
     const workObjects = workObjectGroups.find((item) => item.id === workObjectGroup)?.workObjects;
