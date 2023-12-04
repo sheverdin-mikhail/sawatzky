@@ -6,17 +6,19 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as OrderLogo } from 'shared/assets/icons/order-icon.svg';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { CreateApplicationModal } from 'features/CreateApplication';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Skeleton, SkeletonThemes } from 'shared/ui/Skeleton/Skeleton';
 import { applicationsPageActions, applicationsPageReducer, getApplicationsPage } from '../../model/slice/applicationsPageSlice';
 import cls from './ApplicationsPageContent.module.scss';
 import { fetchApplicationsList } from '../../model/services/fetchApplicationsList/fetchApplicationsList';
 import { ApplicationPreviewList } from '../ApplicationPreviewList/ApplicationPreviewList';
 import {
-  getAllIsChecked, getCheckedItems, getModalIsOpen, getPageInit,
+  getAllIsChecked, getApplicationIsLoading, getCheckedItems, getModalIsOpen, getPageInit,
 } from '../../model/selectors/applicationsPageSelectors';
 import { deleteCheckedItems } from '../../model/services/deleteCheckedItems/deleteCheckedItems';
+import { ApplicationLoader } from '../ApplicationLoader/ApplicationLoader';
 
 interface ApplicationsPageContentProps {
 }
@@ -28,6 +30,7 @@ const reducers: ReducersList = {
 export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (props) => {
   const dispatch = useAppDispatch();
   const applications = useSelector(getApplicationsPage.selectAll);
+  const isLoading = useSelector(getApplicationIsLoading);
   const allIsChecked = useSelector(getAllIsChecked);
   const checkeditems = useSelector(getCheckedItems);
   const modalIsOpen = useSelector(getModalIsOpen);
@@ -61,6 +64,7 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+
       <Title className={cls.title}>
         Запросы
       </Title>
@@ -76,8 +80,17 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
           <DeleteLogo />
         </Button>
       </div>
-      <ApplicationPreviewList className={cls.list} applications={applications} />
-      <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
+      {
+        isLoading
+          ? <ApplicationLoader />
+          : (
+            <>
+              <ApplicationPreviewList className={cls.list} applications={applications} />
+              <CreateApplicationModal isOpen={modalIsOpen} onClose={closeModalHandler} />
+            </>
+          )
+
+      }
     </DynamicModuleLoader>
 
   );

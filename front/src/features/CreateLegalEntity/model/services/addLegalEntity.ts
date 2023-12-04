@@ -1,23 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { WorkTaskGroupItem, fetchWorkTaskGroupList } from 'entities/WorkTaskGroup';
-import { AddWorkTaskFormData } from 'features/AddWorkTask';
+import { CreateLegalEntityFormData } from '../type/createLegalEntity';
+import { createLegalEntityActions } from '../slice/createLegalEntitySlice';
 
-export const createWorkTaskGroup = createAsyncThunk<
+export const addLegalEntity = createAsyncThunk<
     void,
-    AddWorkTaskFormData,
+    CreateLegalEntityFormData,
     ThunkConfig<string>
 >(
-  'addWorkTaskGroup/createWorkTaskGroup',
+  'createLegalEntity/addLegalEntity',
   async (formData, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.post<WorkTaskGroupItem>('/api/v1/work_task_groups/create/', formData);
+      const response = await extra.api.post<CreateLegalEntityFormData>('/api/v1/entities/create/', formData);
       if (!response.data) {
         throw new Error('Ошибка создания группы услуг');
       }
-
-      dispatch(fetchWorkTaskGroupList());
+      dispatch(createLegalEntityActions.closeModal());
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());

@@ -15,7 +15,7 @@ interface DocListProps {
 
 export const DocList: React.FC<DocListProps> = (props) => {
   const {
-    className, title, docs, acts, onDelete, modal,
+    className, title, docs, acts, onDelete, modal = false,
   } = props;
   return (
     <div className={cls.docs}>
@@ -26,6 +26,7 @@ export const DocList: React.FC<DocListProps> = (props) => {
             index={index}
             doc={item}
             key={item.id}
+            modal={modal}
           />
         ))
           : docs?.map((item) => (
