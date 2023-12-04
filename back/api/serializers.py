@@ -92,19 +92,9 @@ class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-'''EmployeeWithUser'''
-class EmployeeWithUserSerializer(serializers.ModelSerializer):
-    # Сериализатор для сотрудника с расширенным полем юзера
-    user = UserSerializerWithoutEmployee(read_only=True, many=False)
-
-    class Meta:
-        model = Employee
-        fields = '__all__'
-
-
 class EmployeeListSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера, password + username
-    user = UserRegistrationSerializer(write_only=True)
+    user = UserRegistrationSerializer(read_only=True)
 
     class Meta:
         model = Employee
@@ -305,6 +295,15 @@ class DocumentsSerializer(ModelSerializer):
         model = Document
         fields = '__all__'
 
+'''EmployeeWithUser'''
+class EmployeeWithUserSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера
+    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+    legalEntity = LegalEntityDetailSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = Employee
+        fields = '__all__'
 
 '''Extended Application'''
 class ApplicationWithCreatorSerializer(ModelSerializer):

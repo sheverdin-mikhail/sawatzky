@@ -434,7 +434,7 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
 """Employee"""
 class EmployeeListView(generics.ListAPIView):
     # представление на создание и вывод списка пользователей
-    serializer_class = EmployeeListSerializer
+    serializer_class = EmployeeWithUserSerializer
     queryset = Employee.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
@@ -451,7 +451,7 @@ class EmployeeDetailView(generics.RetrieveDestroyAPIView):
             employee = Employee.objects.filter(id=pk)
             return employee
 
-        except (KeyError, employee.DoesNotExist):
+        except (KeyError, Employee.DoesNotExist):
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
