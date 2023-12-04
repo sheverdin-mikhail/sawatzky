@@ -4,13 +4,22 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
 import { TableType } from 'widgets/Table';
-import { useCallback, useEffect, useState } from 'react';
-import { CreateSawatzkyEmployeeModal, createSawatzkyEmployeeReducer } from 'features/CreateSawatzkyEmployee';
+import { useCallback, useEffect } from 'react';
+import {
+  CreateEmployeeModal,
+  createEmployeeReducer,
+  createEmployeeActions,
+  getCreateEmployeeIsOpen,
+} from 'features/CreateEmployee';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { workObjectReducer } from 'entities/WorkObject';
 import { useTable } from 'shared/lib/hooks/useTable';
+import {
+  fetchSawatzkyEmployeeList, getSawatzkyEmployee, sawatzkyEmployeeReducer,
+} from 'entities/SawatzkyEmployee';
+import { useSelector } from 'react-redux';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
@@ -20,22 +29,25 @@ interface DirectoryEmployeeSawatzkyPageProps {
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
   workObject: workObjectReducer,
-  createSawatzkyEmployee: createSawatzkyEmployeeReducer,
+  createEmployee: createEmployeeReducer,
+  sawatzkyEmployee: sawatzkyEmployeeReducer,
 };
 
 const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps> = (props) => {
   const { className } = props;
-  const [legalEntityFormIsOpen, setLegalEntityFormIsOpen] = useState(false);
 
   const dispatch = useAppDispatch();
+  const sawatzkyEmployees = useSelector(getSawatzkyEmployee.selectAll);
+  const createSawatzkyEmployeeIsOpen = useSelector(getCreateEmployeeIsOpen);
 
   useEffect(() => {
     dispatch(fetchWorkObjectGroupList());
+    dispatch(fetchSawatzkyEmployeeList());
   }, [dispatch]);
 
-  const onLegalEntityFormCloseHandler = useCallback(() => {
-    setLegalEntityFormIsOpen(false);
-  }, []);
+  const onSawatzkyEmployeeFormCloseHandler = useCallback(() => {
+    dispatch(createEmployeeActions.closeModal());
+  }, [dispatch]);
 
   const tableData: TableType = {
     header: {
@@ -45,8 +57,13 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
       position: 'Должность',
       object: 'Объект',
     },
-    items: [
-    ],
+    items: sawatzkyEmployees.map((item) => ({
+      id: item.id ?? '',
+      name: item.user.fio ?? '',
+      status: item.status ? 'активный' : 'неактивный',
+      position: item.position ?? '',
+      object: item.workObject.name ?? '',
+    })),
   };
 
   const { Table } = useTable({
@@ -57,7 +74,12 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
     <DynamicModuleLoader reducers={reducers}>
       <DirectoryPageWrapper className={classNames(cls.directoryEmployeeSawatzkyPage, {}, [className])}>
         <div className={cls.buttons}>
-          <Button helpInfo="Добавить сотрудника Sawatzky" onClick={() => setLegalEntityFormIsOpen(true)} className={cls.button} theme={ButtonThemes.ICON}>
+          <Button
+            helpInfo="Добавить сотрудника Sawatzky"
+            onClick={() => dispatch(createEmployeeActions.openModal())}
+            className={cls.button}
+            theme={ButtonThemes.ICON}
+          >
             <AddIcon />
           </Button>
           <Button helpInfo="Удалить сотрудника Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
@@ -65,9 +87,10 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
           </Button>
         </div>
         { Table }
-        <CreateSawatzkyEmployeeModal
-          isOpen={legalEntityFormIsOpen}
-          onClose={onLegalEntityFormCloseHandler}
+        <CreateEmployeeModal
+          isOpen={createSawatzkyEmployeeIsOpen ?? false}
+          onClose={onSawatzkyEmployeeFormCloseHandler}
+          isSawatzky
         />
 
       </DirectoryPageWrapper>
