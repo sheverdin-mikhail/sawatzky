@@ -49,9 +49,9 @@ class UserSerializer(ModelSerializer):
         employee_data = self.get_employee(instance)
         if employee_data:
             if 'position' in employee_data:
-                data['SawatzkyEmployee'] = employee_data
+                data['sawatzkyEmployee'] = employee_data
             else:
-                data['Employee'] = employee_data
+                data['employee'] = employee_data
         return data
 
 
