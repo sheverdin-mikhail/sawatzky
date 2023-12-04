@@ -29,27 +29,30 @@ class EmployeeSerializer(ModelSerializer):
 '''User'''
 class UserSerializer(ModelSerializer):
     # Сериализатор модели пользователя для отображения данных о нем
-    employee = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = ['id', 'fio', 'phoneNumber', 'employee']
-
     def get_employee(self, obj):
         try:
-
             employee = Employee.objects.get(user=obj)
-
             return EmployeeSerializer(employee).data
         except Employee.DoesNotExist:
             try:
-
                 sawatzky_employee = SawatzkyEmployee.objects.get(user=obj)
-
                 return SawatzkyEmployeeWithWorkObjectSerializer(sawatzky_employee).data
             except SawatzkyEmployee.DoesNotExist:
-
                 return None
+
+    class Meta:
+        model = User
+        fields = ['id', 'fio', 'phoneNumber']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        employee_data = self.get_employee(instance)
+        if employee_data:
+            if 'position' in employee_data:
+                data['SawatzkyEmployee'] = employee_data
+            else:
+                data['Employee'] = employee_data
+        return data
 
 
 '''UserWithoutEmployee'''
