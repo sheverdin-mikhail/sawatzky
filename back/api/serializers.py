@@ -29,11 +29,30 @@ class EmployeeSerializer(ModelSerializer):
 '''User'''
 class UserSerializer(ModelSerializer):
     # Сериализатор модели пользователя для отображения данных о нем
-    employee = EmployeeSerializer(read_only=True, many=False)
+    def get_employee(self, obj):
+        try:
+            employee = Employee.objects.get(user=obj)
+            return EmployeeSerializer(employee).data
+        except Employee.DoesNotExist:
+            try:
+                sawatzky_employee = SawatzkyEmployee.objects.get(user=obj)
+                return SawatzkyEmployeeWithWorkObjectSerializer(sawatzky_employee).data
+            except SawatzkyEmployee.DoesNotExist:
+                return None
 
     class Meta:
         model = User
-        fields = ['id', 'fio', 'phoneNumber', 'employee']
+        fields = ['id', 'fio', 'phoneNumber']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        employee_data = self.get_employee(instance)
+        if employee_data:
+            if 'position' in employee_data:
+                data['sawatzkyEmployee'] = employee_data
+            else:
+                data['employee'] = employee_data
+        return data
 
 
 '''UserWithoutEmployee'''
@@ -73,10 +92,9 @@ class EmployeeWithUserUPSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-'''EmployeeWithUser'''
-class EmployeeWithUserSerializer(serializers.ModelSerializer):
-    # Сериализатор для сотрудника с расширенным полем юзера
-    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+class EmployeeListSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера, password + username
+    user = UserRegistrationSerializer(read_only=True)
 
     class Meta:
         model = Employee
@@ -220,6 +238,15 @@ class LegalEntityListSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class EmployeeDetailSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера, password + username
+    user = UserRegistrationSerializer(write_only=True)
+    legalEntity = LegalEntitySerializer(read_only=True, many=False)
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
 '''WorkMaterial'''
 class WorkMaterialSerializer(ModelSerializer):
     # Сериализатор модели WorkMaterial
@@ -268,6 +295,15 @@ class DocumentsSerializer(ModelSerializer):
         model = Document
         fields = '__all__'
 
+'''EmployeeWithUser'''
+class EmployeeWithUserSerializer(serializers.ModelSerializer):
+    # Сериализатор для сотрудника с расширенным полем юзера
+    user = UserSerializerWithoutEmployee(read_only=True, many=False)
+    legalEntity = LegalEntityDetailSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = Employee
+        fields = '__all__'
 
 '''Extended Application'''
 class ApplicationWithCreatorSerializer(ModelSerializer):
@@ -477,6 +513,8 @@ class SawatzkyEmployeeWithoutworkingObjectsSerializer(ModelSerializer):
     workObject = WorkObjectSerializer(read_only=True, many=False)
     workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True)
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
 
     class Meta:
         model = SawatzkyEmployee
