@@ -69,6 +69,7 @@ from .models import (
 class AuthUserView(APIView):
     # представление для аутентификации пользователя
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
 
     def get(self, request):
 

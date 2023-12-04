@@ -8,17 +8,27 @@ export interface UserFormData {
 }
 
 export interface CreateSawatzkyEmployeeFormData {
+    user?: UserFormData;
     workObjectGroup?: number;
     workObject?: number;
-    user: UserFormData;
     position?: string;
     role?: string;
     status?: boolean;
     workingObjects?: number[];
 }
 
-export interface CreateSawatzkyEmployeeSchema {
-    formData: CreateSawatzkyEmployeeFormData;
+export interface CreateEmployeeFormData {
+    user?: UserFormData;
+    legalEntity?: number;
+    role?: string;
+    status?: boolean;
+}
+
+export interface CreateEmployeeSchema {
+    sawatzkyFormData: CreateSawatzkyEmployeeFormData;
+    formData: CreateEmployeeFormData;
+    user: UserFormData;
+
     isLoading?: boolean;
     error?: string;
     isOpen?: boolean;
