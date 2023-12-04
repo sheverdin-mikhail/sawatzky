@@ -66,20 +66,38 @@ from .models import (
 
 
 """User"""
-class AuthUserView(APIView):
+class AuthUserView(generics.RetrieveAPIView):
     # представление для аутентификации пользователя
+    serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
+    def get_object(self):
+        return self.request.user
 
-        user = self.request.user
+    def get(self, request, *args, **kwargs):
 
         try:
-            serializer = UserSerializer(user, many=False)
+            user = self.get_object()
+            serializer = self.get_serializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         except User.DoesNotExist:
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+# class AuthUserView(APIView):
+#     # представление для аутентификации пользователя
+#     permission_classes = [permissions.IsAuthenticated]
+#
+#     def get(self, request):
+#
+#         user = self.request.user
+#
+#         try:
+#             serializer = UserSerializer(user, many=False)
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#         except User.DoesNotExist:
+#             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class UserDetailView(APIView):

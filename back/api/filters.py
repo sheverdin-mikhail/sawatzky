@@ -12,10 +12,15 @@ from .models import (
 class ApplicationFilter(filters.FilterSet):
     legal_entity = filters.CharFilter(field_name="creator__legalEntity", lookup_expr="exact")
     ordering = filters.OrderingFilter(fields=("createdAt", 'id'), field_labels={"createdAt": "Дата создания"})
+    creator = filters.CharFilter(field_name="creator__user__username", lookup_expr="exact")
+    workObject = filters.CharFilter(method='filter_by_work_object')
 
     class Meta:
         model = Application
-        fields = ['legal_entity', 'ordering']
+        fields = ['legal_entity', 'ordering', 'creator', 'workObject']
+
+    def filter_by_work_object(self, queryset, name, value):
+        return queryset.filter(creator__legalEntity__workObjects__name=value)
 
 
 '''Фильтр для WorkTask'''
