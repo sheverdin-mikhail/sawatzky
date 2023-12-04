@@ -44,6 +44,8 @@ from .serializers import (
     SawatzkyEmployeeWithUserSerializer,
     LegalEntityOrClientLESerializer,
     LegalEntityListSerializer,
+    EmployeeListSerializer,
+    EmployeeDetailSerializer,
 
 )
 
@@ -430,8 +432,30 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
             return Response({'message': 'Рабочий объект не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
-
 """Employee"""
+class EmployeeListView(generics.ListAPIView):
+    # представление на создание и вывод списка пользователей
+    serializer_class = EmployeeWithUserSerializer
+    queryset = Employee.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class EmployeeDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление пользователей по id
+    serializer_class = EmployeeDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            employee = Employee.objects.filter(id=pk)
+            return employee
+
+        except (KeyError, Employee.DoesNotExist):
+            return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
 class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
     queryset = Employee.objects.all()
