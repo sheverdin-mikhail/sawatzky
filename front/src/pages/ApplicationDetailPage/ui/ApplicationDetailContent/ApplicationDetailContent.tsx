@@ -24,6 +24,7 @@ import { ApplicationDetailInfoComponent } from '../ApplicationDetailInfoComponen
 import { getApplicationDetailWorkMaterials, getApplicationDetailWorkTasks } from '../../model/selectors/getApplicationDetailWorkTasks';
 import { ApplicationDetailActs } from '../ApplicationDetailActs/ApplicationDetailActs';
 import { ApplicationDetailPerformer } from '../ApplicationDetailPerformer/ApplicationDetailPerformer';
+import { getApplicationDetailPerformer } from '../../model/selectors/getApplicatioinDetailPerformer';
 import cls from './ApplicationDetailContent.module.scss';
 
 interface ApplicationDetailContentProps {
@@ -49,6 +50,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
   const addDocumentModalIsOpen = useSelector(getAddDocumentFormIsOpen);
   const workTaskGroups = useSelector(getWorkTaskGroup.selectAll);
   const workMaterialGroups = useSelector(getWorkMaterialGroup.selectAll);
+  const performer = useSelector((state: StateSchema) => getApplicationDetailPerformer(state, applicationId));
 
   return (
     <div className={classNames(cls.applicationDetailContent, {}, [className])}>
@@ -56,7 +58,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
       <ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
       <Progressbar step={info.step} />
       <ApplicationDetailWorkPrice workTasks={workTasks} workMaterials={workMaterials} applicationId={applicationId} />
-      <ApplicationDetailPerformer />
+      <ApplicationDetailPerformer performers={performer} />
       <ApplicationDetailActs acts={detail?.acts} />
 
       {/* Modals */}

@@ -1,51 +1,35 @@
-import { EmployeeRole } from 'entities/Employee';
-import { User } from 'entities/User';
-import { useMemo } from 'react';
-import { USER_LOCALSTORAGE_DATA } from 'shared/const/localStorage';
+import {
+  User,
+  userIsDispatcher,
+  userIsDispatcherPerformer,
+  userIsPerformer,
+  userIsSawatzky,
+} from 'entities/User';
+import { getUserData, userIsInitiator } from 'entities/User/model/selectors/getUserRole/getUserRole';
+import { useSelector } from 'react-redux';
 
 interface UserDataResult extends User {
     isSawatzky: boolean;
     isDispatcher: boolean;
     isPerformer: boolean;
+    isInitiator: boolean;
     isDispatcherPerformer: boolean;
 }
 
 export const useUserData = (): UserDataResult => {
-  const user: User = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_DATA) ?? '');
-
-  const isSawatzky = useMemo(() => {
-    if (user.sawatzkyEmployee) {
-      return true;
-    }
-    return false;
-  }, [user.sawatzkyEmployee]);
-
-  const isDispatcher = useMemo(() => {
-    if (user.employee?.role === EmployeeRole.DISPATCHER || user.sawatzkyEmployee?.role === EmployeeRole.DISPATCHER) {
-      return true;
-    }
-    return false;
-  }, [user]);
-
-  const isPerformer = useMemo(() => {
-    if (user.employee?.role === EmployeeRole.PERFORMER || user.sawatzkyEmployee?.role === EmployeeRole.PERFORMER) {
-      return true;
-    }
-    return false;
-  }, [user]);
-
-  const isDispatcherPerformer = useMemo(() => {
-    if (user.employee?.role === EmployeeRole.DISPATCHER_PERFORMER || user.sawatzkyEmployee?.role === EmployeeRole.DISPATCHER_PERFORMER) {
-      return true;
-    }
-    return false;
-  }, [user]);
+  const user = useSelector(getUserData) ?? {} as User;
+  const isSawatzky = useSelector(userIsSawatzky);
+  const isDispatcher = useSelector(userIsDispatcher);
+  const isPerformer = useSelector(userIsPerformer);
+  const isInitiator = useSelector(userIsInitiator);
+  const isDispatcherPerformer = useSelector(userIsDispatcherPerformer);
 
   return {
     ...user,
     isSawatzky,
     isDispatcher,
     isPerformer,
+    isInitiator,
     isDispatcherPerformer,
   };
 };

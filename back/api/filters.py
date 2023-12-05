@@ -20,7 +20,8 @@ class ApplicationFilter(filters.FilterSet):
         fields = ['legalEntity', 'ordering', 'creator', 'workObject']
 
     def filter_by_work_object(self, queryset, name, value):
-        return queryset.filter(creator__legalEntity__workObject__id=value)
+        workingObjects = value.split(',')
+        return queryset.filter(creator__legalEntity__workObject__id__in=workingObjects)
 
 
 '''Фильтр для WorkTask'''

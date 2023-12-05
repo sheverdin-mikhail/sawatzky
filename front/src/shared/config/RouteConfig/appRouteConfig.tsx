@@ -12,6 +12,7 @@ import { DirectoryWorkMaterialGroupDetailPage } from 'pages/DirectoryWorkMateria
 import { DirectoryWorkMaterialGroupPage } from 'pages/DirectoryWorkMaterialGroupPage';
 import { DirectoryWorkTaskGroupDetailPage } from 'pages/DirectoryWorkTaskGroupDetailPage';
 import { DirectoryWorkTaskGroupPage } from 'pages/DirectoryWorkTaskGroupPage';
+import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export type AppRouteProps = RouteProps & {
@@ -26,6 +27,7 @@ export enum AppRoutes{
     Application_DETAIL = 'application_detail',
     AUTHORIZATION = 'authorization',
     HOME = 'home',
+    FORBIDDEN = 'forbidden'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -33,6 +35,8 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.AUTHORIZATION]: '/login',
   [AppRoutes.Application_DETAIL]: '/application/',
   [AppRoutes.HOME]: '/',
+
+  [AppRoutes.FORBIDDEN]: '/forbidden',
 };
 //-----------------------------------------------------------------------------------
 
@@ -158,6 +162,13 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
   [AppRoutes.AUTHORIZATION]: {
     path: RoutePath.authorization,
     element: <AuthorizationPage />,
+    authOnly: false,
+    sawatzkyOnly: false,
+
+  },
+  [AppRoutes.FORBIDDEN]: {
+    path: RoutePath.forbidden,
+    element: <ForbiddenPage />,
     authOnly: false,
     sawatzkyOnly: false,
 

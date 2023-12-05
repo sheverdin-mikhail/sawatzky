@@ -309,6 +309,7 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
+    performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
     documents = DocumentsSerializer(many=True)
@@ -498,9 +499,9 @@ class SawatzkyEmployeeSerializer(ModelSerializer):
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):
     # Сериализатор для детейла с расширенными полями
-    workingObjects = WorkObjectSerializer(read_only=True, many=True)
-    workObject = WorkObjectSerializer(read_only=True, many=False)
-    workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
+    # workingObjects = WorkObjectSerializer(read_only=True, many=True)
+    # workObject = WorkObjectSerializer(read_only=True, many=False)
+    # workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True, many=False)
 
     class Meta:
