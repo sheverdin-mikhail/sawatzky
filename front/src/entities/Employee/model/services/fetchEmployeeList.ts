@@ -11,7 +11,7 @@ export const fetchEmployeeList = createAsyncThunk<
   'Employee/fetchEmployeeList',
   async (_, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.get<Employee[]>('/api/v1/employees/');
+      const response = await extra.api.get<Employee[]>('/api/v1/employee/');
       if (!response.data) {
         throw new Error('Ошибка получения списка групп материалов');
       }

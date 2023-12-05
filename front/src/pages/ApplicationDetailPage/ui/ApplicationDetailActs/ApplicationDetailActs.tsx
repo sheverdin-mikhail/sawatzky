@@ -13,13 +13,16 @@ interface ApplicationDetailActsProps {
 export const ApplicationDetailActs: React.FC<ApplicationDetailActsProps> = (props) => {
   const { acts } = props;
 
-  return (
-    <CollapsBoard title="Акт выполненных работ" className={cls.Collapse} theme={CollapsBoardThemes.GRAY}>
-      <div className={cls.actsBlock}>
-        {/* <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Добавить </Button> */}
-        <DocList docs={acts} title="Список документов" acts="acts" className={cls.docList} />
-        <Button theme={ButtonThemes.BLUE_SOLID} className={cls.blueBtn}>отправить на подтверждение заказчику</Button>
-      </div>
-    </CollapsBoard>
-  );
+  if (acts && acts?.length > 0) {
+    return (
+      <CollapsBoard title="Акт выполненных работ" className={cls.Collapse} theme={CollapsBoardThemes.GRAY}>
+        <div className={cls.actsBlock}>
+          {/* <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Добавить </Button> */}
+          <DocList docs={acts} title="Список документов" acts="acts" className={cls.docList} />
+          <Button theme={ButtonThemes.BLUE_SOLID} className={cls.blueBtn}>отправить на подтверждение заказчику</Button>
+        </div>
+      </CollapsBoard>
+    );
+  }
+  return null;
 };

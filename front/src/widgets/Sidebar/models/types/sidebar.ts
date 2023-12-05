@@ -40,7 +40,7 @@ export const SidebarItemsList: SidebarItemType[] = [
 
   },
   {
-    path: DirectoryPath.objects,
+    path: DirectoryPath.employee,
     text: 'Справочники',
     Icon: DirectoryIcon,
     authOnly: true,

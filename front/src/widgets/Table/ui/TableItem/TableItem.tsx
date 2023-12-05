@@ -51,6 +51,7 @@ export const TableItem: React.FC<TableItemProps> = (props) => {
         <TableItemHeader
           className={className}
           item={item}
+          mod={mod}
           selectedAll={selectedAll}
           onSelectAll={onSelectAll}
         />

@@ -4,7 +4,7 @@ import {
 } from 'widgets/Table';
 
 export interface UseTableProps {
-    className?: string;
+  className?: string;
 	mod?: TableItemsMod;
 	data: TableType;
 	path?: string;
