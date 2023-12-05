@@ -3,9 +3,13 @@ import cls from './Skeleton.module.scss';
 
 interface SkeletonProps {
   className?: string;
-  width?: number;
+  width?: string;
   height?: number;
   theme?: SkeletonThemes;
+  mLeft?: number;
+  mTop?: number;
+  mRight?: number;
+  mBottom?: number;
 }
 
 export enum SkeletonThemes {
@@ -17,10 +21,15 @@ export enum SkeletonThemes {
 
 export const Skeleton: React.FC<SkeletonProps> = (props) => {
   const {
-    className, theme = SkeletonThemes.ROUND_L, width = 100, height = 25,
+    className, theme = SkeletonThemes.ROUND_L, width = '100px', height = 25, mLeft, mTop, mRight, mBottom,
   } = props;
 
   return (
-    <div style={{ width: `${width}px`, height: `${height}px` }} className={classNames(cls.skeleton, {}, [className, cls[theme]])} />
+    <div
+      style={{
+        width: `${width}`, height: `${height}px`, marginLeft: `${mLeft}px`, marginTop: `${mTop}px`, marginRight: `${mRight}px`, marginBottom: `${mBottom}px`,
+      }}
+      className={classNames(cls.skeleton, {}, [className, cls[theme]])}
+    />
   );
 };

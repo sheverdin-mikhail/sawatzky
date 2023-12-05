@@ -38,7 +38,11 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
   const { className } = props;
 
   const dispatch = useAppDispatch();
+<<<<<<< HEAD
   const employees = useSelector(getEmployee.selectAll);
+=======
+  // const employees = useSelector(getEmployee.selectAll);
+>>>>>>> dev
   const createEmployeeFormIsOpen = useSelector(getCreateEmployeeIsOpen);
 
   useEffect(() => {
