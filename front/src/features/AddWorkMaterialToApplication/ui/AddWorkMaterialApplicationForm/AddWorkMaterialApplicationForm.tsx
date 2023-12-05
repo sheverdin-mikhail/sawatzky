@@ -46,7 +46,7 @@ export const AddWorkMaterialApplicationForm: React.FC<AddWorkMaterialApplication
             placeholder={workMaterialGroup.name}
             onChange={onChangeHandler}
             key={`workMaterialGroup_${workMaterialGroup.id}`}
-            value={selectedItem ? { value: selectedItem.id, text: selectedItem.name } : undefined}
+            value={selectedItem && workMaterialGroup.materials?.includes(selectedItem) ? { value: selectedItem.id, text: selectedItem.name } : undefined}
             options={workMaterialGroup.materials?.map((material) => ({
               text: material.name,
               value: material.id,

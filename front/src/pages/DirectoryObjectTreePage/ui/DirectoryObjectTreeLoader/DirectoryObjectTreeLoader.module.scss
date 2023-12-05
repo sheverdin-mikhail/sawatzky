@@ -1,0 +1,23 @@
+.directoryObjectTreeLoader {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.branches {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.branch {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
