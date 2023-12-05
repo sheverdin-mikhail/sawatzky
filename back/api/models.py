@@ -95,6 +95,7 @@ class Employee(models.Model):
     role = models.CharField(choices=ROLES, default='user', max_length=20, verbose_name='Роль пользователя')
     group = models.CharField(choices=GROUPS, default='S1', max_length=20, verbose_name='Группа пользователя')
     status = models.BooleanField(("Статус"), default=False)
+    powerOfAttorneyNumber = models.CharField(max_length=50, blank=True, null=True, verbose_name='Номер доверенности')
 
     class Meta:
         verbose_name = "Профиль пользователя"
