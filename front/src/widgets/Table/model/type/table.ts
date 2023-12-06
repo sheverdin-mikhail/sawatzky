@@ -15,7 +15,8 @@ export interface TableType {
 
 export enum TableItemsMod {
     LINK = 'link',
-    NORMAL = 'normal'
+    NORMAL = 'normal',
+    NO_CONTROL = 'noControl',
 }
 
 export interface TableSchema extends EntityState<TableType> {

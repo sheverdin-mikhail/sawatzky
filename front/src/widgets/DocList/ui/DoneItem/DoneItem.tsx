@@ -12,12 +12,14 @@ interface DoneItemProps {
   className?: string;
   doc: Document;
   index: number;
+  modal: boolean;
 }
 
 export const DoneItem: React.FC<DoneItemProps> = (props) => {
   const {
     doc,
     index,
+    modal,
   } = props;
 
   const modsItem: Mods = {
@@ -42,7 +44,9 @@ export const DoneItem: React.FC<DoneItemProps> = (props) => {
       <Button disabled={index !== 0} theme={ButtonThemes.WHITE_ROUND} onClick={onDownloadClick}> <DownloadIcon /> </Button>
       <p className={cls.title}>{getDateString(new Date(doc.createdAt), true)}</p>
       {/* <p className={cls.title}>{time}</p> */}
-      <Button theme={ButtonThemes.CLEAR} className={classNames(cls.icon, modsItem, [])} disabled={index !== 0}><MoreIcon /></Button>
+      {
+        modal && <Button theme={ButtonThemes.CLEAR} className={classNames(cls.icon, modsItem, [])} disabled={index !== 0}><MoreIcon /></Button>
+      }
     </li>
   );
 };

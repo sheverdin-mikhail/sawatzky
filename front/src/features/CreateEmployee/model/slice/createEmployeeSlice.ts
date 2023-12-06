@@ -1,11 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { createWorkTaskGroup } from '../services/createEmployee';
 import { CreateEmployeeSchema } from '../type/createEmployee';
 
 const initialState: CreateEmployeeSchema = {
   isOpen: false,
   isLoading: false,
-  formData: {},
+  sawatzkyFormData: {
+    user: {},
+  },
+  formData: {
+    user: {},
+  },
+  user: {},
 };
 
 export const createEmployeeSlice = createSlice({
@@ -18,46 +23,60 @@ export const createEmployeeSlice = createSlice({
     },
     closeModal: (state) => {
       state.isOpen = false;
-      state.formData = {};
+      state.error = undefined;
+      state.isLoading = false;
+      state.sawatzkyFormData = {
+        user: {},
+      };
+      state.formData = {
+        user: {},
+      };
+      state.user = {};
     },
+    // Sawatzky form actions
     setWorkObjectGroup: (state, action: PayloadAction<number>) => {
-      state.formData.workObjectGroup = action.payload;
-      state.formData.workObject = undefined;
-      state.formData.workingObjects = undefined;
+      state.sawatzkyFormData.workObjectGroup = action.payload;
+      state.sawatzkyFormData.workObject = undefined;
+      state.sawatzkyFormData.workingObjects = undefined;
     },
     setWorkObject: (state, action: PayloadAction<number>) => {
-      state.formData.workObject = action.payload;
-      state.formData.workingObjects = undefined;
+      state.sawatzkyFormData.workObject = action.payload;
+      state.sawatzkyFormData.workingObjects = undefined;
     },
-    setFio: (state, action: PayloadAction<string>) => {
-      state.formData.fio = action.payload;
+    setPosition: (state, action: PayloadAction<string>) => {
+      state.sawatzkyFormData.position = action.payload;
     },
     setRole: (state, action: PayloadAction<string>) => {
+      state.sawatzkyFormData.role = action.payload;
       state.formData.role = action.payload;
     },
     setWorkingObjects: (state, action: PayloadAction<number[]>) => {
-      state.formData.workingObjects = action.payload;
+      state.sawatzkyFormData.workingObjects = action.payload;
     },
     setStatus: (state, action: PayloadAction<boolean>) => {
+      state.sawatzkyFormData.status = action.payload;
       state.formData.status = action.payload;
     },
 
+    // form user actions
+    setFio: (state, action: PayloadAction<string>) => {
+      state.user.fio = action.payload;
+    },
+    setPhoneNumber: (state, action: PayloadAction<string>) => {
+      state.user.phoneNumber = action.payload;
+    },
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.user.username = action.payload;
+    },
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.user.password = action.payload;
+    },
+
+    // employee actions
+    setLegalEntity: (state, action: PayloadAction<number>) => {
+      state.formData.legalEntity = action.payload;
+    },
   },
-  extraReducers: (builder) => builder
-    // Получение списка групп услуг
-    .addCase(createWorkTaskGroup.pending, (state, action) => {
-      state.error = undefined;
-      state.isLoading = true;
-    })
-    .addCase(createWorkTaskGroup.fulfilled, (state) => {
-      state.isLoading = false;
-      state.formData = {};
-      state.isOpen = false;
-    })
-    .addCase(createWorkTaskGroup.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    }),
 });
 
 export const { actions: createEmployeeActions } = createEmployeeSlice;

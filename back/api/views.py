@@ -21,8 +21,6 @@ from .serializers import (
     ApplicationWithCreatorSerializer,
     ApplicationWorkMaterialSerializer,
     ApplicationSerializer,
-    ClientWithCLWWSerializers,
-    ClientSerializers,
     LegalEntitySerializer,
     WorkObjectsGroupSerializer,
     WorkObjectsGroupWithWorkObjectSerializer,
@@ -43,6 +41,11 @@ from .serializers import (
     SawatzkyEmployeeSerializer,
     SawatzkyEmployeeWithWorkObjectSerializer,
     SawatzkyEmployeeWithoutworkingObjectsSerializer,
+    SawatzkyEmployeeWithUserSerializer,
+    LegalEntityOrClientLESerializer,
+    LegalEntityListSerializer,
+    EmployeeListSerializer,
+    EmployeeDetailSerializer,
 
 )
 
@@ -50,7 +53,6 @@ from .models import (
     User,
     Employee,
     Application,
-    Client,
     LegalEntity,
     WorkObjectsGroup,
     WorkMaterial,
@@ -64,13 +66,50 @@ from .models import (
 
 
 """User"""
-class AuthUserView(APIView):
+class AuthUserView(generics.RetrieveAPIView):
     # представление для аутентификации пользователя
+    serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
 
-    def get(self, request):
+    def get_object(self):
+        return self.request.user
 
-        user = self.request.user
+    def get(self, request, *args, **kwargs):
+
+        try:
+            user = self.get_object()
+            serializer = self.get_serializer(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+# class AuthUserView(APIView):
+#     # представление для аутентификации пользователя
+#     permission_classes = [permissions.IsAuthenticated]
+#
+#     def get(self, request):
+#
+#         user = self.request.user
+#
+#         try:
+#             serializer = UserSerializer(user, many=False)
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#         except User.DoesNotExist:
+#             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class UserDetailView(generics.RetrieveDestroyAPIView):
+    # представление для пользователей, которые получаются по ID
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        user_id = kwargs.get('user_id')
+        user = User.objects.get(id=user_id)
 
         try:
             serializer = UserSerializer(user, many=False)
@@ -79,18 +118,13 @@ class AuthUserView(APIView):
         except User.DoesNotExist:
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
-
-class UserDetailView(APIView):
-    # представление для пользователей, которые получаются по ID
-    permission_classes = [permissions.IsAuthenticated]
-    def get(self, request, *args, **kwargs):
-
-        user_id = kwargs.get('user_id')
-        user = User.objects.get(id=user_id)
+    def delete(self, request, *args, **kwargs):
+        user_id = self.kwargs.get('user_id')
 
         try:
-            serializer = UserSerializer(user, many=False)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            user = self.get_queryset().get(id=user_id)
+            user.delete()
+            return Response({'message': 'Пользователь успешно удален'}, status=status.HTTP_204_NO_CONTENT)
 
         except User.DoesNotExist:
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
@@ -122,7 +156,7 @@ class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ApplicationFilter
 
@@ -136,53 +170,53 @@ class ApplicationDetailView(generics.RetrieveDestroyAPIView):
 
         try:
             pk = self.kwargs['pk']
-            applications = Application.objects.filter(id=pk)
+            applications = Application.objects.filter(id=pk).order_by('-createdAt')
             return applications
 
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
 
-"""Client"""
-class ClientCreateView(generics.CreateAPIView):
-    # представление на создание клиента
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-class ClientListView(generics.ListAPIView):
-    # представление на создание и вывод списка клиентов
-    queryset = Client.objects.all()
-    serializer_class = ClientWithCLWWSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-class ClientDetailView(generics.RetrieveDestroyAPIView):
-    # представление на получение, обновление, удаление списка клиентов по id создателя
-    serializer_class = ClientWithCLWWSerializers
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-
-        try:
-            pk = self.kwargs['pk']
-            clients = Client.objects.filter(id=pk)
-            return clients
-
-        except (KeyError, Client.DoesNotExist):
-            return Response({'message': 'Клиент не найден'}, status=status.HTTP_404_NOT_FOUND)
-
+# """Client"""
+# class ClientCreateView(generics.CreateAPIView):
+#     # представление на создание клиента
+#     queryset = Client.objects.all()
+#     serializer_class = ClientSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+# class ClientListView(generics.ListAPIView):
+#     # представление на создание и вывод списка клиентов
+#     queryset = Client.objects.all()
+#     serializer_class = ClientWithCLWWSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+# class ClientDetailView(generics.RetrieveDestroyAPIView):
+#     # представление на получение, обновление, удаление списка клиентов по id создателя
+#     serializer_class = ClientWithCLWWSerializers
+#     permission_classes = [permissions.IsAuthenticated]
+#
+#     def get_queryset(self):
+#
+#         try:
+#             pk = self.kwargs['pk']
+#             clients = Client.objects.filter(id=pk)
+#             return clients
+#
+#         except (KeyError, Client.DoesNotExist):
+#             return Response({'message': 'Клиент не найден'}, status=status.HTTP_404_NOT_FOUND)
+#
 
 """LegalEntity"""
 class LegalEntityCreateView(generics.CreateAPIView):
     # представление на создание Юр. лица
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
+    serializer_class = LegalEntityOrClientLESerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class LegalEntityListView(generics.ListAPIView):
     # представление на создание и вывод списка Юр. лиц
     queryset = LegalEntity.objects.all()
-    serializer_class = LegalEntitySerializer
+    serializer_class = LegalEntityListSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = LegalEntityFilter
@@ -190,7 +224,6 @@ class LegalEntityListView(generics.ListAPIView):
 
 class LegalEntityDetailView(generics.RetrieveDestroyAPIView):
     # представление на получение, обновление, удаление Юр. лица по id
-    # serializer_class = LegalEntitySerializer
     serializer_class = LegalEntityDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -430,8 +463,30 @@ class WorkObjectDetailView(generics.RetrieveDestroyAPIView):
             return Response({'message': 'Рабочий объект не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
-
 """Employee"""
+class EmployeeListView(generics.ListAPIView):
+    # представление на создание и вывод списка пользователей
+    serializer_class = EmployeeWithUserSerializer
+    queryset = Employee.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class EmployeeDetailView(generics.RetrieveDestroyAPIView):
+    # представление на получение, обновление, удаление пользователей по id
+    serializer_class = EmployeeDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+
+        try:
+            pk = self.kwargs['pk']
+            employee = Employee.objects.filter(id=pk)
+            return employee
+
+        except (KeyError, Employee.DoesNotExist):
+            return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
 class EmployeeCreateView(generics.CreateAPIView):
     # представление на создание расширения модели пользователя, после регистрации user
     queryset = Employee.objects.all()
@@ -450,6 +505,9 @@ class EmployeeCreateView(generics.CreateAPIView):
             legalEntityId = request.data.pop('legalEntity')
             legalEntity = LegalEntity.objects.get(id=legalEntityId)
 
+            if User.objects.filter(username=user_data['username']).exists():
+                return Response({'message': 'Пользователь с таким именем уже существует'},
+                                status=status.HTTP_400_BAD_REQUEST)
             #Создание и сохранение объектов
             user = User.objects.create_user(**user_data)
             employee = Employee.objects.create(user=user, legalEntity=legalEntity, **request.data)
@@ -491,6 +549,7 @@ class DocumentToApplicationCreateView(generics.CreateAPIView):
     # представление на создание документа с привязкой к заявке
     serializer_class = DocumentsSerializer
     permission_classes = [permissions.IsAuthenticated]
+    queryset = Document.objects.all()
 
     def create(self, request, *args, **kwargs):
         try:
@@ -513,10 +572,41 @@ class DocumentToApplicationCreateView(generics.CreateAPIView):
 
 """SawatzkyEmployee"""
 class SawatzkyEmployeeCreateView(generics.CreateAPIView):
-    # представление на создание пользователя Sawatzky
+    # представление на создание расширенной модели пользователя Sawatzky, после регистрации user
     serializer_class = SawatzkyEmployeeSerializer
     queryset = SawatzkyEmployee.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            user_data = request.data.pop('user')
+            work_object_group_id = request.data.pop('workObjectGroup')
+            work_object_group = WorkObjectsGroup.objects.get(id=work_object_group_id)
+            work_object_id = request.data.pop('workObject')
+            work_object = WorkObject.objects.get(id=work_object_id)
+
+            if User.objects.filter(username=user_data['username']).exists():
+                return Response({'message': 'Пользователь Sawatzky с таким именем уже существует'},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            user = User.objects.create_user(**user_data)
+            working_objects_data = request.data.pop('workingObjects', [])
+            sawatzky_employee = SawatzkyEmployee.objects.create(user=user, workObjectGroup=work_object_group,
+                                                                workObject=work_object, **request.data)
+
+            sawatzky_employee.workingObjects.set(working_objects_data)
+
+            sawatzky_employee.save()
+            sawatzky_employee_serializer = SawatzkyEmployeeWithUserSerializer(instance=sawatzky_employee)
+
+            return Response(sawatzky_employee_serializer.data, status=status.HTTP_201_CREATED)
+
+        except ValidationError as error:
+            return Response(error.detail, status=error.status_code)
 
 
 class SawatzkyEmployeeListView(generics.ListAPIView):

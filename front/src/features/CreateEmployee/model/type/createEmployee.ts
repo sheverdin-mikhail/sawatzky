@@ -1,16 +1,34 @@
 import { EmployeeRole } from 'entities/Employee';
 
-export interface CreateEmployeeFormData {
+export interface UserFormData {
+    fio?: string;
+    phoneNumber?: string;
+    username?: string;
+    password?: string;
+}
+
+export interface CreateSawatzkyEmployeeFormData {
+    user?: UserFormData;
     workObjectGroup?: number;
     workObject?: number;
-    fio?: string;
+    position?: string;
     role?: string;
     status?: boolean;
     workingObjects?: number[];
 }
 
+export interface CreateEmployeeFormData {
+    user?: UserFormData;
+    legalEntity?: number;
+    role?: string;
+    status?: boolean;
+}
+
 export interface CreateEmployeeSchema {
+    sawatzkyFormData: CreateSawatzkyEmployeeFormData;
     formData: CreateEmployeeFormData;
+    user: UserFormData;
+
     isLoading?: boolean;
     error?: string;
     isOpen?: boolean;

@@ -18,7 +18,7 @@ export const ApplicationDetailInfoComponent: React.FC<ApplicationDetailInfoCompo
         <h2 className={cls.title}>Информация по запросу</h2>
         <span className={classNames(cls.text, {}, [cls.name])}><b className={cls.textBold}>Название: </b>{ info.title }</span>
         <span className={cls.text}><b className={cls.textBold}>ID:</b> {info.id}</span>
-        <span className={cls.text}><b className={cls.textBold}>Создал запрос:</b> { info.creator?.fio }</span>
+        <span className={cls.text}><b className={cls.textBold}>Создал запрос:</b> { info.creator?.user.fio }</span>
         <Tag status={info.status} />
       </div>
       <div className={classNames(cls.secondColumn, {}, [cls.column])}>

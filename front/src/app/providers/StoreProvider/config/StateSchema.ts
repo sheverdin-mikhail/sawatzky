@@ -26,8 +26,11 @@ import { AddWorkObjectGroupFormSchema } from 'features/AddObjectsGroup';
 import { LegalEntitySchema } from 'entities/LegalEntity';
 import { WorkObjectSchema } from 'entities/WorkObject';
 import { AddWorkObjectFormSchema } from 'features/AddObject';
-import { CreateEmployeeSchema } from 'features/CreateEmployee';
 import { AddDocumentFormSchema } from 'features/AddDocument';
+import { CreateLegalEntitySchema } from 'features/CreateLegalEntity';
+import { SawatzkyEmployeeSchema } from 'entities/SawatzkyEmployee';
+import { EmployeeSchema } from 'entities/Employee';
+import { CreateEmployeeSchema } from 'features/CreateEmployee';
 
 export interface StateSchema {
     user: UserSchema;
@@ -45,6 +48,8 @@ export interface StateSchema {
     workObjectGroup?: WorkObjectGroupSchema;
     legalEntity?: LegalEntitySchema;
     workObject?: WorkObjectSchema;
+    sawatzkyEmployee?: SawatzkyEmployeeSchema;
+    employee?: EmployeeSchema;
     // widgets
     table?: TableSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
@@ -60,7 +65,8 @@ export interface StateSchema {
     addWorkTaskApplicationForm?: AddWorkTaskApplicationFormSchema;
     addDocumentForm?: AddDocumentFormSchema;
     addWorkMaterialApplicationForm?: AddWorkMaterialApplicationFormSchema;
-    createEmployee?: CreateEmployeeSchema
+    createEmployee?: CreateEmployeeSchema;
+    createLegalEntityForm?: CreateLegalEntitySchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

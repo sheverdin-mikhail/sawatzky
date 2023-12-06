@@ -10,12 +10,18 @@ from .models import (
 
 '''Фильтр для Application'''
 class ApplicationFilter(filters.FilterSet):
-    legal_entity = filters.CharFilter(field_name="creator__legalEntity", lookup_expr="exact")
+    legalEntity = filters.CharFilter(field_name="creator__legalEntity", lookup_expr="exact")
     ordering = filters.OrderingFilter(fields=("createdAt", 'id'), field_labels={"createdAt": "Дата создания"})
+    creator = filters.CharFilter(field_name="creator__user__username", lookup_expr="exact")
+    workObject = filters.CharFilter(method='filter_by_work_object')
 
     class Meta:
         model = Application
-        fields = ['legal_entity', 'ordering']
+        fields = ['legalEntity', 'ordering', 'creator', 'workObject']
+
+    def filter_by_work_object(self, queryset, name, value):
+        workingObjects = value.split(',')
+        return queryset.filter(creator__legalEntity__workObject__id__in=workingObjects)
 
 
 '''Фильтр для WorkTask'''
@@ -38,9 +44,9 @@ class WorkMaterialFilter(filters.FilterSet):
 
 '''Фильтр для LegalEntity'''
 class LegalEntityFilter(filters.FilterSet):
-    status = filters.BooleanFilter(field_name="sawatzki", lookup_expr="exact")
-
+    status = filters.BooleanFilter(field_name="status", lookup_expr="exact")
+    sawatzky = filters.BooleanFilter(field_name="sawatzky", lookup_expr="exact")
     class Meta:
         model = LegalEntity
-        fields = ['sawatzki']
+        fields = ['sawatzky']
 

@@ -1,0 +1,30 @@
+.title {
+  font: var(--font-xl2);
+  margin-bottom: 26px;
+}
+
+.input {
+  height: 48px;
+
+  margin-bottom: 6px;
+
+  &.select {
+    padding: 12px 20px;
+  }
+}
+
+.subtitle {
+  font-weight: var(--font-weight-xl);
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.switch {
+  font-size: var(--font-size-s3);
+  margin-top: 23px;
+  margin-bottom: 36px;
+}
+
+.btn {
+  padding: 10px 72px;
+}

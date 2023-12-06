@@ -1,30 +1,34 @@
+.CreateEmployeeForm {
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
-  font: var(--font-xl2);
+  font-size: var(--font-size-xl2);
   margin-bottom: 26px;
 }
 
 .input {
-  height: 48px;
-
-  margin-bottom: 6px;
+  &:not(:last-child) {
+    margin-bottom: 6px;
+  }
 
   &.select {
     padding: 12px 20px;
   }
 }
 
-.subtitle {
-  font-weight: var(--font-weight-xl);
+.addBtn {
   margin-top: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 32px;
+  align-self: flex-start;
 }
 
-.switch {
-  font-size: var(--font-size-s3);
-  margin-top: 23px;
-  margin-bottom: 36px;
+.docList {
+  margin-left: -20px;
 }
 
 .btn {
-  padding: 10px 72px;
+  padding: 9px;
+  width: 47%;
 }

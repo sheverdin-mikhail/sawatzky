@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback } from 'react';
 import { Switch } from 'shared/ui/Switch/Switch';
+import { parseTimeString } from 'shared/lib/helpers/parseTimeString';
 import {
   getAddWorkTaskName, getAddWorkTaskPrice, getAddWorkTaskStatus, getAddWorkTaskTime,
 } from '../../model/selectors/addWorkTaskFormSelectors';
@@ -51,7 +52,7 @@ export const AddWorkTaskForm: React.FC<AddWorkTaskFormProps> = (props) => {
       price,
       workTaskGroup: groupId,
       status,
-      time,
+      time: parseTimeString(time ?? '').toString(),
     }));
   }, [dispatch, name, price, groupId, status, time]);
 

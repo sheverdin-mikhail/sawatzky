@@ -1,6 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { Document } from 'entities/Document';
 import { Employee } from 'entities/Employee';
+import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { WorkTask } from 'entities/WorkTask';
 
@@ -31,7 +32,7 @@ export interface Application {
     status: ApplicationStatus;
     step: number;
     creator?: Employee;
-    performer?: Employee;
+    performer?: SawatzkyEmployee[];
     workTasks?: ApplicationWorkTask[];
     workMaterials?: ApplicationWorkMaterial[];
     other?: Document[];
