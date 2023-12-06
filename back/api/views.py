@@ -101,17 +101,30 @@ class AuthUserView(generics.RetrieveAPIView):
 #             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 
-class UserDetailView(APIView):
+class UserDetailView(generics.RetrieveDestroyAPIView):
     # представление для пользователей, которые получаются по ID
+    serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    def get(self, request, *args, **kwargs):
+    queryset = User.objects.all()
 
+    def get(self, request, *args, **kwargs):
         user_id = kwargs.get('user_id')
         user = User.objects.get(id=user_id)
 
         try:
             serializer = UserSerializer(user, many=False)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, *args, **kwargs):
+        user_id = self.kwargs.get('user_id')
+
+        try:
+            user = self.get_queryset().get(id=user_id)
+            user.delete()
+            return Response({'message': 'Пользователь успешно удален'}, status=status.HTTP_204_NO_CONTENT)
 
         except User.DoesNotExist:
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)

@@ -421,7 +421,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials', 'documents']
+        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status']
 
     def update(self, instance, validated_data):
 
@@ -474,6 +474,17 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                 work_material_instance.save()
         else:
             pass
+
+        step = validated_data.get('step')
+        if step is not None:
+            instance.step = step
+
+
+        status = validated_data.get('status')
+        if status is not None:
+            instance.status = status
+
+        instance.save()
 
         return instance
 

@@ -76,9 +76,8 @@ class Employee(models.Model):
     """Расширение модели пользователя"""
 
     ROLES = (
-        ('dispatcher', 'Диспетчер'),
-        ('performer', 'Исполнитель'),
-        ('dispatcherPerformer', 'Диспетчер/Исполнитель'),
+        ('admin', 'Администратор'),
+        ('initiator', 'Инициатор'),
     )
 
     GROUPS = (
@@ -329,6 +328,7 @@ class Document(models.Model):
     docType = models.CharField(("Тип документа"), choices=DOC_TYPE_CHOICES, max_length=32)
     createdAt = models.DateField(("Дата добавления документа"), auto_now=False, auto_now_add=True)
     file = models.FileField(("Файл документа"), upload_to='documents/', blank=True, null=True, default=1)
+    signed = models.BooleanField(("подписан/не подписан"), default=False)
 
     class Meta:
         verbose_name = ("Документ")
@@ -343,6 +343,7 @@ class SawatzkyEmployee(models.Model):
     """Пользователь Sawatzky"""
 
     ROLES = (
+        ('admin', 'Администратор'),
         ('dispatcher', 'Диспетчер'),
         ('performer', 'Исполнитель'),
         ('dispatcherPerformer', 'Диспетчер/Исполнитель'),
