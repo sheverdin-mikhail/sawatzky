@@ -14,4 +14,6 @@ export {
   userIsDispatcher,
   userIsPerformer,
   userIsDispatcherPerformer,
+  userIsAdmin,
+  userIsInitiator,
 } from './model/selectors/getUserRole/getUserRole';
