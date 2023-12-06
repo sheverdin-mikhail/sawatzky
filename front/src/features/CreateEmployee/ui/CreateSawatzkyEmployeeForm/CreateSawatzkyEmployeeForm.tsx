@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { EmployeeRole } from 'entities/Employee';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { EmployeeRoleOption } from '../../model/type/createEmployee';
 import {
   getCreateEmployeeSawatzkyFormData,
@@ -67,6 +68,8 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
   const workObjectGroups = useSelector(getWorkObjectGroup.selectAll);
   const user = useSelector(getCreateEmployeeUser);
 
+  const { isAdmin } = useUserData();
+
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
     dispatch(createEmployeeActions.setWorkObjectGroup(+item.value));
   }, [dispatch]);
@@ -108,6 +111,28 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
       dispatch(createSawatzkyEmployee({ ...formData, user }));
     }
   }, [dispatch, formData, user]);
+
+  const roles: EmployeeRoleOption[] = useMemo(() => {
+    const roles = [
+      {
+        value: EmployeeRole.DISPATCHER,
+        text: 'Диспетчер',
+      },
+      {
+        value: EmployeeRole.PERFORMER,
+        text: 'Исполнитель',
+      },
+      {
+        value: EmployeeRole.DISPATCHER_PERFORMER,
+        text: 'Диспетчер/Исполнитель',
+      },
+      {
+        value: EmployeeRole.ADMIN,
+        text: 'Администратор',
+      },
+    ];
+    return roles;
+  }, []);
 
   const workObjectOptions = useMemo(() => {
     const workObjects = workObjectGroups.find((item) => item.id === workObjectGroup)?.workObjects;

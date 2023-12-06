@@ -21,6 +21,7 @@ export enum EmployeeRole {
     PERFORMER = 'performer',
     DISPATCHER_PERFORMER = 'dispatcherPerformer',
     INITIATOR = 'initiator',
+    ADMIN = 'admin',
 }
 
 export const EmployeeRoleValue: Record<EmployeeRole, string> = {
@@ -28,4 +29,5 @@ export const EmployeeRoleValue: Record<EmployeeRole, string> = {
   [EmployeeRole.DISPATCHER_PERFORMER]: 'Диспетчер / Исполнитель',
   [EmployeeRole.PERFORMER]: 'Исполнитель',
   [EmployeeRole.INITIATOR]: 'Инициатор',
+  [EmployeeRole.ADMIN]: 'Инициатор',
 };
