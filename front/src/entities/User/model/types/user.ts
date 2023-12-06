@@ -1,10 +1,12 @@
 import { Employee } from 'entities/Employee';
+import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
 
 export interface User {
     id: string;
     username: string;
     fio?: string;
     employee?: Employee;
+    sawatzkyEmployee?: SawatzkyEmployee;
     phone_number?: string;
 }
 

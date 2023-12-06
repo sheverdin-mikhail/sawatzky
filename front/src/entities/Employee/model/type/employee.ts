@@ -1,6 +1,20 @@
+import { EntityState } from '@reduxjs/toolkit';
+import { LegalEntity } from 'entities/LegalEntity';
 import { User } from 'entities/User';
 
-export type Employee = Omit<User, 'employee'>
+export interface Employee {
+    id: number;
+    legalEntity: LegalEntity;
+    user: User;
+    role: EmployeeRole;
+    group: string;
+    status: boolean;
+}
+
+export interface EmployeeSchema extends EntityState<Employee> {
+    isLoading?: boolean;
+    error?: string
+}
 
 export enum EmployeeRole {
     DISPATCHER = 'dispatcher',

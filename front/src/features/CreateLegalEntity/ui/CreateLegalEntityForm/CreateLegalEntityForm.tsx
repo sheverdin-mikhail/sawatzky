@@ -4,16 +4,17 @@ import { Input } from 'shared/ui/Input/Input';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Switch } from 'shared/ui/Switch/Switch';
-// import { ReactComponent as BlueFolderIcon } from 'shared/assets/icons/blue-folder-icon.svg';
-// import { ReactComponent as FolderIcon } from 'shared/assets/icons/folder-icon.svg';
-// import { FileInput } from 'shared/ui/FileInput/FileInput';
-// import { DocList } from 'widgets/DocList';
+import { ReactComponent as BlueFolderIcon } from 'shared/assets/icons/blue-folder-icon.svg';
+import { ReactComponent as FolderIcon } from 'shared/assets/icons/folder-icon.svg';
+import { FileInput } from 'shared/ui/FileInput/FileInput';
+import { Document } from 'entities/Document';
+import { DocList } from 'widgets/DocList';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
-import { useCallback, useMemo } from 'react';
 import { getWorkTaskGroup } from 'entities/WorkTaskGroup';
 import { getWorkMaterialGroup } from 'entities/WorkMaterialGroup';
+import { useCallback, useMemo } from 'react';
 import cls from './CreateLegalEntityForm.module.scss';
 import {
   getCreateLegalEntityFormActualAddress,
@@ -135,6 +136,18 @@ export const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = (prop
     }
     return undefined;
   }, [workMaterialGroupOptions, selectedWorkMaterialGroups]);
+
+  const docs: Document[] = [
+    {
+      id: '1', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '2', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '3', name: 'Сверка данных 2005-2022 гг Сверка данных 2005-2022 гг.doxc', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+  ];
 
   return (
     <div className={classNames(cls.createLegalEntityForm, {}, [className])}>

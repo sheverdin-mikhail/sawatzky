@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
 import cls from './AddWorkTaskApplicationForm.module.scss';
 
 interface AddWorkTaskApplicationFormProps {
-	className?: string;
-	onClose?: () => void;
-	workTaskGroups?: WorkTaskGroupItem[];
+  className?: string;
+  onClose?: () => void;
+  workTaskGroups?: WorkTaskGroupItem[];
 
 }
 
@@ -45,7 +45,7 @@ export const AddWorkTaskApplicationForm: React.FC<AddWorkTaskApplicationFormProp
             className={cls.input}
             placeholder={workTaskGroup.name}
             onChange={onChangeHandler}
-            value={selectedItem ? { value: selectedItem.id, text: selectedItem.name } : undefined}
+            value={selectedItem && workTaskGroup.tasks?.includes(selectedItem) ? { value: selectedItem.id, text: selectedItem.name } : undefined}
             key={`workTaskGroup_${workTaskGroup.id}`}
             options={workTaskGroup.tasks?.map((task) => ({
               text: task.name,

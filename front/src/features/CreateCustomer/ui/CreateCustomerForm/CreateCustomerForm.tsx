@@ -41,7 +41,17 @@ export const CreateCustomerForm: React.FC<CreateCustomerFormProps> = (props) => 
     text: item.code,
   }));
 
-  const docs: Document[] = [];
+  const docs: Document[] = [
+    {
+      id: '1', name: 'Доверенность 3.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '2', name: 'Доверенность 2.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+    {
+      id: '3', name: 'Доверенность 1.doсx', createdAt: '12.05.23', docType: 'just', fileUrl: 'www.google.com',
+    },
+  ];
 
   return (
     <div className={classNames(cls.createCustomerForm, {}, [className])}>
