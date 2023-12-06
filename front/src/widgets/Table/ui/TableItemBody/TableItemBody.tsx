@@ -98,6 +98,18 @@ export const TableItemBody: React.FC<TableItemBodyProps> = (props) => {
             </div>
           </div>
         );
+      case TableItemsMod.NO_CONTROL:
+        return (
+          <div className={classNames(cls.tableItemBody, {}, [cls[mod], className])}>
+            {
+              item && Object.keys(item).map((key, index) => (
+                <div className={cls.column} key={`${key}_table_item_column`} style={{ flex: `1 0 ${100 / Object.keys(item).length}%` }}>
+                  <span className={cls.text}>{item[key]}</span>
+                </div>
+              ))
+            }
+          </div>
+        );
       default:
         return null;
       }

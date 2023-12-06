@@ -18,6 +18,14 @@ export interface EmployeeSchema extends EntityState<Employee> {
 
 export enum EmployeeRole {
     DISPATCHER = 'dispatcher',
-    PERFORMER = 'preformer',
-    DISPATCHER_PERFORMER = 'dispatcherPerformer'
+    PERFORMER = 'performer',
+    DISPATCHER_PERFORMER = 'dispatcherPerformer',
+    INITIATOR = 'initiator',
 }
+
+export const EmployeeRoleValue: Record<EmployeeRole, string> = {
+  [EmployeeRole.DISPATCHER]: 'Диспетчер',
+  [EmployeeRole.DISPATCHER_PERFORMER]: 'Диспетчер / Исполнитель',
+  [EmployeeRole.PERFORMER]: 'Исполнитель',
+  [EmployeeRole.INITIATOR]: 'Инициатор',
+};

@@ -309,12 +309,13 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
+    performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
-    paymentSlip = serializers.SerializerMethodField()
+    paymentSlips = serializers.SerializerMethodField()
     other = serializers.SerializerMethodField()
 
     class Meta:
@@ -326,7 +327,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
         acts_serializer = ActSerializer(acts_queryset, many=True)
         return acts_serializer.data
 
-    def get_paymentSlip(self, obj):
+    def get_paymentSlips(self, obj):
         payment_slips_queryset = obj.documents.filter(docType='paymentSlip').order_by('-createdAt')
         payment_slips_serializer = PaymentSlipSerializer(payment_slips_queryset, many=True)
         return payment_slips_serializer.data
@@ -509,9 +510,9 @@ class SawatzkyEmployeeSerializer(ModelSerializer):
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):
     # Сериализатор для детейла с расширенными полями
-    workingObjects = WorkObjectSerializer(read_only=True, many=True)
-    workObject = WorkObjectSerializer(read_only=True, many=False)
-    workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
+    # workingObjects = WorkObjectSerializer(read_only=True, many=True)
+    # workObject = WorkObjectSerializer(read_only=True, many=False)
+    # workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True, many=False)
 
     class Meta:

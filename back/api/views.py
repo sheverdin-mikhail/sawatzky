@@ -156,7 +156,7 @@ class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
     queryset = Application.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ApplicationFilter
 

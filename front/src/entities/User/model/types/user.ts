@@ -7,7 +7,7 @@ export interface User {
     fio?: string;
     employee?: Employee;
     sawatzkyEmployee?: SawatzkyEmployee;
-    phone_number?: string;
+    phoneNumber?: string;
 }
 
 export interface UserSchema {

@@ -7,7 +7,12 @@ import { TableType } from 'widgets/Table';
 import { useCallback, useEffect } from 'react';
 import { useTable } from 'shared/lib/hooks/useTable';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { employeeReducer, fetchEmployeeList } from 'entities/Employee';
+import {
+  EmployeeRoleValue,
+  employeeReducer,
+  fetchEmployeeList,
+  getEmployee,
+} from 'entities/Employee';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { fetchLegalEntityList, legalEntityReducer } from 'entities/LegalEntity';
@@ -33,7 +38,7 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
   const { className } = props;
 
   const dispatch = useAppDispatch();
-  // const employees = useSelector(getEmployee.selectAll);
+  const employees = useSelector(getEmployee.selectAll);
   const createEmployeeFormIsOpen = useSelector(getCreateEmployeeIsOpen);
 
   useEffect(() => {
@@ -53,8 +58,13 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
       phone: 'Моб. Телефон',
       role: 'Роль',
     },
-    items: [
-    ],
+    items: employees.map((item) => ({
+      id: item.id ?? '',
+      name: item.user.fio ?? '',
+      company: item.legalEntity.name ?? '',
+      phone: item.user.phoneNumber ?? '',
+      role: EmployeeRoleValue[item.role] ?? '',
+    })),
   };
 
   const { Table } = useTable({

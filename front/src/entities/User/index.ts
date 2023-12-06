@@ -10,5 +10,8 @@ export {
   getUserData,
   getUserEmployee,
   getUserRole,
-  isSawatzky,
+  userIsSawatzky,
+  userIsDispatcher,
+  userIsPerformer,
+  userIsDispatcherPerformer,
 } from './model/selectors/getUserRole/getUserRole';

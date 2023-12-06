@@ -1,5 +1,5 @@
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
-import { TableItemType, TableType } from 'widgets/Table';
+import { TableItemType, TableItemsMod, TableType } from 'widgets/Table';
 import { getTime } from 'shared/lib/helpers/getTime';
 import { CollapsBoard } from 'widgets/CollapsBoard';
 import { ApplicationWorkMaterial, ApplicationWorkTask } from 'entities/Application';
@@ -19,6 +19,7 @@ import { addDocumentFormActions } from 'features/AddDocument';
 import { useSelector } from 'react-redux';
 import { StateSchema } from 'app/providers';
 import { Document } from 'entities/Document';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { getApplicationDetail } from '../../model/slice/applicationDetailSlice';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
@@ -36,6 +37,12 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
   const dispatch = useAppDispatch();
 
   const detail = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId));
+  const {
+    isDispatcher,
+    isDispatcherPerformer,
+    isPerformer,
+    isInitiator,
+  } = useUserData();
 
   const docList = useMemo<Document[] | undefined>(() => {
     const docs: Document[] = [];
@@ -152,36 +159,48 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
     data: workTasksTable,
     className: cls.table,
     onDelete: onDeleteTaskHandler,
+    mod: isInitiator ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
   });
 
   const { Table: WorkMaterialsTable } = useTable({
     data: workMaterialsTable,
     className: cls.table,
     onDelete: onDeleteMaterialHandler,
+    mod: isInitiator ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
   });
 
   return (
     <div>
       <CollapsBoard title="Стоимость работ">
-        <Button
-          theme={ButtonThemes.CLEAR_BLUE}
-          className={cls.controlBtn}
-          onClick={() => dispatch(addWorkTaskApplicationFormActions.openModal())}
-        >
-          + Добавить работы
-        </Button>
-        <Button
-          theme={ButtonThemes.CLEAR_BLUE}
-          className={cls.controlBtn}
-          onClick={() => dispatch(addWorkMaterialApplicationFormActions.openModal())}
-        >+ Добавить расходный материал
-        </Button>
-        <Button
-          theme={ButtonThemes.CLEAR_BLUE}
-          className={cls.controlBtn}
-          onClick={() => dispatch(addDocumentFormActions.openModal())}
-        >+ Загрузить документ
-        </Button>
+        {
+          (isDispatcher || isDispatcherPerformer) && (
+            <>
+              <Button
+                theme={ButtonThemes.CLEAR_BLUE}
+                className={cls.controlBtn}
+                onClick={() => dispatch(addWorkTaskApplicationFormActions.openModal())}
+              >
+                + Добавить работы
+              </Button>
+              <Button
+                theme={ButtonThemes.CLEAR_BLUE}
+                className={cls.controlBtn}
+                onClick={() => dispatch(addWorkMaterialApplicationFormActions.openModal())}
+              >+ Добавить расходный материал
+              </Button>
+            </>
+          )
+        }
+        {
+          (isInitiator || isPerformer) && (
+            <Button
+              theme={ButtonThemes.CLEAR_BLUE}
+              className={cls.controlBtn}
+              onClick={() => dispatch(addDocumentFormActions.openModal())}
+            >+ Загрузить документ
+            </Button>
+          )
+        }
         <div className={cls.tablesBlock}>
           {WorkTasksTable}
           {WorkMaterialsTable}
@@ -205,8 +224,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
           </p>
         </div>
 
-        { docList && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
-        { payList && <DocList docs={payList} title="Платежный документ" /> }
+        { docList?.length !== 0 && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
+        { payList?.length !== 0 && <DocList docs={payList} onDelete={() => dispatch(fetchApplicationDetail(applicationId))} title="Платежный документ" /> }
       </CollapsBoard>
 
     </div>

@@ -2,13 +2,16 @@ import { CollapsBoard } from 'widgets/CollapsBoard';
 import { CollapsBoardThemes } from 'widgets/CollapsBoard/ui/CollapsBoard/CollapsBoard';
 import { Performer } from 'widgets/Performer';
 import { performer } from 'widgets/Performer/model/type/Performer';
+import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
 import cls from './ApplicationDetailPerformer.module.scss';
 
 interface ApplicationDetailPerformerProps {
   className?: string;
+  performers?: SawatzkyEmployee[];
 }
 
 export const ApplicationDetailPerformer: React.FC<ApplicationDetailPerformerProps> = (props) => {
+  const { performers } = props;
   const firstPerformer: performer = {
     id: '1',
     name: 'Иванов А.А.',
