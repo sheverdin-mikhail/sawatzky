@@ -28,8 +28,8 @@ import { getApplicationDetailPerformer } from '../../model/selectors/getApplicat
 import cls from './ApplicationDetailContent.module.scss';
 
 interface ApplicationDetailContentProps {
-	className?: string;
-	applicationId: string;
+  className?: string;
+  applicationId: string;
 }
 
 export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> = (props) => {
