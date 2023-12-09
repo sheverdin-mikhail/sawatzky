@@ -15,6 +15,7 @@ from .models import (
     ApplicationWorkMaterial,
     Document,
     SawatzkyEmployee,
+    ApplicationEmployee,
 )
 
 
@@ -295,6 +296,7 @@ class DocumentsSerializer(ModelSerializer):
         model = Document
         fields = '__all__'
 
+
 '''EmployeeWithUser'''
 class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
@@ -305,6 +307,7 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
         model = Employee
         fields = '__all__'
 
+
 '''Extended Application'''
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
@@ -312,6 +315,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
     performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
+    employee = EmployeeSerializer(source='applicationemployee_set', read_only=True, many=False)
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
@@ -412,16 +416,29 @@ class UpdateWorkTaskSerializer(ModelSerializer):
         return instance
 
 
+'''UpdateEmployee'''
+class UpdateEmployeeSerializer(ModelSerializer):
+    class Meta:
+        model = ApplicationEmployee
+        fields = ['employee']
+
+    def update(self, instance, validated_data):
+        instance.employee = validated_data.get('employee', instance.employee)
+        instance.save()
+        return instance
+
+
 '''ApplicationWithWorkTasksWorkMaterialsUpdate'''
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
+    employee = UpdateEmployeeSerializer(source='applicationemployee_set', many=False)
     documents = DocumentsSerializer(many=True, required=False)
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status']
+        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status', 'employee']
 
     def update(self, instance, validated_data):
 
@@ -442,6 +459,21 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                         file=document_item.get('file'),
                         application=instance,
                     )
+
+        # Обработка обновления Employee
+        employee_data = validated_data.get('applicationemployee_set')
+        if employee_data is not None:
+            current_employeee = ApplicationEmployee.objects.filter(application=instance)
+            for current_employee in current_employeee:
+                if not any(item['employee'] == current_employee.employee for item in employee_data):
+                    current_employee.delete()
+            for item in employee_data:
+                employee_instance = ApplicationEmployee.objects.get_or_create(
+                    application=instance, employee=item['employee']
+                )
+                employee_instance.save()
+        else:
+            pass
 
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
