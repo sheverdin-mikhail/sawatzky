@@ -1,22 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { SawatzkyEmployee } from '../type/sawatzkyEmployee';
-import { fetchSawatzkyEmployeeList } from './fetchSawatzkyEmployeeList';
+import { User } from '../types/user';
 
-export const deleteSawatzkyEmployee = createAsyncThunk<
+export const deleteUser = createAsyncThunk<
   void,
   number | string,
   ThunkConfig<string>
 >(
-  'sawatzkyEmployee/deleteSawatzkyEmployee',
+  'user/deleteUser',
   async (userId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<SawatzkyEmployee>(`/api/v1/sawatzky_employee/${userId}`);
+      const response = await extra.api.delete<User>(`/api/v1/work_objects/${userId}`);
       if (response.status !== 204) {
-        throw new Error('Ошибка удаления группы объектов');
+        throw new Error('Ошибка удаления пользователя');
       }
-      dispatch(fetchSawatzkyEmployeeList());
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());
