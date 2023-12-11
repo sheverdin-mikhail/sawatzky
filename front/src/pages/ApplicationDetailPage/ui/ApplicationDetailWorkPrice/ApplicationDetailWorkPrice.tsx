@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { StateSchema } from 'app/providers';
 import { Document } from 'entities/Document';
 import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
+import { getApplicationStep } from 'pages/ApplicationDetailPage/model/selectors/getApplicationDetailInfo';
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { getApplicationDetail } from '../../model/slice/applicationDetailSlice';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
@@ -37,6 +38,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
   const dispatch = useAppDispatch();
 
   const detail = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId));
+  const step = useSelector((state: StateSchema) => getApplicationStep(state, applicationId));
+  const { isSawatzky } = useUserData();
   const {
     isDispatcher,
     isDispatcherPerformer,
@@ -169,6 +172,16 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
     mod: isInitiator ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
   });
 
+  const ChangeStepButton = useMemo(() => {
+    switch (step) {
+    case 1:
+      if (isSawatzky) {
+        return <Button theme={ButtonThemes.BLUE_SOLID}>Отправить на согласованию заказчику</Button>;
+      }
+      return null;
+    }
+  }, [step, isSawatzky]);
+
   return (
     <div>
       <CollapsBoard title="Стоимость работ">
@@ -226,6 +239,8 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
 
         { docList?.length !== 0 && <DocList onDelete={() => dispatch(fetchApplicationDetail(applicationId))} docs={docList} title="Список документов" /> }
         { payList?.length !== 0 && <DocList docs={payList} onDelete={() => dispatch(fetchApplicationDetail(applicationId))} title="Платежный документ" /> }
+
+        {ChangeStepButton}
       </CollapsBoard>
 
     </div>
