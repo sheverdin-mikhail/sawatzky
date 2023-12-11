@@ -231,7 +231,18 @@ class ApplicationWorkMaterial(models.Model):
     actualCount = models.PositiveIntegerField(("Действительное количество"), null=True, blank=True)
 
     def __str__(self):
-        return f'application №{self.application.id} workTask №{self.workMaterial.id}'
+        return f'application №{self.application.id} workMaterial №{self.workMaterial.id}'
+
+
+
+class ApplicationEmployee(models.Model):
+    """Промежуточная таблица для связи заявок с исполнителями"""
+
+    application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'application №{self.application.id} employee №{self.employee.id}'
 
 
 
