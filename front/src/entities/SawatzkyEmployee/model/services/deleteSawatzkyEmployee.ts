@@ -14,7 +14,7 @@ export const deleteSawatzkyEmployee = createAsyncThunk<
     try {
       const response = await extra.api.delete<SawatzkyEmployee>(`/api/v1/sawatzky_employee/${userId}`);
       if (response.status !== 204) {
-        throw new Error('Ошибка удаления группы объектов');
+        throw new Error('Ошибка удаления сотрудника Sawatzky');
       }
       dispatch(fetchSawatzkyEmployeeList());
     } catch (e: any) {
