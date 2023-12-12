@@ -231,8 +231,19 @@ class ApplicationWorkMaterial(models.Model):
     actualCount = models.PositiveIntegerField(("Действительное количество"), null=True, blank=True)
 
     def __str__(self):
-        return f'application №{self.application.id} workTask №{self.workMaterial.id}'
+        return f'application №{self.application.id} workMaterial №{self.workMaterial.id}'
 
+
+
+class ApplicationPerformer(models.Model):
+    """Промежуточная таблица для связи заявок с исполнителями"""
+
+    application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
+    performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'application №{self.application.id} performer №{self.performer.id}'
+    
 
 
 class Application(models.Model):
@@ -251,7 +262,14 @@ class Application(models.Model):
     subject = models.CharField(("Предмет запроса"), max_length=300, blank=True, null=True)
     description = models.CharField(("Описание заявки"), max_length=300)
     creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
-    performer = models.ManyToManyField("api.Employee", verbose_name=("Исполнители"),  blank=True, null=True, related_name='applicationPerformer')
+    performers = models.ManyToManyField(
+        "api.Employee", 
+        through="ApplicationPerformer", 
+        verbose_name=("Проводимые работы"), 
+        blank=True, 
+        null=True, 
+        related_name='application'
+    )
     workTasks = models.ManyToManyField(
         "api.WorkTask", 
         through="ApplicationWorkTask", 

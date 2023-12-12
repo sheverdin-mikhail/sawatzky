@@ -15,6 +15,7 @@ from .models import (
     ApplicationWorkMaterial,
     Document,
     SawatzkyEmployee,
+    ApplicationPerformer,
 )
 
 
@@ -76,10 +77,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     # Сериализатор для регистрации пользователя
     fio = serializers.CharField()
     phoneNumber = serializers.CharField()
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'fio', 'phoneNumber']
+        fields = ['id', 'username', 'password', 'fio', 'phoneNumber']
 
 
 '''EmployeeWithUserUP'''
@@ -275,6 +277,16 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
         fields = ['actualCount', 'workMaterial']
 
 
+'''ApplicationPerformer'''
+class ApplicationPerformerSerializer(ModelSerializer):
+    # Сериализатор промежуточной таблицы ApplicationPerformer
+    performer = EmployeeSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = ApplicationPerformer
+        fields = ['performer']
+
+
 '''Act'''
 class ActSerializer(serializers.ModelSerializer):
     class Meta:
@@ -295,6 +307,7 @@ class DocumentsSerializer(ModelSerializer):
         model = Document
         fields = '__all__'
 
+
 '''EmployeeWithUser'''
 class EmployeeWithUserSerializer(serializers.ModelSerializer):
     # Сериализатор для сотрудника с расширенным полем юзера
@@ -305,6 +318,7 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
         model = Employee
         fields = '__all__'
 
+
 '''Extended Application'''
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
@@ -312,6 +326,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
     performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
+    employee = ApplicationPerformerSerializer(source='applicationperformer_set', read_only=True, many=True)
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
@@ -412,16 +427,29 @@ class UpdateWorkTaskSerializer(ModelSerializer):
         return instance
 
 
+'''UpdateEmployee'''
+class UpdateEmployeeSerializer(ModelSerializer):
+    class Meta:
+        model = ApplicationPerformer
+        fields = ['performer']
+
+    def update(self, instance, validated_data):
+        instance.performer = validated_data.get('performer', instance.performer)
+        instance.save()
+        return instance
+
+
 '''ApplicationWithWorkTasksWorkMaterialsUpdate'''
 class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
+    performers = UpdateEmployeeSerializer(source='applicationperformer_set', many=True)
     documents = DocumentsSerializer(many=True, required=False)
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status']
+        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status', 'performers']
 
     def update(self, instance, validated_data):
 
@@ -442,6 +470,21 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                         file=document_item.get('file'),
                         application=instance,
                     )
+
+        # Обработка обновления Employee
+        employee_data = validated_data.get('applicationperformer_set')
+        if employee_data is not None:
+            current_employeee = ApplicationPerformer.objects.filter(application=instance)
+            for current_employee in current_employeee:
+                if not any(item['performers'] == current_employee.employee for item in employee_data):
+                    current_employee.delete()
+            for item in employee_data:
+                employee_instance = ApplicationPerformer.objects.get_or_create(
+                    application=instance, employee=item['performers']
+                )
+                employee_instance.save()
+        else:
+            pass
 
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
