@@ -67,10 +67,11 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
   };
 
   const onTableDeleteHandler = useCallback((item: TableItemType) => {
-    const user = sawatzkyEmployees.find((employee) => employee.id === item.id);
-    console.log(user);
-    // dispatch(deleteSawatzkyEmployee(`${item.id}`));
-  }, [dispatch]);
+    const user = sawatzkyEmployees.find((employee) => employee.id === item.id)?.user;
+    if (user) {
+      dispatch(deleteSawatzkyEmployee(`${user.id}`));
+    }
+  }, [dispatch, sawatzkyEmployees]);
 
   const { Table, selectedItems } = useTable({
     data: tableData,

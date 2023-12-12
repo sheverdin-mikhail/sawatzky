@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
-import { userActions } from 'entities/User';
-import { SawatzkyEmployee } from '../type/sawatzkyEmployee';
+import { deleteUser, userActions } from 'entities/User';
 import { fetchSawatzkyEmployeeList } from './fetchSawatzkyEmployeeList';
 
 export const deleteSawatzkyEmployee = createAsyncThunk<
@@ -12,11 +11,11 @@ export const deleteSawatzkyEmployee = createAsyncThunk<
   'sawatzkyEmployee/deleteSawatzkyEmployee',
   async (userId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<SawatzkyEmployee>(`/api/v1/sawatzky_employee/${userId}`);
-      if (response.status !== 204) {
-        throw new Error('Ошибка удаления сотрудника Sawatzky');
-      }
-      dispatch(fetchSawatzkyEmployeeList());
+      dispatch(deleteUser(userId))
+        .then(() => dispatch(fetchSawatzkyEmployeeList()))
+        .catch(() => {
+          throw new Error('Ошибка удаления сотрудника Sawatzky');
+        });
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());
