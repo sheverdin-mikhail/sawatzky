@@ -1,19 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { User } from '../types/user';
+import { LegalEntity } from '../type/legalEntity';
 
-export const deleteUser = createAsyncThunk<
+export const deleteLegalEntity = createAsyncThunk<
   void,
   number | string,
   ThunkConfig<string>
 >(
-  'user/deleteUser',
-  async (userId, { extra, rejectWithValue, dispatch }) => {
+  'legalEntity/deleteLegalEntity',
+  async (legalEntityId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<User>(`/api/v1/users/${userId}`);
+      const response = await extra.api.delete<LegalEntity>(`/api/v1/entities/${legalEntityId}`);
       if (response.status !== 204) {
-        throw new Error('Ошибка удаления пользователя');
+        throw new Error('Ошибка удаления юр. лица');
       }
     } catch (e: any) {
       if (e.response.status === 401) {

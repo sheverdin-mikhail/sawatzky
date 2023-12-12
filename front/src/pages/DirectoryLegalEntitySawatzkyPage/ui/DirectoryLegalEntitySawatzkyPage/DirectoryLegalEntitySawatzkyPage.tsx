@@ -3,7 +3,7 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { TableType } from 'widgets/Table';
+import { TableItemType, TableType } from 'widgets/Table';
 import {
   CreateLegalEntityModal,
   createLegalEntityReducer,
@@ -17,6 +17,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { fetchLegalEntityList, getLegalEntity, legalEntityReducer } from 'entities/LegalEntity';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { deleteLegalEntity } from 'entities/LegalEntity/model/services/deleteLegalEntity';
 import cls from './DirectoryLegalEntitySawatzkyPage.module.scss';
 
 interface DirectoryLegalEntitySawatzkyPageProps {
@@ -68,11 +69,24 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
     )), [legalEntities]),
   };
 
-  const {
-    Table,
-  } = useTable({
+  const onTableDeleteHandler = useCallback((item: TableItemType) => {
+    dispatch(deleteLegalEntity(`${item.id}`));
+    dispatch(fetchLegalEntityList(true));
+  }, [dispatch]);
+
+  const { Table, selectedItems } = useTable({
     data: tableData,
+    onDelete: onTableDeleteHandler,
   });
+
+  const onButtonDeleteHandler = useCallback(() => {
+    if (selectedItems) {
+      selectedItems.forEach((item) => {
+        dispatch(deleteLegalEntity(`${item.id}`));
+        dispatch(fetchLegalEntityList(true));
+      });
+    }
+  }, [dispatch, selectedItems]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
@@ -81,7 +95,7 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
           <Button helpInfo="Добавить юр. лицо Sawatzky" className={cls.button} theme={ButtonThemes.ICON} onClick={onLegalEntitySawatzkyFormOpenHandler}>
             <AddIcon />
           </Button>
-          <Button helpInfo="Удалить юр. лицо Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Удалить юр. лицо Sawatzky" className={cls.button} onClick={onButtonDeleteHandler} theme={ButtonThemes.ICON}>
             <DeleteIcon />
           </Button>
         </div>

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from 'shared/const/localStorage';
 import { UserSchema } from '../types/user';
 import { refreshToken } from '../services/refreshToken/refreshToken';
+import { deleteUser } from '../services/deleteUser';
 
 const initialState: UserSchema = {
   _inited: false,
@@ -47,6 +48,19 @@ export const userSlice = createSlice({
       }
     })
     .addCase(refreshToken.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+
+    // Удаление пользователя
+    .addCase(deleteUser.pending, (state) => {
+      state.error = undefined;
+      state.isLoading = true;
+    })
+    .addCase(deleteUser.fulfilled, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(deleteUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     }),

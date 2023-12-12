@@ -10,9 +10,9 @@ export const deleteSawatzkyEmployee = createAsyncThunk<
   ThunkConfig<string>
 >(
   'sawatzkyEmployee/deleteSawatzkyEmployee',
-  async (userId, { extra, rejectWithValue, dispatch }) => {
+  async (sawatzkyEmployeeId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<SawatzkyEmployee>(`/api/v1/sawatzky_employee/${userId}`);
+      const response = await extra.api.delete<SawatzkyEmployee>(`/api/v1/sawatzky_employee/${sawatzkyEmployeeId}`);
       if (response.status !== 204) {
         throw new Error('Ошибка удаления сотрудника Sawatzky');
       }
