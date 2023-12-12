@@ -15,7 +15,7 @@ from .models import (
     ApplicationWorkMaterial,
     Document,
     SawatzkyEmployee,
-    ApplicationPerformer,
+    # ApplicationPerformer,
 )
 
 
@@ -427,15 +427,15 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 
 
 '''UpdateEmployee'''
-class UpdateEmployeeSerializer(ModelSerializer):
-    class Meta:
-        model = ApplicationPerformer
-        fields = ['employee']
+# class UpdateEmployeeSerializer(ModelSerializer):
+#     class Meta:
+#         model = ApplicationPerformer
+#         fields = ['employee']
 
-    def update(self, instance, validated_data):
-        instance.employee = validated_data.get('employee', instance.employee)
-        instance.save()
-        return instance
+#     def update(self, instance, validated_data):
+#         instance.employee = validated_data.get('employee', instance.employee)
+#         instance.save()
+#         return instance
 
 
 '''ApplicationWithWorkTasksWorkMaterialsUpdate'''
@@ -443,7 +443,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
-    performers = UpdateEmployeeSerializer(source='applicationperformer_set', many=True)
+    # performers = UpdateEmployeeSerializer(source='applicationperformer_set', many=True)
     documents = DocumentsSerializer(many=True, required=False)
 
     class Meta:
@@ -471,19 +471,19 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                     )
 
         # Обработка обновления Employee
-        employee_data = validated_data.get('applicationperformer_set')
-        if employee_data is not None:
-            current_employeee = ApplicationPerformer.objects.filter(application=instance)
-            for current_employee in current_employeee:
-                if not any(item['performers'] == current_employee.employee for item in employee_data):
-                    current_employee.delete()
-            for item in employee_data:
-                employee_instance = ApplicationPerformer.objects.get_or_create(
-                    application=instance, employee=item['performers']
-                )
-                employee_instance.save()
-        else:
-            pass
+        # employee_data = validated_data.get('applicationperformer_set')
+        # if employee_data is not None:
+        #     current_employeee = ApplicationPerformer.objects.filter(application=instance)
+        #     for current_employee in current_employeee:
+        #         if not any(item['performers'] == current_employee.employee for item in employee_data):
+        #             current_employee.delete()
+        #     for item in employee_data:
+        #         employee_instance = ApplicationPerformer.objects.get_or_create(
+        #             application=instance, employee=item['performers']
+        #         )
+        #         employee_instance.save()
+        # else:
+        #     pass
 
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
