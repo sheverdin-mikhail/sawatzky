@@ -3,7 +3,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { ApplicationsPageContent } from '../ApplicationsPageContent/ApplicationsPageContent';
 
 interface ApplicationsPageProps {
-    className?: string;
+  className?: string;
 }
 
 const ApplicationsPage: React.FC<ApplicationsPageProps> = (props) => {

@@ -3,7 +3,7 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { TableType } from 'widgets/Table';
+import { TableItemType, TableType } from 'widgets/Table';
 import { useCallback, useEffect } from 'react';
 import {
   CreateEmployeeModal,
@@ -17,7 +17,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { workObjectReducer } from 'entities/WorkObject';
 import { useTable } from 'shared/lib/hooks/useTable';
 import {
-  fetchSawatzkyEmployeeList, getSawatzkyEmployee, sawatzkyEmployeeReducer,
+  fetchSawatzkyEmployeeList, getSawatzkyEmployee, sawatzkyEmployeeReducer, deleteSawatzkyEmployee,
 } from 'entities/SawatzkyEmployee';
 import { useSelector } from 'react-redux';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
@@ -66,9 +66,25 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
     })),
   };
 
-  const { Table } = useTable({
+  const onTableDeleteHandler = useCallback((item: TableItemType) => {
+    const user = sawatzkyEmployees.find((employee) => employee.id === item.id)?.user;
+    if (user) {
+      dispatch(deleteSawatzkyEmployee(`${user.id}`));
+    }
+  }, [dispatch, sawatzkyEmployees]);
+
+  const { Table, selectedItems } = useTable({
     data: tableData,
+    onDelete: onTableDeleteHandler,
   });
+
+  const onButtonDeleteHandler = useCallback(() => {
+    if (selectedItems) {
+      selectedItems.forEach((item) => {
+        dispatch(deleteSawatzkyEmployee(`${item.id}`));
+      });
+    }
+  }, [dispatch, selectedItems]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
@@ -82,11 +98,11 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
           >
             <AddIcon />
           </Button>
-          <Button helpInfo="Удалить сотрудника Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Удалить сотрудника Sawatzky" className={cls.button} onClick={onButtonDeleteHandler} theme={ButtonThemes.ICON}>
             <DeleteIcon />
           </Button>
         </div>
-        { Table }
+        {Table}
         <CreateEmployeeModal
           isOpen={createSawatzkyEmployeeIsOpen ?? false}
           onClose={onSawatzkyEmployeeFormCloseHandler}

@@ -6,5 +6,5 @@ export {
   employeeReducer,
   getEmployee,
 } from './model/slice/employeeSlice';
-export { deleteWorkObject } from './model/services/deleteEmployee';
+export { deleteEmployee } from './model/services/deleteEmployee';
 export { fetchEmployeeList } from './model/services/fetchEmployeeList';

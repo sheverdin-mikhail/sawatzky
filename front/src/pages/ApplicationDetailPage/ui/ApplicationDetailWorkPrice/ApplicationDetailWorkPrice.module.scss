@@ -1,5 +1,5 @@
-.controlBtn {
-  margin: 0 12px;
+.controlBtn:not(:last-child) {
+  margin: 0 24px 0 0;
 }
 
 .table {
@@ -9,7 +9,6 @@
 
 .tablesBlock {
   margin-right: 100px;
-  margin-left: 24px;
 }
 
 .totalPrice {

@@ -53,8 +53,8 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
   const tableData: TableType = {
     header: {
       id: 'ID',
-      name: 'Наименование компании',
-      group: 'Группа объектов',
+      name: 'Наименование Юр. лица',
+      group: 'Группа',
       object: 'Объект',
     },
     items: useMemo(() => legalEntities.map((entity) => (
@@ -78,10 +78,10 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
     <DynamicModuleLoader reducers={reducers}>
       <DirectoryPageWrapper className={classNames(cls.directoryLegalEntitySawatzkyPage, {}, [className])}>
         <div className={cls.buttons}>
-          <Button helpInfo="Добавить объект" className={cls.button} theme={ButtonThemes.ICON} onClick={onLegalEntitySawatzkyFormOpenHandler}>
+          <Button helpInfo="Добавить юр. лицо Sawatzky" className={cls.button} theme={ButtonThemes.ICON} onClick={onLegalEntitySawatzkyFormOpenHandler}>
             <AddIcon />
           </Button>
-          <Button helpInfo="Удалить объект" className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Удалить юр. лицо Sawatzky" className={cls.button} theme={ButtonThemes.ICON}>
             <DeleteIcon />
           </Button>
         </div>

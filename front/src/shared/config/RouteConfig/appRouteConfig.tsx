@@ -13,6 +13,7 @@ import { DirectoryWorkMaterialGroupPage } from 'pages/DirectoryWorkMaterialGroup
 import { DirectoryWorkTaskGroupDetailPage } from 'pages/DirectoryWorkTaskGroupDetailPage';
 import { DirectoryWorkTaskGroupPage } from 'pages/DirectoryWorkTaskGroupPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
+import { NotFoundPage } from 'pages/NotFoundPage';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export type AppRouteProps = RouteProps & {
@@ -27,7 +28,8 @@ export enum AppRoutes{
     Application_DETAIL = 'application_detail',
     AUTHORIZATION = 'authorization',
     HOME = 'home',
-    FORBIDDEN = 'forbidden'
+    FORBIDDEN = 'forbidden',
+    NOT_FOUND = 'not_found',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -37,6 +39,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.HOME]: '/',
 
   [AppRoutes.FORBIDDEN]: '/forbidden',
+  [AppRoutes.NOT_FOUND]: '/*',
 };
 //-----------------------------------------------------------------------------------
 
@@ -171,7 +174,6 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     element: <ForbiddenPage />,
     authOnly: false,
     sawatzkyOnly: false,
-
   },
   [AppRoutes.HOME]: {
     path: RoutePath.home,
@@ -179,6 +181,12 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
       to={RoutePath.applications}
       replace // <-- redirect
     />,
+    authOnly: false,
+    sawatzkyOnly: false,
+  },
+  [AppRoutes.NOT_FOUND]: {
+    path: RoutePath.not_found,
+    element: <NotFoundPage />,
     authOnly: false,
     sawatzkyOnly: false,
   },

@@ -567,8 +567,7 @@ class SawatzkyEmployeeWithoutworkingObjectsSerializer(ModelSerializer):
     # Сериализатор для вывода списка с расширенными полями
     workObject = WorkObjectSerializer(read_only=True, many=False)
     workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
-    fio = UserFIOSerializer(read_only=True)
-    user = UserRegistrationSerializer(read_only=True, many=False)
+    user = UserSerializerWithoutEmployee(read_only=True, many=False)
 
 
     class Meta:
