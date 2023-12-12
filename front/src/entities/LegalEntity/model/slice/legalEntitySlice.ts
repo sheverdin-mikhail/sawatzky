@@ -3,6 +3,8 @@ import { StateSchema } from 'app/providers';
 import { LegalEntity, LegalEntitySchema } from '../type/legalEntity';
 import { fetchLegalEntityList } from '../services/fetchLegalEntityList';
 import { deleteLegalEntity } from '../services/deleteLegalEntity';
+import { deleteLegalEntitySawatzky } from '../services/deleteLegalEntitySawatzky';
+import { deleteLegalEntityCounter } from '../services/deleteLegalEntityCounter';
 
 export const legalEntityAdapter = createEntityAdapter<LegalEntity>({
   selectId: (legalEntity) => legalEntity.id,
@@ -45,6 +47,32 @@ export const legalEntitySlice = createSlice({
       state.isLoading = false;
     })
     .addCase(deleteLegalEntity.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+
+    // Удаление юр лица Sawatzky
+    .addCase(deleteLegalEntitySawatzky.pending, (state) => {
+      state.error = undefined;
+      state.isLoading = true;
+    })
+    .addCase(deleteLegalEntitySawatzky.fulfilled, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(deleteLegalEntitySawatzky.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+
+    // Удаление юр лица контрагента
+    .addCase(deleteLegalEntityCounter.pending, (state) => {
+      state.error = undefined;
+      state.isLoading = true;
+    })
+    .addCase(deleteLegalEntityCounter.fulfilled, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(deleteLegalEntityCounter.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     }),

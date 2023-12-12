@@ -17,7 +17,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { fetchLegalEntityList, getLegalEntity, legalEntityReducer } from 'entities/LegalEntity';
 import { useTable } from 'shared/lib/hooks/useTable';
-import { deleteLegalEntity } from 'entities/LegalEntity/model/services/deleteLegalEntity';
+import { deleteLegalEntitySawatzky } from 'entities/LegalEntity/model/services/deleteLegalEntitySawatzky';
 import cls from './DirectoryLegalEntitySawatzkyPage.module.scss';
 
 interface DirectoryLegalEntitySawatzkyPageProps {
@@ -70,8 +70,7 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
   };
 
   const onTableDeleteHandler = useCallback((item: TableItemType) => {
-    dispatch(deleteLegalEntity(`${item.id}`));
-    dispatch(fetchLegalEntityList(true));
+    dispatch(deleteLegalEntitySawatzky(`${item.id}`));
   }, [dispatch]);
 
   const { Table, selectedItems } = useTable({
@@ -82,8 +81,7 @@ const DirectoryLegalEntitySawatzkyPage: React.FC<DirectoryLegalEntitySawatzkyPag
   const onButtonDeleteHandler = useCallback(() => {
     if (selectedItems) {
       selectedItems.forEach((item) => {
-        dispatch(deleteLegalEntity(`${item.id}`));
-        dispatch(fetchLegalEntityList(true));
+        dispatch(deleteLegalEntitySawatzky(`${item.id}`));
       });
     }
   }, [dispatch, selectedItems]);
