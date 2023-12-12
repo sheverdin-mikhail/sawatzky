@@ -21,3 +21,5 @@ export const getApplicationDetailInfo = createSelector(
     }
   ),
 );
+
+export const getApplicationStep = createSelector(getApplicationDetail.selectById, (application) => application?.step);

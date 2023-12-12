@@ -3,12 +3,13 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { TableType } from 'widgets/Table';
+import { TableItemType, TableType } from 'widgets/Table';
 import { useCallback, useEffect } from 'react';
 import { useTable } from 'shared/lib/hooks/useTable';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
   EmployeeRoleValue,
+  deleteEmployee,
   employeeReducer,
   fetchEmployeeList,
   getEmployee,
@@ -50,6 +51,13 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
     dispatch(createEmployeeActions.closeModal());
   }, [dispatch]);
 
+  const onTableDeleteHandler = useCallback((item: TableItemType) => {
+    const user = employees.find((employee) => employee.id === item.id)?.user;
+    if (user) {
+      dispatch(deleteEmployee(`${user.id}`));
+    }
+  }, [dispatch, employees]);
+
   const tableData: TableType = {
     header: {
       id: 'ID',
@@ -69,6 +77,7 @@ const DirectoryEmployeePage: React.FC<DirectoryEmployeePageProps> = (props) => {
 
   const { Table } = useTable({
     data: tableData,
+    onDelete: onTableDeleteHandler,
   });
 
   return (

@@ -20,7 +20,6 @@ import {
   fetchSawatzkyEmployeeList, getSawatzkyEmployee, sawatzkyEmployeeReducer, deleteSawatzkyEmployee,
 } from 'entities/SawatzkyEmployee';
 import { useSelector } from 'react-redux';
-import { deleteUser } from 'entities/User/model/services/deleteUser';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
@@ -69,9 +68,9 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
 
   const onTableDeleteHandler = useCallback((item: TableItemType) => {
     const user = sawatzkyEmployees.find((employee) => employee.id === item.id)?.user;
-    console.log(user);
-    // dispatch(deleteSawatzkyEmployee(`${item.id}`));
-    // dispatch(deleteUser(`${user?.id}`));
+    if (user) {
+      dispatch(deleteSawatzkyEmployee(`${user.id}`));
+    }
   }, [dispatch, sawatzkyEmployees]);
 
   const { Table, selectedItems } = useTable({
@@ -83,7 +82,6 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
     if (selectedItems) {
       selectedItems.forEach((item) => {
         dispatch(deleteSawatzkyEmployee(`${item.id}`));
-        dispatch(deleteUser(`${item.id}`));
       });
     }
   }, [dispatch, selectedItems]);

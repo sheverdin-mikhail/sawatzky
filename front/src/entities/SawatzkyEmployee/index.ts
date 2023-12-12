@@ -7,3 +7,5 @@ export {
 } from './model/slice/sawatzkyEmployeeSlice';
 export { fetchSawatzkyEmployeeList } from './model/services/fetchSawatzkyEmployeeList';
 export { deleteSawatzkyEmployee } from './model/services/deleteSawatzkyEmployee';
+
+export { getSawatzkyEmployeeUserId } from './model/selectors/sawatzkyEmployeeSelectors';

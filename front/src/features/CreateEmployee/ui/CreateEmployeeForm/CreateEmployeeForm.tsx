@@ -32,10 +32,6 @@ interface CreateEmployeeFormProps {
   className?: string;
 }
 
-const roles: EmployeeRoleOption[] = [
-
-];
-
 export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
   const { className } = props;
 
@@ -116,7 +112,7 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
       return roles.find((item) => item.value === role);
     }
     return undefined;
-  }, [role]);
+  }, [role, roles]);
 
   const docs: Document[] = [];
 

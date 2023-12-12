@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
 import { userActions } from 'entities/User';
-import { User } from '../types/user';
+import { User } from '../../types/user';
 
 export const deleteUser = createAsyncThunk<
   void,
