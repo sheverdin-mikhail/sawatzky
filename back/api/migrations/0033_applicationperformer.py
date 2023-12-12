@@ -12,11 +12,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ApplicationEmployee',
+            name='ApplicationPerformer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.application')),
-                ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.employee')),
+                ('performer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.employee')),
             ],
         ),
     ]
