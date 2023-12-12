@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { USER_LOCALSTORAGE_DATA, USER_LOCALSTORAGE_TOKENS } from 'shared/const/localStorage';
 import { UserSchema } from '../types/user';
 import { refreshToken } from '../services/refreshToken/refreshToken';
-import { deleteUser } from '../services/deleteUser';
+import { deleteUser } from '../services/deleteUser/deleteUser';
 
 const initialState: UserSchema = {
   _inited: false,
