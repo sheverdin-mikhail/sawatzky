@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import (
@@ -284,8 +285,15 @@ class ApplicationPerformerSerializer(ModelSerializer):
 
     class Meta:
         model = ApplicationPerformer
-        fields = ['performer']
+        fields = ['performer', 'priority', 'status', 'dateSent', 'dateAccepted', 'dateDeclined']
 
+    def save(self, *args, **kwargs):
+        if self.validated_data.get('status') == 'accepted' and not self.instance.dateAccepted:
+            self.instance.dateAccepted = timezone.now()
+        elif self.validated_data.get('status') == 'declined' and not self.instance.dateDeclined:
+            self.instance.dateDeclined = timezone.now()
+
+        super().save(*args, **kwargs)
 
 '''Act'''
 class ActSerializer(serializers.ModelSerializer):
@@ -431,10 +439,11 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 class UpdatePerformerSerializer(ModelSerializer):
     class Meta:
         model = ApplicationPerformer
-        fields = ['performer']
+        fields = ['performer', 'priority']
 
     def update(self, instance, validated_data):
         instance.performer = validated_data.get('performer', instance.performer)
+        instance.priority = validated_data.get('priority', instance.performer)
         instance.save()
         return instance
 
@@ -463,6 +472,7 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                 performer_instance, created = ApplicationPerformer.objects.get_or_create(
                     application=instance, performer=item['performer']
                 )
+                performer_instance.priority = item['priority']
                 performer_instance.save()
         else:
             pass
