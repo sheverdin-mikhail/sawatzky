@@ -254,6 +254,9 @@ class ApplicationPerformer(models.Model):
     performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
     priority = models.CharField(("Приоритет"), choices=PRIORITIES, default='urgent', max_length=20)
     status = models.CharField(("Стаус"), choices=STATUSES, default='notAccepted', max_length=20)
+    dateSent = models.DateTimeField(("Дата отправки"), auto_now_add=True)
+    dateAccepted = models.DateTimeField(("Дата принятия"), null=True, auto_now=False, auto_now_add=False)
+    dateDeclined = models.DateTimeField(("Дата отказа"), null=True, auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return f'application №{self.application.id} performer №{self.performer.id}'
