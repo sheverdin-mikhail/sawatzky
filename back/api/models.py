@@ -238,8 +238,22 @@ class ApplicationWorkMaterial(models.Model):
 class ApplicationPerformer(models.Model):
     """Промежуточная таблица для связи заявок с исполнителями"""
 
+    PRIORITIES = (
+        ('urgent', 'Срочно'),
+        ('notUrgent', 'Не срочно'),
+    )
+
+    STATUSES = (
+        ('accepted', 'Принял'),
+        ('notAccepted', 'Не принял'),
+        ('declined', 'Отказался'),
+        ('completed', 'Выполнил'),
+    )
+
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
     performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    priority = models.CharField(("Приоритет"), choices=PRIORITIES, default='urgent', max_length=20)
+    status = models.CharField(("Стаус"), choices=STATUSES, default='notAccepted', max_length=20)
 
     def __str__(self):
         return f'application №{self.application.id} performer №{self.performer.id}'
@@ -265,7 +279,7 @@ class Application(models.Model):
     performers = models.ManyToManyField(
         "api.Employee", 
         through="ApplicationPerformer", 
-        verbose_name=("Проводимые работы"), 
+        verbose_name=("Исполнители"),
         blank=True, 
         null=True, 
         related_name='application'

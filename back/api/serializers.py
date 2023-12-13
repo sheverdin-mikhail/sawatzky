@@ -279,7 +279,7 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
 
 '''ApplicationPerformer'''
 class ApplicationPerformerSerializer(ModelSerializer):
-    # Сериализатор промежуточной таблицы ApplicationPerformer
+    # Сериализатор промежуточной таблицы ApplicationPerformer для добавления исполнителя к заявке
     performer = EmployeeSerializer(read_only=True, many=False)
 
     class Meta:
@@ -323,10 +323,9 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
-    performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
-    employee = ApplicationPerformerSerializer(source='applicationperformer_set', read_only=True, many=True)
+    performers = ApplicationPerformerSerializer(source='applicationperformer_set', read_only=True, many=True)
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
@@ -360,6 +359,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
         representation['documents'] = sorted_documents_data
 
         return representation
+
 
 '''Application'''
 class ApplicationSerializer(ModelSerializer):
@@ -428,7 +428,7 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 
 
 '''UpdateEmployee'''
-class UpdateEmployeeSerializer(ModelSerializer):
+class UpdatePerformerSerializer(ModelSerializer):
     class Meta:
         model = ApplicationPerformer
         fields = ['performer']
@@ -444,45 +444,26 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
-    performers = UpdateEmployeeSerializer(source='applicationperformer_set', many=True)
-    documents = DocumentsSerializer(many=True, required=False)
+    performers = UpdatePerformerSerializer(source='applicationperformer_set', many=True)
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status', 'performers']
+        fields = ['workTasks', 'workMaterials', 'step', 'status', 'performers']
 
     def update(self, instance, validated_data):
 
-        document_data = validated_data.get('documents')
-        if document_data is not None:
-            for document_item in document_data:
-                document_id = document_item.get('id')
-                if document_id:
-                    document_instance = Document.objects.get(pk=document_id)
-                    document_instance.docType = document_item.get('docType', document_instance.docType)
-                    document_instance.name = document_item.get('name', document_instance.name)
-                    document_instance.file = document_item.get('file', document_instance.file)
-                    document_instance.save()
-                else:
-                    Document.objects.create(
-                        docType=document_item.get('docType'),
-                        name=document_item.get('name'),
-                        file=document_item.get('file'),
-                        application=instance,
-                    )
-
         # Обработка обновления Employee
-        employee_data = validated_data.get('applicationperformer_set')
-        if employee_data is not None:
-            current_employeee = ApplicationPerformer.objects.filter(application=instance)
-            for current_employee in current_employeee:
-                if not any(item['performers'] == current_employee.employee for item in employee_data):
-                    current_employee.delete()
-            for item in employee_data:
-                employee_instance = ApplicationPerformer.objects.get_or_create(
-                    application=instance, employee=item['performers']
+        performer_data = validated_data.get('applicationperformer_set')
+        if performer_data is not None:
+            current_performers = ApplicationPerformer.objects.filter(application=instance)
+            for current_performer in current_performers:
+                if not any(item['performer'] == current_performer.performer for item in performer_data):
+                    current_performer.delete()
+            for item in performer_data:
+                performer_instance, created = ApplicationPerformer.objects.get_or_create(
+                    application=instance, performer=item['performer']
                 )
-                employee_instance.save()
+                performer_instance.save()
         else:
             pass
 
