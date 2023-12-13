@@ -5,6 +5,7 @@ from .models import (
     WorkTask,
     WorkMaterial,
     LegalEntity,
+    SawatzkyEmployee,
 )
 
 
@@ -50,3 +51,10 @@ class LegalEntityFilter(filters.FilterSet):
         model = LegalEntity
         fields = ['sawatzky']
 
+
+'''Фильтр для SawatzkyEmployee'''
+class SawatzkyEmployeeFilter(filters.FilterSet):
+    role = filters.ChoiceFilter(field_name='role', choices=SawatzkyEmployee.ROLES)
+    class Meta:
+        model = SawatzkyEmployee
+        fields = ['role']

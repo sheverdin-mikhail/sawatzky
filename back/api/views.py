@@ -13,6 +13,7 @@ from .filters import (
     WorkTaskFilter,
     WorkMaterialFilter,
     LegalEntityFilter,
+    SawatzkyEmployeeFilter,
 )
 
 
@@ -621,6 +622,8 @@ class SawatzkyEmployeeListView(generics.ListAPIView):
     serializer_class = SawatzkyEmployeeWithoutworkingObjectsSerializer
     queryset = SawatzkyEmployee.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = SawatzkyEmployeeFilter
 
 
 class SawatzkyEmployeeDetailView(generics.RetrieveDestroyAPIView):
