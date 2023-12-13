@@ -241,6 +241,7 @@ class ApplicationPerformer(models.Model):
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
     performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
+
     def __str__(self):
         return f'application №{self.application.id} performer №{self.performer.id}'
     
@@ -265,7 +266,7 @@ class Application(models.Model):
     performers = models.ManyToManyField(
         "api.Employee", 
         through="ApplicationPerformer", 
-        verbose_name=("Проводимые работы"), 
+        verbose_name=("Исполнители"),
         blank=True, 
         null=True, 
         related_name='application'
