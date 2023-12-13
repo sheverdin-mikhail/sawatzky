@@ -3,7 +3,7 @@ import { DirectoryPageWrapper } from 'widgets/DirectoryPageWrapper';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as AddIcon } from 'shared/assets/icons/add-icon.svg';
 import { ReactComponent as DeleteIcon } from 'shared/assets/icons/delete-icon.svg';
-import { TableType } from 'widgets/Table';
+import { TableItemType, TableType } from 'widgets/Table';
 import { useCallback, useEffect, useMemo } from 'react';
 import {
   CreateLegalEntityModal, getCreateLegalEntityIsOpen, createLegalEntityActions, createLegalEntityReducer,
@@ -16,10 +16,11 @@ import { fetchWorkTaskGroupList, workTaskGroupReducer } from 'entities/WorkTaskG
 import { fetchWorkMaterialGroupList, workMaterialGroupReducer } from 'entities/WorkMaterialGroup';
 import { fetchLegalEntityList, getLegalEntity, legalEntityReducer } from 'entities/LegalEntity';
 import { useTable } from 'shared/lib/hooks/useTable';
+import { deleteLegalEntityCounter } from 'entities/LegalEntity/model/services/deleteLegalEntityCounter';
 import cls from './DirectoryLegalEntityPage.module.scss';
 
 interface DirectoryLegalEntityPageProps {
-	className?: string;
+  className?: string;
 }
 
 const reducers: ReducersList = {
@@ -71,11 +72,22 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
     )), [legalEntities]),
   };
 
-  const {
-    Table,
-  } = useTable({
+  const onTableDeleteHandler = useCallback((item: TableItemType) => {
+    dispatch(deleteLegalEntityCounter(`${item.id}`));
+  }, [dispatch]);
+
+  const { Table, selectedItems } = useTable({
     data: tableData,
+    onDelete: onTableDeleteHandler,
   });
+
+  const onButtonDeleteHandler = useCallback(() => {
+    if (selectedItems) {
+      selectedItems.forEach((item) => {
+        dispatch(deleteLegalEntityCounter(`${item.id}`));
+      });
+    }
+  }, [dispatch, selectedItems]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
@@ -84,7 +96,7 @@ const DirectoryLegalEntityPage: React.FC<DirectoryLegalEntityPageProps> = (props
           <Button helpInfo="Добавить юр. лицо" onClick={onLegalEntityFormOpenHandler} className={cls.button} theme={ButtonThemes.ICON}>
             <AddIcon />
           </Button>
-          <Button helpInfo="Удалить юр. лицо" className={cls.button} theme={ButtonThemes.ICON}>
+          <Button helpInfo="Удалить юр. лицо" className={cls.button} onClick={onButtonDeleteHandler} theme={ButtonThemes.ICON}>
             <DeleteIcon />
           </Button>
         </div>
