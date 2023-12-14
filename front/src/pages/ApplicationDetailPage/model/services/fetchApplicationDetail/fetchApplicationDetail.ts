@@ -7,7 +7,7 @@ export const fetchApplicationDetail = createAsyncThunk<
     string,
     ThunkConfig<string>
 >(
-  'applicationsPage/fetchApplicationsList',
+  'applicationDetailPage/fetchApplicationDetail',
   async (applicationId, { extra, rejectWithValue, dispatch }) => {
     try {
       const response = await extra.api.get<Application>(`/api/v1/applications/${applicationId}`);

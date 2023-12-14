@@ -278,10 +278,19 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
         fields = ['actualCount', 'workMaterial']
 
 
+class SawatzkyEmployeeSerializer(ModelSerializer):
+    # Сериализатор для создания пользователя Sawatzky
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+        
+
 '''ApplicationPerformer'''
 class ApplicationPerformerSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы ApplicationPerformer для добавления исполнителя к заявке
-    performer = EmployeeSerializer(read_only=True, many=False)
+    performer = SawatzkyEmployeeSerializer(read_only=True, many=False)
 
     class Meta:
         model = ApplicationPerformer
@@ -538,14 +547,6 @@ class SawatzkyEmployeeWithUserSerializer(serializers.ModelSerializer):
         model = SawatzkyEmployee
         fields = '__all__'
 
-
-class SawatzkyEmployeeSerializer(ModelSerializer):
-    # Сериализатор для создания пользователя Sawatzky
-    user = UserRegistrationSerializer(read_only=True, many=False)
-
-    class Meta:
-        model = SawatzkyEmployee
-        fields = '__all__'
 
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):

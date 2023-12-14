@@ -4,10 +4,11 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { FileInput } from 'shared/ui/FileInput/FileInput';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { addDocumentFormActions } from 'features/AddDocument/model/slice/addDocumentFormSlice';
 import { useParams } from 'react-router-dom';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { DocEntity, DocType } from '../../model/type/addDocument';
 import { getAddDocumentDocType, getAddDocumentFormData } from '../../model/selectors/addDocumentFormSelectors';
 import { addDocumentToApplication } from '../../model/services/addDocumentToApplication';
@@ -19,30 +20,39 @@ interface AddDocumentFormProps {
 	onClose?: () => void;
 }
 
-const docTypeOptions: SelectOptionType[] = [
-  {
-    text: 'Акт',
-    value: DocType.ACT,
-  },
-  {
-    text: 'Платежный документ',
-    value: DocType.PAYMENT_SLIPS,
-  },
-  {
-    text: 'Доверенность',
-    value: DocType.POWEER_OF_ATTORNEY,
-  },
-  {
-    text: 'Прочее',
-    value: DocType.OTHER,
-  },
-];
-
 export const AddDocumentForm: React.FC<AddDocumentFormProps> = (props) => {
   const { className } = props;
   const [file, setFile] = useState<File | undefined>();
 
   const { id } = useParams();
+  const { isSawatzky } = useUserData();
+
+  const docTypeOptions: SelectOptionType[] = useMemo(() => {
+    const docTypes = [
+      {
+        text: 'Платежный документ',
+        value: DocType.PAYMENT_SLIPS,
+      },
+      {
+        text: 'Прочее',
+        value: DocType.OTHER,
+      },
+    ];
+    if (isSawatzky) {
+      docTypes.push(
+        {
+          text: 'Акт',
+          value: DocType.ACT,
+        },
+        {
+          text: 'Доверенность',
+          value: DocType.POWEER_OF_ATTORNEY,
+        },
+      );
+    }
+
+    return docTypes;
+  }, [isSawatzky]);
 
   const docType = useSelector(getAddDocumentDocType);
   const formData = useSelector(getAddDocumentFormData);
