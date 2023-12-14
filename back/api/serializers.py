@@ -445,7 +445,6 @@ class UpdatePerformerSerializer(ModelSerializer):
         print("Update method is called!")
         instance.performer = validated_data.get('performer', instance.performer)
         instance.priority = validated_data.get('priority', instance.performer)
-
         instance.save()
         return instance
 
@@ -482,7 +481,6 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
                     performer_instance.dateAccepted = timezone.now()
                 elif performer_instance.status == 'declined' and not performer_instance.dateDeclined:
                     performer_instance.dateDeclined = timezone.now()
-
                 performer_instance.save()
 
         # Обработка обновления workTasks
