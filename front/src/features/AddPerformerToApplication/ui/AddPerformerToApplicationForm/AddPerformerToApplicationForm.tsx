@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useCallback, useMemo } from 'react';
 import { Select, SelectOptionType } from 'shared/ui/Select/Select';
-import { Performer, PerformerPriority } from 'entities/Performer';
+import { ApplicationPerformer, Performer, PerformerPriority } from 'entities/Performer';
 import { addPerformerToApplication } from 'features/AddPerformerToApplication/model/services/addPerformerToApplication';
 import { addPerformerToApplicationFormActions } from 'features/AddPerformerToApplication/model/slice/addPerformerToApplicationFormSlice';
 import {
@@ -19,6 +19,7 @@ interface AddPerformerToApplicationFormProps {
 	performers?: Performer[];
 	onClose?: () => void;
   applicationId: string;
+  prevPerformers?: ApplicationPerformer[];
 }
 
 const priorities: SelectOptionType[] = [
@@ -33,7 +34,9 @@ const priorities: SelectOptionType[] = [
 ];
 
 export const AddPerformerToApplicationForm: React.FC<AddPerformerToApplicationFormProps> = (props) => {
-  const { className, performers, applicationId } = props;
+  const {
+    className, performers, prevPerformers, applicationId,
+  } = props;
 
   const performer = useSelector(getAddPerformerToApplicationPerformer);
   const priority = useSelector(getAddPerformerToApplicationPriority);
@@ -59,9 +62,9 @@ export const AddPerformerToApplicationForm: React.FC<AddPerformerToApplicationFo
 
   const onSaveHandler = useCallback(() => {
     if (formData) {
-      dispatch(addPerformerToApplication({ data: formData, applicationId }));
+      dispatch(addPerformerToApplication({ ...formData, prevPerformers, applicationId }));
     }
-  }, [dispatch, formData, applicationId]);
+  }, [dispatch, formData, applicationId, prevPerformers]);
 
   return (
     <div className={classNames(cls.addPerformerToApplicationForm, {}, [className])}>

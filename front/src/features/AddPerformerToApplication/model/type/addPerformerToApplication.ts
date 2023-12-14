@@ -1,4 +1,4 @@
-import { PerformerPriority } from 'entities/Performer';
+import { ApplicationPerformer, Performer, PerformerPriority } from 'entities/Performer';
 
 interface FormData {
     performer?: number;
@@ -6,7 +6,8 @@ interface FormData {
 }
 
 export interface AddPerformerToApplicationFormData {
-    data: FormData;
+    newPerformer: FormData;
+    prevPerformers?: ApplicationPerformer[];
     applicationId?: string;
 }
 

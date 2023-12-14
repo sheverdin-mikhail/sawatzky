@@ -8,6 +8,9 @@ export interface ApplicationPerformer {
     performer: SawatzkyEmployee;
     status: PerformerStatus;
     priority: PerformerPriority;
+    dateSent: string;
+    dateAccepted: string;
+    dateDeclined: string;
 }
 
 export interface PerformerSchema extends EntityState<Performer>{

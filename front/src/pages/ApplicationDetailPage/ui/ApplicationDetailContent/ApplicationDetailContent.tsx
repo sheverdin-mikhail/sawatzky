@@ -18,6 +18,7 @@ import { getWorkMaterialGroup } from 'entities/WorkMaterialGroup';
 import { getApplicationDetail } from 'pages/ApplicationDetailPage/model/slice/applicationDetailSlice';
 import { AddPerformerToApplicationModal, getAddPerformerToApplicationFormIsOpen } from 'features/AddPerformerToApplication';
 import { getPerformer } from 'entities/Performer';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
 import { ApplicationDetailWorkPrice } from '../ApplicationDetailWorkPrice/ApplicationDetailWorkPrice';
 import { getApplicationDetailTitle } from '../../model/selectors/getApplicationDetailTitle';
@@ -37,6 +38,7 @@ interface ApplicationDetailContentProps {
 export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> = (props) => {
   const { className, applicationId } = props;
   const dispatch = useAppDispatch();
+  const { isSawatzky } = useUserData();
 
   useEffect(() => {
     dispatch(fetchApplicationDetail(applicationId));
@@ -62,8 +64,9 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
       <ApplicationDetailInfoComponent className={cls.infoComponent} info={info} />
       <Progressbar step={info.step} />
       <ApplicationDetailWorkPrice workTasks={workTasks} workMaterials={workMaterials} applicationId={applicationId} />
-      <ApplicationDetailPerformer performers={applicationPerformers} />
-      <ApplicationDetailActs acts={detail?.acts} />
+      { (info.step >= 4 && isSawatzky)
+      && <ApplicationDetailPerformer applicationId={applicationId} performers={applicationPerformers} />}
+      <ApplicationDetailActs applicationId={applicationId} acts={detail?.acts} />
 
       {/* Modals */}
       <AddDocumentModal
@@ -87,6 +90,7 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
       <AddPerformerToApplicationModal
         applicationId={applicationId}
         performers={performers}
+        prevPerformers={applicationPerformers}
         isOpen={addPerformerToApplicationFormIsOpen}
       />
     </div>

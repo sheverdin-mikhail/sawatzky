@@ -12,7 +12,11 @@ export const addPerformerToApplication = createAsyncThunk<
   'addPerformerToApplication/addPerformerToApplication',
   async (formData, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.patch<WorkTask>(`/api/v1/applications/update/${formData.applicationId}/`, formData.data);
+      const data: any = [formData.newPerformer];
+      if (formData.prevPerformers) {
+        data.push(...formData.prevPerformers);
+      }
+      const response = await extra.api.patch<WorkTask>(`/api/v1/applications/update/${formData.applicationId}/`, { performers: data });
       if (!response.data) {
         throw new Error('Ошибка создания группы услуг');
       }

@@ -4,7 +4,7 @@ import { addPerformerToApplication } from '../services/addPerformerToApplication
 
 const initialState: AddPerformerToApplicationFormSchema = {
   formData: {
-    data: {},
+    newPerformer: {},
   },
   isOpen: false,
   isLoading: false,
@@ -19,13 +19,13 @@ const addPerformerToApplicationFormSlice = createSlice({
     },
     closeModal: (state) => {
       state.isOpen = false;
-      state.formData.data = {};
+      state.formData.newPerformer = {};
     },
     setPerformer: (state, action: PayloadAction<string | number>) => {
-      state.formData.data.performer = +action.payload;
+      state.formData.newPerformer.performer = +action.payload;
     },
     setPriority: (state, action: PayloadAction<string>) => {
-      state.formData.data.priority = action.payload;
+      state.formData.newPerformer.priority = action.payload;
     },
   },
   extraReducers: (builder) => builder
@@ -37,7 +37,7 @@ const addPerformerToApplicationFormSlice = createSlice({
     .addCase(addPerformerToApplication.fulfilled, (state) => {
       state.isLoading = false;
       state.formData = {
-        data: {},
+        newPerformer: {},
       };
       state.isOpen = false;
     })

@@ -2,7 +2,6 @@ import { EntityState } from '@reduxjs/toolkit';
 import { Document } from 'entities/Document';
 import { Employee } from 'entities/Employee';
 import { ApplicationPerformer } from 'entities/Performer';
-import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { WorkTask } from 'entities/WorkTask';
 
