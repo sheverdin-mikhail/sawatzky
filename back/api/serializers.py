@@ -439,9 +439,10 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 class UpdatePerformerSerializer(ModelSerializer):
     class Meta:
         model = ApplicationPerformer
-        fields = ['performer', 'priority']
+        fields = ['performer', 'priority', 'status']
 
     def update(self, instance, validated_data):
+        print("Update method is called!")
         instance.performer = validated_data.get('performer', instance.performer)
         instance.priority = validated_data.get('priority', instance.performer)
         instance.save()
@@ -462,20 +463,21 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
 
         # Обработка обновления Employee
-        performer_data = validated_data.get('applicationperformer_set')
-        if performer_data is not None:
-            current_performers = ApplicationPerformer.objects.filter(application=instance)
-            for current_performer in current_performers:
-                if not any(item['performer'] == current_performer.performer for item in performer_data):
-                    current_performer.delete()
-            for item in performer_data:
+        performers_data = validated_data.pop('applicationperformer_set', None)
+        if performers_data is not None:
+            for performer_data in performers_data:
                 performer_instance, created = ApplicationPerformer.objects.get_or_create(
-                    application=instance, performer=item['performer']
+                    application=instance,
+                    performer=performer_data['performer']
                 )
-                performer_instance.priority = item['priority']
+                performer_instance.priority = performer_data.get('priority', performer_instance.priority)
+                performer_instance.status = performer_data.get('status', performer_instance.status)
+
+                if performer_instance.status == 'accepted' and not performer_instance.dateAccepted:
+                    performer_instance.dateAccepted = timezone.now()
+                elif performer_instance.status == 'declined' and not performer_instance.dateDeclined:
+                    performer_instance.dateDeclined = timezone.now()
                 performer_instance.save()
-        else:
-            pass
 
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
