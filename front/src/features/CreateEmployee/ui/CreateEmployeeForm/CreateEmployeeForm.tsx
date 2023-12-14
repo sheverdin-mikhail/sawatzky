@@ -11,6 +11,7 @@ import { getLegalEntity } from 'entities/LegalEntity';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { EmployeeRole } from 'entities/Employee';
 import { Switch } from 'shared/ui/Switch/Switch';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import {
   getCreateEmployeeFormData,
   getCreateEmployeeFormLegalEntity,
@@ -31,21 +32,6 @@ interface CreateEmployeeFormProps {
   className?: string;
 }
 
-const roles: EmployeeRoleOption[] = [
-  {
-    value: EmployeeRole.DISPATCHER,
-    text: 'Диспетчер',
-  },
-  {
-    value: EmployeeRole.PERFORMER,
-    text: 'Исполнитель',
-  },
-  {
-    value: EmployeeRole.DISPATCHER_PERFORMER,
-    text: 'Диспетчер/Исполнитель',
-  },
-];
-
 export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => {
   const { className } = props;
 
@@ -61,6 +47,25 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
 
   const formData = useSelector(getCreateEmployeeFormData);
   const user = useSelector(getCreateEmployeeUser);
+  const { isSawatzky } = useUserData();
+
+  const roles: EmployeeRoleOption[] = useMemo(() => {
+    const roles = [
+      {
+        value: EmployeeRole.INITIATOR,
+        text: 'Инициатор',
+      },
+    ];
+    if (isSawatzky) {
+      roles.push(
+        {
+          value: EmployeeRole.ADMIN,
+          text: 'Администратор',
+        },
+      );
+    }
+    return roles;
+  }, [isSawatzky]);
 
   const onChangeLegalEntity = useCallback((item: SelectOptionType) => {
     dispatch(createEmployeeActions.setLegalEntity(+item.value));
@@ -107,7 +112,7 @@ export const CreateEmployeeForm: React.FC<CreateEmployeeFormProps> = (props) => 
       return roles.find((item) => item.value === role);
     }
     return undefined;
-  }, [role]);
+  }, [role, roles]);
 
   const docs: Document[] = [];
 

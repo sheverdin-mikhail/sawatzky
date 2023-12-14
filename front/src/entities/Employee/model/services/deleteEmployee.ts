@@ -1,22 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers';
-import { userActions } from 'entities/User';
-import { Employee } from '../type/employee';
+import { deleteUser, userActions } from 'entities/User';
 import { fetchEmployeeList } from './fetchEmployeeList';
 
-export const deleteWorkObject = createAsyncThunk<
+export const deleteEmployee = createAsyncThunk<
     void,
     number | string,
     ThunkConfig<string>
 >(
-  'workMaterial/deleteWorkMaterial',
-  async (objectId, { extra, rejectWithValue, dispatch }) => {
+  'employee/deleteEmployee',
+  async (userId, { extra, rejectWithValue, dispatch }) => {
     try {
-      const response = await extra.api.delete<Employee>(`/api/v1/employee/${objectId}`);
-      if (response.status !== 204) {
-        throw new Error('Ошибка удаления группы объектов');
-      }
-      dispatch(fetchEmployeeList());
+      dispatch(deleteUser(userId))
+        .then(() => dispatch(fetchEmployeeList()))
+        .catch(() => {
+          throw new Error('Ошибка удаления представителя заказчика');
+        });
     } catch (e: any) {
       if (e.response.status === 401) {
         dispatch(userActions.logout());

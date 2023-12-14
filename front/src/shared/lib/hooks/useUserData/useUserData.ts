@@ -4,8 +4,10 @@ import {
   userIsDispatcherPerformer,
   userIsPerformer,
   userIsSawatzky,
+  getUserData,
+  userIsAdmin,
+  userIsInitiator,
 } from 'entities/User';
-import { getUserData, userIsInitiator } from 'entities/User/model/selectors/getUserRole/getUserRole';
 import { useSelector } from 'react-redux';
 
 interface UserDataResult extends User {
@@ -13,6 +15,7 @@ interface UserDataResult extends User {
     isDispatcher: boolean;
     isPerformer: boolean;
     isInitiator: boolean;
+    isAdmin: boolean;
     isDispatcherPerformer: boolean;
 }
 
@@ -22,6 +25,7 @@ export const useUserData = (): UserDataResult => {
   const isDispatcher = useSelector(userIsDispatcher);
   const isPerformer = useSelector(userIsPerformer);
   const isInitiator = useSelector(userIsInitiator);
+  const isAdmin = useSelector(userIsAdmin);
   const isDispatcherPerformer = useSelector(userIsDispatcherPerformer);
 
   return {
@@ -30,6 +34,7 @@ export const useUserData = (): UserDataResult => {
     isDispatcher,
     isPerformer,
     isInitiator,
+    isAdmin,
     isDispatcherPerformer,
   };
 };

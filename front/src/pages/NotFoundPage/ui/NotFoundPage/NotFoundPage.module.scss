@@ -1,0 +1,24 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: center;
+  margin-top: 115px;
+}
+
+.number {
+  font-family: var(--font-family-second);
+  font-size: 90px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: white;
+  text-shadow: 1px 0 2px var(--blue-color), 0 1px 2px var(--blue-color), -1px 0 2px var(--blue-color), 0 -1px 2px var(--blue-color);
+}
+
+.text {
+  font-family: var(--font-family-second);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: normal;
+}

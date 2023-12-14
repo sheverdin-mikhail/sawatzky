@@ -34,21 +34,6 @@ interface CreateSawatzkyEmployeeFormProps {
   className?: string;
 }
 
-const roles: EmployeeRoleOption[] = [
-  {
-    value: EmployeeRole.DISPATCHER,
-    text: 'Диспетчер',
-  },
-  {
-    value: EmployeeRole.PERFORMER,
-    text: 'Исполнитель',
-  },
-  {
-    value: EmployeeRole.DISPATCHER_PERFORMER,
-    text: 'Диспетчер/Исполнитель',
-  },
-];
-
 export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProps> = (props) => {
   const { className } = props;
 
@@ -109,6 +94,28 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
     }
   }, [dispatch, formData, user]);
 
+  const roles: EmployeeRoleOption[] = useMemo(() => {
+    const roles = [
+      {
+        value: EmployeeRole.DISPATCHER,
+        text: 'Диспетчер',
+      },
+      {
+        value: EmployeeRole.PERFORMER,
+        text: 'Исполнитель',
+      },
+      {
+        value: EmployeeRole.DISPATCHER_PERFORMER,
+        text: 'Диспетчер/Исполнитель',
+      },
+      {
+        value: EmployeeRole.ADMIN,
+        text: 'Администратор',
+      },
+    ];
+    return roles;
+  }, []);
+
   const workObjectOptions = useMemo(() => {
     const workObjects = workObjectGroups.find((item) => item.id === workObjectGroup)?.workObjects;
     if (workObjects) {
@@ -133,7 +140,7 @@ export const CreateSawatzkyEmployeeForm: React.FC<CreateSawatzkyEmployeeFormProp
       return roles.find((item) => item.value === role);
     }
     return undefined;
-  }, [role]);
+  }, [roles, role]);
 
   const workObjectOption = useMemo(() => {
     if (workObject) {

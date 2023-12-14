@@ -13,6 +13,7 @@ from .filters import (
     WorkTaskFilter,
     WorkMaterialFilter,
     LegalEntityFilter,
+    SawatzkyEmployeeFilter,
 )
 
 
@@ -85,20 +86,27 @@ class AuthUserView(generics.RetrieveAPIView):
         except User.DoesNotExist:
             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
 
-# class AuthUserView(APIView):
-#     # представление для аутентификации пользователя
-#     permission_classes = [permissions.IsAuthenticated]
-#
-#     def get(self, request):
-#
-#         user = self.request.user
-#
-#         try:
-#             serializer = UserSerializer(user, many=False)
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#
-#         except User.DoesNotExist:
-#             return Response({'message': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+class UserChangePasswordView(generics.UpdateAPIView):
+    # Представление для смены пароля пользователя
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        user = self.request.user
+        old_password = request.data.get('old_password')
+        new_password = request.data.get('new_password')
+
+        if not user.check_password(old_password):
+            return Response({'message': 'Старый пароль введен неверно'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if old_password == new_password:
+            return Response({'message': 'Новый пароль совпадает со старым'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response({'message': 'Пароль успешно изменен'}, status=status.HTTP_200_OK)
 
 
 class UserDetailView(generics.RetrieveDestroyAPIView):
@@ -508,6 +516,7 @@ class EmployeeCreateView(generics.CreateAPIView):
             if User.objects.filter(username=user_data['username']).exists():
                 return Response({'message': 'Пользователь с таким именем уже существует'},
                                 status=status.HTTP_400_BAD_REQUEST)
+
             #Создание и сохранение объектов
             user = User.objects.create_user(**user_data)
             employee = Employee.objects.create(user=user, legalEntity=legalEntity, **request.data)
@@ -518,7 +527,6 @@ class EmployeeCreateView(generics.CreateAPIView):
 
         except ValidationError as error:
             return Response(error.detail, status=error.status_code)
-
 
 
 """Document"""
@@ -614,6 +622,8 @@ class SawatzkyEmployeeListView(generics.ListAPIView):
     serializer_class = SawatzkyEmployeeWithoutworkingObjectsSerializer
     queryset = SawatzkyEmployee.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = SawatzkyEmployeeFilter
 
 
 class SawatzkyEmployeeDetailView(generics.RetrieveDestroyAPIView):

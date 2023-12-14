@@ -6,8 +6,8 @@ import { DirectoryLinkType } from '../../model/type/directoryNavigation';
 import { DirectoryNavigationLinkItem } from '../DirectoryNavigationLinkItem/DirectoryNavigationLinkItem';
 
 interface DirectoryNavigationLinksProps {
-	className?: string;
-	links?: DirectoryLinkType[];
+  className?: string;
+  links?: DirectoryLinkType[];
 }
 
 export const DirectoryNavigationLinks: React.FC<DirectoryNavigationLinksProps> = (props) => {
