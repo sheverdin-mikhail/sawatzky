@@ -466,6 +466,10 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
         # Обработка обновления Employee
         performers_data = validated_data.pop('applicationperformer_set', None)
         if performers_data is not None:
+            current_performers = ApplicationPerformer.objects.filter(application=instance)
+            for current_performer in current_performers:
+                if not any(item['performer'] == current_performer.performer for item in performers_data):
+                    current_performer.delete()
             for performer_data in performers_data:
                 performer_instance, created = ApplicationPerformer.objects.get_or_create(
                     application=instance,
