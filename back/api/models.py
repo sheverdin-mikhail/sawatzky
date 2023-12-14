@@ -251,7 +251,7 @@ class ApplicationPerformer(models.Model):
     )
 
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
-    performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    performer = models.ForeignKey("api.SawatzkyEmployee", on_delete=models.CASCADE)
     priority = models.CharField(("Приоритет"), choices=PRIORITIES, default='urgent', max_length=20)
     status = models.CharField(("Стаус"), choices=STATUSES, default='notAccepted', max_length=20)
     dateSent = models.DateTimeField(("Дата отправки"), auto_now_add=True)
@@ -280,7 +280,7 @@ class Application(models.Model):
     description = models.CharField(("Описание заявки"), max_length=300)
     creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
     performers = models.ManyToManyField(
-        "api.Employee", 
+        "api.SawatzkyEmployee",
         through="ApplicationPerformer", 
         verbose_name=("Исполнители"),
         blank=True, 
