@@ -21,6 +21,7 @@ import { StateSchema } from 'app/providers';
 import { Document } from 'entities/Document';
 import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { getApplicationStep } from 'pages/ApplicationDetailPage/model/selectors/getApplicationDetailInfo';
+import { nextApplicationStep } from 'pages/ApplicationDetailPage/model/services/nextApplicationStep/nextApplicationStep';
 import cls from './ApplicationDetailWorkPrice.module.scss';
 import { getApplicationDetail } from '../../model/slice/applicationDetailSlice';
 import { fetchApplicationDetail } from '../../model/services/fetchApplicationDetail/fetchApplicationDetail';
@@ -162,31 +163,70 @@ export const ApplicationDetailWorkPrice: React.FC<ApplicationDetailWorkPriceProp
     data: workTasksTable,
     className: cls.table,
     onDelete: onDeleteTaskHandler,
-    mod: isInitiator ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
+    mod: (isInitiator || step === 2) ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
   });
 
   const { Table: WorkMaterialsTable } = useTable({
     data: workMaterialsTable,
     className: cls.table,
     onDelete: onDeleteMaterialHandler,
-    mod: isInitiator ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
+    mod: (isInitiator || step === 2) ? TableItemsMod.NO_CONTROL : TableItemsMod.NORMAL,
   });
 
   const ChangeStepButton = useMemo(() => {
     switch (step) {
     case 1:
-      if (isSawatzky) {
-        return <Button theme={ButtonThemes.BLUE_SOLID}>Отправить на согласованию заказчику</Button>;
+      if (isSawatzky && (workTasksTable.items?.length || workMaterialsTable.items?.length)) {
+        return (
+          <Button
+            theme={ButtonThemes.BLUE_SOLID}
+            onClick={() => dispatch(nextApplicationStep({
+              applicationId,
+              step,
+            }))}
+          >Отправить на согласованию заказчику
+          </Button>
+        );
       }
+      break;
+    case 2:
+      if (!isSawatzky) {
+        return (
+          <Button
+            theme={ButtonThemes.BLUE_SOLID}
+            onClick={() => dispatch(nextApplicationStep({
+              applicationId,
+              step,
+            }))}
+          >Согласовать список работ
+          </Button>
+        );
+      }
+      break;
+    case 3:
+      if (!isSawatzky && detail?.paymentSlips.length) {
+        return (
+          <Button
+            theme={ButtonThemes.BLUE_SOLID}
+            onClick={() => dispatch(nextApplicationStep({
+              applicationId,
+              step,
+            }))}
+          >Отправить платежку
+          </Button>
+        );
+      }
+      break;
+    default:
       return null;
     }
-  }, [step, isSawatzky]);
+  }, [step, isSawatzky, workTasksTable.items, workMaterialsTable.items, applicationId, dispatch, detail?.paymentSlips.length]);
 
   return (
     <div>
       <CollapsBoard title="Стоимость работ">
         {
-          (isDispatcher || isDispatcherPerformer) && (
+          ((isDispatcher || isDispatcherPerformer) && step && step <= 2 && isSawatzky) && (
             <>
               <Button
                 theme={ButtonThemes.CLEAR_BLUE}

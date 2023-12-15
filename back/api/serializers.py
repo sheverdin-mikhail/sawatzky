@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import (
@@ -277,15 +278,31 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
         fields = ['actualCount', 'workMaterial']
 
 
+class SawatzkyEmployeeSerializer(ModelSerializer):
+    # Сериализатор для создания пользователя Sawatzky
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+        
+
 '''ApplicationPerformer'''
 class ApplicationPerformerSerializer(ModelSerializer):
-    # Сериализатор промежуточной таблицы ApplicationPerformer
-    performer = EmployeeSerializer(read_only=True, many=False)
+    # Сериализатор промежуточной таблицы ApplicationPerformer для добавления исполнителя к заявке
+    performer = SawatzkyEmployeeSerializer(read_only=True, many=False)
 
     class Meta:
         model = ApplicationPerformer
-        fields = ['performer']
+        fields = ['performer', 'priority', 'status', 'dateSent', 'dateAccepted', 'dateDeclined']
 
+    def save(self, *args, **kwargs):
+        if self.validated_data.get('status') == 'accepted' and not self.instance.dateAccepted:
+            self.instance.dateAccepted = timezone.now()
+        elif self.validated_data.get('status') == 'declined' and not self.instance.dateDeclined:
+            self.instance.dateDeclined = timezone.now()
+
+        super().save(*args, **kwargs)
 
 '''Act'''
 class ActSerializer(serializers.ModelSerializer):
@@ -323,10 +340,9 @@ class EmployeeWithUserSerializer(serializers.ModelSerializer):
 class ApplicationWithCreatorSerializer(ModelSerializer):
     # Сериализаатор для вывода списка заявок расширенный полями
     creator = EmployeeWithUserSerializer(read_only=True, many=False)
-    performer = EmployeeWithUserSerializer(read_only=True, many=True)
     workTasks = ApplicationWorkTaskSerializer(source='applicationworktask_set', read_only=True, many=True)
     workMaterials = ApplicationWorkMaterialSerializer(source='applicationworkmaterial_set', read_only=True, many=True)
-    employee = ApplicationPerformerSerializer(source='applicationperformer_set', read_only=True, many=True)
+    performers = ApplicationPerformerSerializer(source='applicationperformer_set', read_only=True, many=True)
     documents = DocumentsSerializer(many=True)
 
     acts = serializers.SerializerMethodField()
@@ -360,6 +376,7 @@ class ApplicationWithCreatorSerializer(ModelSerializer):
         representation['documents'] = sorted_documents_data
 
         return representation
+
 
 '''Application'''
 class ApplicationSerializer(ModelSerializer):
@@ -428,13 +445,15 @@ class UpdateWorkTaskSerializer(ModelSerializer):
 
 
 '''UpdateEmployee'''
-class UpdateEmployeeSerializer(ModelSerializer):
+class UpdatePerformerSerializer(ModelSerializer):
     class Meta:
         model = ApplicationPerformer
-        fields = ['performer']
+        fields = ['performer', 'priority', 'status']
 
     def update(self, instance, validated_data):
+        print("Update method is called!")
         instance.performer = validated_data.get('performer', instance.performer)
+        instance.priority = validated_data.get('priority', instance.performer)
         instance.save()
         return instance
 
@@ -444,47 +463,34 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
     # Сериализаатор для обновления заявок с расширенными полями workTasks, workMaterials
     workTasks = UpdateWorkTaskSerializer(source='applicationworktask_set', many=True)
     workMaterials = UpdateWorkMaterialSerializer(source='applicationworkmaterial_set', many=True)
-    performers = UpdateEmployeeSerializer(source='applicationperformer_set', many=True)
-    documents = DocumentsSerializer(many=True, required=False)
+    performers = UpdatePerformerSerializer(source='applicationperformer_set', many=True)
 
     class Meta:
         model = Application
-        fields = ['workTasks', 'workMaterials', 'documents', 'step', 'status', 'performers']
+        fields = ['workTasks', 'workMaterials', 'step', 'status', 'performers']
 
     def update(self, instance, validated_data):
 
-        document_data = validated_data.get('documents')
-        if document_data is not None:
-            for document_item in document_data:
-                document_id = document_item.get('id')
-                if document_id:
-                    document_instance = Document.objects.get(pk=document_id)
-                    document_instance.docType = document_item.get('docType', document_instance.docType)
-                    document_instance.name = document_item.get('name', document_instance.name)
-                    document_instance.file = document_item.get('file', document_instance.file)
-                    document_instance.save()
-                else:
-                    Document.objects.create(
-                        docType=document_item.get('docType'),
-                        name=document_item.get('name'),
-                        file=document_item.get('file'),
-                        application=instance,
-                    )
-
         # Обработка обновления Employee
-        employee_data = validated_data.get('applicationperformer_set')
-        if employee_data is not None:
-            current_employeee = ApplicationPerformer.objects.filter(application=instance)
-            for current_employee in current_employeee:
-                if not any(item['performers'] == current_employee.employee for item in employee_data):
-                    current_employee.delete()
-            for item in employee_data:
-                employee_instance = ApplicationPerformer.objects.get_or_create(
-                    application=instance, employee=item['performers']
+        performers_data = validated_data.pop('applicationperformer_set', None)
+        if performers_data is not None:
+            current_performers = ApplicationPerformer.objects.filter(application=instance)
+            for current_performer in current_performers:
+                if not any(item['performer'] == current_performer.performer for item in performers_data):
+                    current_performer.delete()
+            for performer_data in performers_data:
+                performer_instance, created = ApplicationPerformer.objects.get_or_create(
+                    application=instance,
+                    performer=performer_data['performer']
                 )
-                employee_instance.save()
-        else:
-            pass
+                performer_instance.priority = performer_data.get('priority', performer_instance.priority)
+                performer_instance.status = performer_data.get('status', performer_instance.status)
+
+                if performer_instance.status == 'accepted' and not performer_instance.dateAccepted:
+                    performer_instance.dateAccepted = timezone.now()
+                elif performer_instance.status == 'declined' and not performer_instance.dateDeclined:
+                    performer_instance.dateDeclined = timezone.now()
+                performer_instance.save()
 
         # Обработка обновления workTasks
         work_task_data = validated_data.get('applicationworktask_set')
@@ -541,14 +547,6 @@ class SawatzkyEmployeeWithUserSerializer(serializers.ModelSerializer):
         model = SawatzkyEmployee
         fields = '__all__'
 
-
-class SawatzkyEmployeeSerializer(ModelSerializer):
-    # Сериализатор для создания пользователя Sawatzky
-    user = UserRegistrationSerializer(read_only=True, many=False)
-
-    class Meta:
-        model = SawatzkyEmployee
-        fields = '__all__'
 
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):

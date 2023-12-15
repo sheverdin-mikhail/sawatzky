@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .nameCol {
@@ -37,6 +38,7 @@
 
 .text {
   font-weight: var(--font-weight-s);
+  margin-left: 5px;
 }
 
 .btns {
@@ -54,4 +56,8 @@
 .datesText {
   font-size: var(--font-size-s2);
   line-height: normal;
+}
+
+.buttons {
+  margin-top: 20px;
 }

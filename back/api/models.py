@@ -238,8 +238,25 @@ class ApplicationWorkMaterial(models.Model):
 class ApplicationPerformer(models.Model):
     """Промежуточная таблица для связи заявок с исполнителями"""
 
+    PRIORITIES = (
+        ('urgent', 'Срочно'),
+        ('notUrgent', 'Не срочно'),
+    )
+
+    STATUSES = (
+        ('accepted', 'Принял'),
+        ('notAccepted', 'Не принял'),
+        ('declined', 'Отказался'),
+        ('completed', 'Выполнил'),
+    )
+
     application = models.ForeignKey("api.Application", on_delete=models.CASCADE)
-    performer = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    performer = models.ForeignKey("api.SawatzkyEmployee", on_delete=models.CASCADE)
+    priority = models.CharField(("Приоритет"), choices=PRIORITIES, default='urgent', max_length=20)
+    status = models.CharField(("Стаус"), choices=STATUSES, default='notAccepted', max_length=20)
+    dateSent = models.DateTimeField(("Дата отправки"), auto_now_add=True)
+    dateAccepted = models.DateTimeField(("Дата принятия"), null=True, auto_now=False, auto_now_add=False)
+    dateDeclined = models.DateTimeField(("Дата отказа"), null=True, auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return f'application №{self.application.id} performer №{self.performer.id}'
@@ -263,9 +280,9 @@ class Application(models.Model):
     description = models.CharField(("Описание заявки"), max_length=300)
     creator = models.ForeignKey("api.Employee", verbose_name=("Создатель заявки"), on_delete=models.CASCADE, blank=True, null=True, related_name='applicationCreator')
     performers = models.ManyToManyField(
-        "api.Employee", 
+        "api.SawatzkyEmployee",
         through="ApplicationPerformer", 
-        verbose_name=("Проводимые работы"), 
+        verbose_name=("Исполнители"),
         blank=True, 
         null=True, 
         related_name='application'
