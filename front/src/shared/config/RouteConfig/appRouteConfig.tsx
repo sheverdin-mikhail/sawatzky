@@ -14,7 +14,7 @@ import { DirectoryWorkTaskGroupDetailPage } from 'pages/DirectoryWorkTaskGroupDe
 import { DirectoryWorkTaskGroupPage } from 'pages/DirectoryWorkTaskGroupPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { ReportsPage } from 'pages/ReportsPage/ui/ReportsPage/ReportsPage';
+import { ReportsPage } from 'pages/ReportsPage/ReportsPage';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export type AppRouteProps = RouteProps & {
