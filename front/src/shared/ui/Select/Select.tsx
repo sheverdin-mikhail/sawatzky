@@ -16,6 +16,13 @@ interface SelectProps {
   value?: SelectOptionType;
   multi?: boolean;
   selected?: SelectOptionType[];
+  theme?: SelectThemes;
+}
+
+export enum SelectThemes {
+  USUAL = '',
+  BORDER = 'border',
+  ACTIVE = 'active',
 }
 
 export interface SelectOptionType {
@@ -33,6 +40,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     multi,
     selected = [],
     value,
+    theme = SelectThemes.USUAL,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +92,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     <div
       className={classNames(cls.select, {
         [cls.open]: isOpen,
-      }, [className])}
+      }, [className, cls[theme]])}
       onClick={toggleSelect}
       ref={ref}
     >
