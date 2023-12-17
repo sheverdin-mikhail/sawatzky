@@ -7,6 +7,8 @@ import { ReactComponent as DeleteLogo } from 'shared/assets/icons/delete-icon.sv
 import { ReactComponent as DeleteFileLogo } from 'shared/assets/icons/del-file-icon.svg';
 import { AddReportModal } from 'features/AddReport';
 import { useCallback, useState } from 'react';
+import { Select, SelectThemes } from 'shared/ui/Select/Select';
+import { DateInput } from 'shared/ui/DateInput/DateInput';
 import cls from './ReportsPageContent.module.scss';
 import { ReportsList } from '../ReportsList/ReportsList';
 
@@ -30,6 +32,9 @@ export const ReportsPageContent: React.FC<ReportsPageContentProps> = (props) => 
         <Button className={cls.btn} theme={ButtonThemes.ICON}> <OrderLogo /></Button>
         <Button className={cls.btn} theme={ButtonThemes.ICON} helpInfo="добавить отчёт" onClick={() => setIsOpen(true)}> <AddLogo /></Button>
         <Button className={cls.btn} theme={ButtonThemes.ICON} helpInfo="удалить отчёт"> <DeleteLogo /></Button>
+        <Select className={cls.selectSearch} placeholder="Выбор проектов" theme={SelectThemes.ACTIVE} />
+        <Select className={cls.selectSearch} placeholder="Заказчики" theme={SelectThemes.BORDER} />
+        {/* <DateInput className={cls.date} /> */}
         <Button className={cls.btn} theme={ButtonThemes.ICON}> <DeleteFileLogo /></Button>
       </div>
       <ReportsList />
