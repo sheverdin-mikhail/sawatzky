@@ -3,6 +3,7 @@ import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/Dynamic
 import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkObjectGroup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useEffect } from 'react';
+import { addReportReducer } from 'features/AddReport/model/slice/addReportSlice';
 import { ReportsPageContent } from '../ReportsPageContent/ReportsPageContent';
 
 interface ReportsPageProps {
@@ -11,6 +12,7 @@ interface ReportsPageProps {
 
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
+  addReportForm: addReportReducer,
 };
 
 export const ReportsPage: React.FC<ReportsPageProps> = (props) => {

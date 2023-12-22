@@ -1,5 +1,5 @@
 export interface AddReportFormData {
-  workObjectGroup?: number;
+  workObjectsGroup?: number;
   workObject?: number;
   legalEntity?: number;
   employee?: number;

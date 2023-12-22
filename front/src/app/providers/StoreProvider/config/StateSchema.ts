@@ -1,7 +1,7 @@
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import {
-  AnyAction, EnhancedStore, Reducer, ReducersMapObject,
+    AnyAction, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { ApplicationSchema } from 'entities/Application';
@@ -33,6 +33,7 @@ import { EmployeeSchema } from 'entities/Employee';
 import { CreateEmployeeSchema } from 'features/CreateEmployee';
 import { PerformerSchema } from 'entities/Performer';
 import { AddPerformerToApplicationFormSchema } from 'features/AddPerformerToApplication';
+import { AddReportSchema } from 'features/AddReport/model/type/addReport';
 
 export interface StateSchema {
     user: UserSchema;
@@ -71,6 +72,7 @@ export interface StateSchema {
     createEmployee?: CreateEmployeeSchema;
     createLegalEntityForm?: CreateLegalEntitySchema;
     addPerformerToApplicationForm?: AddPerformerToApplicationFormSchema;
+    addReportForm?: AddReportSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
