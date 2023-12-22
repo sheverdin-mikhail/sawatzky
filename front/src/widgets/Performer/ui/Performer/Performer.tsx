@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { ReactComponent as ClockIcon } from 'shared/assets/icons/clock-icon.svg';
 import { ApplicationPerformer, PerformerStatus as status } from 'entities/Performer';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getDateString } from 'shared/lib/getDateString/getDateString';
 import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -20,10 +20,13 @@ interface PerformerProps {
   item: ApplicationPerformer;
   onDelete?: (performer: ApplicationPerformer) => void;
   applicationId: string;
+  step?: number;
 }
 
 export const Performer: React.FC<PerformerProps> = (props) => {
-  const { className, item, applicationId } = props;
+  const {
+    className, item, applicationId, step = 5,
+  } = props;
 
   const [datesIsHidden, setDatesIsHidden] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -33,6 +36,14 @@ export const Performer: React.FC<PerformerProps> = (props) => {
   // const onDeleteHandler = useCallback((performer: ApplicationPerformer) => {
   //   onDelete?.(performer);
   // }, [onDelete]);
+
+  const completeApplicationHandler = useCallback(() => {
+    dispatch(performerChangeStatus({
+      applicationId,
+      performer: item.performer.id,
+      status: status.COMPLETED,
+    }));
+  }, [dispatch, applicationId, item.performer.id]);
 
   return (
     <>
@@ -56,7 +67,7 @@ export const Performer: React.FC<PerformerProps> = (props) => {
         }
       </div>
       {
-        item.performer.user.id === id && (
+        Boolean(item.performer.user.id === id && item.status !== status.COMPLETED) && (
           <div className={cls.buttons}>
             {
               item.status === status.NOT_ACCEPTED ? (
@@ -70,10 +81,13 @@ export const Performer: React.FC<PerformerProps> = (props) => {
                 >начать выполнение
                 </Button>
               ) : (
-                <Button
-                  theme={ButtonThemes.RED_BORDER}
-                > завершить
-                </Button>
+                acts && acts.length > 0 && (
+                  <Button
+                    theme={ButtonThemes.RED_BORDER}
+                    onClick={completeApplicationHandler}
+                  > завершить
+                  </Button>
+                )
               )
             }
           </div>

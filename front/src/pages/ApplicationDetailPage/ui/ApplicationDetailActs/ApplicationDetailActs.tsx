@@ -8,6 +8,9 @@ import { nextApplicationStep } from 'pages/ApplicationDetailPage/model/services/
 import { getApplicationDetail } from 'pages/ApplicationDetailPage/model/slice/applicationDetailSlice';
 import { StateSchema } from 'app/providers';
 import { useSelector } from 'react-redux';
+import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
+import { PerformerStatus } from 'entities/Performer';
+import { useEffect } from 'react';
 import cls from './ApplicationDetailActs.module.scss';
 
 interface ApplicationDetailActsProps {
@@ -20,7 +23,10 @@ export const ApplicationDetailActs: React.FC<ApplicationDetailActsProps> = (prop
   const { acts, applicationId } = props;
 
   const dispatch = useAppDispatch();
+  const { isDispatcher, isInitiator } = useUserData();
   const step = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId))?.step;
+  const application = useSelector((state: StateSchema) => getApplicationDetail.selectById(state, applicationId));
+  const isCompleted = Boolean(application?.performers?.find((performer) => performer.status === PerformerStatus.COMPLETED));
 
   if (acts && acts?.length > 0) {
     return (
@@ -29,7 +35,7 @@ export const ApplicationDetailActs: React.FC<ApplicationDetailActsProps> = (prop
           {/* <Button theme={ButtonThemes.CLEAR_BLUE} className={cls.controlBtn}>+ Добавить </Button> */}
           <DocList docs={acts} title="Список документов" acts="acts" className={cls.docList} />
           {
-            (step && step === 5) && (
+            (step && step === 4 && isDispatcher && isCompleted) && (
               <Button
                 className={cls.blueBtn}
                 theme={ButtonThemes.BLUE_SOLID}
@@ -38,6 +44,32 @@ export const ApplicationDetailActs: React.FC<ApplicationDetailActsProps> = (prop
                   step,
                 }))}
               >Отправить на подтверждение заказчику
+              </Button>
+            )
+          }
+          {
+            (step && step === 6 && isDispatcher) && (
+              <Button
+                className={cls.blueBtn}
+                theme={ButtonThemes.BLUE_SOLID}
+                onClick={() => dispatch(nextApplicationStep({
+                  applicationId,
+                  step,
+                }))}
+              >Завершить заявку
+              </Button>
+            )
+          }
+          {
+            (step && step === 5 && isInitiator) && (
+              <Button
+                className={cls.blueBtn}
+                theme={ButtonThemes.BLUE_SOLID}
+                onClick={() => dispatch(nextApplicationStep({
+                  applicationId,
+                  step,
+                }))}
+              >Согласовать
               </Button>
             )
           }
