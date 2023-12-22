@@ -538,6 +538,8 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
             if(step == 5):
                 instance.status = 'coordination'
             if(step == 6):
+                instance.status = 'waitingFinish'
+            if(step == 7):
                 instance.status = 'finished'
             
         status = validated_data.get('status')

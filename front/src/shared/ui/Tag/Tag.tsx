@@ -13,7 +13,7 @@ export const Tag: React.FC<TagProps> = memo((props) => {
 
   const TagMods: Mods = {
     [cls.new]: status === ApplicationStatus.NEW,
-    [cls.coordination]: status === ApplicationStatus.COORDINATION,
+    [cls.coordination]: status === ApplicationStatus.COORDINATION || status === ApplicationStatus.WAITING_FINISH,
     [cls.paymentCoordination]: status === ApplicationStatus.PAYMENT_COORDINATION,
     [cls.inWork]: status === ApplicationStatus.IN_WORK,
     [cls.processed]: status === ApplicationStatus.PROCESSED,
@@ -32,6 +32,8 @@ export const Tag: React.FC<TagProps> = memo((props) => {
       return 'Отправлено исполнителю';
     case ApplicationStatus.PROCESSED:
       return 'Обрабатывается';
+    case ApplicationStatus.WAITING_FINISH:
+      return 'Ожидает подтверждения завершения';
     case ApplicationStatus.FINISHED:
       return 'Запрос выполнен';
     }

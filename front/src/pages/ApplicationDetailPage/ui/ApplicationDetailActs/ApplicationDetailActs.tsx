@@ -10,6 +10,7 @@ import { StateSchema } from 'app/providers';
 import { useSelector } from 'react-redux';
 import { useUserData } from 'shared/lib/hooks/useUserData/useUserData';
 import { PerformerStatus } from 'entities/Performer';
+import { useEffect } from 'react';
 import cls from './ApplicationDetailActs.module.scss';
 
 interface ApplicationDetailActsProps {
