@@ -272,6 +272,7 @@ class Application(models.Model):
         ('coordination', 'На согласовании у заказчика'),
         ('paymentCoordination', 'Ожидается оплата'),
         ('inWork', 'Передано исполнителю'),
+        ('waitingFinish', 'Ожидает подтверждения завершения'),
         ('finished', 'Выполнено'),
     ]
 

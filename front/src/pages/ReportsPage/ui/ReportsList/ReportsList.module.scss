@@ -1,0 +1,15 @@
+.reportsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.btn {
+  background-color: var(--blue-light-bg-color);
+}

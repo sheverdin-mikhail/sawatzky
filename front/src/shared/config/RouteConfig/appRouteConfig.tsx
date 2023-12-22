@@ -14,6 +14,7 @@ import { DirectoryWorkTaskGroupDetailPage } from 'pages/DirectoryWorkTaskGroupDe
 import { DirectoryWorkTaskGroupPage } from 'pages/DirectoryWorkTaskGroupPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
+import { ReportsPage } from 'pages/ReportsPage/ReportsPage';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export type AppRouteProps = RouteProps & {
@@ -23,19 +24,21 @@ export type AppRouteProps = RouteProps & {
 
 // global routing
 
-export enum AppRoutes{
-    APPLICATIONS = 'applications',
-    Application_DETAIL = 'application_detail',
-    AUTHORIZATION = 'authorization',
-    HOME = 'home',
-    FORBIDDEN = 'forbidden',
-    NOT_FOUND = 'not_found',
+export enum AppRoutes {
+  APPLICATIONS = 'applications',
+  Application_DETAIL = 'application_detail',
+  REPORTS = 'reports',
+  AUTHORIZATION = 'authorization',
+  HOME = 'home',
+  FORBIDDEN = 'forbidden',
+  NOT_FOUND = 'not_found',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.APPLICATIONS]: '/application',
   [AppRoutes.AUTHORIZATION]: '/login',
   [AppRoutes.Application_DETAIL]: '/application/',
+  [AppRoutes.REPORTS]: '/report',
   [AppRoutes.HOME]: '/',
 
   [AppRoutes.FORBIDDEN]: '/forbidden',
@@ -44,18 +47,18 @@ export const RoutePath: Record<AppRoutes, string> = {
 //-----------------------------------------------------------------------------------
 
 // Directory routing
-export enum DirectoryRoutes{
-    OBJECTS = 'objects',
-    OBJECT = 'object',
-    OBJECT_TREE = 'object_tree',
-    LEGAL_ENTITY = 'legal_entity',
-    LEGAL_ENTITY_SAWATZKY = 'legal_entity_sawatzky',
-    WORK_TASK_GROUP_DETAIL = 'work_task_group_detail',
-    WORK_MATERIAL_GROUP_DETAIL = 'work_material_group_detail',
-    WORK_TASK_GROUP = 'work_task_group',
-    WORK_MATERIAL_GROUP = 'work_material_group',
-    EMPLOYEE = 'employee',
-    EMPLOYEE_SAWATZKY = 'employee_sawatzky',
+export enum DirectoryRoutes {
+  OBJECTS = 'objects',
+  OBJECT = 'object',
+  OBJECT_TREE = 'object_tree',
+  LEGAL_ENTITY = 'legal_entity',
+  LEGAL_ENTITY_SAWATZKY = 'legal_entity_sawatzky',
+  WORK_TASK_GROUP_DETAIL = 'work_task_group_detail',
+  WORK_MATERIAL_GROUP_DETAIL = 'work_material_group_detail',
+  WORK_TASK_GROUP = 'work_task_group',
+  WORK_MATERIAL_GROUP = 'work_material_group',
+  EMPLOYEE = 'employee',
+  EMPLOYEE_SAWATZKY = 'employee_sawatzky',
 }
 
 export const DirectoryPath: Record<DirectoryRoutes, string> = {
@@ -90,6 +93,13 @@ export const routeConfig: Record<AppRoutes | DirectoryRoutes, AppRouteProps> = {
     authOnly: true,
     sawatzkyOnly: false,
 
+  },
+
+  [AppRoutes.REPORTS]: {
+    path: RoutePath.reports,
+    element: <ReportsPage />,
+    authOnly: true,
+    sawatzkyOnly: false,
   },
 
   // Directory Routes

@@ -8,12 +8,14 @@ from .models import (
     WorkTask,
     WorkTaskGroup,
     ApplicationWorkTask,
-    SawatzkyEmployee
+    SawatzkyEmployee,
+    ApplicationPerformer
 ) 
 # Register your models here.
 
 admin.site.register(User)
 admin.site.register(ApplicationWorkTask)
+admin.site.register(ApplicationPerformer)
 admin.site.register(Application)
 admin.site.register(Employee)
 admin.site.register(SawatzkyEmployee)
