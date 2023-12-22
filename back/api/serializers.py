@@ -527,8 +527,19 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
         step = validated_data.get('step')
         if step is not None:
             instance.step = step
-
-
+            if(step == 1):
+                instance.status = 'processed'
+            if(step == 2):
+                instance.status = 'coordination'
+            if(step == 3):
+                instance.status = 'paymentCoordination'
+            if(step == 4):
+                instance.status = 'inWork'
+            if(step == 5):
+                instance.status = 'coordination'
+            if(step == 6):
+                instance.status = 'finished'
+            
         status = validated_data.get('status')
         if status is not None:
             instance.status = status

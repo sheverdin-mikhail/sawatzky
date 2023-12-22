@@ -31,7 +31,7 @@ export const Tag: React.FC<TagProps> = memo((props) => {
     case ApplicationStatus.IN_WORK:
       return 'Отправлено исполнителю';
     case ApplicationStatus.PROCESSED:
-      return 'Частично выполнена';
+      return 'Обрабатывается';
     case ApplicationStatus.FINISHED:
       return 'Запрос выполнен';
     }
