@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+import json
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
@@ -149,9 +150,11 @@ class ApplicationCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         instance = serializer.save()
-        async_to_sync(channel_layer.group_send)(
-            'applications_group',
-            {'type': 'send_new_applications'}
+        work_object = instance.creator.legalEntity.workObject
+        group_name = f"sawatzky_dispatcher_{work_object}"
+        channel_layer.group_send(
+            group_name,
+            {'type': 'send_new_applications', 'data': json.dumps({'application': serializer.data})}
         )
 
 class ApplicationUpdateView(generics.UpdateAPIView):
