@@ -73,7 +73,6 @@ class AuthUserView(generics.RetrieveAPIView):
     # представление для аутентификации пользователя
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user

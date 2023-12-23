@@ -53,7 +53,7 @@ class TokenAuthMiddleware(BaseMiddleware):
         #     token_key = None
         try:
             token_key = dict(scope['headers'])[b'authorization'].decode('utf-8')
-        except ValueError:
+        except (ValueError, KeyError):
             token_key = None
 
         scope['user'] = await get_user(token_key)

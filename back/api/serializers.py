@@ -550,7 +550,7 @@ class SawatzkyEmployeeSerializer(ModelSerializer):
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):
     # Сериализатор для детейла с расширенными полями
-    # workingObjects = WorkObjectSerializer(read_only=True, many=True)
+    workingObjects = WorkObjectSerializer(read_only=True, many=True)
     # workObject = WorkObjectSerializer(read_only=True, many=False)
     # workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True, many=False)
