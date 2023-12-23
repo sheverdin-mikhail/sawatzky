@@ -6,6 +6,8 @@ from rest_framework import permissions
 from rest_framework import generics
 from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import (
@@ -139,11 +141,19 @@ class UserDetailView(generics.RetrieveDestroyAPIView):
 
 
 """Application"""
+channel_layer = get_channel_layer()
 class ApplicationCreateView(generics.CreateAPIView):
     # представление на создание заявки
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        async_to_sync(channel_layer.group_send)(
+            'applications_group',
+            {'type': 'send_new_applications'}
+        )
 
 class ApplicationUpdateView(generics.UpdateAPIView):
     # представление на создание заявки
