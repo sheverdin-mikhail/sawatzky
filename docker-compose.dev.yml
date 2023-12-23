@@ -21,16 +21,16 @@ services:
       - db
       - redis
 
-  react:
-     build:
-       context: ./front
-       dockerfile: ./Dockerfile.dev
- #    env_file:
- #      - ./front/.env.dev
-     volumes:
-       - ./front/src:/home/app/front/src
-     ports:
-       - 3000:3000
+#   react:
+#      build:
+#        context: ./front
+#        dockerfile: ./Dockerfile.dev
+#  #    env_file:
+#  #      - ./front/.env.dev
+#      volumes:
+#        - ./front/src:/home/app/front/src
+#      ports:
+#        - 3000:3000
 
 
   redis:
