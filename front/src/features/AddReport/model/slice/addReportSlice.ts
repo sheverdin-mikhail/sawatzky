@@ -25,6 +25,12 @@ export const addReportSlice = createSlice({
     setWorkObject: (state, action: PayloadAction<number>) => {
       state.formData.workObject = action.payload;
     },
+    setLegalEntity: (state, action: PayloadAction<number>) => {
+      state.formData.legalEntity = action.payload;
+    },
+    setEmployee: (state, action: PayloadAction<number>) => {
+      state.formData.employee = action.payload;
+    },
   },
 });
 

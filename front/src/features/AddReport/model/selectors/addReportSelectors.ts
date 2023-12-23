@@ -4,6 +4,8 @@ export const getAddReportFormData = (state: StateSchema) => state.addReportForm?
 
 export const getAddReportFormWorkObjectGroup = (state: StateSchema) => state.addReportForm?.formData.workObjectsGroup;
 export const getAddReportFormWorkObject = (state: StateSchema) => state.addReportForm?.formData.workObject;
+export const getAddReportFormLegalEntity = (state: StateSchema) => state.addReportForm?.formData.legalEntity;
+export const getAddReportFormEmployee = (state: StateSchema) => state.addReportForm?.formData.employee;
 
 export const getAddReportError = (state: StateSchema) => state.addReportForm?.error;
 export const getAddReportIsLoading = (state: StateSchema) => state.addReportForm?.isLoading;

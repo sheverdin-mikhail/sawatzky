@@ -6,9 +6,13 @@ import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
 import { useCallback, useMemo } from 'react';
-import { getAddReportFormData, getAddReportFormWorkObject, getAddReportFormWorkObjectGroup } from 'features/AddReport/model/selectors/addReportSelectors';
+import {
+  getAddReportFormData, getAddReportFormEmployee, getAddReportFormLegalEntity, getAddReportFormWorkObject, getAddReportFormWorkObjectGroup,
+} from 'features/AddReport/model/selectors/addReportSelectors';
 import { addReportActions } from 'features/AddReport/model/slice/addReportSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getLegalEntity } from 'entities/LegalEntity';
+import { getEmployee } from 'entities/Employee';
 import cls from './AddReportForm.module.scss';
 
 interface AddReportFormProps {
@@ -22,8 +26,12 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
   const formData = useSelector(getAddReportFormData);
 
   const workObjectsGroups = useSelector(getWorkObjectGroup.selectAll);
+  const legalEntities = useSelector(getLegalEntity.selectAll);
+  const employees = useSelector(getEmployee.selectAll);
   const workObjectsGroup = useSelector(getAddReportFormWorkObjectGroup);
   const workObject = useSelector(getAddReportFormWorkObject);
+  const legalEntity = useSelector(getAddReportFormLegalEntity);
+  const employee = useSelector(getAddReportFormEmployee);
 
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
     dispatch(addReportActions.setWorkObjectsGroup(+item.value));
@@ -31,6 +39,14 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
 
   const onChangeWorkObject = useCallback((item: SelectOptionType) => {
     dispatch(addReportActions.setWorkObject(+item.value));
+  }, [dispatch]);
+
+  const onChangeLegalEntity = useCallback((item: SelectOptionType) => {
+    dispatch(addReportActions.setLegalEntity(+item.value));
+  }, [dispatch]);
+
+  const onChangeEmployee = useCallback((item: SelectOptionType) => {
+    dispatch(addReportActions.setEmployee(+item.value));
   }, [dispatch]);
 
   const workObjectGroupOptions: SelectOptionType[] = workObjectsGroups.map((item) => ({ value: item.id, text: item.name }));
@@ -60,6 +76,28 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
     return undefined;
   }, [workObject, workObjectOptions]);
 
+  const legalEntityOptions: SelectOptionType[] | undefined = useMemo(() => (
+    legalEntities.map((item) => ({ value: item.id ?? '', text: item.name ?? '' }
+    ))), [legalEntities]);
+
+  const legalEntityOption = useMemo(() => {
+    if (legalEntity) {
+      return legalEntityOptions?.find((item) => item.value === legalEntity);
+    }
+    return undefined;
+  }, [legalEntityOptions, legalEntity]);
+
+  const employeeOptions: SelectOptionType[] | undefined = useMemo(() => (
+    employees.map((item) => ({ value: item.id ?? '', text: item.user.fio ?? '' }
+    ))), [employees]);
+
+  const employeeOption = useMemo(() => {
+    if (employee) {
+      return employeeOptions?.find((item) => item.value === employee);
+    }
+    return undefined;
+  }, [employeeOptions, employee]);
+
   return (
     <div className={classNames(cls.addReportForm, {}, [className])}>
       <Text className={cls.title} title="Создать новый отчет" textAlign={TextAlign.CENTER} />
@@ -79,8 +117,20 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
         options={workObjectOptions}
         value={workObjectOption}
       />
-      <Select className={cls.input} placeholder="Контрагенты" />
-      <Select className={cls.input} placeholder="Заказчики" />
+      <Select
+        className={cls.input}
+        placeholder="Контрагенты"
+        onChange={onChangeLegalEntity}
+        options={legalEntityOptions}
+        value={legalEntityOption}
+      />
+      <Select
+        className={cls.input}
+        placeholder="Заказчики"
+        onChange={onChangeEmployee}
+        options={employeeOptions}
+        value={employeeOption}
+      />
 
       <Button className={cls.btn} theme={ButtonThemes.BLUE_SOLID}>Создать</Button>
     </div>

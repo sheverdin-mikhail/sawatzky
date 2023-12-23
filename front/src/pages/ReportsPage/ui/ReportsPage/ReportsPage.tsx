@@ -4,6 +4,8 @@ import { fetchWorkObjectGroupList, workObjectGroupReducer } from 'entities/WorkO
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useEffect } from 'react';
 import { addReportReducer } from 'features/AddReport/model/slice/addReportSlice';
+import { fetchLegalEntityList, legalEntityReducer } from 'entities/LegalEntity';
+import { employeeReducer, fetchEmployeeList } from 'entities/Employee';
 import { ReportsPageContent } from '../ReportsPageContent/ReportsPageContent';
 
 interface ReportsPageProps {
@@ -13,6 +15,8 @@ interface ReportsPageProps {
 const reducers: ReducersList = {
   workObjectGroup: workObjectGroupReducer,
   addReportForm: addReportReducer,
+  legalEntity: legalEntityReducer,
+  employee: employeeReducer,
 };
 
 export const ReportsPage: React.FC<ReportsPageProps> = (props) => {
@@ -22,6 +26,8 @@ export const ReportsPage: React.FC<ReportsPageProps> = (props) => {
 
   useEffect(() => {
     dispatch(fetchWorkObjectGroupList());
+    dispatch(fetchEmployeeList());
+    dispatch(fetchLegalEntityList());
   }, [dispatch]);
 
   return (
