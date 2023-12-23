@@ -151,11 +151,36 @@ class ApplicationCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         work_object = instance.creator.legalEntity.workObject
-        group_name = f"sawatzky_dispatcher_{work_object}"
+
+        # group_name = f"sawatzky_dispatcher_{work_object}"
+        # channel_layer.group_send(
+        #     group_name,
+        #     {'type': 'send_new_applications', 'data': json.dumps({'application': serializer.data})}
+        # )
+
+        channel_layer = get_channel_layer()
+        channel_name = f"sawatzky_dispatcher_{work_object}"
         channel_layer.group_send(
-            group_name,
+            channel_name,
             {'type': 'send_new_applications', 'data': json.dumps({'application': serializer.data})}
         )
+
+        try:
+            data = {
+                'action': 'create_application',
+                'application_data': {
+                    'work_object': work_object,
+                }
+            }
+            async_to_sync(channel_layer.group_send)(
+                channel_name,
+                {
+                    'type': 'send_application_notification',
+                    'application_data': json.dumps(data['application_data'])
+                }
+            )
+        except json.JSONDecodeError:
+            pass
 
 class ApplicationUpdateView(generics.UpdateAPIView):
     # представление на создание заявки

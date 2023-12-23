@@ -23,7 +23,7 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
                 employee = user_data['sawatzkyEmployee'] 
                 await self.add_sawatzky_to_groups(employee)
                 # group_name = f'sawatzky_dispatcher_{employee["workingObjects"][0]}'
-                
+
             # try:
             #     await self.channel_layer.group_send(
             #             group_name,
@@ -44,7 +44,32 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
         pass
 
     async def receive(self, text_data):
-        pass
+        try:
+            data = json.loads(text_data)
+            action = data.get('action')
+
+            if action == 'create_application':
+                application_data = data.get('application_data')
+                work_object = application_data.get('work_object')
+
+                dispatchers_group_name = f"sawatzky_dispatcher_{work_object}"
+                await self.channel_layer.group_send(
+                    dispatchers_group_name,
+                    {
+                        'type': 'send_application_notification',
+                        'application_data': application_data
+                    }
+                )
+
+        except json.JSONDecodeError:
+            pass
+
+        async def send_application_notification(self, event):
+            application_data = event.get('application_data')
+
+            await self.send(text_data=json.dumps({
+                'application_notification': f"New application created: {application_data}"
+            }))
 
     @sync_to_async
     def get_auth_user(self, user):
