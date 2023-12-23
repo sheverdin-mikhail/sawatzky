@@ -22,7 +22,7 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
             if 'sawatzkyEmployee' in user_data:
                 employee = user_data['sawatzkyEmployee'] 
                 await self.add_sawatzky_to_groups(employee)
-                group_name = f'sawatzky_dispatcher_{employee["workingObjects"][0]}'
+                # group_name = f'sawatzky_dispatcher_{employee["workingObjects"][0]}'
                 
             # try:
             #     await self.channel_layer.group_send(
@@ -35,6 +35,7 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
             #         )
             # except Exception as e:
             #     print(e)
+            await self.send(text_data=json.dumps({'auth_user_connected': user_data}))
         except:
             await self.close()
 
