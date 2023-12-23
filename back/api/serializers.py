@@ -278,10 +278,19 @@ class ApplicationWorkMaterialSerializer(ModelSerializer):
         fields = ['actualCount', 'workMaterial']
 
 
+class SawatzkyEmployeeSerializer(ModelSerializer):
+    # Сериализатор для создания пользователя Sawatzky
+    user = UserRegistrationSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = SawatzkyEmployee
+        fields = '__all__'
+        
+
 '''ApplicationPerformer'''
 class ApplicationPerformerSerializer(ModelSerializer):
     # Сериализатор промежуточной таблицы ApplicationPerformer для добавления исполнителя к заявке
-    performer = EmployeeSerializer(read_only=True, many=False)
+    performer = SawatzkyEmployeeSerializer(read_only=True, many=False)
 
     class Meta:
         model = ApplicationPerformer
@@ -518,8 +527,21 @@ class ApplicationWithWorkTasksWorkMaterialsUpdateSerializer(ModelSerializer):
         step = validated_data.get('step')
         if step is not None:
             instance.step = step
-
-
+            if(step == 1):
+                instance.status = 'processed'
+            if(step == 2):
+                instance.status = 'coordination'
+            if(step == 3):
+                instance.status = 'paymentCoordination'
+            if(step == 4):
+                instance.status = 'inWork'
+            if(step == 5):
+                instance.status = 'coordination'
+            if(step == 6):
+                instance.status = 'waitingFinish'
+            if(step == 7):
+                instance.status = 'finished'
+            
         status = validated_data.get('status')
         if status is not None:
             instance.status = status
@@ -539,18 +561,10 @@ class SawatzkyEmployeeWithUserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SawatzkyEmployeeSerializer(ModelSerializer):
-    # Сериализатор для создания пользователя Sawatzky
-    user = UserRegistrationSerializer(read_only=True, many=False)
-
-    class Meta:
-        model = SawatzkyEmployee
-        fields = '__all__'
-
 
 class SawatzkyEmployeeWithWorkObjectSerializer(ModelSerializer):
     # Сериализатор для детейла с расширенными полями
-    workingObjects = WorkObjectSerializer(read_only=True, many=True)
+    # workingObjects = WorkObjectSerializer(read_only=True, many=True)
     # workObject = WorkObjectSerializer(read_only=True, many=False)
     # workObjectGroup = WorkObjectsGroupSerializer(read_only=True, many=False)
     fio = UserFIOSerializer(read_only=True, many=False)

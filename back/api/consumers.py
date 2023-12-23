@@ -57,7 +57,7 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
         try:
             if is_dispatcher:
                 for work_object in employee['workingObjects']:
-                    self.user_group_name = f"sawatzky_dispatcher_{work_object['id']}"
+                    self.user_group_name = f"sawatzky_dispatcher_{work_object}"
                     await self.channel_layer.group_add(
                         self.user_group_name, self.channel_name
                     )
@@ -66,7 +66,7 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
         try:
             if is_performer:
                 for work_object in employee['workingObjects']:
-                    self.user_group_name = f"sawatzky_performer_{work_object['id']}"
+                    self.user_group_name = f"sawatzky_performer_{work_object}"
                     await self.channel_layer.group_add(
                         self.user_group_name, self.channel_name
                     )
