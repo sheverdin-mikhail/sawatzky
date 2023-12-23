@@ -3,23 +3,23 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from .models import Application
 from .serializers import (
-    ApplicationWithCreatorSerializer
+    ApplicationWithCreatorSerializer,
+    UserSerializerWithoutEmployee,
     )
 
 class ApplicationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
-        print('accepted')
+        user = self.scope['user']
+        user_serializer = UserSerializerWithoutEmployee(instance=user)
+        await self.send(text_data=json.dumps({'connected_by_user': user_serializer.data}))
+
 
     async def disconnect(self, close_code):
         pass
 
     async def receive(self, text_data):
-        print(text_data)
-        await self.send(text_data=json.dumps({
-            'message': text_data
-        }))
-        await self.send_new_applications()
+        pass
 
     @sync_to_async
     def get_new_applications(self):
