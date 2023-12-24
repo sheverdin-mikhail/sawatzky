@@ -20,6 +20,7 @@ import {
   fetchSawatzkyEmployeeList, getSawatzkyEmployee, sawatzkyEmployeeReducer, deleteSawatzkyEmployee,
 } from 'entities/SawatzkyEmployee';
 import { useSelector } from 'react-redux';
+import { deleteUser } from 'entities/User';
 import cls from './DirectoryEmployeeSawatzkyPage.module.scss';
 
 interface DirectoryEmployeeSawatzkyPageProps {
@@ -82,6 +83,7 @@ const DirectoryEmployeeSawatzkyPage: React.FC<DirectoryEmployeeSawatzkyPageProps
     if (selectedItems) {
       selectedItems.forEach((item) => {
         dispatch(deleteSawatzkyEmployee(`${item.id}`));
+        dispatch(deleteUser(`${item.id}`));
       });
     }
   }, [dispatch, selectedItems]);
