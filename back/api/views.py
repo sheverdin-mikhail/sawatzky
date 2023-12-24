@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+import json
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
 from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import (
@@ -71,7 +74,6 @@ class AuthUserView(generics.RetrieveAPIView):
     # представление для аутентификации пользователя
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user
@@ -139,11 +141,32 @@ class UserDetailView(generics.RetrieveDestroyAPIView):
 
 
 """Application"""
+channel_layer = get_channel_layer()
 class ApplicationCreateView(generics.CreateAPIView):
     # представление на создание заявки
     serializer_class = ApplicationSerializer
     queryset = Application.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        work_object = instance.creator.legalEntity.workObject.id
+        channel_layer = get_channel_layer()
+        channel_name = f"sawatzky_dispatcher_{work_object}"
+        try:
+            data = {
+                'action': 'create_application',
+                'application_data': serializer.data,
+            }
+            async_to_sync(channel_layer.group_send)(
+                channel_name,
+                {
+                    'type': 'send_application_notification',
+                    'application_data': json.dumps(data['application_data'])
+                }
+            )
+        except json.JSONDecodeError:
+            pass
 
 class ApplicationUpdateView(generics.UpdateAPIView):
     # представление на создание заявки
