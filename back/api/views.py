@@ -151,20 +151,8 @@ class ApplicationCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         work_object = instance.creator.legalEntity.workObject.id
-
-        # group_name = f"sawatzky_dispatcher_{work_object}"
-        # channel_layer.group_send(
-        #     group_name,
-        #     {'type': 'send_new_applications', 'data': json.dumps({'application': serializer.data})}
-        # )
-
         channel_layer = get_channel_layer()
         channel_name = f"sawatzky_dispatcher_{work_object}"
-        # channel_layer.group_send(
-        #     channel_name,
-        #     {'type': 'send_new_applications', 'data': json.dumps({'application': serializer.data})}
-        # )
-
         try:
             data = {
                 'action': 'create_application',
