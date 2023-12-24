@@ -11,7 +11,8 @@ export enum ApplicationStatus {
     COORDINATION = 'coordination',
     PAYMENT_COORDINATION = 'paymentCoordination',
     IN_WORK = 'inWork',
-    FINISHED = 'finished'
+    FINISHED = 'finished',
+    WAITING_FINISH = 'waitingFinish'
 }
 
 export interface ApplicationWorkTask {

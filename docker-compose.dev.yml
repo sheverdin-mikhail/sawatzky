@@ -18,18 +18,25 @@ services:
     - ./back:/home/app/web
     
     depends_on:
-      - db 
+      - db
+      - redis
 
 #   react:
-#     build:
-#       context: ./front
-#       dockerfile: ./Dockerfile.dev
-# #    env_file:
-# #      - ./front/.env.dev
-#     volumes:
-#       - ./front/src:/home/app/front/src
-#     ports:
-#       - 3000:3000
+#      build:
+#        context: ./front
+#        dockerfile: ./Dockerfile.dev
+#  #    env_file:
+#  #      - ./front/.env.dev
+#      volumes:
+#        - ./front/src:/home/app/front/src
+#      ports:
+#        - 3000:3000
+
+
+  redis:
+   image: redis:latest
+   ports:
+     - 6379:6379
 
 
   db:

@@ -19,6 +19,6 @@ export const getUserEmployee = createSelector(getUserData, (data): Employee | Sa
 export const getUserRole = createSelector(getUserEmployee, (employee) => employee?.role);
 export const userIsInitiator = createSelector(getUserRole, (role) => role === EmployeeRole.INITIATOR);
 export const userIsAdmin = createSelector(getUserRole, (role) => role === EmployeeRole.ADMIN);
-export const userIsDispatcher = createSelector(getUserRole, (role) => role === EmployeeRole.DISPATCHER);
-export const userIsPerformer = createSelector(getUserRole, (role) => role === EmployeeRole.PERFORMER);
+export const userIsDispatcher = createSelector(getUserRole, (role) => role === EmployeeRole.DISPATCHER || role === EmployeeRole.DISPATCHER_PERFORMER);
+export const userIsPerformer = createSelector(getUserRole, (role) => role === EmployeeRole.PERFORMER || role === EmployeeRole.DISPATCHER_PERFORMER);
 export const userIsDispatcherPerformer = createSelector(getUserRole, (role) => role === EmployeeRole.DISPATCHER_PERFORMER);

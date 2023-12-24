@@ -28,6 +28,7 @@ import { getApplicationDetailWorkMaterials, getApplicationDetailWorkTasks } from
 import { ApplicationDetailActs } from '../ApplicationDetailActs/ApplicationDetailActs';
 import { ApplicationDetailPerformer } from '../ApplicationDetailPerformer/ApplicationDetailPerformer';
 import { getApplicationDetailPerformers } from '../../model/selectors/getApplicatioinDetailPerformer';
+import { nextApplicationStep } from '../../model/services/nextApplicationStep/nextApplicationStep';
 import cls from './ApplicationDetailContent.module.scss';
 
 interface ApplicationDetailContentProps {
@@ -57,6 +58,13 @@ export const ApplicationDetailContent: React.FC<ApplicationDetailContentProps> =
   const workMaterialGroups = useSelector(getWorkMaterialGroup.selectAll);
   const applicationPerformers = useSelector((state: StateSchema) => getApplicationDetailPerformers(state, applicationId));
   const performers = useSelector(getPerformer.selectAll);
+  const { isDispatcher } = useUserData();
+
+  useEffect(() => {
+    if (info.step === 1 && isDispatcher) {
+      dispatch(nextApplicationStep({ applicationId, step: info.step - 1 }));
+    }
+  }, [info.step, isDispatcher, dispatch, applicationId]);
 
   return (
     <div className={classNames(cls.applicationDetailContent, {}, [className])}>
