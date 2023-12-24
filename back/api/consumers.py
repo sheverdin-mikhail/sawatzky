@@ -64,12 +64,12 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
         except json.JSONDecodeError:
             pass
 
-        async def send_application_notification(self, event):
-            application_data = event.get('application_data')
+    async def send_application_notification(self, event):
+        application_data = event.get('application_data')
 
-            await self.send(text_data=json.dumps({
-                'application_notification': f"New application created: {application_data}"
-            }))
+        await self.send(text_data=json.dumps({
+            'application_notification': f"New application created: {application_data}"
+        }))
 
     @sync_to_async
     def get_auth_user(self, user):
