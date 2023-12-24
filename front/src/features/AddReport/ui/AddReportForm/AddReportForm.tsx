@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
 import { useCallback, useMemo } from 'react';
 import {
-  getAddReportFormData, getAddReportFormEmployee, getAddReportFormLegalEntity, getAddReportFormWorkObject, getAddReportFormWorkObjectGroup,
+  getAddReportFormData, getAddReportFormEmployee, getAddReportFormLegalEntity, getAddReportFormPeriod, getAddReportFormWorkObject, getAddReportFormWorkObjectGroup,
 } from 'features/AddReport/model/selectors/addReportSelectors';
 import { addReportActions } from 'features/AddReport/model/slice/addReportSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -32,6 +32,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
   const workObject = useSelector(getAddReportFormWorkObject);
   const legalEntity = useSelector(getAddReportFormLegalEntity);
   const employee = useSelector(getAddReportFormEmployee);
+  const period = useSelector(getAddReportFormPeriod);
 
   const onChangeWorkObjectGroup = useCallback((item: SelectOptionType) => {
     dispatch(addReportActions.setWorkObjectsGroup(+item.value));
@@ -102,7 +103,12 @@ export const AddReportForm: React.FC<AddReportFormProps> = (props) => {
     <div className={classNames(cls.addReportForm, {}, [className])}>
       <Text className={cls.title} title="Создать новый отчет" textAlign={TextAlign.CENTER} />
 
-      <Input className={cls.input} placeholder="Период" />
+      <Input
+        className={cls.input}
+        placeholder="Период"
+        onChange={(value) => dispatch(addReportActions.setPeriod(value))}
+        value={period}
+      />
       <Select
         className={cls.input}
         placeholder="Группа объектов"

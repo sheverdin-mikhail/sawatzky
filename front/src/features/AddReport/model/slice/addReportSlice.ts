@@ -31,6 +31,9 @@ export const addReportSlice = createSlice({
     setEmployee: (state, action: PayloadAction<number>) => {
       state.formData.employee = action.payload;
     },
+    setPeriod: (state, action: PayloadAction<string>) => {
+      state.formData.period = action.payload;
+    },
   },
 });
 

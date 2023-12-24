@@ -1,4 +1,5 @@
 export interface AddReportFormData {
+  period?: string;
   workObjectsGroup?: number;
   workObject?: number;
   legalEntity?: number;
