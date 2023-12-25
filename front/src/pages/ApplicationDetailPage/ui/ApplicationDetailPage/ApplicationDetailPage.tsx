@@ -10,6 +10,8 @@ import { fetchWorkMaterialGroupList, workMaterialGroupReducer } from 'entities/W
 import { fetchWorkTaskGroupList, workTaskGroupReducer } from 'entities/WorkTaskGroup';
 import { addWorkMaterialApplicationFormReducer } from 'features/AddWorkMaterialToApplication';
 import { addWorkTaskApplicationFormReducer } from 'features/AddWorkTaskToApplication';
+import { performerReducer, fetchPerformersList } from 'entities/Performer';
+import { addPerformerToApplicationFormReducer } from 'features/AddPerformerToApplication';
 import { ApplicationDetailContent } from '../ApplicationDetailContent/ApplicationDetailContent';
 
 interface ApplicationDetailPageProps {
@@ -24,6 +26,8 @@ const initialReducers: ReducersList = {
   addWorkMaterialApplicationForm: addWorkMaterialApplicationFormReducer,
   workTaskGroup: workTaskGroupReducer,
   workMaterialGroup: workMaterialGroupReducer,
+  performer: performerReducer,
+  addPerformerToApplicationForm: addPerformerToApplicationFormReducer,
 };
 
 const ApplicationDetailPage: React.FC<ApplicationDetailPageProps> = (props) => {
@@ -34,6 +38,7 @@ const ApplicationDetailPage: React.FC<ApplicationDetailPageProps> = (props) => {
   useEffect(() => {
     dispatch(fetchWorkTaskGroupList());
     dispatch(fetchWorkMaterialGroupList());
+    dispatch(fetchPerformersList());
   }, [dispatch]);
 
   return (

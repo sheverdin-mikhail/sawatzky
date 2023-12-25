@@ -171,7 +171,7 @@ class ApplicationCreateView(generics.CreateAPIView):
 class ApplicationUpdateView(generics.UpdateAPIView):
     # представление на создание заявки
     serializer_class = ApplicationWithWorkTasksWorkMaterialsUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
 

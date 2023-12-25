@@ -12,3 +12,14 @@ export type ApplicationInfo = Omit<
     Application,
     'performer' | 'workTasks' | 'workMaterials' | 'other' | 'paymentSlips' | 'acts' | 'updatedAt'
 >
+
+export interface NextStepData {
+    step: number;
+    applicationId: string;
+}
+
+export interface ChangePerformerStatusData {
+    performer: number;
+    status: string;
+    applicationId: string;
+}

@@ -46,6 +46,10 @@
   &.select::before {
     transform: translateY(-50%) rotate(-90deg);
   }
+
+  &.active::before {
+    transform: translateY(-50%) rotate(-180deg);
+  }
 }
 
 .select::before {
@@ -85,4 +89,37 @@
   padding: 2px 6px;
   border-radius: 10px;
   background-color: var(--blue-bg-color);
+}
+
+.border {
+  padding: 10px 16px;
+  border-radius: 13px;
+  border: 1px solid var(--dark-gray-bg-color);
+  background-color: #FFF;
+
+  .selectedItem {
+    font-size: var(--font-size-s2);
+    color: var(--dark-gray-bg-color);
+    line-height: 12px;
+    font-weight: var(--font-weight-xl);
+  }
+}
+
+.active {
+  padding: 10px 16px;
+  border-radius: 13px;
+  border: 1px solid var(--blue-color);
+  background-color: var(--blue-bg-color);
+
+  .selectedItem {
+    font-size: var(--font-size-s2);
+    color: var(--blue-color);
+    line-height: 12px;
+    font-weight: var(--font-weight-xl);
+  }
+}
+
+.active::before {
+  transform: translateY(-50%);
+  background: url('../../assets/icons/blue-arrow-icon.svg') center no-repeat;
 }

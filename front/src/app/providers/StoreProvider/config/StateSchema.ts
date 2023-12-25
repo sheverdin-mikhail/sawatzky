@@ -31,10 +31,13 @@ import { CreateLegalEntitySchema } from 'features/CreateLegalEntity';
 import { SawatzkyEmployeeSchema } from 'entities/SawatzkyEmployee';
 import { EmployeeSchema } from 'entities/Employee';
 import { CreateEmployeeSchema } from 'features/CreateEmployee';
+import { PerformerSchema } from 'entities/Performer';
+import { AddPerformerToApplicationFormSchema } from 'features/AddPerformerToApplication';
+import { NotificationsSchema } from 'features/Notifications';
 
 export interface StateSchema {
     user: UserSchema;
-
+    notifications: NotificationsSchema;
     // Асинхронные редюсеры
     // pages
     applicationDetail?: ApplicationDetailSchema;
@@ -50,6 +53,7 @@ export interface StateSchema {
     workObject?: WorkObjectSchema;
     sawatzkyEmployee?: SawatzkyEmployeeSchema;
     employee?: EmployeeSchema;
+    performer?: PerformerSchema;
     // widgets
     table?: TableSchema;
     direcotryNavigation?: DirectoryNavigaionSchema;
@@ -67,6 +71,7 @@ export interface StateSchema {
     addWorkMaterialApplicationForm?: AddWorkMaterialApplicationFormSchema;
     createEmployee?: CreateEmployeeSchema;
     createLegalEntityForm?: CreateLegalEntitySchema;
+    addPerformerToApplicationForm?: AddPerformerToApplicationFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -1,7 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { Document } from 'entities/Document';
 import { Employee } from 'entities/Employee';
-import { SawatzkyEmployee } from 'entities/SawatzkyEmployee';
+import { ApplicationPerformer } from 'entities/Performer';
 import { WorkMaterial } from 'entities/WorkMaterial';
 import { WorkTask } from 'entities/WorkTask';
 
@@ -11,7 +11,8 @@ export enum ApplicationStatus {
     COORDINATION = 'coordination',
     PAYMENT_COORDINATION = 'paymentCoordination',
     IN_WORK = 'inWork',
-    FINISHED = 'finished'
+    FINISHED = 'finished',
+    WAITING_FINISH = 'waitingFinish'
 }
 
 export interface ApplicationWorkTask {
@@ -32,7 +33,7 @@ export interface Application {
     status: ApplicationStatus;
     step: number;
     creator?: Employee;
-    performer?: SawatzkyEmployee[];
+    performers?: ApplicationPerformer[];
     workTasks?: ApplicationWorkTask[];
     workMaterials?: ApplicationWorkMaterial[];
     other?: Document[];

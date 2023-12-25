@@ -1,0 +1,43 @@
+.notificationItem {
+    padding: 25px 32px 25px 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.collapsed {
+    display: none;
+}
+
+.count {
+    font-size: var(--font-size-s2);
+    font-weight: var(--font-weight-xl);
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+.text {
+    font-weight: var(--font-weight-s2);
+}
+
+.body {
+    font-size: var(--font-size-s3);
+    line-height: normal;
+    margin-bottom: 8px;
+}
+
+.moreBtn {
+    padding: 7px;
+    font-size: var(--font-size-s2);
+    align-self: flex-start;
+    margin-top: 24px;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.btn {
+    padding: 7px;
+}
