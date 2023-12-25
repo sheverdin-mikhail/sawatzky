@@ -25,7 +25,7 @@ interface PerformerProps {
 
 export const Performer: React.FC<PerformerProps> = (props) => {
   const {
-    className, item, applicationId, step = 5,
+    className, item, applicationId,
   } = props;
 
   const [datesIsHidden, setDatesIsHidden] = useState<boolean>(false);
