@@ -83,7 +83,7 @@ six==1.16.0
 social-auth-app-django==4.0.0
 social-auth-core==4.3.0
 sqlparse==0.4.2
-tornado==6.2
+tornado==6.4
 Twisted==23.10.0
 txaio==23.1.1
 typing_extensions==4.7.1
