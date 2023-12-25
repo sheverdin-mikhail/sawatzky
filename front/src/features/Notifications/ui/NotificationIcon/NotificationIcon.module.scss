@@ -1,0 +1,38 @@
+.notificationIcon {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  transition: all 0.3s ease-in-out;
+
+  &.active {
+    top: 26px;
+    left: 20px;
+  }
+}
+
+.onAnimate {
+  transform-origin: 0 50%;
+  animation-name: blueIcon ;
+  animation-timing-function: ease;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blueIcon {
+  0% { 
+    transform: rotate(0);
+  }
+  5% {
+    transform: rotate(55deg);
+  }
+  10% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(55deg);
+  }
+  20% {
+    transform: rotate(0);
+  }
+  
+}

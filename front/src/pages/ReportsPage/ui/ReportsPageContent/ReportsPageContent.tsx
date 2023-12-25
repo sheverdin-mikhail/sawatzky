@@ -8,7 +8,6 @@ import { ReactComponent as DeleteFileLogo } from 'shared/assets/icons/del-file-i
 import { AddReportModal } from 'features/AddReport';
 import { useCallback, useState } from 'react';
 import { Select, SelectThemes } from 'shared/ui/Select/Select';
-import { DateInput } from 'shared/ui/DateInput/DateInput';
 import cls from './ReportsPageContent.module.scss';
 import { ReportsList } from '../ReportsList/ReportsList';
 

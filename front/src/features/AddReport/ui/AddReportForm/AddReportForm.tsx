@@ -5,7 +5,6 @@ import { Select, SelectOptionType } from 'shared/ui/Select/Select';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
 import { getWorkObjectGroup } from 'entities/WorkObjectGroup';
-import { useMemo } from 'react';
 import cls from './AddReportForm.module.scss';
 
 interface AddReportFormProps {

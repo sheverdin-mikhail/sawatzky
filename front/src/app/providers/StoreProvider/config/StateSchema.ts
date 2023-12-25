@@ -33,10 +33,11 @@ import { EmployeeSchema } from 'entities/Employee';
 import { CreateEmployeeSchema } from 'features/CreateEmployee';
 import { PerformerSchema } from 'entities/Performer';
 import { AddPerformerToApplicationFormSchema } from 'features/AddPerformerToApplication';
+import { NotificationsSchema } from 'features/Notifications';
 
 export interface StateSchema {
     user: UserSchema;
-
+    notifications: NotificationsSchema;
     // Асинхронные редюсеры
     // pages
     applicationDetail?: ApplicationDetailSchema;
