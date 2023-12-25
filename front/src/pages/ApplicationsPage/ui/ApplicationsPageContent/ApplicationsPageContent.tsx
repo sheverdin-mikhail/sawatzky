@@ -36,14 +36,17 @@ export const ApplicationsPageContent: React.FC<ApplicationsPageContentProps> = (
   const modalIsOpen = useSelector(getModalIsOpen);
   const init = useSelector(getPageInit);
 
-  const { isSawatzky, employee, sawatzkyEmployee } = useUserData();
+  const {
+    isSawatzky, isPerformer, employee, sawatzkyEmployee,
+  } = useUserData();
 
   const fetchingParams = useMemo(() => {
     if (isSawatzky) {
+      // if(isPerformer)
       return { params: { workObject: sawatzkyEmployee?.workingObjects.join(',') } };
     }
     return { params: { legalEntity: employee?.legalEntity } };
-  }, []);
+  }, [employee?.legalEntity, isSawatzky, sawatzkyEmployee?.workingObjects]);
 
   const checkAllHandler = useCallback(() => {
     dispatch(applicationsPageActions.toggleAllCheckboxes());
