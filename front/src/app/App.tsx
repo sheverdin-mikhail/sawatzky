@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     const connectWebSocket = () => {
-      const url = `ws://localhost:8000/ws/applications?token=${tokens?.access}`;
+      const url = `ws://77.223.126.233/ws/applications?token=${tokens?.access}`;
       socketRef.current = new WebSocket(url);
       socketRef.current.onopen = () => {
       };
@@ -37,7 +37,6 @@ const App = () => {
 
       socketRef.current.onmessage = (event) => {
         const { action, data: jsonData } = JSON.parse(event.data);
-        console.log(JSON.parse(event.data));
         if (action === 'newApplication') {
           const data = JSON.parse(jsonData);
           dispatch(notificationsActions.addNewNotification({

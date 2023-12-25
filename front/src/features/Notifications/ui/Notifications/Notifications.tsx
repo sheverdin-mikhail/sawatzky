@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-  useState, useCallback,
+  useCallback,
 } from 'react';
 import { ReactComponent as ArrowIcon } from 'shared/assets/icons/arrow-icon-right.svg';
 import { Button, ButtonThemes } from 'shared/ui/Button/Button';
@@ -25,13 +25,12 @@ export const Notifications: React.FC<NotificationsProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const onToggleCollapsed = useCallback(() => {
-    console.log(isEmpty);
     if (isCollapsed) {
       dispatch(notificationsActions.openNotifications());
     } else {
       dispatch(notificationsActions.closeNotifications());
     }
-  }, [dispatch, isCollapsed, isEmpty]);
+  }, [dispatch, isCollapsed]);
 
   return (
     <div className={classNames(cls.notifications, { [cls.collapsed]: isCollapsed }, [])}>
