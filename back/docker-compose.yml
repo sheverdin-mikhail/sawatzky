@@ -6,7 +6,7 @@ services:
     build: 
       context: ./
       dockerfile: Dockerfile
-    command: uvicorn  --host 0.0.0.0 --port 8000 config.wsgi:application
+    command: daphne  --host 0.0.0.0 --port 8000 config.wsgi:application
     ports:
       - 8000:8000
     restart: unless-stopped

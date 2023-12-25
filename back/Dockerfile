@@ -26,6 +26,6 @@ WORKDIR $APP_HOME
 
 COPY . $APP_HOME
 
-# RUN chown -R app $APP_HOME
+RUN chown -R app $APP_HOME
 
-# USER app
+USER app
