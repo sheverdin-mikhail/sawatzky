@@ -1,6 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer, JsonWebsocketConsumer
 from asgiref.sync import sync_to_async, async_to_sync
+from django.contrib.auth.models import AnonymousUser
 from .models import Application
 from .serializers import (
     ApplicationWithCreatorSerializer,
@@ -11,38 +12,41 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         user = self.scope['user']
-        try:
-            await self.accept()
-            user_data = await  self.get_auth_user(user)
-            if 'employee' in user_data:
-                print(user_data['employee'])
+        if isinstance(user, AnonymousUser):
+            await self.close(code=1000)
+        else:
+            try:
+                await self.accept()
+                user_data = await  self.get_auth_user(user)
+                if 'employee' in user_data:
+                    print(user_data['employee'])
 
-            if 'sawatzkyEmployee' in user_data:
-                employee = user_data['sawatzkyEmployee'] 
-                await self.add_sawatzky_to_groups(employee)
-                try:
-                    is_dispatcher, _ = await self.get_sawatzky_employee_role(employee)
-                    if is_dispatcher:
-                        await self.send_new_applications()
-                except Exception as e:
-                    print(e)
-            #     group_name = f'sawatzky_dispatcher_{employee["workingObjects"][0]}'
+                if 'sawatzkyEmployee' in user_data:
+                    employee = user_data['sawatzkyEmployee'] 
+                    await self.add_sawatzky_to_groups(employee)
+                    try:
+                        is_dispatcher, _ = await self.get_sawatzky_employee_role(employee)
+                        if is_dispatcher:
+                            await self.send_new_applications()
+                    except Exception as e:
+                        print(e)
+                #     group_name = f'sawatzky_dispatcher_{employee["workingObjects"][0]}'
 
-            # try:
-            #     await self.channel_layer.group_send(
-            #             group_name,
-            #             {
-            #                 'type': 'user_connected',
-            #                 'username': 'username',
-            #                 'message': f'User {user_data["fio"]} is connected!'
-            #             }
-            #         )
-            # except Exception as e:
-            #     print(e)
-            # await self.send(text_data=json.dumps({'auth_user_connected': user_data}))
-        except Exception as e:
-            print(e)
-            await self.close(code=3000)
+                # try:
+                #     await self.channel_layer.group_send(
+                #             group_name,
+                #             {
+                #                 'type': 'user_connected',
+                #                 'username': 'username',
+                #                 'message': f'User {user_data["fio"]} is connected!'
+                #             }
+                #         )
+                # except Exception as e:
+                #     print(e)
+                # await self.send(text_data=json.dumps({'auth_user_connected': user_data}))
+            except Exception as e:
+                print(e)
+                await self.close(code=3000)
 
 
     async def disconnect(self, close_code):
