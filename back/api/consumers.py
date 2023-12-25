@@ -75,11 +75,19 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
 
     async def send_application_notification(self, event):
         application_data = event.get('application_data')
-
         await self.send(text_data=json.dumps({
             'action': 'newApplication',
             'data': application_data
         }))
+
+    #
+    # async def send_add_performer_to_application(self, event):
+    #     application_data = event.get('application_data')
+    #     await self.send(text_data=json.dumps({
+    #         'action': 'performerAddedToApplication',
+    #         'data': application_data
+    #     }))
+
 
     @sync_to_async
     def get_auth_user(self, user):

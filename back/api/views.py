@@ -183,6 +183,32 @@ class ApplicationUpdateView(generics.UpdateAPIView):
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
 
+    #
+    # def perform_update(self, serializer):
+    #     instance = serializer.save()
+    #     performers = instance.performers.all()
+    #     channel_layer = get_channel_layer()
+    #
+    #     for performer in performers:
+    #         performer_channel_name = f"sawatzky_performer_{performer.id}"
+    #
+    #         try:
+    #             data = {
+    #                 'action': 'send_add_performer_to_application',
+    #                 'application_data': serializer.data,
+    #             }
+    #
+    #             async_to_sync(channel_layer.group_send)(
+    #                 performer_channel_name,
+    #                 {
+    #                     'type': 'send_add_performer_to_application',
+    #                     'application_data': json.dumps(data['application_data'])
+    #                 }
+    #             )
+    #         except json.JSONDecodeError:
+    #             pass
+
+
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок
     serializer_class = ApplicationWithCreatorSerializer
