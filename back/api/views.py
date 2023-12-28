@@ -9,6 +9,7 @@ from rest_framework.serializers import ValidationError
 from django.contrib.auth.models import User
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from .consumers import ApplicationConsumer
 
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import (
@@ -182,6 +183,81 @@ class ApplicationUpdateView(generics.UpdateAPIView):
 
         except (KeyError, Application.DoesNotExist):
             return Response({'message': 'Заявка не найдена'}, status=status.HTTP_404_NOT_FOUND)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        assigned_performers = instance.performers.all()
+        channel_layer = get_channel_layer()
+
+        for performer in assigned_performers:
+            channel_name = f"sawatzky_performer_{performer.id}"
+            try:
+                data = {
+                    'action': 'assign_performer',
+                    'assignment_data': serializer.data,
+                }
+
+                print(f"оповещение отправилось исполнителю с ID {performer.id}")
+                print(f"данные оповещение: {data['assignment_data']}")
+
+                async_to_sync(channel_layer.group_send)(
+                    channel_name,
+                    {
+                        'type': 'send_assignment_notification',
+                        'assignment_data': json.dumps(data['assignment_data'])
+                    }
+                )
+            except json.JSONDecodeError:
+                pass
+
+    # def perform_update(self, serializer):
+    #     instance = serializer.save()
+    #     assigned_performers = instance.performers.all()
+    #     channel_layer = get_channel_layer()
+    #
+    #     for performer in assigned_performers:
+    #         channel_name = f"sawatzky_performer_{performer.id}"
+    #         try:
+    #             data = {
+    #                 'action': 'assign_performer',
+    #                 'assignment_data': serializer.data,
+    #             }
+    #             async_to_sync(channel_layer.group_send)(
+    #                 channel_name,
+    #                 {
+    #                     'type': 'send_assignment_notification_to_performer',
+    #                     'performer_id': performer.id,
+    #                     'assignment_data': json.dumps(data['assignment_data'])
+    #                 }
+    #             )
+    #         except json.JSONDecodeError:
+    #             pass
+
+    #
+    # def perform_update(self, serializer):
+    #     instance = serializer.save()
+    #     performers = instance.performers.all()
+    #     channel_layer = get_channel_layer()
+    #
+    #     for performer in performers:
+    #         performer_channel_name = f"sawatzky_performer_{performer.id}"
+    #
+    #         try:
+    #             data = {
+    #                 'action': 'send_add_performer_to_application',
+    #                 'application_data': serializer.data,
+    #             }
+    #
+    #             async_to_sync(channel_layer.group_send)(
+    #                 performer_channel_name,
+    #                 {
+    #                     'type': 'send_add_performer_to_application',
+    #                     'application_data': json.dumps(data['application_data'])
+    #                 }
+    #             )
+    #         except json.JSONDecodeError:
+    #             pass
+
 
 class ApplicationListView(generics.ListAPIView):
     # представление на создание и вывод списка заявок

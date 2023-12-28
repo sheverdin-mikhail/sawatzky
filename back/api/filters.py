@@ -16,14 +16,19 @@ class ApplicationFilter(filters.FilterSet):
     ordering = filters.OrderingFilter(fields=("createdAt", 'id'), field_labels={"createdAt": "Дата создания"})
     creator = filters.CharFilter(field_name="creator__user__username", lookup_expr="exact")
     workObject = filters.CharFilter(method='filter_by_work_object')
+    performer = filters.CharFilter(method='filter_by_performer')
 
     class Meta:
         model = Application
-        fields = ['legalEntity', 'ordering', 'creator', 'workObject']
+        fields = ['legalEntity', 'ordering', 'creator', 'workObject', 'performer']
 
     def filter_by_work_object(self, queryset, name, value):
         workingObjects = value.split(',')
         return queryset.filter(creator__legalEntity__workObject__id__in=workingObjects)
+
+    def filter_by_performer(self, queryset, name, value):
+        performers_ids = value.split(',')
+        return queryset.filter(performers__id__in=performers_ids)
 
 
 '''Фильтр для WorkTask'''
