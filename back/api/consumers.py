@@ -80,6 +80,50 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
             'data': application_data
         }))
 
+    async def send_assignment_notification_to_performer(self, performer_id, assignment_data):
+        channel_name = f"sawatzky_performer_{performer_id}"
+        try:
+            await self.channel_layer.send(
+                channel_name,
+                {
+                    'type': 'send_assignment_notification',
+                    'assignment_data': assignment_data
+                }
+            )
+        except Exception as e:
+            print(f"Failed to send assignment notification to performer {performer_id}: {e}")
+
+    async def send_assignment_notification(self, event):
+        assignment_data = event.get('assignment_data')
+        await self.send(text_data=json.dumps({
+            'action': 'newAssignment',
+            'data': assignment_data
+        }))
+
+    # async def send_assignment_notification_to_performer(self, performer_id, assignment_data):
+    #     channel_name = f"sawatzky_performer_{performer_id}"
+    #     await self.channel_layer.group_send(
+    #         channel_name,
+    #         {
+    #             'type': 'send_assignment_notification',
+    #             'assignment_data': assignment_data
+    #         }
+    #     )
+    #
+    # async def send_assignment_notification(self, event):
+    #     assignment_data = event.get('assignment_data')
+    #     await self.send(text_data=json.dumps({
+    #         'action': 'newAssignment',
+    #         'data': assignment_data
+    #     }))
+
+    # async def send_assignment_notification(self, event):
+    #     assignment_data = event.get('assignment_data')
+    #     await self.send_text(json.dumps({
+    #         'action': 'newAssignment',
+    #         'data': assignment_data
+    #     }))
+
     #
     # async def send_add_performer_to_application(self, event):
     #     application_data = event.get('application_data')
@@ -141,3 +185,6 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
         is_dispatcher = [True if employee['role'] == 'dispatcher' or employee['role'] == 'dispatcherPerformer' else False]
         is_performer = [True if employee['role'] == 'performer' or employee['role'] == 'dispatcherPerformer' else False]
         return [is_dispatcher, is_performer]
+
+    # async def send_text(self, text_data):
+    #     await self.send(text_data)
