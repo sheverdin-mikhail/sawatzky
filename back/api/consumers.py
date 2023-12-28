@@ -188,3 +188,4 @@ class ApplicationConsumer(AsyncWebsocketConsumer):
 
     # async def send_text(self, text_data):
     #     await self.send(text_data)
+
