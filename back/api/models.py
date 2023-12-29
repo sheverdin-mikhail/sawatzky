@@ -108,7 +108,7 @@ class Employee(models.Model):
 class WorkObjectsGroup(models.Model):
     """Группа рабочих объектов"""
 
-    name = models.CharField(("Наименование группы"), max_length=50)
+    name = models.CharField(("Наименование группы"), max_length=512)
     workObjects = models.ManyToManyField("api.WorkObject", verbose_name=("Список объектов"), related_name='workObjectsGroup', blank=True, null=True)
     
 
@@ -123,10 +123,10 @@ class WorkObjectsGroup(models.Model):
 class WorkObject(models.Model):
     """Рабочий объект"""
 
-    name = models.CharField(("Наименование группы"), max_length=50)
-    code = models.CharField(("Код объекта"), max_length=50)
-    contractNumber = models.CharField(("Номер договора"), max_length=50)
-    address = models.CharField(("Адрес объекта"), max_length=255)
+    name = models.CharField(("Наименование группы"), max_length=512)
+    code = models.CharField(("Код объекта"), max_length=512)
+    contractNumber = models.CharField(("Номер договора"), max_length=512)
+    address = models.CharField(("Адрес объекта"), max_length=512)
 
     class Meta:
         verbose_name = ("Рабочий объект")
@@ -139,7 +139,7 @@ class WorkObject(models.Model):
 class WorkTaskGroup(models.Model):
     """ Группа услуг """
 
-    name = models.CharField(("Наименование группы услуг"), max_length=50)
+    name = models.CharField(("Наименование группы услуг"), max_length=255)
     tasks = models.ManyToManyField(
         "api.WorkTask", 
         verbose_name=("Список услуг входящих в эту группу"), 
